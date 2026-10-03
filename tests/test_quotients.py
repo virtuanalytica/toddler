@@ -47,8 +47,11 @@ def test_toddler_needs_three_quotients_genie_only_iq():
 
 
 def test_iq_weak_task_is_not_trimmed_away():
-    scores = np.array([[1.0, 0.0], [1.0, 0.0], [1.0, 0.0], [1.0, 0.0]])
+    # pooled IQM over all 8 values would be 0.75; per-task aggregate IQM is (0 + 1) / 2 = 0.5
+    scores = np.array([[0.0, 1.0], [0.0, 1.0], [0.0, 1.0], [1.0, 1.0]])
     assert q.iq_raw(scores) == pytest.approx(0.5)
+    with pytest.raises(ValueError):
+        q.iq_raw(np.array([0.1, 0.2, 0.3]))
 
 
 def test_fq_rejects_nan_and_out_of_range_sim_scores():

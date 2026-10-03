@@ -112,8 +112,12 @@ class FQEvidence:
 
 def iq_raw(task_scores: np.ndarray) -> float:
     """task_scores: (runs, tasks) normalised scores on held-out seeds; aggregate IQM (mean of
-    per-task IQMs), so a weak task cannot be trimmed away."""
-    return scoring.aggregate_iqm(np.asarray(task_scores, float))
+    per-task IQMs), so a weak task cannot be trimmed away. A single task is a (runs, 1) array;
+    1-D input is refused because it would silently fall back to a pooled IQM."""
+    s = np.asarray(task_scores, float)
+    if s.ndim != 2:
+        raise ValueError("iq_raw expects (runs, tasks); pass a single task as a (runs, 1) array")
+    return scoring.aggregate_iqm(s)
 
 
 @dataclass(frozen=True)
