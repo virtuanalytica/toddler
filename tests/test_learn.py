@@ -147,3 +147,14 @@ def test_minigrid_tasks_are_flat_vectors_with_a_measured_anchor():
     env.close()
     a = T.random_anchor("doorkey5", T.EVAL_SEEDS[:3])
     assert 0.0 <= a < T.TASKS["doorkey5"].solved
+
+
+def test_pbt_arms_spend_equal_steps_and_only_pbt_exploits():
+    from toddler.learn import pbt
+
+    base = ppo.PPOConfig(rollout=512, epochs=1, minibatch=256)
+    _, ctrl = pbt.run_population("cartpole", seed=3, pbt=False, members=2, intervals=2, interval_steps=1024, base=base)
+    _, exp = pbt.run_population("cartpole", seed=3, pbt=True, members=2, intervals=2, interval_steps=1024, base=base)
+    assert ctrl.steps_per_member == exp.steps_per_member == 2048
+    assert ctrl.events == [] and ctrl.arm == "control" and exp.arm == "pbt"
+    assert len(exp.events) <= 1 and len(exp.train_scores) == 2
