@@ -63,4 +63,6 @@ def random_anchor(task: str, seeds: tuple[int, ...] = EVAL_SEEDS) -> float:
 
 
 def normalise(task: str, ret: float, random_ret: float) -> float:
+    if TASKS[task].solved <= random_ret:
+        raise ValueError(f"{task}: solve threshold {TASKS[task].solved} is not above the random anchor {random_ret}")
     return (ret - random_ret) / (TASKS[task].solved - random_ret)

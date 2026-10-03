@@ -60,8 +60,33 @@ def test_frozen_reference_refuses_changed_fingerprint(tmp_path):
     for tid in ("a", "b"):
         (tmp_path / "gen-0" / tid).mkdir(parents=True)
         (tmp_path / "gen-0" / tid / "meta.json").write_text(json.dumps(asdict(_rec("gen-0", tid))))
-    fp = quotients.fingerprint(["cartpole"], (10000, 10001), [22.0])
+    fp = quotients.fingerprint(["cartpole"], (10000, 10001), [22.0], [475.0])
     reg.freeze_reference("gen-0", fp)
     assert reg.reference("gen-0", fp) == pytest.approx([0.15, 0.15])
     with pytest.raises(ValueError):
-        reg.reference("gen-0", quotients.fingerprint(["cartpole"], (10000, 10001), [23.0]))
+        reg.reference("gen-0", quotients.fingerprint(["cartpole"], (10000, 10001), [23.0], [475.0]))
+
+
+def test_frozen_reference_is_never_overwritten_silently(tmp_path):
+    from toddler import quotients
+
+    reg = G.Registry(tmp_path)
+    for tid in ("a", "b"):
+        (tmp_path / "gen-0" / tid).mkdir(parents=True)
+        (tmp_path / "gen-0" / tid / "meta.json").write_text(json.dumps(asdict(_rec("gen-0", tid))))
+    fp = quotients.fingerprint(["cartpole"], (10000,), [22.0], [475.0])
+    other = quotients.fingerprint(["cartpole"], (10000,), [22.5], [475.0])
+    path = reg.freeze_reference("gen-0", fp)
+    before = path.read_text()
+    assert reg.freeze_reference("gen-0", fp).read_text() == before      # same print: kept
+    with pytest.raises(ValueError, match="frozen under another fingerprint"):
+        reg.freeze_reference("gen-0", other)
+    reg.freeze_reference("gen-0", other, refreeze=True)
+    assert reg.reference("gen-0", other)
+
+
+def test_records_from_a_newer_schema_load_with_extras_kept():
+    d = asdict(_rec("gen-0", "t1"))
+    d["future_field"] = 42
+    rec = G.ToddlerRecord.from_dict(d)
+    assert rec.extra == {"future_field": 42} and rec.toddler_id == "t1"
