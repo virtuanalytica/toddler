@@ -24,15 +24,34 @@ The ClaudeClaw agent definition lives on branch `feat/toddler-agent` of the fill
 
 Not in this version: the credential lifecycle module (identities, OpenBao vault, official key-creation APIs, rotation) is written locally and awaits explicit operator approval before it is pushed.
 
-## Run the tests
+## Install and run the tests
 
 ```bash
+python3 -m pip install -e ".[dev]"
 python3 -m pytest -q
 ```
 
-knitweb is loaded from its source tree; set `TODDLER_KNITWEB_SRC` if it is not at `/media/knight2/EDS2/projects/knitweb/src`.
+knitweb (needed by `toddler/relay.py`) is located by `toddler/_knitweb.py`: an installed `knitweb` package, the `TODDLER_KNITWEB_SRC` environment variable, or a sibling checkout at `../knitweb`.
+Without knitweb the relay tests are skipped, so CI runs without it.
 Tests use real public data only (Zachary's karate club, the Wisconsin breast-cancer dataset) or explicit small matrices.
 
 ## Review workflow
 
 From v0.1 on, changes are committed only after review, so every change carries reviewer feedback that is either applied or recorded.
+
+## External references
+
+Several documents mention artefacts that live outside this repository:
+
+| Artefact | Where |
+| -------- | ----- |
+| ClaudeClaw agent definition (`agents/toddler/config.yaml`, `skills_allowlist`) | branch `feat/toddler-agent` of the fillslava ClaudeClaw fork ([fillslava/ClaudeClaw](https://github.com/fillslava/ClaudeClaw)) |
+| Deliberation gate and judge authority (`docs/deliberation-gate.md`, `config/model-routing.yaml`) | [fillslava/ClaudeClaw](https://github.com/fillslava/ClaudeClaw) |
+| Review discipline (`.claude/rules/review-discipline.md`) | [fillslava/ClaudeClaw](https://github.com/fillslava/ClaudeClaw) |
+| LightRAG source policy (`src/lightrag-source-policy.ts`) | [fillslava/ClaudeClaw](https://github.com/fillslava/ClaudeClaw) |
+| knitweb (`pouw`, `synaptic`, `p2p`) | the knitweb repository (see `toddler/_knitweb.py`) |
+
+## Known gaps
+
+- The capability `ATLAS` in `toddler/structure.py` lists modules that have no code yet (`perception.*`, `actuation`, `memory.graph`, `oversight.*`). Nothing emits module-graph edges from the real repository yet; that producer is planned (mapping step B), so the structure functions are validated on public data only.
+- See issue #1 for the open review items.
