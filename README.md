@@ -19,6 +19,7 @@ The ClaudeClaw agent definition lives on branch `feat/toddler-agent` of the fill
 | `toddler/provenance.py` | Source and consent register: no synthetic data, consent for data about people | 1, 22 |
 | `toddler/specialize.py` | Roles, company guardrails, Jev questions, experts and mixture-of-models routing; safety is monotonic (add, never remove or duplicate) | 13, 20 |
 | `toddler/audit.py` | Hash-chained, immutable audit trail with JSONL persistence, secret redaction, prune anchor and scoped views | 2, 25 |
+| `gui/index.html` | Configurator GUI for `toddler-config/v1` (open the file in a browser; checked by `PYTHONPATH=. python3 scripts/e2e_gui.py`) | - |
 | `toddler/config.py` | `toddler-config/v1` loader with path-specific errors; Python is the authority over the GUI | - |
 
 Not in this version: the credential lifecycle module (identities, OpenBao vault, official key-creation APIs, rotation) is written locally and awaits explicit operator approval before it is pushed.
