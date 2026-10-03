@@ -176,14 +176,19 @@ class NullTest:
 
 def modularity_null_test(sim: np.ndarray, threshold: float, observed_q: float,
                          n_null: int = 1000, seed: int = 0) -> NullTest:
-    """Row 12: compare the observed modularity with graphs that keep the node count, edge count
-    and edge weights but rewire the structure (paper: 10,000 random graphs, Q = 0.293, z = 45)."""
+    """Row 12: compare the observed modularity with degree-preserving random graphs (a
+    configuration-model null): edges are rewired by double edge swaps, so every node keeps its
+    degree, and the observed edge weights are permuted over the rewired edges
+    (paper: 10,000 random graphs, Q = 0.293, z = 45)."""
     g = _graph_from_similarity(sim, threshold)
     weights = [d["weight"] for _, _, d in g.edges(data=True)]
     rng = np.random.default_rng(seed)
+    m = g.number_of_edges()
     null_qs = []
     for _ in range(n_null):
-        r = nx.gnm_random_graph(g.number_of_nodes(), g.number_of_edges(), seed=int(rng.integers(2**31)))
+        r = nx.Graph(g)
+        if m >= 2:
+            nx.double_edge_swap(r, nswap=m, max_tries=m * 100, seed=int(rng.integers(2**31)))
         for (u, v), w in zip(r.edges(), rng.permutation(weights)):
             r[u][v]["weight"] = float(w)
         parts = nx.community.louvain_communities(r, weight="weight", seed=int(rng.integers(2**31)))
