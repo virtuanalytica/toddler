@@ -18,9 +18,18 @@ import subprocess
 from dataclasses import dataclass, field
 from pathlib import Path
 
-GUARD_FILE = Path("/media/knight2/EDS2/projects/numerai-signals/reports/gpu_safety_guard.json")
-COORD = Path.home() / ".claude/coordination/coord.py"
-GPU_LEASE = "numerai/gpu-rmse-experiments"
+# Host integration is configured, never hard-coded (review #7):
+#   TODDLER_GPU_GUARD      path to the shared GPU safety guard JSON
+#   TODDLER_GPU_PREFLIGHT  preflight script (overrides the guard's own preflight_script)
+#   TODDLER_COORD          coordination script whose `status` lists GPU leases
+#   TODDLER_GPU_LEASE      lease name (default below)
+# Decision: when a guard path IS configured but missing, unreadable or timing out, the guard
+# fails CLOSED (CPU only). When no guard is configured, nothing restricts GPU use beyond the
+# free-memory margin and foreign-process checks.
+GUARD_FILE = os.environ.get("TODDLER_GPU_GUARD", "")
+PREFLIGHT = os.environ.get("TODDLER_GPU_PREFLIGHT", "")
+COORD = os.environ.get("TODDLER_COORD", "")
+GPU_LEASE = os.environ.get("TODDLER_GPU_LEASE", "numerai/gpu-rmse-experiments")
 DEFAULT_MARGIN = 0.25
 
 
@@ -85,7 +94,8 @@ def plan_device(host: HostState, need_mib: int, margin: float = DEFAULT_MARGIN, 
 
 
 def cpu_threads(cores: int, load_1m: float, cap_share: float = 0.5) -> int:
-    """At most half the cores, minus what is already busy; at least one thread."""
+    """At most half the cores, minus what is already busy; at least one thread, also when the
+    host is fully loaded (load >= cores), so work can still progress slowly."""
     return max(1, min(int(cores * cap_share), int(cores - load_1m)))
 
 
@@ -101,7 +111,22 @@ def should_back_off(placement: Placement, now: GpuState | None, margin: float = 
 
 
 def _own_pids() -> set[int]:
-    return {os.getpid(), os.getppid()}
+    """This process, its parent and every process in our process group (spawned workers), so
+    Toddler's own workers are never mistaken for a customer."""
+    own = {os.getpid(), os.getppid()}
+    try:
+        import psutil
+
+        pgid = os.getpgid(0)
+        for p in psutil.process_iter(["pid"]):
+            try:
+                if os.getpgid(p.info["pid"]) == pgid:
+                    own.add(p.info["pid"])
+            except (ProcessLookupError, PermissionError, OSError):
+                continue
+    except ImportError:
+        pass
+    return own
 
 
 def probe(own_pids: set[int] | None = None) -> HostState:
@@ -127,29 +152,35 @@ def probe(own_pids: set[int] | None = None) -> HostState:
 
 
 def _guard_allows() -> bool:
-    if not GUARD_FILE.exists():
+    if not GUARD_FILE:
         return True
     try:
-        rules = json.loads(GUARD_FILE.read_text())["rules"]
+        rules = json.loads(Path(GUARD_FILE).read_text())["rules"]
     except (OSError, ValueError, KeyError):
-        return False
-    script = rules.get("preflight_script", "")
-    if rules.get("preflight_required") and script:
-        alt = Path(script)
-        if not alt.exists():
-            alt = Path("/media/knight2/EDS2/projects/numerai-signals/signals-repo/scripts/gpu_preflight.sh")
-        if not alt.exists():
+        return False                       # configured but missing or unreadable: fail closed
+    script = PREFLIGHT or rules.get("preflight_script", "")
+    if rules.get("preflight_required"):
+        if not script or not Path(script).exists():
             return False
-        return subprocess.run(["bash", str(alt)], capture_output=True, timeout=60).returncode == 0
+        try:
+            return subprocess.run(["bash", script], capture_output=True, timeout=60).returncode == 0
+        except subprocess.TimeoutExpired:
+            return False
     return True
 
 
 def _lease_held_by_other(agent_id: str | None = None) -> bool:
-    if not COORD.exists():
+    """Conservative: if the coordination script hangs or fails, assume the lease is taken."""
+    if not COORD:
         return False
     me = agent_id or os.environ.get("CLAUDE_AGENT_ID", "toddler")
-    out = subprocess.run(["python3", str(COORD), "status"], capture_output=True, text=True, timeout=30).stdout
-    for line in out.splitlines():
+    try:
+        out = subprocess.run(["python3", COORD, "status"], capture_output=True, text=True, timeout=30)
+    except (subprocess.TimeoutExpired, OSError):
+        return True
+    if out.returncode != 0:
+        return True
+    for line in out.stdout.splitlines():
         parts = line.split()
         if parts and parts[0] == GPU_LEASE and "held" in parts:
             return parts[1] != me
