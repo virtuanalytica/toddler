@@ -1,0 +1,220 @@
+{
+ "atlas": [
+  "logic.stop",
+  "logic.allowlist",
+  "logic.provenance",
+  "perception.web",
+  "perception.vision",
+  "perception.lidar",
+  "fastpath.jev",
+  "planner",
+  "memory.graph",
+  "objective.reward",
+  "objective.profit",
+  "objective.energy",
+  "p2p.knitweb",
+  "p2p.pulse_relay",
+  "actuation",
+  "oversight.judge",
+  "oversight.audit"
+ ],
+ "method": "static imports between regions (ast), sizes = non-blank lines",
+ "revisions": [
+  {
+   "rev": "7b3f6c1",
+   "commit": "7b3f6c1",
+   "edges": [
+    {
+     "a": "fastpath.jev",
+     "b": "logic.allowlist",
+     "imports": 2
+    },
+    {
+     "a": "logic.allowlist",
+     "b": "logic.stop",
+     "imports": 1
+    },
+    {
+     "a": "logic.allowlist",
+     "b": "oversight.audit",
+     "imports": 1
+    },
+    {
+     "a": "logic.provenance",
+     "b": "memory.graph",
+     "imports": 1
+    },
+    {
+     "a": "logic.stop",
+     "b": "objective.reward",
+     "imports": 1
+    },
+    {
+     "a": "p2p.knitweb",
+     "b": "p2p.pulse_relay",
+     "imports": 1
+    }
+   ],
+   "sizes": {
+    "logic.stop": 47,
+    "logic.allowlist": 169,
+    "logic.provenance": 41,
+    "perception.web": 0,
+    "perception.vision": 0,
+    "perception.lidar": 0,
+    "fastpath.jev": 161,
+    "planner": 0,
+    "memory.graph": 317,
+    "objective.reward": 98,
+    "objective.profit": 0,
+    "objective.energy": 161,
+    "p2p.knitweb": 72,
+    "p2p.pulse_relay": 74,
+    "actuation": 0,
+    "oversight.judge": 346,
+    "oversight.audit": 162
+   },
+   "normalised": {
+    "logic.stop|logic.allowlist": 0.009259,
+    "logic.stop|objective.reward": 0.013793,
+    "logic.allowlist|fastpath.jev": 0.012121,
+    "logic.allowlist|oversight.audit": 0.006042,
+    "logic.provenance|memory.graph": 0.005587,
+    "p2p.knitweb|p2p.pulse_relay": 0.013699
+   },
+   "clustering": {
+    "logic.stop": 0.0,
+    "logic.allowlist": 0.0,
+    "logic.provenance": 0.0,
+    "perception.web": 0.0,
+    "perception.vision": 0.0,
+    "perception.lidar": 0.0,
+    "fastpath.jev": 0.0,
+    "planner": 0.0,
+    "memory.graph": 0.0,
+    "objective.reward": 0.0,
+    "objective.profit": 0.0,
+    "objective.energy": 0.0,
+    "p2p.knitweb": 0.0,
+    "p2p.pulse_relay": 0.0,
+    "actuation": 0.0,
+    "oversight.judge": 0.0,
+    "oversight.audit": 0.0
+   },
+   "empty_regions": [
+    "perception.web",
+    "perception.vision",
+    "perception.lidar",
+    "planner",
+    "objective.profit",
+    "actuation"
+   ]
+  },
+  {
+   "rev": "HEAD",
+   "commit": "d26b91c",
+   "edges": [
+    {
+     "a": "fastpath.jev",
+     "b": "logic.allowlist",
+     "imports": 2
+    },
+    {
+     "a": "logic.allowlist",
+     "b": "logic.stop",
+     "imports": 1
+    },
+    {
+     "a": "logic.allowlist",
+     "b": "oversight.audit",
+     "imports": 1
+    },
+    {
+     "a": "logic.provenance",
+     "b": "memory.graph",
+     "imports": 1
+    },
+    {
+     "a": "logic.stop",
+     "b": "objective.reward",
+     "imports": 1
+    },
+    {
+     "a": "objective.energy",
+     "b": "planner",
+     "imports": 2
+    },
+    {
+     "a": "objective.profit",
+     "b": "planner",
+     "imports": 1
+    },
+    {
+     "a": "oversight.judge",
+     "b": "planner",
+     "imports": 2
+    },
+    {
+     "a": "p2p.knitweb",
+     "b": "p2p.pulse_relay",
+     "imports": 1
+    }
+   ],
+   "sizes": {
+    "logic.stop": 47,
+    "logic.allowlist": 169,
+    "logic.provenance": 41,
+    "perception.web": 0,
+    "perception.vision": 0,
+    "perception.lidar": 0,
+    "fastpath.jev": 554,
+    "planner": 960,
+    "memory.graph": 317,
+    "objective.reward": 98,
+    "objective.profit": 7,
+    "objective.energy": 176,
+    "p2p.knitweb": 72,
+    "p2p.pulse_relay": 74,
+    "actuation": 0,
+    "oversight.judge": 615,
+    "oversight.audit": 162
+   },
+   "normalised": {
+    "logic.stop|logic.allowlist": 0.009259,
+    "logic.stop|objective.reward": 0.013793,
+    "logic.allowlist|fastpath.jev": 0.005533,
+    "logic.allowlist|oversight.audit": 0.006042,
+    "logic.provenance|memory.graph": 0.005587,
+    "planner|objective.profit": 0.002068,
+    "planner|objective.energy": 0.003521,
+    "planner|oversight.judge": 0.00254,
+    "p2p.knitweb|p2p.pulse_relay": 0.013699
+   },
+   "clustering": {
+    "logic.stop": 0.0,
+    "logic.allowlist": 0.0,
+    "logic.provenance": 0.0,
+    "perception.web": 0.0,
+    "perception.vision": 0.0,
+    "perception.lidar": 0.0,
+    "fastpath.jev": 0.0,
+    "planner": 0.0,
+    "memory.graph": 0.0,
+    "objective.reward": 0.0,
+    "objective.profit": 0.0,
+    "objective.energy": 0.0,
+    "p2p.knitweb": 0.0,
+    "p2p.pulse_relay": 0.0,
+    "actuation": 0.0,
+    "oversight.judge": 0.0,
+    "oversight.audit": 0.0
+   },
+   "empty_regions": [
+    "perception.web",
+    "perception.vision",
+    "perception.lidar",
+    "actuation"
+   ]
+  }
+ ]
+}
