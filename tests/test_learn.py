@@ -62,3 +62,13 @@ def test_probability_of_improvement():
     assert scoring.prob_improvement(better, worse) == 1.0
     assert scoring.prob_improvement(worse, better) == 0.0
     assert scoring.prob_improvement(better, better) == 0.5
+
+
+def test_peer_experiment_has_both_controls_and_decision_rule():
+    from toddler.learn import peer
+
+    r = peer.run(teacher_steps=2048, student_steps=2048, student_seeds=(1, 2), eval_seeds=T.EVAL_SEEDS[:3])
+    assert set(r.groups) == {"real_teacher", "no_teacher", "random_teacher"}
+    assert all(len(v) == 2 for v in r.groups.values())
+    # teaching may only be declared helpful when the real teacher beats BOTH controls
+    assert r.teaching_helps == (r.p_vs_no_teacher < 0.05 and r.p_vs_random_teacher < 0.05)
