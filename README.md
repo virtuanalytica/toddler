@@ -16,6 +16,7 @@ The ClaudeClaw agent definition lives on branch `feat/toddler-agent` of the fill
 | `toddler/evaluation.py` | Judge-only T-scores, two behaviour axes, horizon missingness, Welch extremes, nested CV with mRMR + SVM-RFE, sensitivity/specificity, CCA + Bonferroni, outlier robustness, replication-gated promotion | 2-4, 14-18, 23-24 |
 | `toddler/relay.py` | Pulse relay: local vs knitweb peer by energy and verified cost (knitweb `required_samples`, `fraud_is_profitable`) | brain.md section 4 |
 | `toddler/fastpath.py` | Reflex layer for the future physical Toddler: hard limits override Jev probabilities; late or missing answers stop | 19-21 |
+| `toddler/resources.py` | Resource governor: only free GPU memory minus a margin, skips GPUs with foreign processes, honours a configured GPU guard/preflight/lease (fail-closed), CPU threads at most half the cores minus load | brain.md section 1 (energy/compute) |
 | `toddler/provenance.py` | Source and consent register: no synthetic data, consent for data about people | 1, 22 |
 
 Not in this version: the credential lifecycle module (identities, OpenBao vault, official key-creation APIs, rotation) is written locally and awaits explicit operator approval before it is pushed.
