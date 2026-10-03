@@ -1,0 +1,10 @@
+{
+  "concept": "vla",
+  "title": "Vision–language–action model",
+  "url": "https://en.wikipedia.org/wiki/Vision%E2%80%93language%E2%80%93action_model",
+  "revision": "1376359770",
+  "extract": "In robot learning, a vision–language–action model (VLA) is a class of multimodal foundation models that integrates vision, language and actions. Given an input image of the robot's surroundings and a text instruction, a VLA directly outputs low-level robot actions that can be executed to accomplish the requested task.",
+  "licence": "CC BY-SA 4.0",
+  "retrieved": "2026-10-03",
+  "sha256": "80390f0700f18d972b9a352eac8ed381844916583eab0a77deecfd3ac599bdd8"
+}

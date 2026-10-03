@@ -59,6 +59,7 @@ Verification is never skipped: a cheap but unverified result scores as a failure
 Two speeds, mirroring the paper's early-safety / later-control ordering (mapping rows 19-21):
 
 - **Fast path (reflex / heuristic, milliseconds)**: Jev answers many typed physical-rule questions in parallel ("will this grasp slip?", "is a person inside the safety zone?", "is this force above the limit?") and returns probabilities with uncertainty. Combined with hard safety limits, this decides stop, slow down or continue. Jev is used as a fast feature generator, never as the only authority, the same way the Jev finance experiment uses it (`virtualpc-jev-finance/docs/JEV-FINANCE-EXPERIMENT.md`).
+- **Hard requirement for physical use**: the Jev answer must arrive within the 20 ms reflex budget, so Jev runs next to the robot or answers from a local cache. A remote HTTPS endpoint cannot meet that budget (TLS and connection setup alone exceed it); the fast path then stops the robot on every tick, which is safe but unusable. `toddler/jev.py` is a client only; wiring it into a control loop is a separate, reviewed step.
 - **Slow path (deliberate, seconds)**: planning with the world model and the judge, only when the fast path says it is safe to think.
 
 Components:

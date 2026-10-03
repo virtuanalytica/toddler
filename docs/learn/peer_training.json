@@ -39,5 +39,9 @@
  "device": "cpu",
  "torch_threads": 8,
  "compute_and_sales_entity": "virtuanalytica VOF (commission)",
- "invoicing_entity": "VirtualV Holding B.V."
+ "invoicing_entity": "VirtualV Holding B.V.",
+ "notes": [
+  "Floor effect: at a 30k-step budget students score about 0 in every group, so the test has low power; NULL means no detectable effect at this budget, not no effect.",
+  "Run on the PPO with the time-limit truncation fix (PR #9)."
+ ]
 }

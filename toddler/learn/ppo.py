@@ -58,6 +58,27 @@ def _novelty(counts: dict, obs: np.ndarray, bins: float = 0.25) -> float:
     return 1.0 / np.sqrt(counts[key])
 
 
+def gae_advantages(rewards, values, ends, boots, last_value: float, gamma: float, lam: float) -> np.ndarray:
+    """Generalised advantage estimation with correct episode boundaries (Pardo et al. 2018).
+
+    ends[t] is True when step t ended its episode (termination or truncation); boots[t] is the
+    bootstrap value for that end: 0 after a real termination, V(final state) after a time-limit
+    truncation. The GAE chain is cut at every end, so nothing bootstraps into the next episode.
+    last_value bootstraps a rollout that stops mid-episode."""
+    n = len(rewards)
+    adv = np.zeros(n, dtype=np.float32)
+    gae, next_v = 0.0, last_value
+    for t in reversed(range(n)):
+        if ends[t]:
+            target_v, cont = boots[t], 0.0
+        else:
+            target_v, cont = next_v, 1.0
+        delta = rewards[t] + gamma * target_v - values[t]
+        gae = delta + gamma * lam * cont * gae
+        adv[t], next_v = gae, values[t]
+    return adv
+
+
 def train(task: str, cfg: PPOConfig, net: ActorCritic | None = None, teacher: ActorCritic | None = None,
           device: str = "cpu", watchdog: Callable[[], str | None] | None = None,
           checkpoint: Callable[[ActorCritic, TrainLog], None] | None = None,
@@ -112,16 +133,7 @@ def train(task: str, cfg: PPOConfig, net: ActorCritic | None = None, teacher: Ac
                 obs, _ = env.reset(seed=T.train_seed(rng))
         with torch.no_grad():
             _, last_v = net(torch.as_tensor(obs, dtype=torch.float32, device=device))
-        adv = np.zeros(n, dtype=np.float32)
-        gae, next_v = 0.0, float(last_v)
-        for t in reversed(range(n)):
-            if buf_end[t]:          # never bootstrap across a reset into the next episode
-                target_v, cont = buf_boot[t], 0.0
-            else:
-                target_v, cont = next_v, 1.0
-            delta = buf_r[t] + cfg.gamma * target_v - buf_v[t]
-            gae = delta + cfg.gamma * cfg.lam * cont * gae
-            adv[t], next_v = gae, buf_v[t]
+        adv = gae_advantages(buf_r, buf_v, buf_end, buf_boot, float(last_v), cfg.gamma, cfg.lam)
         ret = adv + np.asarray(buf_v, dtype=np.float32)
         O = torch.as_tensor(np.asarray(buf_o), dtype=torch.float32, device=device)
         A = torch.as_tensor(buf_a, device=device)

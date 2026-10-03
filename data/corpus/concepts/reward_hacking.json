@@ -1,0 +1,10 @@
+{
+  "concept": "reward_hacking",
+  "title": "Reward hacking",
+  "url": "https://en.wikipedia.org/wiki/Reward_hacking",
+  "revision": "1377451572",
+  "extract": "Reward hacking or specification gaming occurs when an AI trained with reinforcement learning optimizes an objective function—achieving the literal, formal specification of an objective—without actually achieving an outcome that the programmers intended. DeepMind researchers have analogized it to the human behavior of finding a \"shortcut\" when being evaluated: \"In the real world, when rewarded for doing well on a homework assignment, a student might copy another student to get the right answers, rather than learning the material—and thus exploit a loophole in the task specification\". This idea is strongly associated with Goodhart's law, which argues that when a measure becomes a target, it ceases to be a good measure.",
+  "licence": "CC BY-SA 4.0",
+  "retrieved": "2026-10-03",
+  "sha256": "1f68e70eed7c8e7ffbeeaf0796b57b82abad068aa2f5bb08c4380da7d5c00db9"
+}
