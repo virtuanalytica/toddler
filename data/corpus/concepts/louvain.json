@@ -1,0 +1,10 @@
+{
+  "concept": "louvain",
+  "title": "Louvain method",
+  "url": "https://en.wikipedia.org/wiki/Louvain_method",
+  "revision": "1369181743",
+  "extract": "The Louvain method for community detection is a greedy optimization method intended to extract non-overlapping communities from large networks created by Blondel et al. from the University of Louvain.",
+  "licence": "CC BY-SA 4.0",
+  "retrieved": "2026-10-03",
+  "sha256": "50bbce4223e3aef47313bddc4704c52d44d59b4483285caf6ba609adb2686d88"
+}

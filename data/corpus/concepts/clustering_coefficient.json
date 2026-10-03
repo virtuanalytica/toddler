@@ -1,0 +1,10 @@
+{
+  "concept": "clustering_coefficient",
+  "title": "Clustering coefficient",
+  "url": "https://en.wikipedia.org/wiki/Clustering_coefficient",
+  "revision": "1373753920",
+  "extract": "In graph theory, a clustering coefficient is a measure of the degree to which nodes in a graph tend to cluster together. Evidence suggests that in most real-world networks, and in particular social networks, nodes tend to create tightly knit groups characterised by a relatively high density of ties; this likelihood tends to be greater than the average probability of a tie randomly established between two nodes.",
+  "licence": "CC BY-SA 4.0",
+  "retrieved": "2026-10-03",
+  "sha256": "32c040b43856496c47e54725e8763a7cbc2b9ec3f28518de81f41d7263d56e7b"
+}

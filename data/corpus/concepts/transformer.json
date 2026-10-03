@@ -1,0 +1,10 @@
+{
+  "concept": "transformer",
+  "title": "Transformer (deep learning)",
+  "url": "https://en.wikipedia.org/wiki/Transformer_(deep_learning)",
+  "revision": "1377819428",
+  "extract": "In deep learning, the transformer is a family of artificial neural network architectures based on the multi-head attention mechanism, in which input data such as text, images, or audio is converted to a sequence of numerical representations called tokens, and each token is converted into a vector through an embedding layer. At each layer, each token is then contextualized within the scope of the context window with other (unmasked) tokens via a parallel multi-head attention mechanism, allowing the signal for key tokens to be amplified and less important tokens to be diminished. Because self-attention alone is permutation-invariant, transformers inject positional information, typically through positional encodings or learned positional embeddings, so token order can affect the output.",
+  "licence": "CC BY-SA 4.0",
+  "retrieved": "2026-10-03",
+  "sha256": "3a02d498042f89a203cff4fa1ea1e18b3be5d39e94ed19883d8d364a93c0b6ec"
+}

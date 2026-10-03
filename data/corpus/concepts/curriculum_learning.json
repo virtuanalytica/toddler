@@ -1,0 +1,10 @@
+{
+  "concept": "curriculum_learning",
+  "title": "Curriculum learning",
+  "url": "https://en.wikipedia.org/wiki/Curriculum_learning",
+  "revision": "1363126404",
+  "extract": "Curriculum learning is a technique in machine learning in which a model is trained on examples of increasing difficulty, where the definition of \"difficulty\" may be provided externally or discovered as part of the training process. This is intended to attain good performance more quickly, or to converge to a better local optimum if the global optimum is not found.",
+  "licence": "CC BY-SA 4.0",
+  "retrieved": "2026-10-03",
+  "sha256": "bac7cf429b01acde24eeec4af7087a9dbb1f76d59174011a8f77a171f08336d4"
+}

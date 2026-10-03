@@ -1,0 +1,10 @@
+{
+  "concept": "lstm",
+  "title": "Long short-term memory",
+  "url": "https://en.wikipedia.org/wiki/Long_short-term_memory",
+  "revision": "1368708291",
+  "extract": "Long short-term memory (LSTM) is a type of recurrent neural network (RNN) aimed at mitigating the vanishing gradient problem commonly encountered by traditional RNNs. Its relative insensitivity to gap length is its advantage over other RNNs, hidden Markov models, and other sequence learning methods. It aims to provide a short-term memory for RNN that can last thousands of timesteps. The name is made in analogy with long-term memory and short-term memory and their relationship, studied by cognitive psychologists since the early 20th century.",
+  "licence": "CC BY-SA 4.0",
+  "retrieved": "2026-10-03",
+  "sha256": "ec8ca738c1d11f41444844215a6ebba439bc120cb61699fe882544688c6c1c1b"
+}

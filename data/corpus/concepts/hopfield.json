@@ -1,0 +1,10 @@
+{
+  "concept": "hopfield",
+  "title": "Hopfield network",
+  "url": "https://en.wikipedia.org/wiki/Hopfield_network",
+  "revision": "1377477270",
+  "extract": "A Hopfield network is a form of recurrent neural network, or a spin glass system, that can serve as a content-addressable memory. The Hopfield network, named for John Hopfield, consists of a single layer of neurons, where each neuron is connected to every other neuron except itself. These connections are bidirectional and symmetric, meaning the weight of the connection from neuron i to neuron j is the same as the weight from neuron j to neuron i. Patterns are associatively recalled by fixing certain inputs, and dynamically evolve the network to minimize an energy function, towards local energy minimum states that correspond to stored patterns. Patterns are associatively learned by a Hebbian learning algorithm.",
+  "licence": "CC BY-SA 4.0",
+  "retrieved": "2026-10-03",
+  "sha256": "7a1e3ca0fab581f346a2f40782e23d8b3431cd2dede093945f2704fe7153a20c"
+}
