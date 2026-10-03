@@ -41,6 +41,9 @@ class PPOConfig:
     curiosity: float = 0.1          # initial weight of the novelty bonus
     curiosity_decay: float = 0.97   # per update
     distill_coef: float = 1.0       # weight of the teacher KL term (if a teacher is given)
+    # divide rewards by a running std of the discounted return; default since the pre-registered
+    # test (docs/learn/return_scaling.json). Runs recorded before it used False.
+    scale_rewards: bool = True
     seed: int = 0
 
 
@@ -50,6 +53,27 @@ class TrainLog:
     steps: int = 0
     device_switches: list[str] = field(default_factory=list)
     episode_returns: list[float] = field(default_factory=list)
+
+
+class ReturnScaler:
+    """Running std of the discounted return (as Gymnasium's NormalizeReward): keeps value
+    targets near unit scale so the shared body is not dominated by the value loss on tasks
+    with long, uniformly negative episodes (Acrobot, MountainCar)."""
+
+    def __init__(self, gamma: float, eps: float = 1e-8) -> None:
+        self.gamma, self.eps, self.g = gamma, eps, 0.0
+        self.n, self.mean, self.m2 = 0, 0.0, 0.0
+
+    def __call__(self, r: float, end: bool) -> float:
+        self.g = self.g * self.gamma + r
+        self.n += 1
+        d = self.g - self.mean
+        self.mean += d / self.n
+        self.m2 += d * (self.g - self.mean)
+        if end:
+            self.g = 0.0
+        var = self.m2 / self.n if self.n > 1 else 1.0
+        return r / float(np.sqrt(var + self.eps))
 
 
 def _novelty(counts: dict, obs: np.ndarray, bins: float = 0.25) -> float:
@@ -91,6 +115,7 @@ def train(task: str, cfg: PPOConfig, net: ActorCritic | None = None, teacher: Ac
         teacher.to(device).eval()
     opt = torch.optim.Adam(net.parameters(), lr=cfg.lr)
     log, counts, cur_w = TrainLog(), defaultdict(int), cfg.curiosity
+    scaler = ReturnScaler(cfg.gamma) if cfg.scale_rewards else None
     obs, _ = env.reset(seed=T.train_seed(rng))
     ep_ret = 0.0
     while log.steps < cfg.total_steps:
@@ -115,7 +140,10 @@ def train(task: str, cfg: PPOConfig, net: ActorCritic | None = None, teacher: Ac
             ep_ret += r
             bonus = cur_w * _novelty(counts, nobs)
             buf_o.append(obs); buf_a.append(int(a)); buf_lp.append(float(d.log_prob(a)))
-            buf_r.append(r + bonus); buf_v.append(float(v)); buf_end.append(term or trunc)
+            r_t = r + bonus
+            if scaler is not None:
+                r_t = scaler(r_t, term or trunc)
+            buf_r.append(r_t); buf_v.append(float(v)); buf_end.append(term or trunc)
             # Bootstrap target at an episode end: 0 after a real termination, V(final state)
             # after a time-limit truncation (the episode would have continued).
             if trunc and not term:
