@@ -45,8 +45,16 @@ def _prob(x, where: str) -> float:
 
 
 def parse_answers(body: dict, questions: Sequence[PhysicalQuestion], noul_uncertainty: float) -> list[Answer]:
-    """Strict parse. 'noul' has no confidence field, so a configured uncertainty is used;
-    'choice'/'score' use 1 - confidence."""
+    """Strict parse of the answers Toddler asked for.
+
+    Deliberately lenient in the same two places as the reference schema (jev-client.ts): the
+    returned 'model' is not compared with the requested one, and answers for qids Toddler did
+    not ask about are ignored. Both are harmless for a reflex, which only reads its own qids.
+
+    Uncertainty: 'noul' carries no confidence, so a configured uncertainty is used. For
+    'choice'/'score' the API's 'confidence' is the probability of the chosen option, so
+    1 - confidence is used as the uncertainty; it is not added on top of noul_uncertainty.
+    fastpath.reflex then judges p + uncertainty, which can only make Toddler more careful."""
     answers = body.get("answers")
     if not isinstance(answers, dict) or not isinstance(body.get("model"), str):
         raise JevResponseError("response lacks 'model' or 'answers'")
