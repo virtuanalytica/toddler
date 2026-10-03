@@ -49,3 +49,38 @@ def test_toddler_needs_three_quotients_genie_only_iq():
 def test_iq_weak_task_is_not_trimmed_away():
     scores = np.array([[1.0, 0.0], [1.0, 0.0], [1.0, 0.0], [1.0, 0.0]])
     assert q.iq_raw(scores) == pytest.approx(0.5)
+
+
+def test_fq_rejects_nan_and_out_of_range_sim_scores():
+    with pytest.raises(ValueError, match="NaN"):
+        q.FQEvidence(float("nan"), 0.8, 0.1).raw()
+    with pytest.raises(ValueError):
+        q.FQEvidence(1.0, 0.8, 0.1, sim_task_scores=(5.0,)).raw()
+
+
+def test_eq_rejects_negative_rates_and_impossible_counts():
+    with pytest.raises(ValueError):
+        q.EQEvidence(tasks=10, false_done=0, inward_rate=-0.5, outward_rate=-0.5).raw()
+    with pytest.raises(ValueError):
+        q.EQEvidence(tasks=10, false_done=11, inward_rate=0.0, outward_rate=0.0).raw()
+
+
+def test_profile_and_quotient_reject_nan():
+    with pytest.raises(ValueError):
+        q.Profile("genie", "gen-1", iq=float("nan"))
+    with pytest.raises(ValueError):
+        q.to_quotient(float("nan"), [0.4, 0.6])
+
+
+def test_reference_fingerprint_detects_changed_anchors():
+    a = q.fingerprint(["cartpole"], (10000, 10001), [22.0])
+    a.require_same(q.fingerprint(["cartpole"], (10000, 10001), [22.0]))
+    with pytest.raises(ValueError):
+        a.require_same(q.fingerprint(["cartpole"], (10000, 10001), [23.0]))
+
+
+def test_iq_quotient_ci_brackets_point():
+    rng = np.random.default_rng(0)
+    scores = rng.normal(0.6, 0.1, size=(10, 2))
+    point, lo, hi = q.iq_quotient_ci(scores, [0.4, 0.5, 0.6], reps=300)
+    assert lo <= point <= hi
