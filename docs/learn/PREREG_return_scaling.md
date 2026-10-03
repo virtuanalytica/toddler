@@ -15,3 +15,7 @@ both conditions.
 - Decision: the default becomes `scale_rewards=True` only if BOTH tasks pass. Existing
   generations keep their recorded method version (`scale_rewards=False`) and stay reproducible.
 - Everything is reported, including a failure.
+
+Provenance: this registration was committed as 5a51ae0 and pushed before the confirmatory run;
+the results and the default change are c62e08e (both on feat/return-scaling, merged into main
+with #18).

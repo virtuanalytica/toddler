@@ -10,15 +10,22 @@ improvement P(X > Y) between two generations.
 from __future__ import annotations
 
 from dataclasses import dataclass
+from typing import TYPE_CHECKING
 
 import numpy as np
-import torch
 
-from toddler.learn import tasks as T
-from toddler.learn.policy import ActorCritic
+if TYPE_CHECKING:
+    from toddler.learn.policy import ActorCritic
 
 
-def evaluate(net: ActorCritic, task: str, seeds: tuple[int, ...] = T.EVAL_SEEDS) -> np.ndarray:
+def evaluate(net: "ActorCritic", task: str, seeds: tuple[int, ...] | None = None) -> np.ndarray:
+    """Greedy returns on held-out seeds (default T.EVAL_SEEDS), on the CPU. torch and gymnasium
+    are imported here so the statistics below work without the `learn` extra."""
+    import torch
+
+    from toddler.learn import tasks as T
+
+    seeds = T.EVAL_SEEDS if seeds is None else seeds
     net = net.to("cpu").eval()
     out = []
     for s in seeds:
@@ -39,6 +46,8 @@ def evaluate(net: ActorCritic, task: str, seeds: tuple[int, ...] = T.EVAL_SEEDS)
 def iqm(x: np.ndarray) -> float:
     x = np.sort(np.asarray(x, float).ravel())
     n = len(x)
+    if n == 0:
+        raise ValueError("IQM of an empty sample")
     lo, hi = int(np.floor(0.25 * n)), int(np.ceil(0.75 * n))
     return float(x[lo:hi].mean()) if hi > lo else float(x.mean())
 
@@ -56,6 +65,8 @@ def bootstrap_ci(scores: np.ndarray, stat=aggregate_iqm, reps: int = 2000, alpha
     """Stratified bootstrap over runs: scores has shape (runs, tasks); resample runs per task."""
     rng = np.random.default_rng(seed)
     s = np.asarray(scores, float)
+    if s.ndim != 2:
+        raise ValueError("bootstrap_ci expects scores of shape (runs, tasks)")
     runs, tasks = s.shape
     vals = []
     for _ in range(reps):
@@ -67,6 +78,8 @@ def bootstrap_ci(scores: np.ndarray, stat=aggregate_iqm, reps: int = 2000, alpha
 def prob_improvement(x: np.ndarray, y: np.ndarray) -> float:
     """Average over tasks of P(X > Y) + 0.5 P(X = Y) between runs of two generations."""
     x, y = np.asarray(x, float), np.asarray(y, float)
+    if x.ndim != 2 or y.ndim != 2 or x.shape[1] != y.shape[1]:
+        raise ValueError("prob_improvement expects (runs, tasks) arrays with the same tasks")
     per_task = []
     for j in range(x.shape[1]):
         a, b = x[:, j][:, None], y[:, j][None, :]

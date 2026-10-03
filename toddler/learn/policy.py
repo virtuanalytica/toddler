@@ -12,7 +12,8 @@ class ActorCritic(nn.Module):
         self.body = nn.Sequential(nn.Linear(obs_dim, hidden), nn.Tanh(), nn.Linear(hidden, hidden), nn.Tanh())
         self.pi = nn.Linear(hidden, n_actions)
         self.v = nn.Linear(hidden, 1)
-        self.obs_dim, self.n_actions, self.hidden = obs_dim, n_actions, hidden
+        # plain ints: Gymnasium returns numpy integers, which a weights_only torch.load refuses
+        self.obs_dim, self.n_actions, self.hidden = int(obs_dim), int(n_actions), int(hidden)
 
     def forward(self, obs: torch.Tensor) -> tuple[torch.Tensor, torch.Tensor]:
         h = self.body(obs)

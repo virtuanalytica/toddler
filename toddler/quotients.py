@@ -11,7 +11,7 @@
 
 Each raw score lies in [0, 1] (IQ can exceed 1 when a task is beaten beyond its solve
 threshold). A quotient is the raw score expressed against a FROZEN reference generation:
-100 + 15 * (raw - reference mean) / reference sd, measured over the reference's seeds. The
+100 + 15 * (raw - reference IQM) / reference sd, measured over the reference's seeds. The
 reference is re-evaluated in every benchmark run, so quotients of different generations, measured
 on different days and hardware, stay comparable.
 
@@ -41,7 +41,8 @@ against a frozen reference instead. Never mix the two scales.
 
 Reference vector. `reference` is the reference generation's per-seed raw score: for IQ, iq_raw of a
 (1, tasks) row per training seed, on the same tasks, held-out seeds and anchors as the candidate.
-The ReferenceFingerprint binds a reference to that task set, seed list and anchor values; comparing
+The ReferenceFingerprint binds a reference to that task set, seed list, anchor values, solve
+thresholds and fingerprint version; comparing
 under a different fingerprint is refused.
 """
 
@@ -55,7 +56,9 @@ from typing import Sequence
 
 import numpy as np
 
-from toddler.learn import scoring
+from toddler.learn import scoring   # numpy-only at import time; torch is not needed here
+
+FP_VERSION = 2        # bump when the meaning of a fingerprint field changes
 
 SCALE_MEAN, SCALE_SD = 100.0, 15.0
 
@@ -123,9 +126,12 @@ class ReferenceFingerprint:
     tasks: tuple[str, ...]
     eval_seeds: tuple[int, ...]
     anchors: tuple[float, ...]          # random-policy anchor per task, same order as tasks
+    solved: tuple[float, ...] = ()      # solve threshold per task (the normalisation denominator)
+    version: int = FP_VERSION
 
     def digest(self) -> str:
-        blob = json.dumps([list(self.tasks), list(self.eval_seeds), [round(a, 6) for a in self.anchors]])
+        blob = json.dumps([self.version, list(self.tasks), list(self.eval_seeds),
+                           [round(a, 6) for a in self.anchors], [round(x, 6) for x in self.solved]])
         return hashlib.sha256(blob.encode()).hexdigest()
 
     def require_same(self, other: "ReferenceFingerprint") -> None:
@@ -134,10 +140,12 @@ class ReferenceFingerprint:
                              "re-measure the reference before comparing")
 
 
-def fingerprint(tasks: Sequence[str], eval_seeds: Sequence[int], anchors: Sequence[float]) -> ReferenceFingerprint:
-    if len(tasks) != len(anchors):
-        raise ValueError("one anchor per task")
-    return ReferenceFingerprint(tuple(tasks), tuple(int(s) for s in eval_seeds), tuple(float(a) for a in anchors))
+def fingerprint(tasks: Sequence[str], eval_seeds: Sequence[int], anchors: Sequence[float],
+                solved: Sequence[float]) -> ReferenceFingerprint:
+    if not len(tasks) == len(anchors) == len(solved):
+        raise ValueError("one anchor and one solve threshold per task")
+    return ReferenceFingerprint(tuple(tasks), tuple(int(s) for s in eval_seeds), tuple(float(a) for a in anchors),
+                                tuple(float(x) for x in solved))
 
 
 def to_quotient(raw: float, reference: Sequence[float]) -> float:
@@ -152,7 +160,9 @@ def to_quotient(raw: float, reference: Sequence[float]) -> float:
     sd = float(ref.std(ddof=1))
     if sd == 0.0:
         raise ValueError("reference spread is zero; evaluate it on more seeds")
-    return SCALE_MEAN + SCALE_SD * (raw - float(ref.mean())) / sd
+    # centre on the reference's IQM, the same aggregator as the candidate's raw score, so the
+    # reference scores exactly 100 against itself
+    return SCALE_MEAN + SCALE_SD * (raw - scoring.iqm(ref)) / sd
 
 
 def iq_quotient_ci(task_scores: np.ndarray, reference: Sequence[float], reps: int = 2000,

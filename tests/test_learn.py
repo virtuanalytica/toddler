@@ -126,3 +126,14 @@ def test_behaviour_clone_and_run_bc_smoke():
     assert student is not teacher and sum(p.numel() for p in student.parameters()) > 0
     r = peer.run_bc(teacher_steps=2048, budget=3072, clone_steps=1024, student_seeds=(1, 2), eval_seeds=T.EVAL_SEEDS[:3])
     assert set(r.groups) == {"real_teacher", "no_teacher", "random_teacher"} and r.student_steps == 3072
+
+
+def test_statistics_refuse_degenerate_input():
+    with pytest.raises(ValueError):
+        scoring.iqm(np.array([]))
+    with pytest.raises(ValueError):
+        scoring.bootstrap_ci(np.array([0.1, 0.2]))
+    with pytest.raises(ValueError):
+        scoring.prob_improvement(np.array([0.1]), np.array([0.2]))
+    with pytest.raises(ValueError):
+        T.normalise("cartpole", 100.0, 500.0)          # anchor above the solve threshold
