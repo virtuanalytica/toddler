@@ -110,6 +110,7 @@ const BASE_RULES = [
   ["no-infant-contact", "geen fysiek contact met baby's"],
 ];
 const BASE_QUESTIONS = ["grasp_slip", "person_in_zone", "collision_soon", "unstable_object"];
+// Known event types, shown as suggestions only: toddler/audit.py accepts any event type.
 const EVENT_TYPES = ["task_done", "stop_fired", "guardrails_applied", "key_created", "relay_chosen", "phase_changed"];
 
 const FIELDS = {
@@ -120,7 +121,7 @@ const FIELDS = {
   experts: [["model_id","model-id","text","dq-expert-7b"],["domains","domeinen (komma)","text","dq"],
             ["quality","kwaliteit 0-1","number","0.8"],["eur_per_1k_tokens","EUR / 1k tokens","number","0.001"],
             ["joules_per_1k_tokens","joule / 1k tokens","number","40"],["evidence","bewijs","text","MLflow run …"]],
-  audiences: [["name","doelgroep","text","compliance"],["event_types","gebeurtenissen (komma)","text","guardrails_applied, stop_fired"],
+  audiences: [["name","doelgroep","text","compliance"],["event_types","gebeurtenissen (komma; bijv. " + EVENT_TYPES.join(", ") + ")","text","guardrails_applied, stop_fired"],
               ["role","alleen rol (leeg = alle)","text",""]],
 };
 const lists = { guardrails: [], jev: [], experts: [], audiences: [] };
@@ -172,6 +173,9 @@ function validate(c) {
   const issues = [];
   if (!c.role.name) issues.push("Rol: naam ontbreekt.");
   const baseIds = new Set(BASE_RULES.map(r => r[0]));
+  const dup = xs => xs.filter((x, i) => x && xs.indexOf(x) !== i);
+  dup(c.guardrails.map(g => g.id)).forEach(d => issues.push(`Guardrails: dubbele id "${d}".`));
+  dup(c.jev_rules.map(q => q.qid)).forEach(d => issues.push(`JEV-regels: dubbele id "${d}".`));
   c.guardrails.forEach((g, i) => {
     if (!g.id) issues.push(`Guardrail ${i+1}: id ontbreekt.`);
     if (baseIds.has(g.id)) issues.push(`Guardrail ${i+1}: "${g.id}" zou een basisregel overschrijven.`);
@@ -194,7 +198,7 @@ function validate(c) {
   if (new Set(ids).size !== ids.length) issues.push("Experts: dubbele model-id's.");
   c.audiences.forEach((a, i) => {
     if (!a.name) issues.push(`Doelgroep ${i+1}: naam ontbreekt.`);
-    a.event_types.filter(t => !EVENT_TYPES.includes(t)).forEach(t => issues.push(`Doelgroep ${i+1}: onbekende gebeurtenis "${t}".`));
+    if (!a.event_types.length) issues.push(`Doelgroep ${i+1}: geef minstens één gebeurtenis.`);
   });
   return issues;
 }
@@ -205,6 +209,7 @@ function update() {
   document.getElementById("issues").innerHTML = issues.map(t => `<li>${t.replace(/</g,"&lt;")}</li>`).join("");
   document.getElementById("status").innerHTML = issues.length ? "" : '<p class="okmsg">Configuratie is geldig.</p>';
   document.getElementById("download").disabled = issues.length > 0;
+  document.getElementById("copy").disabled = issues.length > 0;
   try { localStorage.setItem("toddler-config-draft", JSON.stringify(c)); } catch (_) {}
 }
 
@@ -234,7 +239,9 @@ document.getElementById("copy").addEventListener("click", async () => {
   catch (_) { document.getElementById("copied").textContent = "Kopiëren niet toegestaan; selecteer de JSON handmatig."; }
 });
 document.getElementById("import").addEventListener("change", async ev => {
-  const f = ev.target.files[0]; if (f) load(JSON.parse(await f.text()));
+  const f = ev.target.files[0]; if (!f) return;
+  try { load(JSON.parse(await f.text())); document.getElementById("copied").textContent = ""; }
+  catch (e) { document.getElementById("copied").textContent = "Kon het bestand niet lezen: geen geldige JSON."; }
 });
 try { const d = localStorage.getItem("toddler-config-draft"); if (d) load(JSON.parse(d)); else update(); } catch (_) { update(); }
 </script>
