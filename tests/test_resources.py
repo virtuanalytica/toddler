@@ -86,3 +86,23 @@ def test_guard_names_the_missing_preflight(monkeypatch, tmp_path):
     assert "gone.sh missing" in r.plan_device(host, 512).reasons[0]
     (tmp_path / "gone.sh").write_text("exit 3\n")
     assert r.guard_status() == (False, "preflight exited with 3")
+
+
+def test_guard_reasons_for_malformed_file_and_timeout(monkeypatch, tmp_path):
+    import json
+    import subprocess
+
+    guard = tmp_path / "guard.json"
+    guard.write_text("{not json")
+    monkeypatch.setattr(r, "GUARD_FILE", str(guard))
+    assert r.guard_status() == (False, f"guard file {guard} malformed (no valid 'rules')")
+    script = tmp_path / "pre.sh"
+    script.write_text("exit 0\n")
+    guard.write_text(json.dumps({"rules": {"preflight_required": True, "preflight_script": str(script)}}))
+    monkeypatch.setattr(r, "PREFLIGHT", "")
+
+    def hang(*a, **k):
+        raise subprocess.TimeoutExpired("bash", 60)
+
+    monkeypatch.setattr(r.subprocess, "run", hang)
+    assert r.guard_status() == (False, "preflight timed out after 60 s")

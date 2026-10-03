@@ -159,9 +159,13 @@ def guard_status() -> tuple[bool, str]:
     if not GUARD_FILE:
         return True, ""
     try:
-        rules = json.loads(Path(GUARD_FILE).read_text())["rules"]
-    except (OSError, ValueError, KeyError):
+        text = Path(GUARD_FILE).read_text()
+    except OSError:
         return False, f"guard file {GUARD_FILE} missing or unreadable"
+    try:
+        rules = json.loads(text)["rules"]
+    except (ValueError, KeyError, TypeError):
+        return False, f"guard file {GUARD_FILE} malformed (no valid 'rules')"
     script = PREFLIGHT or rules.get("preflight_script", "")
     if rules.get("preflight_required"):
         if not script:
@@ -172,6 +176,8 @@ def guard_status() -> tuple[bool, str]:
             rc = subprocess.run(["bash", script], capture_output=True, timeout=60).returncode
         except subprocess.TimeoutExpired:
             return False, "preflight timed out after 60 s"
+        if rc < 0:
+            return False, f"preflight killed by signal {-rc}"
         return (True, "") if rc == 0 else (False, f"preflight exited with {rc}")
     return True, ""
 
