@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Toddler configurator</title>
+<style>
+  :root { --bg:#f7f5f0; --card:#fff; --ink:#1f2328; --muted:#5f6670; --line:#e3ded3; --accent:#2a6f97;
+    --ok:#2a9d8f; --bad:#c0392b; --lock:#8a7f6a; color-scheme: light; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#16181d; --card:#1f232a; --ink:#e8e6e1; --muted:#a3a9b3;
+    --line:#2f343d; --accent:#6fb3dc; --lock:#b9ab8f; color-scheme: dark; } }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif; }
+  .wrap { max-width:1100px; margin:0 auto; padding:24px 16px 64px; }
+  header h1 { margin:0; font-size:1.7rem; } header p { margin:4px 0 0; color:var(--muted); }
+  .layout { display:grid; grid-template-columns: minmax(0,1fr) 340px; gap:20px; margin-top:20px; }
+  @media (max-width: 860px) { .layout { grid-template-columns: 1fr; } }
+  section { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px; margin-bottom:16px; }
+  h2 { font-size:1.1rem; margin:0 0 4px; } .hint { color:var(--muted); font-size:.9rem; margin:0 0 12px; }
+  label { display:block; font-size:.85rem; color:var(--muted); margin:8px 0 2px; }
+  input, select, textarea { width:100%; padding:7px 9px; border:1px solid var(--line); border-radius:8px;
+    background:var(--bg); color:var(--ink); font:inherit; }
+  .row { display:grid; grid-template-columns: repeat(auto-fit, minmax(150px,1fr)); gap:8px; align-items:end; }
+  .item { border:1px dashed var(--line); border-radius:10px; padding:10px; margin-bottom:10px; position:relative; }
+  button { font:inherit; border-radius:8px; border:1px solid var(--accent); background:var(--accent); color:#fff;
+    padding:7px 12px; cursor:pointer; }
+  button.ghost { background:transparent; color:var(--accent); }
+  button.del { position:absolute; top:6px; right:6px; padding:2px 8px; border-color:var(--bad); background:transparent; color:var(--bad); }
+  .locked li { color:var(--lock); } .locked li::before { content:"🔒 "; }
+  .issues li { color:var(--bad); } .okmsg { color:var(--ok); font-weight:600; }
+  pre { background:var(--bg); border:1px solid var(--line); border-radius:8px; padding:10px; overflow:auto; max-height:420px; font-size:.8rem; }
+  aside { position:sticky; top:16px; align-self:start; }
+  .actions { display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>Toddler configurator</h1>
+  <p>Toddler is de algemene basis. Specialiseer hem naar een functie uit het functiehuis van je organisatie of naar één specifieke taak. Je kunt regels en experts <strong>toevoegen</strong>; de basisveiligheid kan niet uit.</p>
+</header>
+
+<div class="layout">
+<main>
+  <section>
+    <h2>1. Rol in het functiehuis</h2>
+    <p class="hint">Kies een functiefamilie en rol, of familie "task" voor één specifieke taak.</p>
+    <div class="row">
+      <div><label for="r-name">Rol</label><input id="r-name" placeholder="bijv. Data Steward"></div>
+      <div><label for="r-family">Functiefamilie</label>
+        <select id="r-family"><option>data-governance</option><option>finance</option><option>care</option><option>engineering</option><option>operations</option><option>task</option></select></div>
+      <div><label for="r-level">Niveau / schaal</label><input id="r-level" placeholder="bijv. senior, schaal 10"></div>
+    </div>
+    <label for="r-tasks">Taken (één per regel)</label><textarea id="r-tasks" rows="3"></textarea>
+  </section>
+
+  <section>
+    <h2>2. Basisregels (vast)</h2>
+    <p class="hint">Deze STOP-regels gelden altijd en kunnen niet worden uitgezet of overschreven.</p>
+    <ul class="locked" id="base-rules"></ul>
+  </section>
+
+  <section>
+    <h2>3. Guardrails van het bedrijf</h2>
+    <p class="hint">Een guardrail blokkeert elke actie met een van de opgegeven tags. Elke guardrail heeft een eigenaar en komt in de audit trail.</p>
+    <div id="guardrails"></div><button class="ghost" data-add="guardrails">+ guardrail</button>
+  </section>
+
+  <section>
+    <h2>4. JEV-regels</h2>
+    <p class="hint">Extra vragen voor de snelle reflexlaag. Boven "vertragen" gaat Toddler langzamer, boven "stoppen" stopt hij. Harde sensorgrenzen gaan altijd voor.</p>
+    <div id="jev"></div><button class="ghost" data-add="jev">+ JEV-regel</button>
+  </section>
+
+  <section>
+    <h2>5. Experts (mixture of models)</h2>
+    <p class="hint">Hulpmodellen bovenop het basismodel. Een expert wordt gekozen als zijn gemeten kwaliteit min kosten (geld + energie) hoger is dan het basismodel. Kwaliteit vereist bewijs (bijv. een MLflow-run).</p>
+    <div id="experts"></div><button class="ghost" data-add="experts">+ expert</button>
+  </section>
+
+  <section>
+    <h2>6. Inzage in de audit trail</h2>
+    <p class="hint">Wie mag welk deel van de hash-gekoppelde audit trail zien? Velden zoals e-mail en IP worden altijd gemaskeerd.</p>
+    <div id="audiences"></div><button class="ghost" data-add="audiences">+ doelgroep</button>
+  </section>
+</main>
+
+<aside>
+  <section>
+    <h2>Controle</h2>
+    <div id="status"></div>
+    <ul class="issues" id="issues"></ul>
+    <div class="actions">
+      <button id="download">Download config</button>
+      <button class="ghost" id="copy">Kopieer JSON</button>
+      <label class="ghost" style="margin:0"><input type="file" id="import" accept=".json" style="display:none"><button class="ghost" type="button" onclick="document.getElementById('import').click()">Importeer</button></label>
+    </div>
+    <p class="hint" id="copied"></p>
+  </section>
+  <section><h2>toddler-config/v1</h2><pre id="out"></pre></section>
+</aside>
+</div>
+</div>
+
+<script>
+const BASE_RULES = [
+  ["no-secrets", "nooit een wachtwoord, token of sleutel tonen"],
+  ["approval-for-outward-actions", "kopen, versturen of inloggen alleen met goedkeuring van de operator"],
+  ["caregiver-for-contact", "fysiek contact met een persoon alleen met een verzorger erbij"],
+  ["no-infant-contact", "geen fysiek contact met baby's"],
+];
+const BASE_QUESTIONS = ["grasp_slip", "person_in_zone", "collision_soon", "unstable_object"];
+const EVENT_TYPES = ["task_done", "stop_fired", "guardrails_applied", "key_created", "relay_chosen", "phase_changed"];
+
+const FIELDS = {
+  guardrails: [["id","id","text","no-pii-export"],["owner","eigenaar","text","compliance@bedrijf.nl"],
+               ["reason","reden","text","nooit persoonsgegevens exporteren"],["forbidden_tags","verboden tags (komma)","text","export-pii"]],
+  jev: [["qid","id","text","spill_risk"],["text","vraag","text","Zal de vloeistof morsen?"],
+        ["slow_if_above","vertragen boven","number","0.2"],["stop_if_above","stoppen boven","number","0.4"]],
+  experts: [["model_id","model-id","text","dq-expert-7b"],["domains","domeinen (komma)","text","dq"],
+            ["quality","kwaliteit 0-1","number","0.8"],["eur_per_1k_tokens","EUR / 1k tokens","number","0.001"],
+            ["joules_per_1k_tokens","joule / 1k tokens","number","40"],["evidence","bewijs","text","MLflow run …"]],
+  audiences: [["name","doelgroep","text","compliance"],["event_types","gebeurtenissen (komma)","text","guardrails_applied, stop_fired"],
+              ["role","alleen rol (leeg = alle)","text",""]],
+};
+const lists = { guardrails: [], jev: [], experts: [], audiences: [] };
+const containerId = { guardrails: "guardrails", jev: "jev", experts: "experts", audiences: "audiences" };
+
+function addItem(kind, values = {}) { lists[kind].push(values); render(kind); update(); }
+
+function render(kind) {
+  const box = document.getElementById(containerId[kind]);
+  box.innerHTML = "";
+  lists[kind].forEach((vals, i) => {
+    const item = document.createElement("div"); item.className = "item";
+    const row = document.createElement("div"); row.className = "row";
+    FIELDS[kind].forEach(([key, label, type, ph]) => {
+      const id = `${kind}-${i}-${key}`;
+      const wrap = document.createElement("div");
+      wrap.innerHTML = `<label for="${id}">${label}</label>`;
+      const inp = document.createElement("input"); inp.id = id; inp.type = type; inp.placeholder = ph;
+      if (type === "number") inp.step = "any";
+      inp.value = vals[key] ?? "";
+      inp.addEventListener("input", () => { vals[key] = inp.value; update(); });
+      wrap.appendChild(inp); row.appendChild(wrap);
+    });
+    const del = document.createElement("button"); del.className = "del"; del.textContent = "×"; del.title = "verwijder";
+    del.addEventListener("click", () => { lists[kind].splice(i, 1); render(kind); update(); });
+    item.append(row, del); box.appendChild(item);
+  });
+}
+
+const csv = s => (s || "").split(",").map(x => x.trim()).filter(Boolean);
+const num = s => s === "" || s === undefined ? NaN : Number(s);
+
+function buildConfig() {
+  return {
+    schema: "toddler-config/v1",
+    role: { name: v("r-name"), family: v("r-family"), level: v("r-level"),
+            tasks: v("r-tasks").split("\n").map(t => t.trim()).filter(Boolean) },
+    guardrails: lists.guardrails.map(g => ({ id: g.id || "", reason: g.reason || "", owner: g.owner || "", forbidden_tags: csv(g.forbidden_tags) })),
+    jev_rules: lists.jev.map(q => ({ qid: q.qid || "", text: q.text || "", slow_if_above: num(q.slow_if_above), stop_if_above: num(q.stop_if_above) })),
+    experts: lists.experts.map(e => ({ model_id: e.model_id || "", domains: csv(e.domains), quality: num(e.quality),
+      eur_per_1k_tokens: num(e.eur_per_1k_tokens), joules_per_1k_tokens: num(e.joules_per_1k_tokens), evidence: e.evidence || "" })),
+    audiences: lists.audiences.map(a => ({ name: a.name || "", event_types: csv(a.event_types), role: a.role ? a.role : null })),
+  };
+}
+function v(id) { return document.getElementById(id).value.trim(); }
+
+// Mirrors toddler/specialize.build and toddler/config.from_dict; the Python side stays the authority.
+function validate(c) {
+  const issues = [];
+  if (!c.role.name) issues.push("Rol: naam ontbreekt.");
+  const baseIds = new Set(BASE_RULES.map(r => r[0]));
+  c.guardrails.forEach((g, i) => {
+    if (!g.id) issues.push(`Guardrail ${i+1}: id ontbreekt.`);
+    if (baseIds.has(g.id)) issues.push(`Guardrail ${i+1}: "${g.id}" zou een basisregel overschrijven.`);
+    if (!g.owner) issues.push(`Guardrail ${i+1}: eigenaar ontbreekt.`);
+    if (!g.forbidden_tags.length) issues.push(`Guardrail ${i+1}: geef minstens één tag.`);
+  });
+  c.jev_rules.forEach((q, i) => {
+    if (!q.qid) issues.push(`JEV-regel ${i+1}: id ontbreekt.`);
+    if (BASE_QUESTIONS.includes(q.qid)) issues.push(`JEV-regel ${i+1}: "${q.qid}" zou een basisvraag vervangen.`);
+    if (!(q.slow_if_above >= 0 && q.slow_if_above <= q.stop_if_above && q.stop_if_above <= 1))
+      issues.push(`JEV-regel ${i+1}: nodig is 0 ≤ vertragen ≤ stoppen ≤ 1.`);
+  });
+  const ids = c.experts.map(e => e.model_id);
+  c.experts.forEach((e, i) => {
+    if (!e.model_id) issues.push(`Expert ${i+1}: model-id ontbreekt.`);
+    if (!(e.quality >= 0 && e.quality <= 1)) issues.push(`Expert ${i+1}: kwaliteit moet tussen 0 en 1 liggen.`);
+    if (!e.evidence) issues.push(`Expert ${i+1}: bewijs voor de kwaliteit ontbreekt.`);
+    if (!(e.eur_per_1k_tokens >= 0) || !(e.joules_per_1k_tokens >= 0)) issues.push(`Expert ${i+1}: kosten moeten ≥ 0 zijn.`);
+  });
+  if (new Set(ids).size !== ids.length) issues.push("Experts: dubbele model-id's.");
+  c.audiences.forEach((a, i) => {
+    if (!a.name) issues.push(`Doelgroep ${i+1}: naam ontbreekt.`);
+    a.event_types.filter(t => !EVENT_TYPES.includes(t)).forEach(t => issues.push(`Doelgroep ${i+1}: onbekende gebeurtenis "${t}".`));
+  });
+  return issues;
+}
+
+function update() {
+  const c = buildConfig(), issues = validate(c);
+  document.getElementById("out").textContent = JSON.stringify(c, null, 2);
+  document.getElementById("issues").innerHTML = issues.map(t => `<li>${t.replace(/</g,"&lt;")}</li>`).join("");
+  document.getElementById("status").innerHTML = issues.length ? "" : '<p class="okmsg">Configuratie is geldig.</p>';
+  document.getElementById("download").disabled = issues.length > 0;
+  try { localStorage.setItem("toddler-config-draft", JSON.stringify(c)); } catch (_) {}
+}
+
+function load(c) {
+  if (c.schema !== "toddler-config/v1") { alert("Onbekend schema"); return; }
+  document.getElementById("r-name").value = c.role?.name || "";
+  document.getElementById("r-family").value = c.role?.family || "task";
+  document.getElementById("r-level").value = c.role?.level || "";
+  document.getElementById("r-tasks").value = (c.role?.tasks || []).join("\n");
+  lists.guardrails = (c.guardrails || []).map(g => ({ ...g, forbidden_tags: (g.forbidden_tags || []).join(", ") }));
+  lists.jev = (c.jev_rules || []).map(q => ({ ...q }));
+  lists.experts = (c.experts || []).map(e => ({ ...e, domains: (e.domains || []).join(", ") }));
+  lists.audiences = (c.audiences || []).map(a => ({ ...a, event_types: (a.event_types || []).join(", "), role: a.role || "" }));
+  Object.keys(lists).forEach(render); update();
+}
+
+document.getElementById("base-rules").innerHTML = BASE_RULES.map(([id, t]) => `<li><code>${id}</code>: ${t}</li>`).join("");
+document.querySelectorAll("[data-add]").forEach(b => b.addEventListener("click", () => addItem(b.dataset.add)));
+["r-name","r-family","r-level","r-tasks"].forEach(id => document.getElementById(id).addEventListener("input", update));
+document.getElementById("download").addEventListener("click", () => {
+  const blob = new Blob([document.getElementById("out").textContent], { type: "application/json" });
+  const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "toddler.config.json"; a.click();
+});
+document.getElementById("copy").addEventListener("click", async () => {
+  try { await navigator.clipboard.writeText(document.getElementById("out").textContent);
+        document.getElementById("copied").textContent = "Gekopieerd."; }
+  catch (_) { document.getElementById("copied").textContent = "Kopiëren niet toegestaan; selecteer de JSON handmatig."; }
+});
+document.getElementById("import").addEventListener("change", async ev => {
+  const f = ev.target.files[0]; if (f) load(JSON.parse(await f.text()));
+});
+try { const d = localStorage.getItem("toddler-config-draft"); if (d) load(JSON.parse(d)); else update(); } catch (_) { update(); }
+</script>
+</body>
+</html>
