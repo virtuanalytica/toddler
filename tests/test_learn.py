@@ -147,3 +147,8 @@ def test_minigrid_tasks_are_flat_vectors_with_a_measured_anchor():
     env.close()
     a = T.random_anchor("doorkey5", T.EVAL_SEEDS[:3])
     assert 0.0 <= a < T.TASKS["doorkey5"].solved
+    env = T.make("empty5")
+    obs, _ = env.reset(seed=T.EVAL_SEEDS[0])
+    assert obs.shape == (147,) and env.action_space.n == 7
+    env.close()
+    assert 0.0 <= T.random_anchor("empty5", T.EVAL_SEEDS[:3]) < T.TASKS["empty5"].solved
