@@ -1,0 +1,50 @@
+import pytest
+
+pytest.importorskip("gymnasium")
+
+from toddler.learn import generations as G  # noqa: E402
+from toddler.learn import ppo  # noqa: E402
+
+SMALL = dict(total_steps=2048, rollout=1024, epochs=1, minibatch=256)
+
+
+def _rec(gen, tid, parents=()):
+    return G.ToddlerRecord(gen, tid, "cartpole", {"seed": 1}, 2048, list(parents), [0.1, 0.2], {"device": "cpu"})
+
+
+def test_save_load_round_trip_with_hash_check(tmp_path):
+    reg = G.Registry(tmp_path)
+    net, _ = ppo.train("cartpole", ppo.PPOConfig(seed=1, **SMALL))
+    reg.save(net, _rec("gen-0", "t1"))
+    net2, rec = reg.load("gen-0", "t1")
+    assert all((a == b).all() for a, b in zip(net.state_dict().values(), net2.state_dict().values()))
+    assert rec.business["invoicing_entity"] == "VirtualV Holding B.V."
+    (tmp_path / "gen-0" / "t1" / "weights.pt").write_bytes(b"tampered")
+    with pytest.raises(ValueError, match="sha256"):
+        reg.load("gen-0", "t1")
+
+
+def test_lineage_and_generation_listing(tmp_path):
+    reg = G.Registry(tmp_path)
+    net, _ = ppo.train("cartpole", ppo.PPOConfig(seed=2, **SMALL))
+    reg.save(net, _rec("gen-0", "a"))
+    reg.save(net, _rec("gen-1", "b", parents=["gen-0/a"]))
+    reg.save(net, _rec("gen-2", "c", parents=["gen-1/b"]))
+    assert reg.lineage("gen-2", "c") == ["gen-1/b", "gen-0/a"]
+    assert [r.toddler_id for r in reg.generation("gen-1")] == ["b"]
+
+
+def test_checkpoints_are_written_during_training(tmp_path):
+    reg = G.Registry(tmp_path)
+    ppo.train("cartpole", ppo.PPOConfig(seed=3, total_steps=4096, rollout=1024, epochs=1, minibatch=256),
+              checkpoint=reg.checkpoint_fn("gen-0", "x"), checkpoint_every=2)
+    assert len(list((tmp_path / "gen-0" / "x" / "checkpoints").glob("step_*.pt"))) == 2
+
+
+def test_promotion_rule():
+    better = [0.6, 0.7, 0.8, 0.9, 1.0]
+    worse = [0.1, 0.2, 0.2, 0.3, 0.1]
+    assert G.decide_promotion(better, worse).promote
+    assert not G.decide_promotion(worse, better).promote
+    with pytest.raises(ValueError):
+        G.decide_promotion([0.9], worse)

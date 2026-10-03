@@ -55,7 +55,9 @@ def _novelty(counts: dict, obs: np.ndarray, bins: float = 0.25) -> float:
 
 
 def train(task: str, cfg: PPOConfig, net: ActorCritic | None = None, teacher: ActorCritic | None = None,
-          device: str = "cpu", watchdog: Callable[[], str | None] | None = None) -> tuple[ActorCritic, TrainLog]:
+          device: str = "cpu", watchdog: Callable[[], str | None] | None = None,
+          checkpoint: Callable[[ActorCritic, TrainLog], None] | None = None,
+          checkpoint_every: int = 10) -> tuple[ActorCritic, TrainLog]:
     torch.manual_seed(cfg.seed)
     rng = np.random.default_rng(cfg.seed)
     env = T.make(task)
@@ -134,6 +136,8 @@ def train(task: str, cfg: PPOConfig, net: ActorCritic | None = None, teacher: Ac
                 opt.step()
         log.updates += 1
         log.steps += n
+        if checkpoint is not None and log.updates % checkpoint_every == 0:
+            checkpoint(net, log)
         cur_w *= cfg.curiosity_decay
     env.close()
     return net.to("cpu"), log
