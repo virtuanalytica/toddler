@@ -25,9 +25,9 @@ Reference document: [`docs/whitepaper/toddler-whitepaper-en.pdf`](whitepaper/tod
 | Hash-chained audit trail with prune anchor, secret refusal and scoped views | `toddler/audit.py` | test_audit |
 | Deployment configuration `toddler-config/v1` | `toddler/config.py` | test_config |
 | Configurator GUI (validation mirrored in Python) | `gui/index.html` | Playwright end-to-end run |
-| Knowledge base: 36 AI/NN concepts fetched with hash and licence | `toddler/knowledge/concepts.py`, `corpus.py` | coverage check in weave |
-| Woven graph (concepts + 25 study steps + code), LightRAG facts DB | `toddler/knowledge/weave.py` | 0 coverage problems |
-| knitweb synaptic bundle of the woven graph (unsigned) | `toddler/knowledge/publish.py` | decode round-trip |
+| Knowledge base: 36 AI/NN concepts fetched with hash and licence | `toddler/knowledge/concepts.py`, `corpus.py` | test_knowledge (hashes, structure) |
+| Woven graph (concepts + 25 study steps + code); LightRAG DB when `TODDLER_GITNEXUS_BUILDER` is set | `toddler/knowledge/weave.py` | test_knowledge (all 25 rows linked, edited corpus detected) |
+| knitweb synaptic bundle of the woven graph; unsigned output is `*.synaptic.unsigned`, OriginTrail publication deferred until signed | `toddler/knowledge/publish.py` | test_knowledge (round trip, signed/unsigned) |
 | Whitepaper (12 pages) | `docs/whitepaper/` | build verification |
 | Jev client (TypeSafe System One contract, strict parsing, no retries in the reflex) | `toddler/jev.py` | test_jev |
 | Credential lifecycle: identities per provider, OpenBao vault, official key APIs, rotation | `toddler/credentials/` | test_credentials (held back: needs explicit operator approval to push) |

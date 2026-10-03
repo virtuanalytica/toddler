@@ -15,7 +15,8 @@ points at a file that does not exist; that is the coverage check for the operato
 from __future__ import annotations
 
 import hashlib
-import importlib.util
+import ast
+import os
 import json
 import re
 import sqlite3
@@ -27,7 +28,10 @@ from toddler.knowledge.concepts import CONCEPTS, RELATIONS, TODDLER_LINKS
 
 REPO = Path(__file__).resolve().parents[2]
 GITNEXUS = Path.home() / ".gitnexus" / "toddler"
-BUILDER = Path("/media/knight2/EDS2/projects/numerai-signals/scripts/knowledge/build_codebase_lightrag_gitnexus_obsidian.py")
+# The gitnexus codebase builder (another repository) owns the LightRAG SQLite schema. Point
+# TODDLER_GITNEXUS_BUILDER at its .py file to also write the LightRAG DB; without it only the
+# JSON graph and the JSONL facts are written. The file is parsed, never executed.
+BUILDER = os.environ.get("TODDLER_GITNEXUS_BUILDER", "")
 
 SOURCES = {
     "source:wee2017": ("Wee et al. (2017) Neonatal neural networks predict children behavioral profiles later in life. "
@@ -73,15 +77,23 @@ def parse_mapping(md: Path) -> dict[int, tuple[str, str]]:
     return rows
 
 
-def _load_builder_schema() -> str:
-    spec = importlib.util.spec_from_file_location("gitnexus_builder", BUILDER)
-    mod = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(mod)  # module defines SCHEMA at import; main() is not run
-    return mod.SCHEMA
+def _load_builder_schema(builder: str = BUILDER) -> str | None:
+    """Read the SCHEMA string literal from the builder file without executing it."""
+    if not builder:
+        return None
+    tree = ast.parse(Path(builder).read_text(encoding="utf-8"))
+    for node in tree.body:
+        if isinstance(node, ast.Assign) and any(getattr(t, "id", None) == "SCHEMA" for t in node.targets):
+            return ast.literal_eval(node.value)
+    raise ValueError(f"no SCHEMA literal in {builder}")
 
 
 def weave(corpus_dir: Path = REPO / "data/corpus/concepts", out_root: Path = GITNEXUS) -> dict:
-    code = json.loads((out_root / "code_graph" / "toddler_gitnexus.json").read_text(encoding="utf-8"))
+    code_path = out_root / "code_graph" / "toddler_gitnexus.json"
+    if not code_path.exists():
+        raise FileNotFoundError(f"{code_path} missing: build the code graph first with the gitnexus codebase "
+                                "builder (build_codebase_lightrag_gitnexus_obsidian.py --repo-root <this repo>)")
+    code = json.loads(code_path.read_text(encoding="utf-8"))
     code_files = {n["path"] for n in code["nodes"] if n.get("type") == "source_file"}
     rows = parse_mapping(REPO / "docs/design/wee2017-mapping.md")
     problems: list[str] = []
@@ -96,6 +108,9 @@ def weave(corpus_dir: Path = REPO / "data/corpus/concepts", out_root: Path = GIT
             problems.append(f"concept {cid}: corpus file missing")
             continue
         doc = json.loads(f.read_text(encoding="utf-8"))
+        if sha(doc["extract"]) != doc["sha256"]:
+            problems.append(f"concept {cid}: stored sha256 does not match its extract (edited file?)")
+            continue
         nodes.append({"id": f"concept:{cid}", "type": "concept", "summary": doc["extract"][:2000], "year": year,
                       "era": era, "url": doc["url"], "licence": doc["licence"], "sha256": doc["sha256"]})
     for a, b, kind in RELATIONS:
@@ -141,11 +156,14 @@ def _write_lightrag(nodes: list[dict], edges: list[dict], lr: Path) -> None:
     with (lr / "toddler_concepts_facts.jsonl").open("w", encoding="utf-8") as fh:
         for f in facts:
             fh.write(json.dumps(f, ensure_ascii=False) + "\n")
+    schema = _load_builder_schema()
+    if schema is None:
+        return  # JSON graph and JSONL facts only; set TODDLER_GITNEXUS_BUILDER for the SQLite DB
     db_path = lr / "toddler_concepts_lightrag.db"
     if db_path.exists():
         db_path.unlink()
     with sqlite3.connect(db_path) as db:
-        db.executescript(_load_builder_schema())
+        db.executescript(schema)
         for f in facts:
             db.execute("INSERT OR IGNORE INTO facts(kind, content, context, source, created_at, content_sha) VALUES (?,?,?,?,?,?)",
                        (f["kind"], f["content"], f["context"], f["source"], time.time(), f["content_sha"]))

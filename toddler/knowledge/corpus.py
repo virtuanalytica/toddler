@@ -32,6 +32,7 @@ def fetch_all(out_dir: Path, pause_s: float = 0.2) -> tuple[provenance.Register,
         if path.exists():
             doc = json.loads(path.read_text(encoding="utf-8"))
         else:
+            time.sleep(pause_s)  # be polite before every request, not after the last one
             r = requests.get(API.format(title=title), headers=HEADERS, timeout=20)
             if r.status_code != 200:
                 failures[cid] = f"HTTP {r.status_code}"
@@ -52,7 +53,13 @@ def fetch_all(out_dir: Path, pause_s: float = 0.2) -> tuple[provenance.Register,
                 "sha256": hashlib.sha256(extract.encode("utf-8")).hexdigest(),
             }
             path.write_text(json.dumps(doc, ensure_ascii=False, indent=2), encoding="utf-8")
-            time.sleep(pause_s)
         reg.admit(provenance.Source(cid, doc["url"], doc["licence"], date.fromisoformat(doc["retrieved"]),
                                     doc["sha256"], inclusion_rule="curated AI/NN concept list"))
+    # Failed concepts have no file, so the next run fetches them again; the report makes the
+    # gap visible between runs. For existing files the stored retrieval date is trusted.
+    report = out_dir / "_failures.json"
+    if failures:
+        report.write_text(json.dumps(failures, indent=1), encoding="utf-8")
+    elif report.exists():
+        report.unlink()
     return reg, failures
