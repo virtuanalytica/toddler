@@ -1,0 +1,47 @@
+{
+ "task": "cartpole",
+ "student_steps": 30000,
+ "teacher_score": 0.9947717231222386,
+ "groups": {
+  "real_teacher": [
+   -0.027687776141384384,
+   0.07326951399116348,
+   0.013254786450662739,
+   -0.005081001472754043,
+   -0.013622974963181144
+  ],
+  "no_teacher": [
+   -0.02864506627393225,
+   -0.0016200294550809957,
+   -0.012297496318114874,
+   -0.024815905743740794,
+   -0.01605301914580265
+  ],
+  "random_teacher": [
+   -0.011340206185567008,
+   -0.0025773195876288607,
+   0.02665684830633284,
+   0.013328424153166424,
+   0.028350515463917522
+  ]
+ },
+ "iqm": {
+  "real_teacher": -0.0018163966617574829,
+  "no_teacher": -0.01772214040255277,
+  "random_teacher": 0.012469317623956802
+ },
+ "p_vs_no_teacher": 0.15476190476190477,
+ "p_vs_random_teacher": 0.8452380952380952,
+ "prob_improvement_vs_no_teacher": 0.72,
+ "prob_improvement_vs_random_teacher": 0.32,
+ "teaching_helps": false,
+ "seconds": 266.3,
+ "device": "cpu",
+ "torch_threads": 8,
+ "compute_and_sales_entity": "virtuanalytica VOF (commission)",
+ "invoicing_entity": "VirtualV Holding B.V.",
+ "notes": [
+  "Floor effect: at a 30k-step budget students score about 0 in every group, so the test has low power; NULL means no detectable effect at this budget, not no effect.",
+  "Run on the PPO with the time-limit truncation fix (PR #9)."
+ ]
+}
