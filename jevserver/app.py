@@ -8,8 +8,10 @@ the exact schema validated by virtualpc-jev-finance (zod) and toddler/jev.py.
   score  -> {"type": "score", "score", "legend", "probabilities", "confidence"}
 
 Confidence is the probability of the chosen option. An optional calibrator (calibrate.py)
-maps raw noul probabilities to calibrated ones. A TTL cache keyed on (state, question)
-lets the reflex path answer within its budget.
+maps raw noul probabilities to calibrated ones. A TTL cache keyed on (quantised state, question)
+can let the reflex path answer within its budget, but only when the scene repeats: continuous
+sensor states rarely repeat exactly, so floats are rounded to DEFAULT_CACHE_DECIMALS for the key
+(None = exact keys). A live loop that needs every tick in budget also needs a local Jev.
 """
 
 from __future__ import annotations
@@ -72,6 +74,7 @@ class TTLCache:
         self._d[key] = (time.monotonic(), value)
 
 
+DEFAULT_CACHE_DECIMALS = 2
 MAX_TEXT = 4000   # characters of state + instructions per question; longer input is refused
 
 
@@ -96,7 +99,7 @@ def _key(state, qid: str, q: BaseModel) -> str:
 
 
 def create_app(backend: Backend | None = None, keys: KeyStore | None = None, calibrator=None,
-               cache: TTLCache | None = None, cache_decimals: int | None = None) -> FastAPI:
+               cache: TTLCache | None = None, cache_decimals: int | None = DEFAULT_CACHE_DECIMALS) -> FastAPI:
     backend = backend or LlamaCppBackend()
     keys = keys or KeyStore()
     cache = cache or TTLCache()

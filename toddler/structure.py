@@ -36,7 +36,7 @@ ATLAS: tuple[str, ...] = (
     "memory.graph",
     "objective.reward",
     "objective.profit",
-    "objective.energy",
+    "objective.energy",          # measured by toddler.resources (compute/energy governor)
     "p2p.knitweb",
     "p2p.pulse_relay",
     "actuation",

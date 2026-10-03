@@ -26,7 +26,8 @@ def main() -> int:
     s.add_argument("--host", default="127.0.0.1")
     s.add_argument("--allow-remote", action="store_true",
                    help="allow a non-loopback bind; keys travel over plain HTTP, so only behind TLS")
-    s.add_argument("--cache-decimals", type=int, default=None, help="round state floats for the cache key")
+    s.add_argument("--cache-decimals", type=int, default=2,
+                   help="round state floats for the cache key (default 2; -1 = exact keys)")
     s.add_argument("--port", type=int, default=8092)
     s.add_argument("--calibration", default="", help="path to a calibration JSON from calibrate.py")
     a = p.parse_args()
@@ -48,7 +49,7 @@ def main() -> int:
             calibrator = load_calibrator(a.calibration)
         if a.host not in ("127.0.0.1", "localhost", "::1") and not a.allow_remote:
             raise SystemExit("refusing non-loopback bind without --allow-remote (bearer keys over plain HTTP)")
-        uvicorn.run(create_app(calibrator=calibrator, cache_decimals=a.cache_decimals),
+        uvicorn.run(create_app(calibrator=calibrator, cache_decimals=None if a.cache_decimals < 0 else a.cache_decimals),
                     host=a.host, port=a.port, log_level="info")
     return 0
 

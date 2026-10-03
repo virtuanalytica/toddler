@@ -16,7 +16,12 @@ The ClaudeClaw agent definition lives on branch `feat/toddler-agent` of the fill
 | `toddler/evaluation.py` | Judge-only T-scores, two behaviour axes, horizon missingness, Welch extremes, nested CV with mRMR + SVM-RFE, sensitivity/specificity, CCA + Bonferroni, outlier robustness, replication-gated promotion | 2-4, 14-18, 23-24 |
 | `toddler/relay.py` | Pulse relay: local vs knitweb peer by energy and verified cost (knitweb `required_samples`, `fraud_is_profitable`) | brain.md section 4 |
 | `toddler/fastpath.py` | Reflex layer for the future physical Toddler: hard limits override Jev probabilities; late or missing answers stop | 19-21 |
+| `toddler/resources.py` | Resource governor: only free GPU memory minus a margin, skips GPUs with foreign processes, honours a configured GPU guard/preflight/lease (fail-closed), CPU threads at most half the cores minus load | brain.md section 1 (energy/compute) |
 | `toddler/provenance.py` | Source and consent register: no synthetic data, consent for data about people | 1, 22 |
+| `toddler/specialize.py` | Roles, company guardrails, Jev questions, experts and mixture-of-models routing; safety is monotonic (add, never remove or duplicate) | 13, 20 |
+| `toddler/audit.py` | Hash-chained, immutable audit trail with JSONL persistence, secret redaction, prune anchor and scoped views | 2, 25 |
+| `gui/index.html` | Configurator GUI for `toddler-config/v1` (open the file in a browser; checked by `PYTHONPATH=. python3 scripts/e2e_gui.py`) | - |
+| `toddler/config.py` | `toddler-config/v1` loader with path-specific errors; Python is the authority over the GUI | - |
 
 Not in this version: the credential lifecycle module (identities, OpenBao vault, official key-creation APIs, rotation) is written locally and awaits explicit operator approval before it is pushed.
 

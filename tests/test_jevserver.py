@@ -126,3 +126,33 @@ def test_quantised_cache_key_shares_nearby_states(tmp_path):
     from jevserver.app import quantise
 
     assert quantise({"d": 0.30001, "v": [1.00004]}, 2) == quantise({"d": 0.29999, "v": [0.99996]}, 2)
+
+
+def test_ttl_cache_expires(monkeypatch):
+    import jevserver.app as app_mod
+
+    now = [1000.0]
+    monkeypatch.setattr(app_mod.time, "monotonic", lambda: now[0])
+    c = TTLCache(ttl_s=300.0)
+    c.put("k", 1)
+    now[0] += 299.0
+    assert c.get("k") == 1
+    now[0] += 2.0
+    assert c.get("k") is None
+
+
+def test_calibration_metrics_on_hand_computed_case():
+    import numpy as np
+
+    from jevserver import calibrate as cal
+
+    p = np.array([0.9, 0.1, 0.6, 0.4])
+    y = np.array([1.0, 0.0, 0.0, 1.0])
+    ix = np.array([0, 0, 1, 1])
+    m = cal.metrics(p, y, ix)
+    assert m["brier"] == pytest.approx((0.01 + 0.01 + 0.36 + 0.36) / 4, abs=1e-4)
+    assert m["log_loss"] == pytest.approx(-(np.log(0.9) * 2 + np.log(0.4) * 2) / 4, abs=1e-4)
+    assert m["accuracy_at_0_5"] == 0.5 and m["piqa_pair_accuracy"] == 0.5
+    # bins [0.1,0.2): |0.1-0|, [0.4,0.5): |0.4-1|, [0.6,0.7): |0.6-0|, [0.9,1]: |0.9-1|, each weight 1/4
+    assert m["ece"] == pytest.approx((0.1 + 0.6 + 0.6 + 0.1) / 4, abs=1e-4)
+    assert cal.ece(np.array([1.0, 0.0]), np.array([1.0, 0.0])) == 0.0
