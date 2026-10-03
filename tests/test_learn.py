@@ -196,3 +196,12 @@ def test_minigrid_tasks_are_flat_vectors_with_a_measured_anchor():
     assert obs.shape == (147,) and env.action_space.n == 7
     env.close()
     assert 0.0 <= T.random_anchor("empty5", T.EVAL_SEEDS[:3]) < T.TASKS["empty5"].solved
+
+
+def test_sampled_evaluation_is_deterministic_per_seed_and_mode_is_checked():
+    net, _ = ppo.train("cartpole", ppo.PPOConfig(seed=3, **SMALL))
+    a = scoring.evaluate(net, "cartpole", T.EVAL_SEEDS[:4], mode="sample")
+    b = scoring.evaluate(net, "cartpole", T.EVAL_SEEDS[:4], mode="sample")
+    assert np.array_equal(a, b)
+    with pytest.raises(ValueError):
+        scoring.evaluate(net, "cartpole", T.EVAL_SEEDS[:1], mode="mean")

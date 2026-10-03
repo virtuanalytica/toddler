@@ -128,24 +128,29 @@ class ReferenceFingerprint:
     anchors: tuple[float, ...]          # random-policy anchor per task, same order as tasks
     solved: tuple[float, ...] = ()      # solve threshold per task (the normalisation denominator)
     version: int = FP_VERSION
+    eval_mode: str = "greedy"           # scoring.evaluate mode; scores of different modes never mix
 
     def digest(self) -> str:
-        blob = json.dumps([self.version, list(self.tasks), list(self.eval_seeds),
-                           [round(a, 6) for a in self.anchors], [round(x, 6) for x in self.solved]])
+        parts = [self.version, list(self.tasks), list(self.eval_seeds),
+                 [round(a, 6) for a in self.anchors], [round(x, 6) for x in self.solved]]
+        if self.eval_mode != "greedy":      # greedy keeps the digest of references frozen before the field existed
+            parts.append(self.eval_mode)
+        blob = json.dumps(parts)
         return hashlib.sha256(blob.encode()).hexdigest()
 
     def require_same(self, other: "ReferenceFingerprint") -> None:
         if self.digest() != other.digest():
-            raise ValueError("reference was measured on a different task set, seed list or anchors; "
+            raise ValueError("reference was measured on a different task set, seed list, anchors or "
+                             "evaluation mode; "
                              "re-measure the reference before comparing")
 
 
 def fingerprint(tasks: Sequence[str], eval_seeds: Sequence[int], anchors: Sequence[float],
-                solved: Sequence[float]) -> ReferenceFingerprint:
+                solved: Sequence[float], eval_mode: str = "greedy") -> ReferenceFingerprint:
     if not len(tasks) == len(anchors) == len(solved):
         raise ValueError("one anchor and one solve threshold per task")
     return ReferenceFingerprint(tuple(tasks), tuple(int(s) for s in eval_seeds), tuple(float(a) for a in anchors),
-                                tuple(float(x) for x in solved))
+                                tuple(float(x) for x in solved), eval_mode=eval_mode)
 
 
 def to_quotient(raw: float, reference: Sequence[float]) -> float:
