@@ -1,0 +1,10 @@
+{
+  "concept": "backprop",
+  "title": "Backpropagation",
+  "url": "https://en.wikipedia.org/wiki/Backpropagation",
+  "revision": "1373673106",
+  "extract": "In machine learning, backpropagation is a gradient computation method commonly used for training a neural network in computing parameter updates.",
+  "licence": "CC BY-SA 4.0",
+  "retrieved": "2026-10-03",
+  "sha256": "357d58b3ca546702b57d88b8eb3ace8676ae04458b4cd24039ccc806e8c48cec"
+}

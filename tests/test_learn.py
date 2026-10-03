@@ -83,3 +83,19 @@ def test_training_seeds_never_hit_held_out_seeds():
 def test_aggregate_iqm_is_mean_of_per_task_iqms():
     scores = np.array([[1.0, 0.0], [1.0, 0.0], [1.0, 0.0], [1.0, 0.0]])
     assert scoring.aggregate_iqm(scores) == 0.5
+
+
+def test_gae_truncation_bootstraps_from_truncated_state_not_next_episode():
+    # step 0 ends by truncation (boot V=10), step 1 is the first step of a new episode (V=99)
+    adv = ppo.gae_advantages([1.0, 1.0], [0.0, 99.0], [True, False], [10.0, 0.0], last_value=0.0, gamma=1.0, lam=1.0)
+    assert adv[0] == 11.0          # r + V(truncated state); no leak of the next episode's 99
+
+
+def test_gae_termination_bootstraps_zero():
+    adv = ppo.gae_advantages([1.0], [0.0], [True], [0.0], last_value=50.0, gamma=0.9, lam=0.95)
+    assert adv[0] == 1.0
+
+
+def test_gae_mid_episode_uses_last_value():
+    adv = ppo.gae_advantages([1.0], [0.0], [False], [0.0], last_value=5.0, gamma=0.5, lam=1.0)
+    assert adv[0] == 3.5

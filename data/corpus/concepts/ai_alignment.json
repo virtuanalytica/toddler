@@ -1,0 +1,10 @@
+{
+  "concept": "ai_alignment",
+  "title": "AI alignment",
+  "url": "https://en.wikipedia.org/wiki/AI_alignment",
+  "revision": "1375975271",
+  "extract": "In the field of artificial intelligence (AI), alignment aims to steer AI systems toward a person's or group's intended goals, preferences, or ethical principles. An AI system is considered aligned if it advances the intended objectives. A misaligned AI system pursues unintended objectives.",
+  "licence": "CC BY-SA 4.0",
+  "retrieved": "2026-10-03",
+  "sha256": "a3d4ded3c013feee4f8980dc810cb4953ede2c83ceee2e955978c793dbf57440"
+}

@@ -1,0 +1,10 @@
+{
+  "concept": "attention",
+  "title": "Attention (machine learning)",
+  "url": "https://en.wikipedia.org/wiki/Attention_(machine_learning)",
+  "revision": "1376558019",
+  "extract": "In machine learning, attention is a method that determines the importance of each component in a sequence relative to the other components in that sequence. In natural language processing, importance is represented by \"soft\" weights assigned to each word in a sentence. More generally, attention encodes vectors called token embeddings across a fixed-width sequence that can range from tens to millions of tokens in size.",
+  "licence": "CC BY-SA 4.0",
+  "retrieved": "2026-10-03",
+  "sha256": "54ee591d8279d0d9429c4ca50c964dfe3948f77d84346f00303e5bcaa238a0d1"
+}

@@ -11,6 +11,10 @@ several seeds, three groups of students:
                        knowledge that helps, or just the extra loss term?)
 Scores are normalised on held-out seeds on the CPU. Teaching "works" only when the real
 teacher beats BOTH controls (one-sided Mann-Whitney U, and probability of improvement).
+
+Why an unpaired test: the groups share student seeds, but their training diverges from the
+first update (different losses), so a seed does not pair two outcomes; Mann-Whitney U is the
+conservative, distribution-free choice.
 """
 
 from __future__ import annotations
