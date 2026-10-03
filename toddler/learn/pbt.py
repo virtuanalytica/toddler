@@ -7,6 +7,10 @@ perturbs its learning rate and entropy coefficient by a factor 0.8 or 1.2 (explo
 arm runs the identical schedule without exploit/explore, so both arms spend exactly the same
 number of environment steps.
 
+The perturbation compounds without an absolute cap: after k exploits a member's lr can drift by
+0.8**k .. 1.2**k (8 intervals: at most 7 exploits, 0.21x .. 3.6x). The selected member's lr and
+ent_coef are recorded in the result, so a drifted winner is visible.
+
 Each population returns ONE toddler: the member with the best training score after the last
 interval. That toddler is scored on the held-out seeds; the selection never sees them.
 

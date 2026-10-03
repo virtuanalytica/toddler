@@ -207,3 +207,15 @@ def test_pbt_arms_spend_equal_steps_and_only_pbt_exploits():
     assert ctrl.steps_per_member == exp.steps_per_member == 2048
     assert ctrl.events == [] and ctrl.arm == "control" and exp.arm == "pbt"
     assert len(exp.events) <= 1 and len(exp.train_scores) == 2
+
+
+def test_pbt_population_is_reproducible_from_its_seed():
+    from toddler.learn import pbt
+
+    prev = torch.get_num_threads()
+    torch.set_num_threads(2)
+    base = ppo.PPOConfig(rollout=512, epochs=1, minibatch=256)
+    _, a = pbt.run_population("cartpole", seed=5, pbt=True, members=2, intervals=2, interval_steps=1024, base=base)
+    _, b = pbt.run_population("cartpole", seed=5, pbt=True, members=2, intervals=2, interval_steps=1024, base=base)
+    torch.set_num_threads(prev)
+    assert a == b
