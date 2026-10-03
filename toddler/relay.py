@@ -5,21 +5,19 @@ sharing, network weather, pay per served byte. A peer result is only accepted af
 sampled re-execution, so verification cost is part of the price, and a peer whose
 collateral makes fraud profitable is never chosen.
 
-knitweb is loaded from its source tree (TODDLER_KNITWEB_SRC, default below) because its
-packaging is owned by the knitweb project.
+knitweb is located by toddler._knitweb.load() (installed package, TODDLER_KNITWEB_SRC, or a
+sibling checkout); importing this module without knitweb raises ImportError.
 """
 
 from __future__ import annotations
 
-import os
-import sys
 from dataclasses import dataclass
 from fractions import Fraction
 from typing import Sequence
 
-_KNITWEB_SRC = os.environ.get("TODDLER_KNITWEB_SRC", "/media/knight2/EDS2/projects/knitweb/src")
-if _KNITWEB_SRC not in sys.path:
-    sys.path.append(_KNITWEB_SRC)
+from toddler import _knitweb
+
+_knitweb.load()
 
 from knitweb.pouw.collateral import fraud_is_profitable  # noqa: E402
 from knitweb.pouw.sampling import required_samples  # noqa: E402

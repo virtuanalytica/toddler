@@ -52,3 +52,18 @@ def test_register_rejects_synthetic_and_unconsented():
         reg.admit(_src(involves_people=True))
     reg.admit(_src(involves_people=True, consent_reference="NHG DSRB / CIRB"))
     assert "doi.org" in reg.cite("s1")
+
+
+def test_negative_uncertainty_or_bad_probability_stops():
+    bad = [a if a.qid != "grasp_slip" else fp.Answer("grasp_slip", 0.05, -0.1) for a in _answers()]
+    assert fp.reflex(CALM, bad, elapsed_ms=5).command == "stop"
+    bad = [a if a.qid != "grasp_slip" else fp.Answer("grasp_slip", 1.5, 0.0) for a in _answers()]
+    assert fp.reflex(CALM, bad, elapsed_ms=5).command == "stop"
+
+
+def test_register_rejects_non_hex_hash_and_names_unknown_ids():
+    reg = pv.Register()
+    with pytest.raises(pv.RejectedSource):
+        reg.admit(_src(sha256="z" * 64))
+    with pytest.raises(KeyError, match="not registered"):
+        reg.cite("nope")
