@@ -18,12 +18,18 @@ import numpy as np
 class Task:
     env_id: str
     solved: float          # documented solve threshold (Gymnasium's own TimeLimit applies)
+    grid: bool = False     # MiniGrid: image observation flattened to a vector (needs `minigrid`)
 
 
 TASKS: dict[str, Task] = {
     "cartpole": Task("CartPole-v1", 475.0),
     "acrobot": Task("Acrobot-v1", -100.0),
     "mountaincar": Task("MountainCar-v0", -110.0),
+    # MiniGrid has no Gymnasium reward_threshold; its return is 1 - 0.9 * steps / max_steps on
+    # success and 0 otherwise. Our threshold 0.9 = goal reached within 11 % of the step limit
+    # (an operator choice, documented here, part of the reference fingerprint).
+    "empty5": Task("MiniGrid-Empty-5x5-v0", 0.9, grid=True),
+    "doorkey5": Task("MiniGrid-DoorKey-5x5-v0", 0.9, grid=True),
 }
 
 EVAL_SEEDS: tuple[int, ...] = tuple(range(10_000, 10_030))   # held out: never used for training
@@ -38,7 +44,15 @@ def train_seed(rng: np.random.Generator) -> int:
 
 
 def make(task: str, seed: int | None = None):
-    env = gym.make(TASKS[task].env_id)
+    t = TASKS[task]
+    if t.grid:
+        import minigrid  # noqa: F401  (registers the MiniGrid environments)
+        from gymnasium.wrappers import FlattenObservation
+        from minigrid.wrappers import ImgObsWrapper
+
+        env = FlattenObservation(ImgObsWrapper(gym.make(t.env_id)))
+    else:
+        env = gym.make(t.env_id)
     if seed is not None:
         env.reset(seed=seed)
         env.action_space.seed(seed)
