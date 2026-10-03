@@ -19,6 +19,10 @@ The ClaudeClaw agent definition lives on branch `feat/toddler-agent` of the fill
 | `toddler/resources.py` | Resource governor: only free GPU memory minus a margin, skips GPUs with foreign processes, honours a configured GPU guard/preflight/lease (fail-closed), CPU threads at most half the cores minus load | brain.md section 1 (energy/compute) |
 | `toddler/learn/` | Learning toddlers: Gymnasium tasks with measured random anchors and held-out seeds, PPO budgeted in environment steps (CPU runs reproducible from seed), aggregate IQM, bootstrap CI, probability of improvement | 6, 11, 12 |
 | `toddler/provenance.py` | Source and consent register: no synthetic data, consent for data about people | 1, 22 |
+| `toddler/specialize.py` | Roles, company guardrails, Jev questions, experts and mixture-of-models routing; safety is monotonic (add, never remove or duplicate) | 13, 20 |
+| `toddler/audit.py` | Hash-chained, immutable audit trail with JSONL persistence, secret redaction, prune anchor and scoped views | 2, 25 |
+| `gui/index.html` | Configurator GUI for `toddler-config/v1` (open the file in a browser; checked by `PYTHONPATH=. python3 scripts/e2e_gui.py`) | - |
+| `toddler/config.py` | `toddler-config/v1` loader with path-specific errors; Python is the authority over the GUI | - |
 
 Not in this version: the credential lifecycle module (identities, OpenBao vault, official key-creation APIs, rotation) is written locally and awaits explicit operator approval before it is pushed.
 
