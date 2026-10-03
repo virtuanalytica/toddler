@@ -12,7 +12,7 @@ Only primary sources are listed; identifiers are arXiv ids or DOIs.
 | Pardo, Tavakoli, Levdik, Kormushev (2018). Time Limits in Reinforcement Learning. arXiv:1712.00378 | A time-limit truncation is not a termination: bootstrap from the value of the truncated state and never across a reset (the bug fixed in PR #9) | `toddler/learn/ppo.py` |
 | Bellemare, Srinivasan, Ostrovski, Schaul, Saxton, Munos (2016). Unifying Count-Based Exploration and Intrinsic Motivation. arXiv:1606.01868 | Count-based novelty bonus (1 / sqrt(count)) with a decaying weight; the "+0.1 for new knowledge" principle | `toddler/learn/ppo.py` (`_novelty`) |
 | Pathak, Agrawal, Efros, Darrell (2017). Curiosity-driven Exploration by Self-supervised Prediction. arXiv:1705.05363 | Curiosity as intrinsic reward; a candidate replacement for the count bonus on larger state spaces | backlog |
-| Bengio, Louradour, Collobert, Weston (2009). Curriculum Learning. ICML. doi:10.1145/1553374.1553380 | Easy-to-hard ordering of tasks and phases (C0-C3) | `docs/design/brain.md` |
+| Bengio, Louradour, Collobert, Weston (2009). Curriculum Learning. ICML. doi:10.1145/1553374.1553380 | Easy-to-hard ordering of tasks and phases (C0-C3) | phase order C0 -> C3: `docs/design/wee2017-mapping.md` row 21; task order: `docs/TASK_PLAN.md` |
 
 ## Toddlers teaching toddlers
 
@@ -48,6 +48,26 @@ Only primary sources are listed; identifiers are arXiv ids or DOIs.
 | ------ | -------------------------- | ----- |
 | Wee et al. (2017). Neonatal neural networks predict children behavioral profiles later in life. Human Brain Mapping 38(3), 1362-1373. doi:10.1002/hbm.23459 | All 25 analysis steps as design analogies | `docs/design/wee2017-mapping.md` |
 | Blondel, Guillaume, Lambiotte, Lefebvre (2008). Fast unfolding of communities in large networks. J. Stat. Mech. arXiv:0803.0476 | Louvain community detection (consensus over runs) | `toddler/structure.py` |
+
+## Statistics already in the merged code (`toddler/evaluation.py`, `toddler/structure.py`)
+
+| Source | What Toddler takes from it | Where |
+| ------ | -------------------------- | ----- |
+| Peng, Long, Ding (2005). Feature selection based on mutual information: criteria of max-dependency, max-relevance, and min-redundancy. IEEE TPAMI 27(8), 1226-1238. doi:10.1109/TPAMI.2005.159 | mRMR pre-selection of features | `evaluation._mrmr` |
+| Guyon, Weston, Barnhill, Vapnik (2002). Gene Selection for Cancer Classification using Support Vector Machines. Machine Learning 46, 389-422. doi:10.1023/A:1012487302797 | SVM-RFE with a linear SVM | `evaluation.nested_feature_selection` |
+| Varma, Simon (2006). Bias in error estimation when using cross-validation for model selection. BMC Bioinformatics 7, 91. doi:10.1186/1471-2105-7-91 | Nested cross-validation: select features in inner folds only | `evaluation.nested_feature_selection` |
+| Hotelling (1936). Relations between two sets of variates. Biometrika 28(3/4), 321-377. doi:10.2307/2333955 | Canonical correlation analysis | `evaluation.cca_test` |
+| Bartlett (1941). The statistical significance of canonical correlations. Biometrika 32(1), 29-37. doi:10.2307/2332254 | Chi-square test of the canonical correlation | `evaluation.cca_test` |
+| Dunn (1961). Multiple comparisons among means. JASA 56(293), 52-64. doi:10.1080/01621459.1961.10482090 | Bonferroni correction over several tests | `evaluation.cca_test` (`p_bonferroni`) |
+| Welch (1947). The generalization of "Student's" problem when several different population variances are involved. Biometrika 34(1/2), 28-35. doi:10.2307/2332510 | Unequal-variance t-test for best vs worst groups | `evaluation.compare_extremes` |
+| McCall (1922). How to Measure in Education. New York: Macmillan | T-scale (50 + 10 z) | `evaluation.t_scores` |
+| Mann, Whitney (1947). On a test of whether one of two random variables is stochastically larger than the other. Ann. Math. Statist. 18(1), 50-60. doi:10.1214/aoms/1177730491 | One-sided rank test between groups of runs | `toddler/learn/peer.py`, `generations.decide_promotion` |
+| Efron (1979). Bootstrap methods: another look at the jackknife. Ann. Statist. 7(1), 1-26. doi:10.1214/aos/1176344552 | Bootstrap confidence intervals (stratified per task as in Agarwal et al.) | `toddler/learn/scoring.bootstrap_ci` |
+| Dixon, Mood (1946). The statistical sign test. JASA 41(236), 557-566. doi:10.1080/01621459.1946.10501898 | Sign test per edge across runs | `structure.sign_test_edges` |
+| Watts, Strogatz (1998). Collective dynamics of "small-world" networks. Nature 393, 440-442. doi:10.1038/30918 | Local clustering coefficient | `structure.clustering_profile` |
+| Newman (2006). Modularity and community structure in networks. PNAS 103(23), 8577-8582. doi:10.1073/pnas.0601602103 | Modularity Q | `structure.consensus_partition`, `structure.modularity_null_test` |
+| Lancichinetti, Fortunato (2012). Consensus clustering in complex networks. Scientific Reports 2, 336. doi:10.1038/srep00336 | Consensus over many stochastic Louvain runs (co-assignment) | `structure.consensus_partition` |
+| Maslov, Sneppen (2002). Specificity and stability in topology of protein networks. Science 296(5569), 910-913. doi:10.1126/science.1065103 | Degree-preserving edge-swap null model | `structure.modularity_null_test` |
 
 ## Lessons already learned in this repository
 

@@ -17,7 +17,7 @@ What is trained, in which order, and when a step counts as done. Each step is on
 - EQ: honesty, restraint and engagement from judged tasks (needs judged task data; not measurable on pure RL tasks).
 - FQ: reflex sensitivity and specificity on labelled hazard scenarios, calibration of physical-rule probabilities, simulated physical tasks.
 - Quotient = 100 + 15 z against a frozen, trained reference generation with real spread across seeds.
-- Toddler is scored on IQ, EQ and FQ; Genie (finfield / fieldintelligence, built on Toddler) on IQ only.
+- Toddler is scored on IQ, EQ and FQ; Genie (an operator decision of 2026-10-03: a separate agent that will live in the fieldintelligence organisation, outside this repository, and uses Toddler as a training dependency; no public repository yet) on IQ only.
 
 ## Rules that apply to every step
 
