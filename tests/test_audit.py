@@ -74,3 +74,8 @@ def test_company_guardrail_vetoes_and_is_recorded():
     log = audit.AuditLog()
     e = audit.record_guardrails(log, 1, "operator", "data-steward", [g.rule_id])
     assert e.details["rules"] == ["company:no-pii-export"]
+
+
+def test_nested_credential_keys_are_redacted():
+    e = audit.AuditLog().append(1, "toddler", "x", {"config": {"db": {"password": "hunter2"}}, "ok": {"a": 1}})
+    assert e.details["config"] == audit.REDACTED and e.details["ok"] == {"a": 1}

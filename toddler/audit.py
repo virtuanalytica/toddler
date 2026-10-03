@@ -45,11 +45,21 @@ def _row_hash(prev_hash: str, seq: int, ts_ms: int, actor: str, event_type: str,
     return hashlib.sha256(payload.encode("utf-8")).hexdigest()
 
 
+def _has_credential_key(v) -> bool:
+    """True if a nested dict/list contains a credential-like key at any depth."""
+    if isinstance(v, Mapping):
+        return any(_CREDENTIAL_KEY.search(str(k)) or _has_credential_key(x) for k, x in v.items())
+    if isinstance(v, (list, tuple)):
+        return any(_has_credential_key(x) for x in v)
+    return False
+
+
 def _redact(details: Mapping) -> tuple[dict, list[str]]:
+    """Redact a top-level field when its key, any nested key, or its value looks like a credential."""
     clean, redacted = {}, []
     for k, v in details.items():
         text = json.dumps(v, default=str)
-        if _CREDENTIAL_KEY.search(str(k)) or _CREDENTIAL_VALUE.search(text):
+        if _CREDENTIAL_KEY.search(str(k)) or _has_credential_key(v) or _CREDENTIAL_VALUE.search(text):
             clean[k] = REDACTED
             redacted.append(k)
         else:
@@ -105,7 +115,11 @@ class AuditLog:
 
     @classmethod
     def load(cls, path: Path) -> "AuditLog":
-        """Load a JSONL trail and verify it; raises ValueError on the first broken row."""
+        """Load a JSONL trail and verify it; raises ValueError on the first broken row.
+
+        The anchor is taken from the first remaining row, the same trust model as the in-memory
+        prune anchor: deleting rows from the START of the file is not detectable from the file
+        alone. Keep a copy of the latest anchor elsewhere (or the newest row hash) if that matters."""
         log = cls()
         rows = [json.loads(line) for line in Path(path).read_text(encoding="utf-8").splitlines() if line.strip()]
         if rows:
@@ -139,7 +153,10 @@ class AuditLog:
             self._entries = keep
             if self.path:
                 tmp = self.path.with_suffix(".tmp")
-                tmp.write_text("".join(e.to_json() + "\n" for e in keep), encoding="utf-8")
+                with tmp.open("w", encoding="utf-8") as fh:
+                    fh.write("".join(e.to_json() + "\n" for e in keep))
+                    fh.flush()
+                    os.fsync(fh.fileno())
                 tmp.replace(self.path)
         return dropped
 
