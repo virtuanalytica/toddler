@@ -48,3 +48,26 @@ def test_back_off_when_customer_arrives_or_memory_drops():
 
 def test_cuda_env_uses_pci_order():
     assert r.cuda_env(r.Placement("cuda:3", 3, 1, "3")) == {"CUDA_DEVICE_ORDER": "PCI_BUS_ID", "CUDA_VISIBLE_DEVICES": "3"}
+
+
+def test_configured_but_missing_guard_fails_closed(monkeypatch, tmp_path):
+    monkeypatch.setattr(r, "GUARD_FILE", str(tmp_path / "missing.json"))
+    assert r._guard_allows() is False
+    monkeypatch.setattr(r, "GUARD_FILE", "")
+    assert r._guard_allows() is True
+
+
+def test_hanging_coordination_counts_as_lease_taken(monkeypatch, tmp_path):
+    import subprocess
+
+    def hang(*a, **k):
+        raise subprocess.TimeoutExpired("coord", 30)
+
+    monkeypatch.setattr(r, "COORD", str(tmp_path / "coord.py"))
+    monkeypatch.setattr(r.subprocess, "run", hang)
+    assert r._lease_held_by_other() is True
+
+
+def test_own_process_group_is_not_foreign():
+    import os
+    assert os.getpid() in r._own_pids()

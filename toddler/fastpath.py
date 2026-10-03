@@ -77,9 +77,10 @@ def hard_limit_check(s: Sensors, lim: HardLimits) -> tuple[str, ...]:
 
 def reflex(sensors: Sensors, answers: Sequence[Answer] | None, elapsed_ms: float,
            questions: Sequence[PhysicalQuestion] = DEFAULT_QUESTIONS,
-           limits: HardLimits = HardLimits(), max_uncertainty: float = 0.3) -> Reflex:
-    """Decide stop/slow/continue. Hard limits first, then a missing or late answer means stop,
-    then Jev probabilities (an uncertain answer counts at its upper bound)."""
+           limits: HardLimits = HardLimits()) -> Reflex:
+    """Decide stop/slow/continue. Hard limits first; then a missing, late or invalid answer
+    means stop; then each answer is judged at its upper bound p = min(1, probability +
+    uncertainty), so more uncertainty can only make Toddler more careful."""
     hard = hard_limit_check(sensors, limits)
     if hard:
         return Reflex("stop", hard)
@@ -91,7 +92,9 @@ def reflex(sensors: Sensors, answers: Sequence[Answer] | None, elapsed_ms: float
         a = by_id.get(q.qid)
         if a is None:
             return Reflex("stop", (f"missing answer: {q.qid}",))
-        p = min(1.0, a.probability + (a.uncertainty if a.uncertainty > max_uncertainty else a.uncertainty / 2))
+        if a.uncertainty < 0 or not 0.0 <= a.probability <= 1.0:
+            return Reflex("stop", (f"invalid answer: {q.qid}",))
+        p = min(1.0, a.probability + a.uncertainty)
         if p > q.stop_if_above:
             return Reflex("stop", (f"{q.qid} p={p:.2f}",))
         if p > q.slow_if_above:

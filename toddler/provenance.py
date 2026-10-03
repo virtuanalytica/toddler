@@ -11,6 +11,8 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import date
 
+_HEX = set("0123456789abcdef")
+
 
 @dataclass(frozen=True)
 class Source:
@@ -38,12 +40,14 @@ class Register:
             raise RejectedSource(f"{s.source_id}: synthetic data is not accepted as evidence")
         if s.involves_people and not s.consent_reference:
             raise RejectedSource(f"{s.source_id}: data about people needs a consent reference")
-        if len(s.sha256) != 64:
-            raise RejectedSource(f"{s.source_id}: content hash missing")
+        if len(s.sha256) != 64 or not set(s.sha256.lower()) <= _HEX:
+            raise RejectedSource(f"{s.source_id}: content hash missing or not hex sha256")
         if not s.licence:
             raise RejectedSource(f"{s.source_id}: licence unknown")
         self.sources[s.source_id] = s
 
     def cite(self, source_id: str) -> str:
+        if source_id not in self.sources:
+            raise KeyError(f"source not registered: {source_id}")
         s = self.sources[source_id]
         return f"{s.url} (retrieved {s.retrieved.isoformat()}, sha256 {s.sha256[:12]}, licence {s.licence})"

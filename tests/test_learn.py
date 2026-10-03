@@ -2,9 +2,9 @@
 
 import numpy as np
 import pytest
-import torch
 
 pytest.importorskip("gymnasium")
+torch = pytest.importorskip("torch")
 
 from toddler.learn import ppo, scoring  # noqa: E402
 from toddler.learn import tasks as T  # noqa: E402
@@ -72,3 +72,14 @@ def test_peer_experiment_has_both_controls_and_decision_rule():
     assert all(len(v) == 2 for v in r.groups.values())
     # teaching may only be declared helpful when the real teacher beats BOTH controls
     assert r.teaching_helps == (r.p_vs_no_teacher < 0.05 and r.p_vs_random_teacher < 0.05)
+
+
+def test_training_seeds_never_hit_held_out_seeds():
+    rng = np.random.default_rng(0)
+    draws = {T.train_seed(rng) for _ in range(20_000)}
+    assert not draws & set(T.EVAL_SEEDS)
+
+
+def test_aggregate_iqm_is_mean_of_per_task_iqms():
+    scores = np.array([[1.0, 0.0], [1.0, 0.0], [1.0, 0.0], [1.0, 0.0]])
+    assert scoring.aggregate_iqm(scores) == 0.5
