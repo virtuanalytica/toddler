@@ -170,7 +170,8 @@ def gae_advantages(rewards, values, ends, boots, last_value: float, gamma: float
 def train(task: str, cfg: PPOConfig, net: ActorCritic | None = None, teacher: ActorCritic | None = None,
           device: str = "cpu", watchdog: Callable[[], str | None] | None = None,
           checkpoint: Callable[[ActorCritic, TrainLog], None] | None = None,
-          checkpoint_every: int = 10, state: TrainState | None = None) -> tuple[ActorCritic, TrainLog]:
+          checkpoint_every: int = 10, state: TrainState | None = None,
+          make_env: Callable[[], object] | None = None) -> tuple[ActorCritic, TrainLog]:
     """Train for cfg.total_steps environment steps. With `state`, a started run continues
     (cfg.seed is then ignored; a changed cfg.lr is applied to the running optimiser) and the
     state is updated for the next call; the caller closes it with state.close()."""
@@ -186,7 +187,7 @@ def train(task: str, cfg: PPOConfig, net: ActorCritic | None = None, teacher: Ac
     else:
         torch.manual_seed(cfg.seed)
         rng = np.random.default_rng(cfg.seed)
-        env = T.make(task)
+        env = make_env() if make_env is not None else T.make(task)   # make_env: e.g. a self-play opponent
         obs_dim, n_act = env.observation_space.shape[0], env.action_space.n
         net = net or ActorCritic(obs_dim, n_act)
         net.to(device)
