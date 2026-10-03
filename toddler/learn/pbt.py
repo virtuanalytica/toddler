@@ -10,8 +10,10 @@ number of environment steps.
 Each population returns ONE toddler: the member with the best training score after the last
 interval. That toddler is scored on the held-out seeds; the selection never sees them.
 
-Every interval is a fresh `ppo.train` call that continues from the member's weights, so the
-optimiser state, curiosity weight and return scaler restart per interval, in both arms alike.
+Each member keeps a `ppo.TrainState`, so its intervals continue one run (optimiser, return
+scaler, novelty counts, curiosity weight, environment and RNGs carry over). On exploit the worst
+member takes a copy of the best member's weights AND optimiser state; it keeps its own
+environment, scaler and random streams.
 """
 
 from __future__ import annotations
@@ -29,6 +31,7 @@ class Member:
     idx: int
     cfg: ppo.PPOConfig
     net: object = None
+    state: ppo.TrainState = field(default_factory=ppo.TrainState)
     train_score: float = float("-inf")
     history: list[str] = field(default_factory=list)
 
@@ -54,22 +57,24 @@ def run_population(task: str, seed: int, pbt: bool, members: int = 4, intervals:
     """Train one population; returns (selected net, PopulationResult)."""
     rng = np.random.default_rng(seed)
     base = base or ppo.PPOConfig()
-    pop = [Member(i, replace(base, total_steps=interval_steps)) for i in range(members)]
+    pop = [Member(i, replace(base, total_steps=interval_steps, seed=int(rng.integers(0, 2**31))))
+           for i in range(members)]
     events: list[str] = []
     for k in range(intervals):
         for m in pop:
-            cfg = replace(m.cfg, seed=int(rng.integers(0, 2**31)))       # fresh resets each interval
-            m.net, log = ppo.train(task, cfg, net=m.net)
+            m.net, log = ppo.train(task, m.cfg, net=m.net, state=m.state)
             m.train_score = _train_score(log)
         if pbt and k < intervals - 1:
             ranked = sorted(pop, key=lambda m: m.train_score)
             worst, best = ranked[0], ranked[-1]
             if best.train_score > worst.train_score:
-                worst.net = copy.deepcopy(best.net)
+                worst.net, worst.state.opt = copy.deepcopy((best.net, best.state.opt))
                 f_lr, f_ent = rng.choice([0.8, 1.2]), rng.choice([0.8, 1.2])
                 worst.cfg = replace(best.cfg, lr=best.cfg.lr * f_lr, ent_coef=best.cfg.ent_coef * f_ent)
                 events.append(f"interval {k}: member {worst.idx} <- member {best.idx} "
                               f"(lr x{f_lr}, ent x{f_ent})")
+    for m in pop:
+        m.state.close()
     chosen = max(pop, key=lambda m: m.train_score)
     return chosen.net, PopulationResult("pbt" if pbt else "control", seed, chosen.idx,
                                         {k: v for k, v in asdict(chosen.cfg).items() if k in ("lr", "ent_coef")},
