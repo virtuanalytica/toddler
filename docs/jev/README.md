@@ -35,6 +35,7 @@ Reproduce with `python3 -m jevserver.calibrate --items 150 --out docs/jev/piqa_c
 Measured end to end through `toddler/jev.py` for the four default reflex questions: 1385 ms on a cold request, 5 ms from the server cache.
 Only cached answers meet the 20 ms reflex budget; a cold request makes the reflex stop on the time budget, which is the intended fail-safe (in the smoke test the stop came from the budget, not from the probabilities).
 Continuous sensor states almost never repeat exactly, so the cache key rounds state floats to 2 decimals by default (`--cache-decimals N`, `-1` for exact keys). A live loop that needs every tick in budget still needs a Jev next to the robot. `pip install .[jev]` installs both the extra and the `jevserver` package.
+Cached answers are valid for at most 300 s (`--cache-ttl SECONDS`); expired entries are purged when read. The cache lives in the server process, so a restart (new model or calibration) starts empty.
 
 ## Security notes
 

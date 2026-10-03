@@ -64,8 +64,11 @@ class TTLCache:
 
     def get(self, key: str):
         hit = self._d.get(key)
-        if hit and time.monotonic() - hit[0] < self.ttl_s:
+        if hit is None:
+            return None
+        if time.monotonic() - hit[0] < self.ttl_s:
             return hit[1]
+        del self._d[key]               # expired: purge on read
         return None
 
     def put(self, key: str, value) -> None:
@@ -85,7 +88,7 @@ def quantise(state, decimals: int | None):
     if decimals is None:
         return state
     if isinstance(state, float):
-        return round(state, decimals)
+        return round(state, decimals) + 0.0      # + 0.0 turns -0.0 into 0.0, one key for both
     if isinstance(state, dict):
         return {k: quantise(v, decimals) for k, v in state.items()}
     if isinstance(state, (list, tuple)):

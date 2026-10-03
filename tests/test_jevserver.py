@@ -156,3 +156,18 @@ def test_calibration_metrics_on_hand_computed_case():
     # bins [0.1,0.2): |0.1-0|, [0.4,0.5): |0.4-1|, [0.6,0.7): |0.6-0|, [0.9,1]: |0.9-1|, each weight 1/4
     assert m["ece"] == pytest.approx((0.1 + 0.6 + 0.6 + 0.1) / 4, abs=1e-4)
     assert cal.ece(np.array([1.0, 0.0]), np.array([1.0, 0.0])) == 0.0
+
+
+def test_expired_entries_are_purged_and_negative_zero_shares_a_key(monkeypatch):
+    import jevserver.app as app_mod
+    from jevserver.app import quantise
+
+    now = [0.0]
+    monkeypatch.setattr(app_mod.time, "monotonic", lambda: now[0])
+    c = TTLCache(ttl_s=10.0)
+    c.put("k", 1)
+    now[0] = 11.0
+    assert c.get("k") is None and "k" not in c._d
+    import json
+
+    assert json.dumps(quantise({"x": -0.0001}, 2)) == json.dumps(quantise({"x": 0.0}, 2))   # "0.0", not "-0.0"
