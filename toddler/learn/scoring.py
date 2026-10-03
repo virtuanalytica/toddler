@@ -3,7 +3,7 @@
 Evaluation always runs on the CPU, greedy actions, on the held-out EVAL_SEEDS, so the score of
 a toddler does not depend on which GPU trained it or how busy it was. Aggregation follows
 Agarwal et al. (2021, "Deep RL at the edge of the statistical precipice"): normalised scores,
-interquartile mean (IQM), stratified bootstrap confidence intervals, and the probability of
+aggregate interquartile mean (mean of per-task IQMs), stratified bootstrap confidence intervals, and the probability of
 improvement P(X > Y) between two generations.
 """
 
@@ -43,7 +43,16 @@ def iqm(x: np.ndarray) -> float:
     return float(x[lo:hi].mean()) if hi > lo else float(x.mean())
 
 
-def bootstrap_ci(scores: np.ndarray, stat=iqm, reps: int = 2000, alpha: float = 0.05, seed: int = 0) -> tuple[float, float]:
+def aggregate_iqm(scores: np.ndarray) -> float:
+    """Agarwal et al. (2021) aggregate: the mean over tasks of each task's IQM over runs, so a
+    weak task cannot be trimmed away by pooling. scores: (runs, tasks)."""
+    s = np.asarray(scores, float)
+    if s.ndim == 1:
+        return iqm(s)
+    return float(np.mean([iqm(s[:, j]) for j in range(s.shape[1])]))
+
+
+def bootstrap_ci(scores: np.ndarray, stat=aggregate_iqm, reps: int = 2000, alpha: float = 0.05, seed: int = 0) -> tuple[float, float]:
     """Stratified bootstrap over runs: scores has shape (runs, tasks); resample runs per task."""
     rng = np.random.default_rng(seed)
     s = np.asarray(scores, float)
@@ -77,4 +86,4 @@ class GenerationScore:
 
 def score_generation(name: str, normalised: np.ndarray, tasks: tuple[str, ...]) -> GenerationScore:
     lo, hi = bootstrap_ci(normalised)
-    return GenerationScore(name, iqm(normalised), lo, hi, normalised.shape[0], tasks)
+    return GenerationScore(name, aggregate_iqm(normalised), lo, hi, normalised.shape[0], tasks)

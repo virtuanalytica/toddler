@@ -17,17 +17,23 @@ import numpy as np
 @dataclass(frozen=True)
 class Task:
     env_id: str
-    solved: float          # documented solve threshold
-    max_steps: int
+    solved: float          # documented solve threshold (Gymnasium's own TimeLimit applies)
 
 
 TASKS: dict[str, Task] = {
-    "cartpole": Task("CartPole-v1", 475.0, 500),
-    "acrobot": Task("Acrobot-v1", -100.0, 500),
-    "mountaincar": Task("MountainCar-v0", -110.0, 200),
+    "cartpole": Task("CartPole-v1", 475.0),
+    "acrobot": Task("Acrobot-v1", -100.0),
+    "mountaincar": Task("MountainCar-v0", -110.0),
 }
 
 EVAL_SEEDS: tuple[int, ...] = tuple(range(10_000, 10_030))   # held out: never used for training
+TRAIN_SEED_LOW = 1_000_000     # training resets draw from [TRAIN_SEED_LOW, 2**31), disjoint from EVAL_SEEDS
+assert max(EVAL_SEEDS) < TRAIN_SEED_LOW
+
+
+def train_seed(rng: np.random.Generator) -> int:
+    """Seed for a training reset; can never coincide with a held-out evaluation seed."""
+    return int(rng.integers(TRAIN_SEED_LOW, 2**31))
 
 
 def make(task: str, seed: int | None = None):
