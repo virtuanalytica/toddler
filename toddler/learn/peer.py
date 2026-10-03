@@ -81,7 +81,7 @@ def behaviour_clone(teacher: ActorCritic, task: str, steps: int, seed: int,
     torch.manual_seed(seed)
     env = T.make(task)
     obs_list, act_list = [], []
-    obs, _ = env.reset(seed=int(rng.integers(1_000_000)))
+    obs, _ = env.reset(seed=T.train_seed(rng))
     teacher = teacher.to("cpu").eval()
     for _ in range(steps):
         with torch.no_grad():
@@ -90,7 +90,7 @@ def behaviour_clone(teacher: ActorCritic, task: str, steps: int, seed: int,
         act_list.append(a)
         obs, _, term, trunc, _ = env.step(a)
         if term or trunc:
-            obs, _ = env.reset(seed=int(rng.integers(1_000_000)))
+            obs, _ = env.reset(seed=T.train_seed(rng))
     student = ActorCritic(env.observation_space.shape[0], env.action_space.n)
     env.close()
     X = torch.as_tensor(np.asarray(obs_list), dtype=torch.float32)
