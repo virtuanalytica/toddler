@@ -50,6 +50,7 @@ class HostState:
     load_1m: float
     lease_held_by_other: bool
     guard_allows_gpu: bool
+    guard_reason: str = ""     # why the guard refuses, when it does
 
 
 @dataclass(frozen=True)
@@ -72,7 +73,8 @@ def plan_device(host: HostState, need_mib: int, margin: float = DEFAULT_MARGIN, 
     if not allow_gpu:
         reasons.append("GPU not requested")
     elif not host.guard_allows_gpu:
-        reasons.append("GPU safety guard / preflight does not allow a GPU job")
+        reasons.append("GPU safety guard / preflight does not allow a GPU job"
+                       + (f" ({host.guard_reason})" if host.guard_reason else ""))
     elif host.lease_held_by_other:
         reasons.append(f"GPU lease {GPU_LEASE} held by another session")
     else:
@@ -148,25 +150,34 @@ def probe(own_pids: set[int] | None = None) -> HostState:
                                  mem.total // 2**20, mem.free // 2**20, len(procs)))
     finally:
         pynvml.nvmlShutdown()
-    return HostState(tuple(gpus), os.cpu_count() or 1, os.getloadavg()[0], _lease_held_by_other(), _guard_allows())
+    allows, why = guard_status()
+    return HostState(tuple(gpus), os.cpu_count() or 1, os.getloadavg()[0], _lease_held_by_other(), allows, why)
 
 
-def _guard_allows() -> bool:
+def guard_status() -> tuple[bool, str]:
+    """(allowed, reason). Fail closed on every doubt, and say which doubt it was."""
     if not GUARD_FILE:
-        return True
+        return True, ""
     try:
         rules = json.loads(Path(GUARD_FILE).read_text())["rules"]
     except (OSError, ValueError, KeyError):
-        return False                       # configured but missing or unreadable: fail closed
+        return False, f"guard file {GUARD_FILE} missing or unreadable"
     script = PREFLIGHT or rules.get("preflight_script", "")
     if rules.get("preflight_required"):
-        if not script or not Path(script).exists():
-            return False
+        if not script:
+            return False, "preflight required but no script configured"
+        if not Path(script).exists():
+            return False, f"preflight script {script} missing"
         try:
-            return subprocess.run(["bash", script], capture_output=True, timeout=60).returncode == 0
+            rc = subprocess.run(["bash", script], capture_output=True, timeout=60).returncode
         except subprocess.TimeoutExpired:
-            return False
-    return True
+            return False, "preflight timed out after 60 s"
+        return (True, "") if rc == 0 else (False, f"preflight exited with {rc}")
+    return True, ""
+
+
+def _guard_allows() -> bool:
+    return guard_status()[0]
 
 
 def _lease_held_by_other(agent_id: str | None = None) -> bool:

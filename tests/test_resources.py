@@ -71,3 +71,18 @@ def test_hanging_coordination_counts_as_lease_taken(monkeypatch, tmp_path):
 def test_own_process_group_is_not_foreign():
     import os
     assert os.getpid() in r._own_pids()
+
+
+def test_guard_names_the_missing_preflight(monkeypatch, tmp_path):
+    import json
+
+    guard = tmp_path / "guard.json"
+    guard.write_text(json.dumps({"rules": {"preflight_required": True, "preflight_script": str(tmp_path / "gone.sh")}}))
+    monkeypatch.setattr(r, "GUARD_FILE", str(guard))
+    monkeypatch.setattr(r, "PREFLIGHT", "")
+    ok, why = r.guard_status()
+    assert not ok and "gone.sh missing" in why
+    host = r.HostState((_g(0, 20000),), 8, 0.0, False, ok, why)
+    assert "gone.sh missing" in r.plan_device(host, 512).reasons[0]
+    (tmp_path / "gone.sh").write_text("exit 3\n")
+    assert r.guard_status() == (False, "preflight exited with 3")
