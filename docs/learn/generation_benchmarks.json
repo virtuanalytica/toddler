@@ -1,0 +1,693 @@
+{
+ "task": "cartpole",
+ "measured_at": "2026-10-03T14:38:51+0200",
+ "seconds": 15.3,
+ "reference": {
+  "generation": "gen-0",
+  "fingerprint": "5efe10842214827540eed30390345db2af81a2a7216072e5d9ee270d13d80393",
+  "frozen_raw_iqm": 0.5351,
+  "remeasured_raw_iqm": 0.5351,
+  "drift": 0.0
+ },
+ "quality_reproduced_all": true,
+ "generations": {
+  "gen-0": {
+   "toddlers": 5,
+   "iq_raw": 0.535,
+   "iq_quotient": 100.0,
+   "iq_quotient_95ci": [
+    90.3,
+    118.6
+   ]
+  },
+  "gen-1": {
+   "toddlers": 5,
+   "iq_raw": 0.31,
+   "iq_quotient": 91.6,
+   "iq_quotient_95ci": [
+    88.3,
+    97.3
+   ]
+  }
+ },
+ "hardware_configs": {
+  "cpu-8t": {
+   "device": "cpu",
+   "gpu_name": null,
+   "measured": 10,
+   "skipped": 0,
+   "skip_reasons": [],
+   "latency_ms_median": 0.0548,
+   "throughput_states_per_s_median": 2827541.0
+  },
+  "gpu0": {
+   "device": "cuda:0",
+   "gpu_name": "NVIDIA RTX A4000",
+   "measured": 0,
+   "skipped": 10,
+   "skip_reasons": [
+    "skipped by governor: GPU safety guard / preflight does not allow a GPU job"
+   ],
+   "latency_ms_median": null,
+   "throughput_states_per_s_median": null
+  },
+  "gpu1": {
+   "device": "cuda:1",
+   "gpu_name": "Tesla V100-SXM2-32GB",
+   "measured": 0,
+   "skipped": 10,
+   "skip_reasons": [
+    "skipped by governor: GPU safety guard / preflight does not allow a GPU job"
+   ],
+   "latency_ms_median": null,
+   "throughput_states_per_s_median": null
+  },
+  "gpu2": {
+   "device": "cuda:2",
+   "gpu_name": "Tesla V100-SXM2-32GB",
+   "measured": 0,
+   "skipped": 10,
+   "skip_reasons": [
+    "skipped by governor: GPU safety guard / preflight does not allow a GPU job"
+   ],
+   "latency_ms_median": null,
+   "throughput_states_per_s_median": null
+  },
+  "gpu3": {
+   "device": "cuda:3",
+   "gpu_name": "NVIDIA RTX 4000 Ada Generation",
+   "measured": 0,
+   "skipped": 10,
+   "skip_reasons": [
+    "skipped by governor: GPU safety guard / preflight does not allow a GPU job"
+   ],
+   "latency_ms_median": null,
+   "throughput_states_per_s_median": null
+  }
+ },
+ "host": {
+  "cpu": "x86_64",
+  "cores": 96,
+  "load_1m_at_start": 9.4,
+  "torch": "2.6.0+cu124"
+ },
+ "notes": [
+  "Quality is CPU-measured and hardware-independent; efficiency never enters a quotient.",
+  "GPU configs are measured only when the governor allows them at that moment; skipped is reported, not filled in.",
+  "Efficiency rows are a point-in-time snapshot; quality rows must be identical on every re-run."
+ ],
+ "toddlers": [
+  {
+   "generation": "gen-0",
+   "toddler_id": "t101",
+   "quality": 0.9982326951399119,
+   "recorded_quality": 0.9982326951399119,
+   "quality_reproduced": true,
+   "efficiency": [
+    {
+     "config": "cpu-8t",
+     "measured": true,
+     "reason": "",
+     "latency_ms_median": 0.0564,
+     "latency_ms_p95": 0.0662,
+     "throughput_states_per_s": 2452431.9,
+     "energy_mj_per_1000": null,
+     "energy_note": "not measured (CPU: no energy counter read)"
+    },
+    {
+     "config": "gpu0",
+     "measured": false,
+     "reason": "skipped by governor: GPU safety guard / preflight does not allow a GPU job",
+     "latency_ms_median": null,
+     "latency_ms_p95": null,
+     "throughput_states_per_s": null,
+     "energy_mj_per_1000": null,
+     "energy_note": ""
+    },
+    {
+     "config": "gpu1",
+     "measured": false,
+     "reason": "skipped by governor: GPU safety guard / preflight does not allow a GPU job",
+     "latency_ms_median": null,
+     "latency_ms_p95": null,
+     "throughput_states_per_s": null,
+     "energy_mj_per_1000": null,
+     "energy_note": ""
+    },
+    {
+     "config": "gpu2",
+     "measured": false,
+     "reason": "skipped by governor: GPU safety guard / preflight does not allow a GPU job",
+     "latency_ms_median": null,
+     "latency_ms_p95": null,
+     "throughput_states_per_s": null,
+     "energy_mj_per_1000": null,
+     "energy_note": ""
+    },
+    {
+     "config": "gpu3",
+     "measured": false,
+     "reason": "skipped by governor: GPU safety guard / preflight does not allow a GPU job",
+     "latency_ms_median": null,
+     "latency_ms_p95": null,
+     "throughput_states_per_s": null,
+     "energy_mj_per_1000": null,
+     "energy_note": ""
+    }
+   ]
+  },
+  {
+   "generation": "gen-0",
+   "toddler_id": "t102",
+   "quality": 1.0552282768777619,
+   "recorded_quality": 1.0552282768777619,
+   "quality_reproduced": true,
+   "efficiency": [
+    {
+     "config": "cpu-8t",
+     "measured": true,
+     "reason": "",
+     "latency_ms_median": 0.0544,
+     "latency_ms_p95": 0.0655,
+     "throughput_states_per_s": 2823905.9,
+     "energy_mj_per_1000": null,
+     "energy_note": "not measured (CPU: no energy counter read)"
+    },
+    {
+     "config": "gpu0",
+     "measured": false,
+     "reason": "skipped by governor: GPU safety guard / preflight does not allow a GPU job",
+     "latency_ms_median": null,
+     "latency_ms_p95": null,
+     "throughput_states_per_s": null,
+     "energy_mj_per_1000": null,
+     "energy_note": ""
+    },
+    {
+     "config": "gpu1",
+     "measured": false,
+     "reason": "skipped by governor: GPU safety guard / preflight does not allow a GPU job",
+     "latency_ms_median": null,
+     "latency_ms_p95": null,
+     "throughput_states_per_s": null,
+     "energy_mj_per_1000": null,
+     "energy_note": ""
+    },
+    {
+     "config": "gpu2",
+     "measured": false,
+     "reason": "skipped by governor: GPU safety guard / preflight does not allow a GPU job",
+     "latency_ms_median": null,
+     "latency_ms_p95": null,
+     "throughput_states_per_s": null,
+     "energy_mj_per_1000": null,
+     "energy_note": ""
+    },
+    {
+     "config": "gpu3",
+     "measured": false,
+     "reason": "skipped by governor: GPU safety guard / preflight does not allow a GPU job",
+     "latency_ms_median": null,
+     "latency_ms_p95": null,
+     "throughput_states_per_s": null,
+     "energy_mj_per_1000": null,
+     "energy_note": ""
+    }
+   ]
+  },
+  {
+   "generation": "gen-0",
+   "toddler_id": "t103",
+   "quality": 0.26524300441826215,
+   "recorded_quality": 0.26524300441826215,
+   "quality_reproduced": true,
+   "efficiency": [
+    {
+     "config": "cpu-8t",
+     "measured": true,
+     "reason": "",
+     "latency_ms_median": 0.0548,
+     "latency_ms_p95": 0.0664,
+     "throughput_states_per_s": 2866807.8,
+     "energy_mj_per_1000": null,
+     "energy_note": "not measured (CPU: no energy counter read)"
+    },
+    {
+     "config": "gpu0",
+     "measured": false,
+     "reason": "skipped by governor: GPU safety guard / preflight does not allow a GPU job",
+     "latency_ms_median": null,
+     "latency_ms_p95": null,
+     "throughput_states_per_s": null,
+     "energy_mj_per_1000": null,
+     "energy_note": ""
+    },
+    {
+     "config": "gpu1",
+     "measured": false,
+     "reason": "skipped by governor: GPU safety guard / preflight does not allow a GPU job",
+     "latency_ms_median": null,
+     "latency_ms_p95": null,
+     "throughput_states_per_s": null,
+     "energy_mj_per_1000": null,
+     "energy_note": ""
+    },
+    {
+     "config": "gpu2",
+     "measured": false,
+     "reason": "skipped by governor: GPU safety guard / preflight does not allow a GPU job",
+     "latency_ms_median": null,
+     "latency_ms_p95": null,
+     "throughput_states_per_s": null,
+     "energy_mj_per_1000": null,
+     "energy_note": ""
+    },
+    {
+     "config": "gpu3",
+     "measured": false,
+     "reason": "skipped by governor: GPU safety guard / preflight does not allow a GPU job",
+     "latency_ms_median": null,
+     "latency_ms_p95": null,
+     "throughput_states_per_s": null,
+     "energy_mj_per_1000": null,
+     "energy_note": ""
+    }
+   ]
+  },
+  {
+   "generation": "gen-0",
+   "toddler_id": "t104",
+   "quality": 0.29005891016200297,
+   "recorded_quality": 0.29005891016200297,
+   "quality_reproduced": true,
+   "efficiency": [
+    {
+     "config": "cpu-8t",
+     "measured": true,
+     "reason": "",
+     "latency_ms_median": 0.0561,
+     "latency_ms_p95": 0.0698,
+     "throughput_states_per_s": 2676806.7,
+     "energy_mj_per_1000": null,
+     "energy_note": "not measured (CPU: no energy counter read)"
+    },
+    {
+     "config": "gpu0",
+     "measured": false,
+     "reason": "skipped by governor: GPU safety guard / preflight does not allow a GPU job",
+     "latency_ms_median": null,
+     "latency_ms_p95": null,
+     "throughput_states_per_s": null,
+     "energy_mj_per_1000": null,
+     "energy_note": ""
+    },
+    {
+     "config": "gpu1",
+     "measured": false,
+     "reason": "skipped by governor: GPU safety guard / preflight does not allow a GPU job",
+     "latency_ms_median": null,
+     "latency_ms_p95": null,
+     "throughput_states_per_s": null,
+     "energy_mj_per_1000": null,
+     "energy_note": ""
+    },
+    {
+     "config": "gpu2",
+     "measured": false,
+     "reason": "skipped by governor: GPU safety guard / preflight does not allow a GPU job",
+     "latency_ms_median": null,
+     "latency_ms_p95": null,
+     "throughput_states_per_s": null,
+     "energy_mj_per_1000": null,
+     "energy_note": ""
+    },
+    {
+     "config": "gpu3",
+     "measured": false,
+     "reason": "skipped by governor: GPU safety guard / preflight does not allow a GPU job",
+     "latency_ms_median": null,
+     "latency_ms_p95": null,
+     "throughput_states_per_s": null,
+     "energy_mj_per_1000": null,
+     "energy_note": ""
+    }
+   ]
+  },
+  {
+   "generation": "gen-0",
+   "toddler_id": "t105",
+   "quality": 0.31701030927835055,
+   "recorded_quality": 0.31701030927835055,
+   "quality_reproduced": true,
+   "efficiency": [
+    {
+     "config": "cpu-8t",
+     "measured": true,
+     "reason": "",
+     "latency_ms_median": 0.0548,
+     "latency_ms_p95": 0.0657,
+     "throughput_states_per_s": 2881869.4,
+     "energy_mj_per_1000": null,
+     "energy_note": "not measured (CPU: no energy counter read)"
+    },
+    {
+     "config": "gpu0",
+     "measured": false,
+     "reason": "skipped by governor: GPU safety guard / preflight does not allow a GPU job",
+     "latency_ms_median": null,
+     "latency_ms_p95": null,
+     "throughput_states_per_s": null,
+     "energy_mj_per_1000": null,
+     "energy_note": ""
+    },
+    {
+     "config": "gpu1",
+     "measured": false,
+     "reason": "skipped by governor: GPU safety guard / preflight does not allow a GPU job",
+     "latency_ms_median": null,
+     "latency_ms_p95": null,
+     "throughput_states_per_s": null,
+     "energy_mj_per_1000": null,
+     "energy_note": ""
+    },
+    {
+     "config": "gpu2",
+     "measured": false,
+     "reason": "skipped by governor: GPU safety guard / preflight does not allow a GPU job",
+     "latency_ms_median": null,
+     "latency_ms_p95": null,
+     "throughput_states_per_s": null,
+     "energy_mj_per_1000": null,
+     "energy_note": ""
+    },
+    {
+     "config": "gpu3",
+     "measured": false,
+     "reason": "skipped by governor: GPU safety guard / preflight does not allow a GPU job",
+     "latency_ms_median": null,
+     "latency_ms_p95": null,
+     "throughput_states_per_s": null,
+     "energy_mj_per_1000": null,
+     "energy_note": ""
+    }
+   ]
+  },
+  {
+   "generation": "gen-1",
+   "toddler_id": "t201",
+   "quality": 0.2261413843888071,
+   "recorded_quality": 0.2261413843888071,
+   "quality_reproduced": true,
+   "efficiency": [
+    {
+     "config": "cpu-8t",
+     "measured": true,
+     "reason": "",
+     "latency_ms_median": 0.0545,
+     "latency_ms_p95": 0.0665,
+     "throughput_states_per_s": 2831176.0,
+     "energy_mj_per_1000": null,
+     "energy_note": "not measured (CPU: no energy counter read)"
+    },
+    {
+     "config": "gpu0",
+     "measured": false,
+     "reason": "skipped by governor: GPU safety guard / preflight does not allow a GPU job",
+     "latency_ms_median": null,
+     "latency_ms_p95": null,
+     "throughput_states_per_s": null,
+     "energy_mj_per_1000": null,
+     "energy_note": ""
+    },
+    {
+     "config": "gpu1",
+     "measured": false,
+     "reason": "skipped by governor: GPU safety guard / preflight does not allow a GPU job",
+     "latency_ms_median": null,
+     "latency_ms_p95": null,
+     "throughput_states_per_s": null,
+     "energy_mj_per_1000": null,
+     "energy_note": ""
+    },
+    {
+     "config": "gpu2",
+     "measured": false,
+     "reason": "skipped by governor: GPU safety guard / preflight does not allow a GPU job",
+     "latency_ms_median": null,
+     "latency_ms_p95": null,
+     "throughput_states_per_s": null,
+     "energy_mj_per_1000": null,
+     "energy_note": ""
+    },
+    {
+     "config": "gpu3",
+     "measured": false,
+     "reason": "skipped by governor: GPU safety guard / preflight does not allow a GPU job",
+     "latency_ms_median": null,
+     "latency_ms_p95": null,
+     "throughput_states_per_s": null,
+     "energy_mj_per_1000": null,
+     "energy_note": ""
+    }
+   ]
+  },
+  {
+   "generation": "gen-1",
+   "toddler_id": "t202",
+   "quality": 0.3744477172312225,
+   "recorded_quality": 0.3744477172312225,
+   "quality_reproduced": true,
+   "efficiency": [
+    {
+     "config": "cpu-8t",
+     "measured": true,
+     "reason": "",
+     "latency_ms_median": 0.0565,
+     "latency_ms_p95": 0.0631,
+     "throughput_states_per_s": 2554029.4,
+     "energy_mj_per_1000": null,
+     "energy_note": "not measured (CPU: no energy counter read)"
+    },
+    {
+     "config": "gpu0",
+     "measured": false,
+     "reason": "skipped by governor: GPU safety guard / preflight does not allow a GPU job",
+     "latency_ms_median": null,
+     "latency_ms_p95": null,
+     "throughput_states_per_s": null,
+     "energy_mj_per_1000": null,
+     "energy_note": ""
+    },
+    {
+     "config": "gpu1",
+     "measured": false,
+     "reason": "skipped by governor: GPU safety guard / preflight does not allow a GPU job",
+     "latency_ms_median": null,
+     "latency_ms_p95": null,
+     "throughput_states_per_s": null,
+     "energy_mj_per_1000": null,
+     "energy_note": ""
+    },
+    {
+     "config": "gpu2",
+     "measured": false,
+     "reason": "skipped by governor: GPU safety guard / preflight does not allow a GPU job",
+     "latency_ms_median": null,
+     "latency_ms_p95": null,
+     "throughput_states_per_s": null,
+     "energy_mj_per_1000": null,
+     "energy_note": ""
+    },
+    {
+     "config": "gpu3",
+     "measured": false,
+     "reason": "skipped by governor: GPU safety guard / preflight does not allow a GPU job",
+     "latency_ms_median": null,
+     "latency_ms_p95": null,
+     "throughput_states_per_s": null,
+     "energy_mj_per_1000": null,
+     "energy_note": ""
+    }
+   ]
+  },
+  {
+   "generation": "gen-1",
+   "toddler_id": "t203",
+   "quality": 0.21818851251840946,
+   "recorded_quality": 0.21818851251840946,
+   "quality_reproduced": true,
+   "efficiency": [
+    {
+     "config": "cpu-8t",
+     "measured": true,
+     "reason": "",
+     "latency_ms_median": 0.0557,
+     "latency_ms_p95": 0.0657,
+     "throughput_states_per_s": 2851670.3,
+     "energy_mj_per_1000": null,
+     "energy_note": "not measured (CPU: no energy counter read)"
+    },
+    {
+     "config": "gpu0",
+     "measured": false,
+     "reason": "skipped by governor: GPU safety guard / preflight does not allow a GPU job",
+     "latency_ms_median": null,
+     "latency_ms_p95": null,
+     "throughput_states_per_s": null,
+     "energy_mj_per_1000": null,
+     "energy_note": ""
+    },
+    {
+     "config": "gpu1",
+     "measured": false,
+     "reason": "skipped by governor: GPU safety guard / preflight does not allow a GPU job",
+     "latency_ms_median": null,
+     "latency_ms_p95": null,
+     "throughput_states_per_s": null,
+     "energy_mj_per_1000": null,
+     "energy_note": ""
+    },
+    {
+     "config": "gpu2",
+     "measured": false,
+     "reason": "skipped by governor: GPU safety guard / preflight does not allow a GPU job",
+     "latency_ms_median": null,
+     "latency_ms_p95": null,
+     "throughput_states_per_s": null,
+     "energy_mj_per_1000": null,
+     "energy_note": ""
+    },
+    {
+     "config": "gpu3",
+     "measured": false,
+     "reason": "skipped by governor: GPU safety guard / preflight does not allow a GPU job",
+     "latency_ms_median": null,
+     "latency_ms_p95": null,
+     "throughput_states_per_s": null,
+     "energy_mj_per_1000": null,
+     "energy_note": ""
+    }
+   ]
+  },
+  {
+   "generation": "gen-1",
+   "toddler_id": "t204",
+   "quality": 0.508321060382916,
+   "recorded_quality": 0.508321060382916,
+   "quality_reproduced": true,
+   "efficiency": [
+    {
+     "config": "cpu-8t",
+     "measured": true,
+     "reason": "",
+     "latency_ms_median": 0.0544,
+     "latency_ms_p95": 0.0624,
+     "throughput_states_per_s": 2882453.1,
+     "energy_mj_per_1000": null,
+     "energy_note": "not measured (CPU: no energy counter read)"
+    },
+    {
+     "config": "gpu0",
+     "measured": false,
+     "reason": "skipped by governor: GPU safety guard / preflight does not allow a GPU job",
+     "latency_ms_median": null,
+     "latency_ms_p95": null,
+     "throughput_states_per_s": null,
+     "energy_mj_per_1000": null,
+     "energy_note": ""
+    },
+    {
+     "config": "gpu1",
+     "measured": false,
+     "reason": "skipped by governor: GPU safety guard / preflight does not allow a GPU job",
+     "latency_ms_median": null,
+     "latency_ms_p95": null,
+     "throughput_states_per_s": null,
+     "energy_mj_per_1000": null,
+     "energy_note": ""
+    },
+    {
+     "config": "gpu2",
+     "measured": false,
+     "reason": "skipped by governor: GPU safety guard / preflight does not allow a GPU job",
+     "latency_ms_median": null,
+     "latency_ms_p95": null,
+     "throughput_states_per_s": null,
+     "energy_mj_per_1000": null,
+     "energy_note": ""
+    },
+    {
+     "config": "gpu3",
+     "measured": false,
+     "reason": "skipped by governor: GPU safety guard / preflight does not allow a GPU job",
+     "latency_ms_median": null,
+     "latency_ms_p95": null,
+     "throughput_states_per_s": null,
+     "energy_mj_per_1000": null,
+     "energy_note": ""
+    }
+   ]
+  },
+  {
+   "generation": "gen-1",
+   "toddler_id": "t205",
+   "quality": 0.3279823269513992,
+   "recorded_quality": 0.3279823269513992,
+   "quality_reproduced": true,
+   "efficiency": [
+    {
+     "config": "cpu-8t",
+     "measured": true,
+     "reason": "",
+     "latency_ms_median": 0.0546,
+     "latency_ms_p95": 0.0658,
+     "throughput_states_per_s": 2822143.6,
+     "energy_mj_per_1000": null,
+     "energy_note": "not measured (CPU: no energy counter read)"
+    },
+    {
+     "config": "gpu0",
+     "measured": false,
+     "reason": "skipped by governor: GPU safety guard / preflight does not allow a GPU job",
+     "latency_ms_median": null,
+     "latency_ms_p95": null,
+     "throughput_states_per_s": null,
+     "energy_mj_per_1000": null,
+     "energy_note": ""
+    },
+    {
+     "config": "gpu1",
+     "measured": false,
+     "reason": "skipped by governor: GPU safety guard / preflight does not allow a GPU job",
+     "latency_ms_median": null,
+     "latency_ms_p95": null,
+     "throughput_states_per_s": null,
+     "energy_mj_per_1000": null,
+     "energy_note": ""
+    },
+    {
+     "config": "gpu2",
+     "measured": false,
+     "reason": "skipped by governor: GPU safety guard / preflight does not allow a GPU job",
+     "latency_ms_median": null,
+     "latency_ms_p95": null,
+     "throughput_states_per_s": null,
+     "energy_mj_per_1000": null,
+     "energy_note": ""
+    },
+    {
+     "config": "gpu3",
+     "measured": false,
+     "reason": "skipped by governor: GPU safety guard / preflight does not allow a GPU job",
+     "latency_ms_median": null,
+     "latency_ms_p95": null,
+     "throughput_states_per_s": null,
+     "energy_mj_per_1000": null,
+     "energy_note": ""
+    }
+   ]
+  }
+ ],
+ "invoicing_entity": "VirtualV Holding B.V.",
+ "compute_and_sales_entity": "virtuanalytica VOF (commission)"
+}
