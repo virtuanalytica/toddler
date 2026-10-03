@@ -99,3 +99,13 @@ def test_gae_termination_bootstraps_zero():
 def test_gae_mid_episode_uses_last_value():
     adv = ppo.gae_advantages([1.0], [0.0], [False], [0.0], last_value=5.0, gamma=0.5, lam=1.0)
     assert adv[0] == 3.5
+
+
+def test_behaviour_clone_and_run_bc_smoke():
+    from toddler.learn import peer
+
+    teacher, _ = ppo.train("cartpole", ppo.PPOConfig(seed=1, **SMALL))
+    student = peer.behaviour_clone(teacher, "cartpole", steps=512, seed=3, epochs=2)
+    assert student is not teacher and sum(p.numel() for p in student.parameters()) > 0
+    r = peer.run_bc(teacher_steps=2048, budget=3072, clone_steps=1024, student_seeds=(1, 2), eval_seeds=T.EVAL_SEEDS[:3])
+    assert set(r.groups) == {"real_teacher", "no_teacher", "random_teacher"} and r.student_steps == 3072

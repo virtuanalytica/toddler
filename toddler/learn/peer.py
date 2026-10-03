@@ -14,7 +14,11 @@ teacher beats BOTH controls (one-sided Mann-Whitney U, and probability of improv
 
 Why an unpaired test: the groups share student seeds, but their training diverges from the
 first update (different losses), so a seed does not pair two outcomes; Mann-Whitney U is the
-conservative, distribution-free choice.
+conservative, distribution-free choice and is also the test registered for the follow-up.
+
+The behaviour-cloning variant (behaviour_clone, run_bc) is that pre-registered follow-up
+(docs/learn/PREREG_peer_bc.md): the teacher's knowledge is passed by cloning its actions on
+teacher rollouts that count against the student's step budget, then self-reinforcement learning.
 """
 
 from __future__ import annotations
@@ -22,6 +26,7 @@ from __future__ import annotations
 from dataclasses import asdict, dataclass
 
 import numpy as np
+import torch
 from scipy import stats
 
 from toddler.learn import ppo, scoring
@@ -79,8 +84,6 @@ def behaviour_clone(teacher: ActorCritic, task: str, steps: int, seed: int,
     """Collect `steps` environment steps of the teacher's greedy policy and train a fresh student
     to predict the teacher's actions (cross-entropy). Those steps count against the student's
     budget, so groups stay comparable."""
-    import torch
-
     rng = np.random.default_rng(seed)
     torch.manual_seed(seed)
     env = T.make(task)
