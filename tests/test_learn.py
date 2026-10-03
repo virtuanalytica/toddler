@@ -64,6 +64,16 @@ def test_probability_of_improvement():
     assert scoring.prob_improvement(better, better) == 0.5
 
 
+def test_peer_experiment_has_both_controls_and_decision_rule():
+    from toddler.learn import peer
+
+    r = peer.run(teacher_steps=2048, student_steps=2048, student_seeds=(1, 2), eval_seeds=T.EVAL_SEEDS[:3])
+    assert set(r.groups) == {"real_teacher", "no_teacher", "random_teacher"}
+    assert all(len(v) == 2 for v in r.groups.values())
+    # teaching may only be declared helpful when the real teacher beats BOTH controls
+    assert r.teaching_helps == (r.p_vs_no_teacher < 0.05 and r.p_vs_random_teacher < 0.05)
+
+
 def test_training_seeds_never_hit_held_out_seeds():
     rng = np.random.default_rng(0)
     draws = {T.train_seed(rng) for _ in range(20_000)}
@@ -106,3 +116,13 @@ def test_unscaled_method_version_stays_reproducible():
     n3, _ = ppo.train("cartpole", ppo.PPOConfig(seed=7, **SMALL))
     assert all(torch.equal(a, b) for a, b in zip(n1.parameters(), n2.parameters()))
     assert not all(torch.equal(a, b) for a, b in zip(n1.parameters(), n3.parameters()))
+
+
+def test_behaviour_clone_and_run_bc_smoke():
+    from toddler.learn import peer
+
+    teacher, _ = ppo.train("cartpole", ppo.PPOConfig(seed=1, **SMALL))
+    student = peer.behaviour_clone(teacher, "cartpole", steps=512, seed=3, epochs=2)
+    assert student is not teacher and sum(p.numel() for p in student.parameters()) > 0
+    r = peer.run_bc(teacher_steps=2048, budget=3072, clone_steps=1024, student_seeds=(1, 2), eval_seeds=T.EVAL_SEEDS[:3])
+    assert set(r.groups) == {"real_teacher", "no_teacher", "random_teacher"} and r.student_steps == 3072
