@@ -12,6 +12,7 @@ dependencies = ["numpy", "networkx>=3.2", "scikit-learn", "scipy", "requests"]
 [project.optional-dependencies]
 dev = ["pytest"]
 aws = ["boto3"]
+jev = ["fastapi", "uvicorn", "datasets"]
 
 [tool.setuptools.packages.find]
 include = ["toddler*"]

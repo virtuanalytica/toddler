@@ -72,13 +72,31 @@ class TTLCache:
         self._d[key] = (time.monotonic(), value)
 
 
+MAX_TEXT = 4000   # characters of state + instructions per question; longer input is refused
+
+
+def quantise(state, decimals: int | None):
+    """Round floats in the state so nearby sensor readings share a cache entry. Exact keys
+    (decimals=None) almost never repeat for continuous sensors, so a live loop needs a
+    quantised key, a local Jev, or both."""
+    if decimals is None:
+        return state
+    if isinstance(state, float):
+        return round(state, decimals)
+    if isinstance(state, dict):
+        return {k: quantise(v, decimals) for k, v in state.items()}
+    if isinstance(state, (list, tuple)):
+        return [quantise(v, decimals) for v in state]
+    return state
+
+
 def _key(state, qid: str, q: BaseModel) -> str:
     raw = json.dumps([state, qid, q.model_dump()], sort_keys=True, default=str)
     return hashlib.sha256(raw.encode()).hexdigest()
 
 
 def create_app(backend: Backend | None = None, keys: KeyStore | None = None, calibrator=None,
-               cache: TTLCache | None = None) -> FastAPI:
+               cache: TTLCache | None = None, cache_decimals: int | None = None) -> FastAPI:
     backend = backend or LlamaCppBackend()
     keys = keys or KeyStore()
     cache = cache or TTLCache()
@@ -98,8 +116,11 @@ def create_app(backend: Backend | None = None, keys: KeyStore | None = None, cal
     @app.post("/v1/systemone")
     def systemone(req: Request, _key_id: str = Depends(auth)):
         answers, tin, tout = {}, 0, 0
+        state = quantise(req.state, cache_decimals)
         for qid, q in req.questions.items():
-            ck = _key(req.state, qid, q)
+            if len(json.dumps(state, default=str)) + len(q.instructions) > MAX_TEXT:
+                raise HTTPException(status_code=413, detail=f"{qid}: state + instructions too long")
+            ck = _key(state, qid, q)
             cached = cache.get(ck)
             if cached is not None:
                 answers[qid] = cached
@@ -112,7 +133,7 @@ def create_app(backend: Backend | None = None, keys: KeyStore | None = None, cal
                 labels = list(q.criteria)
             if len(labels) < 2:
                 raise HTTPException(status_code=422, detail=f"{qid}: need at least two options")
-            probs, a, b = backend.option_probs(req.state, q.instructions, labels)
+            probs, a, b = backend.option_probs(state, q.instructions, labels)
             tin, tout = tin + a, tout + b
             if isinstance(q, Noul):
                 p = probs["yes"]
@@ -128,7 +149,8 @@ def create_app(backend: Backend | None = None, keys: KeyStore | None = None, cal
                            "probabilities": probs, "confidence": probs[best]}
             cache.put(ck, ans)
             answers[qid] = ans
-        return {"model": req.model or MODEL_NAME, "answers": answers,
+        # Always report the model that actually answered, whatever the client asked for.
+        return {"model": MODEL_NAME, "answers": answers,
                 "usage": {"input_tokens": tin, "output_tokens": tout}}
 
     return app

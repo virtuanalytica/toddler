@@ -77,3 +77,52 @@ def test_round_trip_with_toddler_client(setup):
     c = jev.HttpJevClient(api_key=key, endpoint="http://testserver/v1/systemone", post=post)
     answers = c.ask({"t": 0}, fp.DEFAULT_QUESTIONS)
     assert fp.reflex(fp.Sensors(10, 0.1, 2.0), answers, elapsed_ms=5).command == "continue"
+
+
+def test_backend_reads_both_llama_formats_and_avoids_prefix_double_count():
+    from jevserver.backend import _candidates
+
+    new = {"top_logprobs": [{"token": "Yes", "logprob": -0.1}, {"token": "no", "logprob": -2.3}]}
+    old = {"top_probs": [{"token": "yes", "prob": 0.9}]}
+    assert _candidates(new)[0][0] == "Yes" and abs(_candidates(new)[0][1] - 0.905) < 1e-3
+    assert _candidates(old) == [("yes", 0.9)]
+
+
+class _FakeResp:
+    def __init__(self, body):
+        self.body = body
+
+    def raise_for_status(self):
+        pass
+
+    def json(self):
+        return self.body
+
+
+def test_backend_label_matching_and_zero_mass(monkeypatch):
+    from jevserver import backend as be
+
+    body = {"completion_probabilities": [{"top_logprobs": [{"token": "low", "logprob": -0.2},
+                                                           {"token": "lower", "logprob": -2.0}]}]}
+    monkeypatch.setattr(be.requests, "post", lambda *a, **k: _FakeResp(body))
+    probs, _, _ = be.LlamaCppBackend().option_probs({}, "x", ["low", "lower"])
+    assert probs["low"] > probs["lower"]          # "lower" is not counted as "low"
+    body["completion_probabilities"][0]["top_logprobs"] = [{"token": "banana", "logprob": -0.1}]
+    with pytest.raises(RuntimeError):
+        be.LlamaCppBackend().option_probs({}, "x", ["yes", "no"])
+
+
+def test_server_reports_its_own_model_and_refuses_huge_input(setup):
+    client, _, _, key, _ = setup
+    h = {"authorization": f"Bearer {key}"}
+    out = client.post("/v1/systemone", json={"model": "jev-latest", "state": {},
+                                             "questions": {"q": {"type": "noul", "instructions": "x"}}}, headers=h).json()
+    assert out["model"] != "jev-latest"
+    big = {"state": {"t": "x" * 5000}, "questions": {"q": {"type": "noul", "instructions": "x"}}}
+    assert client.post("/v1/systemone", json=big, headers=h).status_code == 413
+
+
+def test_quantised_cache_key_shares_nearby_states(tmp_path):
+    from jevserver.app import quantise
+
+    assert quantise({"d": 0.30001, "v": [1.00004]}, 2) == quantise({"d": 0.29999, "v": [0.99996]}, 2)

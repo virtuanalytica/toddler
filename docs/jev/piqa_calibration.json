@@ -1,9 +1,17 @@
 {
  "dataset": "PIQA validation (ybisk/piqa, refs/convert/parquet)",
+ "provenance": {
+  "url": "https://huggingface.co/datasets/ybisk/piqa",
+  "licence": "unknown per dataset card; verify before redistribution",
+  "retrieved": "2026-10-03",
+  "sample_seed": 0,
+  "sample_sha256": "22fa1e52000c2f5179208f6dcd2dc6e3dd9514c3a40c17a294ae1e7136b28f3e"
+ },
+ "scope": "calibrated on PIQA physical-commonsense yes/no questions only; transfer to reflex questions is not measured",
  "items": 150,
  "questions": 300,
  "fit_questions": 150,
- "seconds": 147.6,
+ "seconds": 151.7,
  "raw_eval": {
   "brier": 0.2574,
   "log_loss": 1.1646,

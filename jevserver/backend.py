@@ -57,14 +57,18 @@ class LlamaCppBackend:
         body = r.json()
         top = body["completion_probabilities"][0]
         mass = {o: 0.0 for o in options}
+        lower = {o: o.lower() for o in options}
         for tok, p in _candidates(top):
             t = tok.strip().lower()
             if not t:
                 continue
-            for o in options:
-                ol = o.lower()
-                if t == ol or (len(t) >= 2 and ol.startswith(t)):
-                    mass[o] += p
+            exact = [o for o, ol in lower.items() if ol == t]
+            if exact:                         # an exact label always wins
+                mass[exact[0]] += p
+                continue
+            prefixed = [o for o, ol in lower.items() if len(t) >= 2 and ol.startswith(t)]
+            if len(prefixed) == 1:            # a prefix counts only when it is unambiguous
+                mass[prefixed[0]] += p
         total = sum(mass.values())
         if total <= 0:
             raise RuntimeError("model put no probability on any allowed answer")

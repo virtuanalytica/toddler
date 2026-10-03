@@ -12,6 +12,7 @@ Run: PYTHONPATH=. python3 -m jevserver.calibrate --items 150 --out ~/.config/tod
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import time
 from pathlib import Path
@@ -68,14 +69,19 @@ def metrics(p: np.ndarray, y: np.ndarray, ix: np.ndarray) -> dict:
             "piqa_pair_accuracy": round(float(np.mean(pair_correct)), 4)}
 
 
-def calibrate(items: list[dict], backend: Backend) -> dict:
+def calibrate(items: list[dict], backend: Backend, seed: int = 0) -> dict:
     t0 = time.time()
     p, y, ix = raw_probabilities(items, backend)
     fit = ix < len(items) // 2
     iso = IsotonicRegression(y_min=0.0, y_max=1.0, out_of_bounds="clip").fit(p[fit], y[fit])
     pe, ye, ie = p[~fit], y[~fit], ix[~fit]
+    sample = json.dumps(items, sort_keys=True, default=str)
     return {
         "dataset": "PIQA validation (ybisk/piqa, refs/convert/parquet)",
+        "provenance": {"url": "https://huggingface.co/datasets/ybisk/piqa", "licence": "unknown per dataset card; verify before redistribution",
+                       "retrieved": time.strftime("%Y-%m-%d"), "sample_seed": seed,
+                       "sample_sha256": hashlib.sha256(sample.encode()).hexdigest()},
+        "scope": "calibrated on PIQA physical-commonsense yes/no questions only; transfer to reflex questions is not measured",
         "items": len(items), "questions": int(len(p)), "fit_questions": int(fit.sum()),
         "seconds": round(time.time() - t0, 1),
         "raw_eval": metrics(pe, ye, ie),
@@ -96,7 +102,7 @@ def main() -> int:
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--out", default="~/.config/toddler-jev/calibration.json")
     a = ap.parse_args()
-    report = calibrate(piqa_items(a.items, a.seed), LlamaCppBackend())
+    report = calibrate(piqa_items(a.items, a.seed), LlamaCppBackend(), seed=a.seed)
     out = Path(a.out).expanduser()
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(report, indent=1))

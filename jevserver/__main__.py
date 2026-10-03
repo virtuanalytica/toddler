@@ -24,6 +24,9 @@ def main() -> int:
     sub.add_parser("list")
     s = sub.add_parser("serve")
     s.add_argument("--host", default="127.0.0.1")
+    s.add_argument("--allow-remote", action="store_true",
+                   help="allow a non-loopback bind; keys travel over plain HTTP, so only behind TLS")
+    s.add_argument("--cache-decimals", type=int, default=None, help="round state floats for the cache key")
     s.add_argument("--port", type=int, default=8092)
     s.add_argument("--calibration", default="", help="path to a calibration JSON from calibrate.py")
     a = p.parse_args()
@@ -43,7 +46,10 @@ def main() -> int:
         if a.calibration:
             from jevserver.calibrate import load_calibrator
             calibrator = load_calibrator(a.calibration)
-        uvicorn.run(create_app(calibrator=calibrator), host=a.host, port=a.port, log_level="info")
+        if a.host not in ("127.0.0.1", "localhost", "::1") and not a.allow_remote:
+            raise SystemExit("refusing non-loopback bind without --allow-remote (bearer keys over plain HTTP)")
+        uvicorn.run(create_app(calibrator=calibrator, cache_decimals=a.cache_decimals),
+                    host=a.host, port=a.port, log_level="info")
     return 0
 
 
