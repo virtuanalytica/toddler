@@ -1,0 +1,262 @@
+{
+ "prereg": "docs/learn/PREREG_pbt.md",
+ "task": "doorkey5",
+ "anchor": 0.026613333333333333,
+ "seeds": [
+  21,
+  22,
+  23,
+  24,
+  25
+ ],
+ "members": 4,
+ "steps_per_member": 80000,
+ "groups": {
+  "pbt": [
+   -0.0305,
+   0.2218,
+   0.8134,
+   0.191,
+   0.3762
+  ],
+  "control": [
+   -0.0305,
+   -0.0305,
+   -0.0305,
+   -0.0305,
+   0.5232
+  ]
+ },
+ "iqm": {
+  "pbt": 0.26299999999999996,
+  "control": -0.0305
+ },
+ "p": 0.0906,
+ "prob_improvement": 0.76,
+ "pbt_helps": false,
+ "seconds": 2301.3,
+ "runs": [
+  {
+   "arm": "pbt",
+   "seed": 21,
+   "selected_member": 1,
+   "selected_config": {
+    "lr": 0.00028799999999999995,
+    "ent_coef": 0.0096
+   },
+   "train_scores": [
+    0.6028,
+    0.7282,
+    0.587,
+    0.6989
+   ],
+   "steps_per_member": 80000,
+   "events": [
+    "interval 0: member 0 <- member 1 (lr x0.8, ent x1.2)",
+    "interval 1: member 0 <- member 2 (lr x0.8, ent x0.8)",
+    "interval 2: member 2 <- member 1 (lr x0.8, ent x1.2)",
+    "interval 3: member 1 <- member 0 (lr x1.2, ent x1.2)",
+    "interval 4: member 2 <- member 0 (lr x0.8, ent x0.8)",
+    "interval 5: member 3 <- member 0 (lr x1.2, ent x0.8)",
+    "interval 6: member 0 <- member 2 (lr x1.2, ent x1.2)"
+   ],
+   "held_out_score": -0.0305
+  },
+  {
+   "arm": "control",
+   "seed": 21,
+   "selected_member": 2,
+   "selected_config": {
+    "lr": 0.0003,
+    "ent_coef": 0.01
+   },
+   "train_scores": [
+    0.1189,
+    0.3659,
+    0.6636,
+    0.4896
+   ],
+   "steps_per_member": 80000,
+   "events": [],
+   "held_out_score": -0.0305
+  },
+  {
+   "arm": "pbt",
+   "seed": 22,
+   "selected_member": 1,
+   "selected_config": {
+    "lr": 0.00035999999999999997,
+    "ent_coef": 0.008
+   },
+   "train_scores": [
+    0.3859,
+    0.6545,
+    0.5766,
+    0.5335
+   ],
+   "steps_per_member": 80000,
+   "events": [
+    "interval 0: member 1 <- member 0 (lr x1.2, ent x0.8)",
+    "interval 1: member 0 <- member 2 (lr x0.8, ent x1.2)",
+    "interval 2: member 2 <- member 1 (lr x0.8, ent x0.8)",
+    "interval 3: member 2 <- member 3 (lr x0.8, ent x1.2)",
+    "interval 4: member 3 <- member 1 (lr x0.8, ent x1.2)",
+    "interval 5: member 3 <- member 0 (lr x0.8, ent x1.2)",
+    "interval 6: member 2 <- member 3 (lr x0.8, ent x0.8)"
+   ],
+   "held_out_score": 0.2218
+  },
+  {
+   "arm": "control",
+   "seed": 22,
+   "selected_member": 0,
+   "selected_config": {
+    "lr": 0.0003,
+    "ent_coef": 0.01
+   },
+   "train_scores": [
+    0.5418,
+    0.4133,
+    0.2355,
+    0.2625
+   ],
+   "steps_per_member": 80000,
+   "events": [],
+   "held_out_score": -0.0305
+  },
+  {
+   "arm": "pbt",
+   "seed": 23,
+   "selected_member": 0,
+   "selected_config": {
+    "lr": 0.000288,
+    "ent_coef": 0.0064
+   },
+   "train_scores": [
+    0.8418,
+    0.7871,
+    0.3194,
+    0.8197
+   ],
+   "steps_per_member": 80000,
+   "events": [
+    "interval 0: member 3 <- member 1 (lr x0.8, ent x0.8)",
+    "interval 1: member 2 <- member 0 (lr x1.2, ent x0.8)",
+    "interval 2: member 1 <- member 3 (lr x0.8, ent x1.2)",
+    "interval 3: member 0 <- member 2 (lr x1.2, ent x1.2)",
+    "interval 4: member 0 <- member 2 (lr x0.8, ent x0.8)",
+    "interval 5: member 1 <- member 0 (lr x0.8, ent x0.8)",
+    "interval 6: member 3 <- member 0 (lr x0.8, ent x1.2)"
+   ],
+   "held_out_score": 0.8134
+  },
+  {
+   "arm": "control",
+   "seed": 23,
+   "selected_member": 0,
+   "selected_config": {
+    "lr": 0.0003,
+    "ent_coef": 0.01
+   },
+   "train_scores": [
+    0.6867,
+    0.4171,
+    0.6421,
+    0.1478
+   ],
+   "steps_per_member": 80000,
+   "events": [],
+   "held_out_score": -0.0305
+  },
+  {
+   "arm": "pbt",
+   "seed": 24,
+   "selected_member": 0,
+   "selected_config": {
+    "lr": 0.00034559999999999994,
+    "ent_coef": 0.01728
+   },
+   "train_scores": [
+    0.8609,
+    0.7457,
+    0.5931,
+    0.6745
+   ],
+   "steps_per_member": 80000,
+   "events": [
+    "interval 0: member 1 <- member 2 (lr x1.2, ent x1.2)",
+    "interval 1: member 0 <- member 2 (lr x0.8, ent x1.2)",
+    "interval 2: member 2 <- member 0 (lr x0.8, ent x1.2)",
+    "interval 3: member 1 <- member 3 (lr x1.2, ent x1.2)",
+    "interval 4: member 3 <- member 0 (lr x1.2, ent x1.2)",
+    "interval 5: member 2 <- member 0 (lr x0.8, ent x0.8)",
+    "interval 6: member 0 <- member 3 (lr x1.2, ent x1.2)"
+   ],
+   "held_out_score": 0.191
+  },
+  {
+   "arm": "control",
+   "seed": 24,
+   "selected_member": 0,
+   "selected_config": {
+    "lr": 0.0003,
+    "ent_coef": 0.01
+   },
+   "train_scores": [
+    0.7516,
+    0.284,
+    0.0694,
+    0.3513
+   ],
+   "steps_per_member": 80000,
+   "events": [],
+   "held_out_score": -0.0305
+  },
+  {
+   "arm": "pbt",
+   "seed": 25,
+   "selected_member": 1,
+   "selected_config": {
+    "lr": 0.00043199999999999993,
+    "ent_coef": 0.0064
+   },
+   "train_scores": [
+    0.818,
+    0.8985,
+    0.7431,
+    0.888
+   ],
+   "steps_per_member": 80000,
+   "events": [
+    "interval 0: member 0 <- member 2 (lr x0.8, ent x0.8)",
+    "interval 1: member 1 <- member 0 (lr x1.2, ent x0.8)",
+    "interval 2: member 1 <- member 2 (lr x0.8, ent x0.8)",
+    "interval 3: member 3 <- member 2 (lr x1.2, ent x0.8)",
+    "interval 4: member 1 <- member 0 (lr x0.8, ent x1.2)",
+    "interval 5: member 1 <- member 2 (lr x1.2, ent x1.2)",
+    "interval 6: member 1 <- member 3 (lr x1.2, ent x0.8)"
+   ],
+   "held_out_score": 0.3762
+  },
+  {
+   "arm": "control",
+   "seed": 25,
+   "selected_member": 1,
+   "selected_config": {
+    "lr": 0.0003,
+    "ent_coef": 0.01
+   },
+   "train_scores": [
+    0.6588,
+    0.9294,
+    0.7431,
+    0.2715
+   ],
+   "steps_per_member": 80000,
+   "events": [],
+   "held_out_score": 0.5232
+  }
+ ],
+ "invoicing_entity": "VirtualV Holding B.V.",
+ "compute_and_sales_entity": "virtuanalytica VOF (commission)"
+}

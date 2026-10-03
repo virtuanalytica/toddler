@@ -198,6 +198,29 @@ def test_minigrid_tasks_are_flat_vectors_with_a_measured_anchor():
     assert 0.0 <= T.random_anchor("empty5", T.EVAL_SEEDS[:3]) < T.TASKS["empty5"].solved
 
 
+def test_pbt_arms_spend_equal_steps_and_only_pbt_exploits():
+    from toddler.learn import pbt
+
+    base = ppo.PPOConfig(rollout=512, epochs=1, minibatch=256)
+    _, ctrl = pbt.run_population("cartpole", seed=3, pbt=False, members=2, intervals=2, interval_steps=1024, base=base)
+    _, exp = pbt.run_population("cartpole", seed=3, pbt=True, members=2, intervals=2, interval_steps=1024, base=base)
+    assert ctrl.steps_per_member == exp.steps_per_member == 2048
+    assert ctrl.events == [] and ctrl.arm == "control" and exp.arm == "pbt"
+    assert len(exp.events) <= 1 and len(exp.train_scores) == 2
+
+
+def test_pbt_population_is_reproducible_from_its_seed():
+    from toddler.learn import pbt
+
+    prev = torch.get_num_threads()
+    torch.set_num_threads(2)
+    base = ppo.PPOConfig(rollout=512, epochs=1, minibatch=256)
+    _, a = pbt.run_population("cartpole", seed=5, pbt=True, members=2, intervals=2, interval_steps=1024, base=base)
+    _, b = pbt.run_population("cartpole", seed=5, pbt=True, members=2, intervals=2, interval_steps=1024, base=base)
+    torch.set_num_threads(prev)
+    assert a == b
+
+
 def test_sampled_evaluation_is_deterministic_per_seed_and_mode_is_checked():
     net, _ = ppo.train("cartpole", ppo.PPOConfig(seed=3, **SMALL))
     a = scoring.evaluate(net, "cartpole", T.EVAL_SEEDS[:4], mode="sample")
