@@ -1,10 +1,9 @@
 {
  "task": "cartpole",
  "step_budget_per_toddler": 150000,
- "registry_root": "/media/knight2/EDS2/toddler-generations",
  "training_seconds": "not re-measured (report rebuilt from registry)",
  "reference_generation": "gen-0 (frozen)",
- "reference_fingerprint": "089619ab0a4517776718515a02fa1739cb4256a14de8dcea0618995b559ef5d8",
+ "reference_fingerprint": "5efe10842214827540eed30390345db2af81a2a7216072e5d9ee270d13d80393",
  "gen-0": {
   "t101": 0.998,
   "t102": 1.055,
@@ -32,12 +31,13 @@
   "gen-1": 0.31
  },
  "IQ_quotient": {
-  "gen-0": 98.1,
-  "gen-1": 89.8
+  "gen-0": 100.0,
+  "gen-1": 91.6
  },
+ "IQ_note": "the reference is centred on its own IQM, so gen-0 scores 100 against itself",
  "IQ_quotient_gen-1_95ci": [
-  86.5,
-  95.5
+  88.3,
+  97.3
  ],
  "EQ_FQ": "not measured for these RL generations (no judged tasks or reflex scenarios yet)",
  "hardware": {

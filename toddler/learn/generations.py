@@ -9,6 +9,14 @@ Layout: <root>/<generation>/<toddler_id>/
 Business fields (operator definition): VirtualV Holding B.V. invoices the generation;
 virtuanalytica VOF supplies the compute and sells on commission.
 
+Integrity: weights.pt is checked against the sha256 in meta.json on every load. meta.json itself
+is not signed, so this protects against corruption and accidental edits, not deliberate tampering
+(sign the bundle for that, see toddler/knowledge/publish.py).
+
+Selection and aggregation: a toddler's own score is the mean over the held-out evaluation seeds
+(one run); generations are compared on the IQM of those per-run scores. Picking a teacher uses
+the per-run score, the same quantity the IQM aggregates.
+
 Promotion of a candidate generation over the reference follows the replication culture of
 toddler.evaluation: at least five seeds, one-sided Mann-Whitney p < alpha AND probability of
 improvement >= 0.75.
@@ -48,10 +56,25 @@ class ToddlerRecord:
     weights_sha256: str = ""
     created_at: float = field(default_factory=time.time)
     business: dict = field(default_factory=lambda: dict(BUSINESS))
+    software: dict = field(default_factory=dict)   # torch / gymnasium / numpy versions
+    extra: dict = field(default_factory=dict)      # keys written by a newer schema, kept verbatim
+
+    @classmethod
+    def from_dict(cls, d: dict) -> "ToddlerRecord":
+        known = {f for f in cls.__dataclass_fields__}
+        rec = cls(**{k: v for k, v in d.items() if k in known})
+        rec.extra.update({k: v for k, v in d.items() if k not in known})
+        return rec
 
     @property
     def score(self) -> float:
         return float(np.mean(self.eval_scores))
+
+
+def software_versions() -> dict:
+    import gymnasium
+
+    return {"torch": torch.__version__, "gymnasium": gymnasium.__version__, "numpy": np.__version__}
 
 
 def hardware_fingerprint() -> dict:
@@ -100,7 +123,7 @@ class Registry:
     def load(self, generation: str, toddler_id: str) -> tuple[ActorCritic, ToddlerRecord]:
         d = self._dir(generation, toddler_id)
         data = (d / "weights.pt").read_bytes()
-        rec = ToddlerRecord(**json.loads((d / "meta.json").read_text()))
+        rec = ToddlerRecord.from_dict(json.loads((d / "meta.json").read_text()))
         if hashlib.sha256(data).hexdigest() != rec.weights_sha256:
             raise ValueError(f"{generation}/{toddler_id}: weights do not match their recorded sha256")
         blob = torch.load(io.BytesIO(data), weights_only=True)
@@ -108,13 +131,21 @@ class Registry:
         net.load_state_dict(blob["state"])
         return net, rec
 
-    def freeze_reference(self, generation: str, fp: quotients.ReferenceFingerprint) -> Path:
+    def freeze_reference(self, generation: str, fp: quotients.ReferenceFingerprint, refreeze: bool = False) -> Path:
         """Freeze a generation as the quotient reference: its per-toddler raw scores plus the
-        fingerprint (tasks, eval seeds, anchors) they were measured on."""
+        fingerprint (tasks, eval seeds, anchors, solve thresholds) they were measured on.
+        An existing reference is never overwritten silently: the same fingerprint keeps it as
+        is, a different one is refused unless refreeze=True (which invalidates every quotient
+        published against the old reference)."""
+        path = self.root / generation / "reference.json"
+        if path.exists() and not refreeze:
+            if json.loads(path.read_text()).get("digest") == fp.digest():
+                return path
+            raise ValueError(f"{path} is frozen under another fingerprint; pass refreeze=True only "
+                             "if every earlier quotient may be invalidated")
         recs = self.generation(generation)
         if len(recs) < 2:
             raise ValueError("a reference generation needs at least two toddlers")
-        path = self.root / generation / "reference.json"
         path.write_text(json.dumps({"generation": generation, "fingerprint": asdict(fp), "digest": fp.digest(),
                                     "raw": {r.toddler_id: r.score for r in recs}}, indent=1))
         return path
@@ -122,13 +153,15 @@ class Registry:
     def reference(self, generation: str, fp: quotients.ReferenceFingerprint) -> list[float]:
         """Per-toddler raw scores of the frozen reference; refuses a different fingerprint."""
         ref = json.loads((self.root / generation / "reference.json").read_text())
-        frozen = quotients.ReferenceFingerprint(**{k: tuple(v) for k, v in ref["fingerprint"].items()})
+        f = ref["fingerprint"]
+        frozen = quotients.ReferenceFingerprint(tuple(f["tasks"]), tuple(f["eval_seeds"]), tuple(f["anchors"]),
+                                                tuple(f.get("solved", ())), int(f.get("version", 1)))
         frozen.require_same(fp)
         return list(ref["raw"].values())
 
     def generation(self, generation: str) -> list[ToddlerRecord]:
         base = self.root / generation
-        return [ToddlerRecord(**json.loads((d / "meta.json").read_text()))
+        return [ToddlerRecord.from_dict(json.loads((d / "meta.json").read_text()))
                 for d in sorted(base.iterdir()) if (d / "meta.json").exists()] if base.exists() else []
 
     def lineage(self, generation: str, toddler_id: str) -> list[str]:

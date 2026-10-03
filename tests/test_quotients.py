@@ -73,10 +73,17 @@ def test_profile_and_quotient_reject_nan():
 
 
 def test_reference_fingerprint_detects_changed_anchors():
-    a = q.fingerprint(["cartpole"], (10000, 10001), [22.0])
-    a.require_same(q.fingerprint(["cartpole"], (10000, 10001), [22.0]))
+    a = q.fingerprint(["cartpole"], (10000, 10001), [22.0], [475.0])
+    a.require_same(q.fingerprint(["cartpole"], (10000, 10001), [22.0], [475.0]))
     with pytest.raises(ValueError):
-        a.require_same(q.fingerprint(["cartpole"], (10000, 10001), [23.0]))
+        a.require_same(q.fingerprint(["cartpole"], (10000, 10001), [23.0], [475.0]))
+    with pytest.raises(ValueError):                       # edited solve threshold
+        a.require_same(q.fingerprint(["cartpole"], (10000, 10001), [22.0], [500.0]))
+
+
+def test_reference_scores_exactly_100_against_itself():
+    ref = [0.2, 0.25, 0.3, 0.9, 1.0]
+    assert q.to_quotient(q.iq_raw(np.asarray(ref)[:, None]), ref) == pytest.approx(100.0)
 
 
 def test_iq_quotient_ci_brackets_point():

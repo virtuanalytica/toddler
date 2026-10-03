@@ -2,13 +2,19 @@
 behaviour cloning, same step budget), register both, decide promotion and compute IQ quotients
 against the frozen gen-0 reference.
 
-Run: PYTHONPATH=. python3 scripts/build_generations.py [--root DIR] [--report-only]
+Run: PYTHONPATH=. python3 scripts/build_generations.py [--root DIR] [--report-only] [--refreeze]
+--root defaults to $TODDLER_GENERATIONS_ROOT, else ~/.local/share/toddler/generations.
 --report-only rebuilds the report from the registry without training (weights are sha256-checked).
+--refreeze replaces an existing gen-0 reference frozen under another fingerprint (this invalidates
+every quotient published against it); without it such a run is refused.
+Weights live outside git: on a fresh clone, run this script first (CPU runs are reproducible from
+seed and step budget), then scripts/benchmark_generations.py.
 Weights go to the registry root (outside git); the report goes to docs/learn/generations_report.json.
 """
 
 import argparse
 import json
+import os
 import time
 from pathlib import Path
 
@@ -27,22 +33,29 @@ def evaluate(net, anchor) -> list[float]:
     return [float(T.normalise(TASK, r, anchor)) for r in scoring.evaluate(net, TASK)]
 
 
+def default_root() -> str:
+    return os.environ.get("TODDLER_GENERATIONS_ROOT") or str(Path.home() / ".local/share/toddler/generations")
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--root", default="/media/knight2/EDS2/toddler-generations")
+    ap.add_argument("--root", default=default_root())
     ap.add_argument("--report-only", action="store_true")
+    ap.add_argument("--refreeze", action="store_true")
     a = ap.parse_args()
     host = resources.probe()
     torch.set_num_threads(min(8, resources.cpu_threads(host.cores, host.load_1m)))
     reg, anchor, hw, t0 = G.Registry(Path(a.root)), T.random_anchor(TASK), G.hardware_fingerprint(), time.time()
-    fp = quotients.fingerprint([TASK], T.EVAL_SEEDS, [anchor])
+    fp = quotients.fingerprint([TASK], T.EVAL_SEEDS, [anchor], [T.TASKS[TASK].solved])
+    sw = G.software_versions()
     if a.report_only:
         gen0, gen1 = reg.generation("gen-0"), reg.generation("gen-1")
+        if not gen0 or not gen1 or not gen1[0].parents:
+            raise SystemExit("--report-only needs a registry with gen-0 and gen-1 (with parents); train first")
         for r in gen0 + gen1:
             reg.load(r.generation, r.toddler_id)          # integrity check only
-        if not (Path(a.root) / "gen-0" / "reference.json").exists():
-            reg.freeze_reference("gen-0", fp)             # registries built before the fingerprint existed
-        write_report(reg, fp, gen0, gen1, gen1[0].parents[0], a.root, None, hw)
+        reg.freeze_reference("gen-0", fp, refreeze=a.refreeze)   # no-op when already frozen under fp
+        write_report(reg, fp, gen0, gen1, gen1[0].parents[0], None, hw)
         return
 
     gen0 = []
@@ -51,13 +64,13 @@ def main() -> None:
         net, log = ppo.train(TASK, ppo.PPOConfig(total_steps=BUDGET, seed=s),
                              checkpoint=reg.checkpoint_fn("gen-0", tid), checkpoint_every=25)
         rec = G.ToddlerRecord("gen-0", tid, TASK, {"seed": s, "method": "ppo"}, log.steps, [], evaluate(net, anchor), hw,
-                              device_switches=log.device_switches)
+                              device_switches=log.device_switches, software=sw)
         reg.save(net, rec)
         gen0.append(rec)
-    best = max(gen0, key=lambda r: r.score)
+    best = max(gen0, key=lambda r: r.score)          # per-run score, the quantity the IQM aggregates
     teacher, _ = reg.load("gen-0", best.toddler_id)
 
-    reg.freeze_reference("gen-0", fp)
+    reg.freeze_reference("gen-0", fp, refreeze=a.refreeze)
 
     gen1 = []
     for s in (201, 202, 203, 204, 205):
@@ -67,20 +80,20 @@ def main() -> None:
                              checkpoint=reg.checkpoint_fn("gen-1", tid), checkpoint_every=25)
         rec = G.ToddlerRecord("gen-1", tid, TASK, {"seed": s, "method": "behaviour_clone+ppo", "clone_steps": CLONE},
                               CLONE + log.steps, [f"gen-0/{best.toddler_id}"], evaluate(net, anchor), hw,
-                              device_switches=log.device_switches)
+                              device_switches=log.device_switches, software=sw)
         reg.save(net, rec)
         gen1.append(rec)
 
-    write_report(reg, fp, gen0, gen1, f"gen-0/{best.toddler_id}", a.root, round(time.time() - t0, 1), hw)
+    write_report(reg, fp, gen0, gen1, f"gen-0/{best.toddler_id}", round(time.time() - t0, 1), hw)
 
 
-def write_report(reg, fp, gen0, gen1, parent, root, seconds, hw) -> None:
+def write_report(reg, fp, gen0, gen1, parent, seconds, hw) -> None:
     ref = reg.reference("gen-0", fp)                 # refuses a changed task set, seed list or anchor
     cand = [r.score for r in gen1]
     promo = G.decide_promotion(cand, ref)
     q1 = quotients.iq_quotient_ci(np.asarray(cand)[:, None], ref)
     report = {
-        "task": TASK, "step_budget_per_toddler": BUDGET, "registry_root": root,
+        "task": TASK, "step_budget_per_toddler": BUDGET,
         "training_seconds": seconds if seconds is not None else "not re-measured (report rebuilt from registry)",
         "reference_generation": "gen-0 (frozen)", "reference_fingerprint": fp.digest(),
         "gen-0": {r.toddler_id: round(r.score, 3) for r in gen0},
@@ -93,6 +106,7 @@ def write_report(reg, fp, gen0, gen1, parent, root, seconds, hw) -> None:
                    "gen-1": round(quotients.iq_raw(np.asarray(cand)[:, None]), 3)},
         "IQ_quotient": {"gen-0": round(quotients.to_quotient(quotients.iq_raw(np.asarray(ref)[:, None]), ref), 1),
                         "gen-1": round(q1[0], 1)},
+        "IQ_note": "the reference is centred on its own IQM, so gen-0 scores 100 against itself",
         "IQ_quotient_gen-1_95ci": [round(q1[1], 1), round(q1[2], 1)],
         "EQ_FQ": "not measured for these RL generations (no judged tasks or reflex scenarios yet)",
         "hardware": hw, **G.BUSINESS,
