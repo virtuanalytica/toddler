@@ -93,9 +93,11 @@
     <div class="actions">
       <button id="download">Download config</button>
       <button class="ghost" id="copy">Kopieer JSON</button>
-      <label class="ghost" style="margin:0"><input type="file" id="import" accept=".json" style="display:none"><button class="ghost" type="button" onclick="document.getElementById('import').click()">Importeer</button></label>
+      <input type="file" id="import" accept=".json" hidden aria-label="Importeer configuratie">
+      <button class="ghost" type="button" id="import-btn">Importeer</button>
     </div>
-    <p class="hint" id="copied"></p>
+    <p class="hint" id="copied" aria-live="polite"></p>
+    <p class="hint" id="import-msg" role="alert"></p>
   </section>
   <section><h2>toddler-config/v1</h2><pre id="out"></pre></section>
 </aside>
@@ -238,10 +240,12 @@ document.getElementById("copy").addEventListener("click", async () => {
         document.getElementById("copied").textContent = "Gekopieerd."; }
   catch (_) { document.getElementById("copied").textContent = "Kopiëren niet toegestaan; selecteer de JSON handmatig."; }
 });
+document.getElementById("import-btn").addEventListener("click", () => document.getElementById("import").click());
 document.getElementById("import").addEventListener("change", async ev => {
   const f = ev.target.files[0]; if (!f) return;
-  try { load(JSON.parse(await f.text())); document.getElementById("copied").textContent = ""; }
-  catch (e) { document.getElementById("copied").textContent = "Kon het bestand niet lezen: geen geldige JSON."; }
+  const msg = document.getElementById("import-msg");
+  try { load(JSON.parse(await f.text())); msg.textContent = ""; }
+  catch { msg.textContent = "Kon het bestand niet lezen: geen geldige JSON."; }
 });
 try { const d = localStorage.getItem("toddler-config-draft"); if (d) load(JSON.parse(d)); else update(); } catch (_) { update(); }
 </script>
