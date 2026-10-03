@@ -36,3 +36,15 @@ def test_rejects_inverted_thresholds():
     bad = {**CFG, "jev_rules": [{"qid": "q", "text": "x", "slow_if_above": 0.6, "stop_if_above": 0.4}]}
     with pytest.raises(specialize.UnsafeSpecialisation):
         config.from_dict(bad)
+
+
+def test_missing_key_reports_json_path():
+    bad = {**CFG, "experts": [{"model_id": "x", "domains": ["dq"]}]}
+    with pytest.raises(config.ConfigError, match=r"\$\.experts\[0\]\.quality: missing"):
+        config.from_dict(bad)
+
+
+def test_duplicate_guardrail_ids_rejected():
+    g = CFG["guardrails"][0]
+    with pytest.raises(specialize.UnsafeSpecialisation, match="duplicate"):
+        config.from_dict({**CFG, "guardrails": [g, g]})
