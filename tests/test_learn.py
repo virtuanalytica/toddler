@@ -139,32 +139,6 @@ def test_statistics_refuse_degenerate_input():
         T.normalise("cartpole", 100.0, 500.0)          # anchor above the solve threshold
 
 
-def test_minigrid_tasks_are_flat_vectors_with_a_measured_anchor():
-    pytest.importorskip("minigrid")
-    env = T.make("doorkey5")
-    obs, _ = env.reset(seed=T.EVAL_SEEDS[0])
-    assert obs.shape == (147,) and env.action_space.n == 7
-    env.close()
-    a = T.random_anchor("doorkey5", T.EVAL_SEEDS[:3])
-    assert 0.0 <= a < T.TASKS["doorkey5"].solved
-    env = T.make("empty5")
-    obs, _ = env.reset(seed=T.EVAL_SEEDS[0])
-    assert obs.shape == (147,) and env.action_space.n == 7
-    env.close()
-    assert 0.0 <= T.random_anchor("empty5", T.EVAL_SEEDS[:3]) < T.TASKS["empty5"].solved
-
-
-def test_pbt_arms_spend_equal_steps_and_only_pbt_exploits():
-    from toddler.learn import pbt
-
-    base = ppo.PPOConfig(rollout=512, epochs=1, minibatch=256)
-    _, ctrl = pbt.run_population("cartpole", seed=3, pbt=False, members=2, intervals=2, interval_steps=1024, base=base)
-    _, exp = pbt.run_population("cartpole", seed=3, pbt=True, members=2, intervals=2, interval_steps=1024, base=base)
-    assert ctrl.steps_per_member == exp.steps_per_member == 2048
-    assert ctrl.events == [] and ctrl.arm == "control" and exp.arm == "pbt"
-    assert len(exp.events) <= 1 and len(exp.train_scores) == 2
-
-
 def test_resumed_training_equals_one_continuous_run():
     """k calls with a TrainState continue one run: bitwise identical to a single call on the CPU
     (interval a multiple of the rollout, so rollout boundaries coincide)."""
@@ -207,3 +181,29 @@ def test_resume_applies_lr_and_refuses_other_changes():
     fresh, _ = ppo.train("cartpole", ppo.PPOConfig(seed=2, **small), state=st)   # closed state: a new run
     assert st.start_cfg.seed == 2
     st.close()
+
+
+def test_minigrid_tasks_are_flat_vectors_with_a_measured_anchor():
+    pytest.importorskip("minigrid")
+    env = T.make("doorkey5")
+    obs, _ = env.reset(seed=T.EVAL_SEEDS[0])
+    assert obs.shape == (147,) and env.action_space.n == 7
+    env.close()
+    a = T.random_anchor("doorkey5", T.EVAL_SEEDS[:3])
+    assert 0.0 <= a < T.TASKS["doorkey5"].solved
+    env = T.make("empty5")
+    obs, _ = env.reset(seed=T.EVAL_SEEDS[0])
+    assert obs.shape == (147,) and env.action_space.n == 7
+    env.close()
+    assert 0.0 <= T.random_anchor("empty5", T.EVAL_SEEDS[:3]) < T.TASKS["empty5"].solved
+
+
+def test_pbt_arms_spend_equal_steps_and_only_pbt_exploits():
+    from toddler.learn import pbt
+
+    base = ppo.PPOConfig(rollout=512, epochs=1, minibatch=256)
+    _, ctrl = pbt.run_population("cartpole", seed=3, pbt=False, members=2, intervals=2, interval_steps=1024, base=base)
+    _, exp = pbt.run_population("cartpole", seed=3, pbt=True, members=2, intervals=2, interval_steps=1024, base=base)
+    assert ctrl.steps_per_member == exp.steps_per_member == 2048
+    assert ctrl.events == [] and ctrl.arm == "control" and exp.arm == "pbt"
+    assert len(exp.events) <= 1 and len(exp.train_scores) == 2
