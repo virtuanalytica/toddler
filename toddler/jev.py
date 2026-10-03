@@ -51,7 +51,9 @@ def parse_answers(body: dict, questions: Sequence[PhysicalQuestion], noul_uncert
     returned 'model' is not compared with the requested one, and answers for qids Toddler did
     not ask about are ignored. Both are harmless for a reflex, which only reads its own qids.
 
-    Uncertainty: 'noul' carries no confidence, so a configured uncertainty is used. For
+    Uncertainty: 'noul' carries no confidence, so a configured uncertainty is used (client
+    default 0.05: the reflex judges p + uncertainty, and the tightest default slow threshold is
+    0.1, so a larger default would keep every calm scene permanently in 'slow'). For
     'choice'/'score' the API's 'confidence' is the probability of the chosen option, so
     1 - confidence is used as the uncertainty; it is not added on top of noul_uncertainty.
     fastpath.reflex then judges p + uncertainty, which can only make Toddler more careful."""
@@ -78,7 +80,7 @@ def parse_answers(body: dict, questions: Sequence[PhysicalQuestion], noul_uncert
 
 class HttpJevClient:
     def __init__(self, api_key: str | None = None, endpoint: str = DEFAULT_ENDPOINT, model: str = DEFAULT_MODEL,
-                 timeout_s: float = 0.02, noul_uncertainty: float = 0.1,
+                 timeout_s: float = 0.02, noul_uncertainty: float = 0.05,
                  post: Callable[..., requests.Response] | None = None) -> None:
         self._key = api_key or os.environ.get("TYPESAFE_API_KEY", "")
         if not self._key:
