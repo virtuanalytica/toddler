@@ -40,7 +40,8 @@ class JudgedScore:
 
 
 def t_scores(scores: Sequence[JudgedScore]) -> dict[int, float]:
-    """Row 2: T-scores (mean 50, sd 10) standardised within each task type, like age-standardised CBCL."""
+    """Row 2: T-scores (mean 50, sd 10) standardised within each task type, like age-standardised CBCL.
+    Uses the sample standard deviation (ddof=1), the CBCL convention."""
     out: dict[int, float] = {}
     by_type: dict[str, list[int]] = {}
     for i, sc in enumerate(scores):
