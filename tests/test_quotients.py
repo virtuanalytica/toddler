@@ -44,3 +44,8 @@ def test_toddler_needs_three_quotients_genie_only_iq():
         q.Profile("toddler", "gen-1", iq=104.0)
     with pytest.raises(ValueError):
         q.Profile("genie", "gen-1", iq=120.0, eq=90.0)
+
+
+def test_iq_weak_task_is_not_trimmed_away():
+    scores = np.array([[1.0, 0.0], [1.0, 0.0], [1.0, 0.0], [1.0, 0.0]])
+    assert q.iq_raw(scores) == pytest.approx(0.5)
