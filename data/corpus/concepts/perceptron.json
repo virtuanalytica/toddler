@@ -1,0 +1,10 @@
+{
+  "concept": "perceptron",
+  "title": "Perceptron",
+  "url": "https://en.wikipedia.org/wiki/Perceptron",
+  "revision": "1377470406",
+  "extract": "In machine learning, the perceptron is an algorithm for supervised learning of binary classifiers. A binary classifier is a function that can decide whether or not an input, represented by a vector of numbers, belongs to some specific class. It is a type of linear classifier, i.e. a classification algorithm that makes its predictions based on a linear predictor function combining a set of weights with the feature vector.",
+  "licence": "CC BY-SA 4.0",
+  "retrieved": "2026-10-03",
+  "sha256": "62d84800298678e16442113110f9ca0c2e1d95d87cee62cae8248f61afa9aae1"
+}

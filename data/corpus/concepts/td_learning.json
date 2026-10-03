@@ -1,0 +1,10 @@
+{
+  "concept": "td_learning",
+  "title": "Temporal difference learning",
+  "url": "https://en.wikipedia.org/wiki/Temporal_difference_learning",
+  "revision": "1375126803",
+  "extract": "Temporal difference (TD) learning refers to a class of model-free reinforcement learning methods which learn by bootstrapping from the current estimate of the value function. These methods sample from the environment, like Monte Carlo methods, and perform updates based on current estimates, like dynamic programming methods.",
+  "licence": "CC BY-SA 4.0",
+  "retrieved": "2026-10-03",
+  "sha256": "53c96a0d64c902fd43c48ea03b2a3e117e1f95fc63fa1fb5be032bd6d2021be6"
+}

@@ -1,0 +1,10 @@
+{
+  "concept": "diffusion_mri",
+  "title": "Diffusion-weighted magnetic resonance imaging",
+  "url": "https://en.wikipedia.org/wiki/Diffusion-weighted_magnetic_resonance_imaging",
+  "revision": "1375107297",
+  "extract": "Diffusion-weighted magnetic resonance imaging is the use of specific MRI sequences as well as software that generates images from the resulting data that uses the diffusion of water molecules to generate contrast in MR images. It allows the mapping of the diffusion process of molecules, mainly water, in biological tissues, in vivo and non-invasively. Molecular diffusion in tissues is not random, but reflects interactions with many obstacles, such as macromolecules, fibers, and membranes. Water molecule diffusion patterns can therefore reveal microscopic details about tissue architecture, either normal or in a diseased state. A special kind of DWI, diffusion tensor imaging (DTI), has been used extensively to map white matter tractography in the brain.",
+  "licence": "CC BY-SA 4.0",
+  "retrieved": "2026-10-03",
+  "sha256": "8d39d62c468e71aab675be967c5541c018e617a166e391db99b17b64f302aa00"
+}

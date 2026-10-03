@@ -1,0 +1,43 @@
+{
+ "task": "cartpole",
+ "student_steps": 30000,
+ "teacher_score": 0.9947717231222386,
+ "groups": {
+  "real_teacher": [
+   0.8150220913107511,
+   0.51620029455081,
+   0.3088365243004418,
+   0.8500000000000001,
+   0.7454344624447717
+  ],
+  "no_teacher": [
+   -0.02864506627393225,
+   -0.0016200294550809957,
+   -0.012297496318114874,
+   -0.024815905743740794,
+   -0.01605301914580265
+  ],
+  "random_teacher": [
+   0.05117820324005891,
+   0.0634020618556701,
+   0.03814432989690722,
+   0.054491899852724596,
+   0.06885125184094257
+  ]
+ },
+ "iqm": {
+  "real_teacher": 0.6922189494354442,
+  "no_teacher": -0.01772214040255277,
+  "random_teacher": 0.056357388316151204
+ },
+ "p_vs_no_teacher": 0.003968253968253968,
+ "p_vs_random_teacher": 0.003968253968253968,
+ "prob_improvement_vs_no_teacher": 1.0,
+ "prob_improvement_vs_random_teacher": 1.0,
+ "teaching_helps": true,
+ "seconds": 253.6,
+ "device": "cpu",
+ "torch_threads": 8,
+ "compute_and_sales_entity": "virtuanalytica VOF (commission)",
+ "invoicing_entity": "VirtualV Holding B.V."
+}

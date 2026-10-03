@@ -1,0 +1,10 @@
+{
+  "concept": "q_learning",
+  "title": "Q-learning",
+  "url": "https://en.wikipedia.org/wiki/Q-learning",
+  "revision": "1373673723",
+  "extract": "Q-learning is a reinforcement learning algorithm that trains an agent to assign values to its possible actions based on its current state, without requiring a model of the environment (model-free). It can handle problems with stochastic transitions and rewards without requiring adaptations.",
+  "licence": "CC BY-SA 4.0",
+  "retrieved": "2026-10-03",
+  "sha256": "817591582acd20597a5de59f773cdd53a5fc8ee96b29163c7d867aee689fea9a"
+}

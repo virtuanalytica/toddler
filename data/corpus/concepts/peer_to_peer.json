@@ -1,0 +1,10 @@
+{
+  "concept": "peer_to_peer",
+  "title": "Peer-to-peer",
+  "url": "https://en.wikipedia.org/wiki/Peer-to-peer",
+  "revision": "1377974356",
+  "extract": "Peer-to-peer (P2P) computing or networking is a distributed computing or networking architecture in which participants share part of their own resources, such as processing power, storage, or network capacity. These resources are made directly available to other peers without reliance on intermediary entities, and participants act as both resource provider and resource requesters.",
+  "licence": "CC BY-SA 4.0",
+  "retrieved": "2026-10-03",
+  "sha256": "f1b25f74f62fc0e49c603184d8e36d07326c837adbb17fd4f1abef020055eddc"
+}

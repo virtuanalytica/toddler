@@ -1,0 +1,23 @@
+{
+ "karate": {
+  "groups": 4,
+  "purity": 0.941,
+  "mean_modularity": 0.416,
+  "consensus_runs": 1000,
+  "null_graphs": 1000,
+  "null": "degree-preserving (double edge swap, weights permuted)",
+  "null_mean": 0.293,
+  "z": 7.6,
+  "p": 0.001,
+  "share_confidence_gt_0_75": 0.91
+ },
+ "breast_cancer_nested_cv": {
+  "accuracy": 0.912,
+  "sensitivity": 0.944,
+  "specificity": 0.858,
+  "selected": [
+   "mean perimeter",
+   "mean concave points"
+  ]
+ }
+}
