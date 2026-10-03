@@ -12,5 +12,8 @@ jobs:
         with:
           python-version: "3.12"
       - run: python -m pip install -e ".[dev]"
+      # learn tests need torch + gymnasium; the CPU wheel keeps CI small
+      - run: python -m pip install torch --index-url https://download.pytorch.org/whl/cpu
+      - run: python -m pip install "gymnasium==1.2.1"
       # knitweb is optional here: tests that need it are skipped when it is absent.
       - run: python -m pytest -q
