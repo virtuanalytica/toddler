@@ -77,8 +77,10 @@ def parse_mapping(md: Path) -> dict[int, tuple[str, str]]:
     return rows
 
 
-def _load_builder_schema(builder: str = BUILDER) -> str | None:
-    """Read the SCHEMA string literal from the builder file without executing it."""
+def _load_builder_schema(builder: str | None = None) -> str | None:
+    """Read the SCHEMA string literal from the builder file without executing it. The module
+    attribute BUILDER is read at call time, so tests and callers can change it."""
+    builder = BUILDER if builder is None else builder
     if not builder:
         return None
     tree = ast.parse(Path(builder).read_text(encoding="utf-8"))
