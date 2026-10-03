@@ -2,6 +2,9 @@
  "task": "cartpole",
  "step_budget_per_toddler": 150000,
  "training_seconds": "not re-measured (report rebuilt from registry)",
+ "method_version": {
+  "scale_rewards": false
+ },
  "reference_generation": "gen-0 (frozen)",
  "reference_fingerprint": "5efe10842214827540eed30390345db2af81a2a7216072e5d9ee270d13d80393",
  "gen-0": {

@@ -27,6 +27,9 @@ from toddler.learn import peer, ppo, scoring
 from toddler.learn import tasks as T
 
 TASK, BUDGET, CLONE = "cartpole", 150_000, 10_000
+# Method version of gen-0/gen-1: trained before return scaling became the PPO default (#18).
+# Pinned so a rebuild reproduces the registry; a scaled generation is a new method version.
+SCALE_REWARDS = False
 
 
 def evaluate(net, anchor) -> list[float]:
@@ -61,9 +64,9 @@ def main() -> None:
     gen0 = []
     for s in (101, 102, 103, 104, 105):
         tid = f"t{s}"
-        net, log = ppo.train(TASK, ppo.PPOConfig(total_steps=BUDGET, seed=s),
+        net, log = ppo.train(TASK, ppo.PPOConfig(total_steps=BUDGET, seed=s, scale_rewards=SCALE_REWARDS),
                              checkpoint=reg.checkpoint_fn("gen-0", tid), checkpoint_every=25)
-        rec = G.ToddlerRecord("gen-0", tid, TASK, {"seed": s, "method": "ppo"}, log.steps, [], evaluate(net, anchor), hw,
+        rec = G.ToddlerRecord("gen-0", tid, TASK, {"seed": s, "method": "ppo", "scale_rewards": SCALE_REWARDS}, log.steps, [], evaluate(net, anchor), hw,
                               device_switches=log.device_switches, software=sw)
         reg.save(net, rec)
         gen0.append(rec)
@@ -76,9 +79,9 @@ def main() -> None:
     for s in (201, 202, 203, 204, 205):
         tid = f"t{s}"
         warm = peer.behaviour_clone(teacher, TASK, CLONE, seed=s)
-        net, log = ppo.train(TASK, ppo.PPOConfig(total_steps=BUDGET - CLONE, seed=s), net=warm,
+        net, log = ppo.train(TASK, ppo.PPOConfig(total_steps=BUDGET - CLONE, seed=s, scale_rewards=SCALE_REWARDS), net=warm,
                              checkpoint=reg.checkpoint_fn("gen-1", tid), checkpoint_every=25)
-        rec = G.ToddlerRecord("gen-1", tid, TASK, {"seed": s, "method": "behaviour_clone+ppo", "clone_steps": CLONE},
+        rec = G.ToddlerRecord("gen-1", tid, TASK, {"seed": s, "method": "behaviour_clone+ppo", "clone_steps": CLONE, "scale_rewards": SCALE_REWARDS},
                               CLONE + log.steps, [f"gen-0/{best.toddler_id}"], evaluate(net, anchor), hw,
                               device_switches=log.device_switches, software=sw)
         reg.save(net, rec)
@@ -95,6 +98,7 @@ def write_report(reg, fp, gen0, gen1, parent, seconds, hw) -> None:
     report = {
         "task": TASK, "step_budget_per_toddler": BUDGET,
         "training_seconds": seconds if seconds is not None else "not re-measured (report rebuilt from registry)",
+        "method_version": {"scale_rewards": SCALE_REWARDS},
         "reference_generation": "gen-0 (frozen)", "reference_fingerprint": fp.digest(),
         "gen-0": {r.toddler_id: round(r.score, 3) for r in gen0},
         "gen-1": {r.toddler_id: round(r.score, 3) for r in gen1},
