@@ -142,6 +142,7 @@ def test_statistics_refuse_degenerate_input():
 def test_resumed_training_equals_one_continuous_run():
     """k calls with a TrainState continue one run: bitwise identical to a single call on the CPU
     (interval a multiple of the rollout, so rollout boundaries coincide)."""
+    prev = torch.get_num_threads()
     torch.set_num_threads(2)
     cfg = ppo.PPOConfig(seed=11, total_steps=4096, rollout=1024, epochs=2, minibatch=256)
     one, log1 = ppo.train("cartpole", cfg)
@@ -149,6 +150,7 @@ def test_resumed_training_equals_one_continuous_run():
     net, la = ppo.train("cartpole", ppo.PPOConfig(**{**cfg.__dict__, "total_steps": 2048}), state=st)
     net, lb = ppo.train("cartpole", ppo.PPOConfig(**{**cfg.__dict__, "total_steps": 2048}), net=net, state=st)
     st.close()
+    torch.set_num_threads(prev)
     assert all(torch.equal(a, b) for a, b in zip(one.parameters(), net.parameters()))
     assert la.episode_returns + lb.episode_returns == log1.episode_returns[:len(la.episode_returns) + len(lb.episode_returns)]
 
@@ -158,4 +160,24 @@ def test_continuing_needs_the_network():
     ppo.train("cartpole", ppo.PPOConfig(seed=1, total_steps=512, rollout=512, epochs=1, minibatch=256), state=st)
     with pytest.raises(ValueError):
         ppo.train("cartpole", ppo.PPOConfig(seed=1, total_steps=512, rollout=512, epochs=1, minibatch=256), state=st)
+    st.close()
+
+
+def test_resume_applies_lr_and_refuses_other_changes():
+    small = dict(total_steps=512, rollout=512, epochs=1, minibatch=256)
+    st = ppo.TrainState()
+    net, _ = ppo.train("cartpole", ppo.PPOConfig(seed=1, **small), state=st)
+    net, log = ppo.train("cartpole", ppo.PPOConfig(seed=1, lr=1e-4, ent_coef=0.02, **small), net=net, state=st)
+    assert st.opt.param_groups[0]["lr"] == 1e-4 and log.hyper_changes == ["lr: 0.0003 -> 0.0001", "ent_coef: 0.01 -> 0.02"]
+    for bad in (dict(gamma=0.9), dict(scale_rewards=False), dict(rollout=256)):
+        with pytest.raises(ValueError, match="cannot change"):
+            ppo.train("cartpole", ppo.PPOConfig(seed=1, **{**small, **bad}), net=net, state=st)
+    with pytest.raises(ValueError, match="started on"):
+        ppo.train("acrobot", ppo.PPOConfig(seed=1, **small), net=net, state=st)
+    from toddler.learn.policy import ActorCritic
+    with pytest.raises(ValueError, match="optimiser"):
+        ppo.train("cartpole", ppo.PPOConfig(seed=1, **small), net=ActorCritic(4, 2), state=st)
+    st.close()
+    fresh, _ = ppo.train("cartpole", ppo.PPOConfig(seed=2, **small), state=st)   # closed state: a new run
+    assert st.start_cfg.seed == 2
     st.close()

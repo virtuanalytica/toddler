@@ -11,13 +11,15 @@ the CPU (the GPU is handed back to its owner). Reproducibility contract: a CPU r
 reproducible from (seed, step budget). A GPU run is not bitwise reproducible, and a watchdog
 switch (timing-dependent, logged in TrainLog.device_switches) changes the run further; toddlers
 that will be compared as a generation must therefore train on the CPU, or carry their device
-switches in their record so the comparison can exclude them.
+switches in their record so the comparison can exclude them. A run continued with a TrainState
+is reproducible from its full call sequence (seed, each call's budget and hyperparameters), not
+from (seed, total budget) alone.
 """
 
 from __future__ import annotations
 
 from collections import defaultdict
-from dataclasses import dataclass, field
+from dataclasses import asdict, dataclass, field, replace
 from typing import Callable
 
 import numpy as np
@@ -52,8 +54,18 @@ class TrainState:
     """Everything a training run carries between calls, so that k calls of N/k steps continue
     one run instead of restarting it: environment and current observation, optimiser, return
     scaler, novelty counts, curiosity weight and both random generators. In memory only (the
-    environment is a live object); pass the same instance to consecutive `train` calls."""
+    environment is a live object); pass the same instance to consecutive `train` calls.
+
+    In memory only: a crash or a process restart cannot be resumed bitwise from disk (the
+    generation registry's checkpoints hold weights, not this state). A continued call may change
+    only the fields in RESUMABLE_CHANGES; anything else that would silently change the run
+    (gamma, lam, clip, rollout, scaling, curiosity, ...) is refused. Bitwise equality with one
+    continuous run additionally needs every call's budget to be a multiple of `rollout`; other
+    budgets give a valid but different run."""
     env: object = None
+    task: str = ""
+    device: str = ""
+    start_cfg: object = None           # PPOConfig of the first call: what the run is
     obs: object = None
     ep_ret: float = 0.0
     rng: object = None
@@ -70,7 +82,26 @@ class TrainState:
     def close(self) -> None:
         if self.env is not None:
             self.env.close()
-            self.env = None
+        self.env, self.start_cfg, self.opt = None, None, None
+
+
+RESUMABLE_CHANGES = frozenset({"total_steps", "seed", "lr", "ent_coef"})   # seed is ignored on resume
+
+
+def _check_resume(state: "TrainState", task: str, cfg: "PPOConfig", net, device: str) -> list[str]:
+    if task != state.task:
+        raise ValueError(f"run was started on {state.task!r}, not {task!r}")
+    if device != state.device:
+        raise ValueError(f"run was started on {state.device}; resume on the same device")
+    if net is None:
+        raise ValueError("continuing a run needs the same network it was trained with")
+    if next(iter(net.parameters())) is not state.opt.param_groups[0]["params"][0]:
+        raise ValueError("the network is not the one this run's optimiser was built on")
+    old, new = asdict(state.start_cfg), asdict(cfg)
+    bad = sorted(k for k in old if k not in RESUMABLE_CHANGES and old[k] != new[k])
+    if bad:
+        raise ValueError(f"cannot change {bad} in a running run; start a new one")
+    return [f"{k}: {old[k]} -> {new[k]}" for k in ("lr", "ent_coef") if old[k] != new[k]]
 
 
 @dataclass
@@ -78,6 +109,7 @@ class TrainLog:
     updates: int = 0
     steps: int = 0
     device_switches: list[str] = field(default_factory=list)
+    hyper_changes: list[str] = field(default_factory=list)    # lr / ent_coef changed on resume
     episode_returns: list[float] = field(default_factory=list)
 
 
@@ -144,8 +176,7 @@ def train(task: str, cfg: PPOConfig, net: ActorCritic | None = None, teacher: Ac
     state is updated for the next call; the caller closes it with state.close()."""
     log = TrainLog()
     if state is not None and state.started:
-        if net is None:
-            raise ValueError("continuing a run needs the same network it was trained with")
+        log.hyper_changes = _check_resume(state, task, cfg, net, device)
         torch.set_rng_state(state.torch_rng)
         rng, env, opt, counts = state.rng, state.env, state.opt, state.counts
         cur_w, scaler, obs, ep_ret = state.cur_w, state.scaler, state.obs, state.ep_ret
@@ -243,6 +274,11 @@ def train(task: str, cfg: PPOConfig, net: ActorCritic | None = None, teacher: Ac
     if state is None:
         env.close()
     else:
+        state.device = device                       # after a watchdog switch this is the CPU
+        if state.start_cfg is None:
+            state.task, state.start_cfg = task, cfg
+        else:
+            state.start_cfg = replace(state.start_cfg, lr=cfg.lr, ent_coef=cfg.ent_coef)
         state.env, state.obs, state.ep_ret, state.rng, state.torch_rng = env, obs, ep_ret, rng, torch.get_rng_state()
         state.opt, state.counts, state.cur_w, state.scaler = opt, counts, cur_w, scaler
     return net.to("cpu"), log
