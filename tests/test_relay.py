@@ -1,6 +1,8 @@
 import math
 
-from toddler import relay
+import pytest
+
+relay = pytest.importorskip("toddler.relay", reason="knitweb not available")
 
 PRICES = relay.Prices(eur_per_joule=0.30 / 3.6e6)  # 0.30 EUR per kWh
 
