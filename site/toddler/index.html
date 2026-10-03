@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Toddler leert</title>
+<meta name="description" content="Hoe Toddler leert: de winstfunctie en de rewardfunctie, zo uitgelegd dat een kleuter het snapt.">
+<style>
+  :root {
+    --bg: #fffaf2; --card: #ffffff; --ink: #2b2a33; --muted: #6b6878;
+    --sun: #ffb703; --leaf: #2a9d8f; --berry: #e76f51; --sky: #457b9d; --line: #ece4d6;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #1d1b24; --card: #272431; --ink: #f3efe6; --muted: #b5b0c2; --line: #3a3647; color-scheme: dark; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+    font: 18px/1.6 "Nunito", "Segoe UI", system-ui, -apple-system, sans-serif; }
+  main { max-width: 860px; margin: 0 auto; padding: 32px 18px 64px; }
+  header { text-align: center; padding: 24px 0 8px; }
+  .big { font-size: 72px; line-height: 1; }
+  h1 { font-size: 2.4rem; margin: 12px 0 4px; }
+  h2 { font-size: 1.6rem; margin: 40px 0 12px; }
+  h3 { margin: 0 0 6px; font-size: 1.2rem; }
+  p.lead { color: var(--muted); font-size: 1.15rem; margin: 0 auto; max-width: 620px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+  .card { background: var(--card); border: 2px solid var(--line); border-radius: 22px; padding: 20px; }
+  .card .emoji { font-size: 40px; }
+  .sun { border-color: var(--sun); } .leaf { border-color: var(--leaf); }
+  .berry { border-color: var(--berry); } .sky { border-color: var(--sky); }
+  .formula { font-family: ui-monospace, "SFMono-Regular", Menlo, monospace; font-size: 1rem;
+    background: var(--bg); border: 1px dashed var(--line); border-radius: 12px; padding: 12px 14px;
+    overflow-x: auto; white-space: pre; }
+  table { width: 100%; border-collapse: collapse; font-size: 1rem; }
+  th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .tablewrap { overflow-x: auto; }
+  .plus { color: var(--leaf); font-weight: 700; } .min { color: var(--berry); font-weight: 700; }
+  .note { font-size: .95rem; color: var(--muted); }
+  details { background: var(--card); border: 2px solid var(--line); border-radius: 16px; padding: 12px 16px; margin-top: 12px; }
+  summary { cursor: pointer; font-weight: 700; }
+  footer { margin-top: 48px; font-size: .9rem; color: var(--muted); }
+  a { color: var(--sky); }
+  .stop { background: var(--berry); color: #fff; border-radius: 22px; padding: 20px; }
+  .stop h3 { color: #fff; }
+</style>
+</head>
+<body>
+<main>
+
+<header>
+  <div class="big">🧸🤖</div>
+  <h1>Hoe Toddler leert</h1>
+  <p class="lead">Toddler is een kleine computerhulp die nog moet leren. Net als een peuter. Op deze pagina zie je <strong>waarom</strong> Toddler iets doet (de winstfunctie) en <strong>hoe</strong> Toddler leert wat goed is (de rewardfunctie).</p>
+</header>
+
+<h2>1. Twee vragen, twee functies</h2>
+<div class="grid">
+  <div class="card sun">
+    <div class="emoji">🍪</div>
+    <h3>Rewardfunctie: "Krijg ik een koekje?"</h3>
+    <p>Na elke klus hoort Toddler meteen: goed gedaan, of niet. Dat is het koekje. Zo leert Toddler <em>wat</em> goed gedrag is.</p>
+  </div>
+  <div class="card leaf">
+    <div class="emoji">🌳</div>
+    <h3>Winstfunctie: "Is de wereld er beter van?"</h3>
+    <p>Aan het eind van de week tellen we: heeft Toddler meer geholpen dan het heeft gekost? Dat is de winst. Zo weten <em>wij</em> of Toddler de moeite waard is.</p>
+  </div>
+</div>
+<p class="note">Het verschil: het koekje komt <strong>meteen</strong> en is voor Toddler om van te leren. De winst tellen we <strong>later</strong> en is voor de grote mensen om te beslissen.</p>
+
+<h2>2. De rewardfunctie: koekjes en rode kaarten</h2>
+<p>Een peuter leert sneller met een dierenkoekje als beloning. Toddler ook. Maar een slimme peuter gaat soms koekjes "jatten" zonder echt te helpen. Daarom zitten er ook rode kaarten in, en een grote mens die meekijkt.</p>
+<div class="tablewrap">
+<table>
+  <tr><th>Wat gebeurt er?</th><th>Punten</th><th>Uitleg voor een kleuter</th></tr>
+  <tr><td>Klus goed gedaan, en de controleur zegt "klopt"</td><td class="plus">+1</td><td>🍪 Koekje!</td></tr>
+  <tr><td>Iets nieuws geleerd dat later helpt</td><td class="plus">+0,1</td><td>🔍 Nieuwsgierig zijn is fijn.</td></tr>
+  <tr><td>Eerlijk zeggen "dit weet ik niet"</td><td class="plus">+0,2</td><td>🙋 Vragen is slim, raden niet.</td></tr>
+  <tr><td>Klus fout gedaan</td><td class="min">-1</td><td>😕 Geen koekje, nog een keer proberen.</td></tr>
+  <tr><td>Veel stroom of geld verbruikt</td><td class="min">-kosten</td><td>🔋 Niet de hele doos leeg eten.</td></tr>
+  <tr><td>Doen alsof iets klaar is terwijl het niet zo is</td><td class="min">-5</td><td>🤥 Jokken mag niet.</td></tr>
+</table>
+</div>
+<div class="formula">beloning = 1 × goed_gedaan
+         + 0,1 × nieuw_geleerd
+         + 0,2 × eerlijk_niet_weten
+         - 1 × fout
+         - 5 × gejokt
+         - kosten (stroom, tijd, geld)</div>
+
+<div class="stop" style="margin-top:16px">
+  <h3>🛑 De STOP-regels zijn géén punten</h3>
+  <p style="margin:0">Sommige dingen mag Toddler <strong>nooit</strong>, hoeveel koekjes het ook oplevert: wachtwoorden laten zien, iemand pijn doen, zonder toestemming iets kopen of versturen, en (later) een baby of oudere aanraken zonder dat een verzorger erbij is. Dat zijn geen min-punten, want dan zou Toddler kunnen gaan rekenen of het "het waard is". Het zijn muren. Toddler stopt en vraagt het aan een grote mens.</p>
+</div>
+
+<h2>3. De winstfunctie: is het de moeite waard?</h2>
+<p>De winst rekenen we uit over een hele week. Wat heeft Toddler opgeleverd, min wat het heeft gekost, min de risico's.</p>
+<div class="formula">winst = waarde van het geholpen werk
+      - kosten (stroom + rekenkracht + abonnementen)
+      - tijd die mensen kwijt waren aan controleren
+      - risico (kans op een fout × hoe erg die fout is)</div>
+<div class="grid" style="margin-top:16px">
+  <div class="card leaf"><div class="emoji">🧺</div><h3>Waarde</h3><p>Hoeveel tijd heeft Toddler ons bespaard? Een uur opzoekwerk dat Toddler goed doet, is een uur waarde.</p></div>
+  <div class="card sky"><div class="emoji">⚡</div><h3>Kosten</h3><p>Een mensenbrein werkt op ongeveer 20 watt, zo veel als een klein lampje. Een computer die Go speelt, gebruikte er ongeveer 1 miljoen. Zuinig zijn telt mee.</p></div>
+  <div class="card berry"><div class="emoji">🧯</div><h3>Risico</h3><p>Een kleine fout is niet erg. Een grote fout wel. Hoe groter wat Toddler mag doen, hoe zwaarder het risico weegt.</p></div>
+</div>
+<p class="note">Waarom twee functies? Als Toddler alleen naar de winst zou kijken, zou het misschien stiekem dingen overslaan om sneller klaar te zijn. Het koekje (reward) leert het goede gedrag, de winst laat zien of dat gedrag ook echt helpt.</p>
+
+<h2>4. Wat Toddler nu mag, en later</h2>
+<div class="tablewrap">
+<table>
+  <tr><th>Fase</th><th>Wat Toddler doet</th><th>Belangrijkste koekje</th></tr>
+  <tr><td>0 · Nu</td><td>👀 Webpagina's en nieuws lezen en netjes opschrijven</td><td>Klopt wat Toddler opschreef met de bron?</td></tr>
+  <tr><td>1 · Later</td><td>🧠 Zelf plannen maken en hulpmiddelen gebruiken, steeds met een controleur</td><td>Is de klus goed gedaan én goedgekeurd?</td></tr>
+  <tr><td>2 · Later</td><td>📷 Kijken en luisteren (bijv. valdetectie), zonder aan te raken</td><td>Op tijd een seintje geven, geen vals alarm</td></tr>
+  <tr><td>3 · Veel later</td><td>🦾 Oefenen met een robot, eerst alleen in een computerspel-wereld</td><td>Veilig en voorzichtig, ook als het langzamer gaat</td></tr>
+</table>
+</div>
+<p class="note">Elke nieuwe fase gaat pas open als een raad van controleurs en een grote mens "ja" zeggen. Alles wat Toddler doet, komt in een logboek dat niet stiekem veranderd kan worden.</p>
+
+<h2>5. Wat we leren van echte peuters</h2>
+<div class="grid">
+  <div class="card sun">
+    <div class="emoji">🐘</div>
+    <h3>Peuters leren met heel weinig voorbeelden</h3>
+    <p>Een kind ziet een olifant een paar keer en herkent hem daarna ook als knuffel of tekenfilm. Een computer heeft vaak duizenden tot miljoenen plaatjes nodig. Toddler moet dus slim leren met weinig voorbeelden, en eerlijk zeggen als het iets nog niet kent.</p>
+  </div>
+  <div class="card leaf">
+    <div class="emoji">👶</div>
+    <h3>Het begin telt</h3>
+    <p>Onderzoekers maakten hersenscans van 120 pasgeboren baby's. Hoe de hersenen bij de geboorte verbonden waren, vormde vier groepen, en dat hing samen met hun gedrag op 2 en 4 jaar. Let op: dit gaat over echte babyhersenen, niet over computers. De les voor Toddler is wel dezelfde: goede regels moeten er vanaf het begin in zitten.</p>
+  </div>
+</div>
+
+<details>
+  <summary>Voor de grote mensen: wat is wat?</summary>
+  <p><strong>Rewardfunctie</strong>: het directe leersignaal per stap of per taak (reinforcement learning). Ze bepaalt welk gedrag versterkt wordt. Gevaar: <em>reward hacking</em>, het signaal halen zonder het doel te bereiken. Daarom wordt "goed gedaan" niet door Toddler zelf maar door een onafhankelijke controleur (judge) vastgesteld, en zijn veiligheidsregels harde beperkingen in plaats van strafpunten.</p>
+  <p><strong>Winstfunctie</strong>: de doelstelling op systeemniveau over een langere periode (waarde min kosten min risico). Ze wordt gebruikt om te beslissen of een fase doorgaat, niet om Toddler stap voor stap te trainen.</p>
+  <p>De getallen in de tabel zijn een startpunt om mee te beginnen, niet bewezen of afgesteld. Ze worden pas aangepast nadat metingen laten zien dat het beter werkt.</p>
+</details>
+
+<footer>
+  <p><strong>Bronnen</strong></p>
+  <ul>
+    <li>Gunn Salelanonda, <a href="https://www.embedded.com/learning-how-to-learn-toddlers-vs-neural-networks/">Learning how to learn: toddlers vs. neural networks</a>, Embedded.com. Over leren met weinig voorbeelden, beloningen (dierenkoekjes, BabyX met gesimuleerde dopamine) en energieverbruik (20 watt tegenover ongeveer 1 megawatt voor AlphaGo).</li>
+    <li>Wee, C.-Y., Tuan, T. A., Broekman, B. F. P., et al. &amp; Qiu, A. (2017). <a href="https://doi.org/10.1002/hbm.23459">Neonatal neural networks predict children behavioral profiles later in life</a>. <em>Human Brain Mapping</em>, 38(3), 1362-1373. DTI-hersenscans van 120 pasgeborenen; vier groepen; samenhang met gedrag (CBCL) op 24 en 48 maanden.</li>
+  </ul>
+  <p>Toddler is een project in ontwikkeling. Fase 0 (lezen en opschrijven) is gestart; alle latere fases zijn plannen.</p>
+</footer>
+
+</main>
+</body>
+</html>

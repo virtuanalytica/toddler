@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<!-- ==================================================================
+     LONG DOCUMENT · English · parchment design system
+     Multi-page A4 white paper / tech report / annual review
+     Flow: cover -> toc -> exec summary -> chapters -> appendix
+     ================================================================== -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Toddler: a governed, specialisable learning agent</title>
+<meta name="author" content="virtuanalytica">
+<meta name="description" content="Design, objective functions and a brain-network-inspired evaluation method for Toddler, a governed base agent for company roles.">
+<meta name="keywords" content="Toddler, governed agent, reward function, consensus clustering, mixture of models">
+<meta name="generator" content="Kami">
+<style>
+  /* Palatino is a system font, no @font-face needed */
+  @font-face { font-family: "JetBrains Mono"; src: url("../fonts/JetBrainsMono.woff2") format("woff2"); font-weight: 400; font-style: normal; }
+  @font-face { font-family: "JetBrains Mono"; src: url("../fonts/JetBrainsMono.woff2") format("woff2"); font-weight: 500; font-style: normal; }
+
+  @page {
+    size: A4;
+    margin: 20mm 22mm 22mm 22mm;
+    background: #f5f4ed;
+
+    @top-right {
+      content: string(section-title);
+      font-family: Charter, Georgia, Palatino, serif;
+      font-size: 8pt;
+      color: #6b6a64;
+    }
+
+    @bottom-center {
+      content: counter(page) "  ·  Toddler: a governed, specialisable learning agent";
+      font-family: Charter, Georgia, Palatino, serif;
+      font-size: 9pt;
+      color: #6b6a64;
+    }
+  }
+  @page:first {
+    @top-right { content: ""; }
+    @bottom-center { content: ""; }
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --parchment: #f5f4ed;
+    --ivory:     #faf9f5;
+    --near-black:#141413;
+    --dark-warm: #3d3d3a;
+    --olive:     #504e49;
+    --stone:     #6b6a64;
+    --brand:     #1B365D;
+    --border:    #e8e6dc;
+    --border-soft:#e5e3d8;
+    --tag-bg:    #E4ECF5;
+
+    --serif: Charter, Georgia,
+             Palatino, "Times New Roman", serif;
+    --sans: var(--serif);
+    --mono:  "JetBrains Mono", "SF Mono", "Fira Code",
+             Consolas, Monaco, monospace;
+  }
+
+  html, body { background: var(--parchment); }
+
+  @media screen {
+    body { max-width: 210mm; margin: 0 auto; padding: 20mm 22mm 22mm 22mm; }
+  }
+
+  body {
+    color: var(--near-black);
+    font-family: var(--serif);
+    font-size: 10.5pt;
+    line-height: 1.55;
+    widows: 3;
+    orphans: 3;
+  }
+
+  .sans { font-family: var(--sans); }
+
+  /* COVER */
+  .cover {
+    min-height: 240mm;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 40mm 0 0 0;
+    break-after: page;
+  }
+  .cover-eyebrow {
+    font-family: var(--sans);
+    font-size: 10pt;
+    color: var(--brand);
+    letter-spacing: 2pt;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 18pt;
+  }
+  .cover-title {
+    font-size: 40pt;
+    font-weight: 500;
+    color: var(--near-black);
+    line-height: 1.12;
+    letter-spacing: -0.5pt;
+    margin-bottom: 16pt;
+  }
+  .cover-sub {
+    font-family: var(--sans);
+    font-size: 14pt;
+    color: var(--olive);
+    line-height: 1.45;
+    max-width: 85%;
+    margin-bottom: 30pt;
+  }
+  .cover-meta {
+    font-family: var(--sans);
+    font-size: 10pt;
+    color: var(--stone);
+    line-height: 1.55;
+    font-variant-numeric: tabular-nums;
+  }
+  .cover-meta strong { color: var(--dark-warm); font-weight: 500; }
+
+  /* TOC */
+  .toc { break-after: page; }
+  .toc h2 {
+    font-size: 22pt;
+    font-weight: 500;
+    margin-bottom: 14pt;
+    border-left: 2.5pt solid var(--brand);
+    border-radius: 1.5pt;
+    padding-left: 8pt;
+  }
+  .toc-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 6pt 0;
+    border-bottom: 0.3pt dotted var(--border);
+    font-size: 11pt;
+  }
+  .toc-item:last-of-type { border-bottom: none; }
+  .toc-num {
+    color: var(--brand);
+    font-weight: 500;
+    min-width: 30pt;
+    font-variant-numeric: tabular-nums;
+  }
+  .toc-title {
+    flex: 1;
+    color: var(--near-black);
+    padding-left: 6pt;
+  }
+  .toc-page {
+    color: var(--stone);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* HEADINGS */
+  h1 {
+    font-size: 24pt;
+    font-weight: 500;
+    line-height: 1.15;
+    letter-spacing: -0.3pt;
+    margin: 0 0 10pt 0;
+    border-left: 2.5pt solid var(--brand);
+    border-radius: 1.5pt;
+    padding-left: 8pt;
+    color: var(--near-black);
+    break-after: avoid;
+  }
+  h2 {
+    font-size: 16pt;
+    font-weight: 500;
+    line-height: 1.25;
+    margin: 24pt 0 8pt 0;
+    color: var(--near-black);
+    break-after: avoid;
+    string-set: section-title content();
+  }
+  h3 {
+    font-size: 13pt;
+    font-weight: 500;
+    line-height: 1.3;
+    margin: 18pt 0 6pt 0;
+    color: var(--dark-warm);
+    break-after: avoid;
+  }
+
+  .chapter-num {
+    font-family: var(--sans);
+    font-size: 10pt;
+    color: var(--brand);
+    letter-spacing: 1pt;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 6pt;
+  }
+
+  /* PARAGRAPHS */
+  p { margin: 0 0 10pt 0; line-height: 1.55; color: var(--near-black); widows: 2; orphans: 2; }
+
+  .lead {
+    font-size: 12pt;
+    line-height: 1.55;
+    color: var(--dark-warm);
+    margin-bottom: 14pt;
+  }
+
+  .hl { color: var(--brand); font-weight: 500; }
+  strong { font-weight: 500; }
+
+  /* LISTS */
+  ul, ol {
+    margin: 6pt 0 10pt 0;
+    padding-left: 20pt;
+    line-height: 1.55;
+  }
+  ul li::marker { color: var(--brand); }
+  ol li::marker { color: var(--brand); font-weight: 500; }
+
+  /* QUOTE */
+  blockquote, .quote {
+    border-left: 2pt solid var(--brand);
+    margin: 12pt 0;
+    padding: 4pt 0 4pt 16pt;
+    color: var(--olive);
+    line-height: 1.55;
+    break-inside: avoid;
+  }
+  blockquote .cite, .quote .cite {
+    display: block;
+    font-family: var(--sans);
+    font-size: 9pt;
+    color: var(--stone);
+    margin-top: 4pt;
+  }
+
+  /* CODE */
+  code {
+    font-family: var(--mono);
+    font-size: 9pt;
+    background: var(--ivory);
+    padding: 1pt 4pt;
+    border-radius: 2pt;
+    color: var(--dark-warm);
+  }
+  pre {
+    font-family: var(--mono);
+    font-size: 9pt;
+    line-height: 1.5;
+    background: var(--ivory);
+    border-radius: 4pt;
+    padding: 10pt 14pt;
+    margin: 10pt 0;
+    white-space: pre-wrap;
+    color: var(--near-black);
+    break-inside: avoid;
+  }
+  pre code { background: transparent; padding: 0; font-size: inherit; }
+
+  /* TABLE (kami-table) */
+  table, .kami-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 9.5pt;
+    margin: 12pt 0;
+    break-inside: avoid;
+  }
+  table th, .kami-table th {
+    text-align: left;
+    font-family: var(--sans);
+    font-weight: 500;
+    color: var(--dark-warm);
+    padding: 6pt 8pt;
+    border-bottom: 1pt solid var(--border);
+    background: var(--ivory);
+  }
+  table td, .kami-table td {
+    padding: 5pt 8pt;
+    border-bottom: 0.3pt solid var(--border-soft);
+    vertical-align: top;
+  }
+  table.compact th, .kami-table.compact th { padding: 3pt 6pt; font-size: 8pt; }
+  table.compact td, .kami-table.compact td { padding: 2pt 6pt; font-size: 8pt; line-height: 1.4; }
+  table.financial td:not(:first-child), .kami-table.financial td:not(:first-child) {
+    text-align: right; font-variant-numeric: tabular-nums;
+  }
+  table.financial th:not(:first-child), .kami-table.financial th:not(:first-child) { text-align: right; }
+  table.striped tbody tr:nth-child(even) td, .kami-table.striped tbody tr:nth-child(even) td {
+    background: var(--ivory);
+  }
+  table .total td, .kami-table .total td {
+    font-weight: 500; border-top: 1pt solid var(--brand); border-bottom: none; color: var(--near-black);
+  }
+
+  /* CALLOUT / TAKEAWAY */
+  .callout {
+    background: var(--ivory);
+    border-left: 2pt solid var(--brand);
+    padding: 10pt 14pt;
+    border-radius: 3pt;
+    margin: 12pt 0;
+    line-height: 1.55;
+    break-inside: avoid;
+  }
+  .callout blockquote,
+  .callout .quote {
+    border-left: none;
+    padding-left: 0;
+    margin: 6pt 0;
+    color: var(--olive);
+  }
+  .callout blockquote:first-child,
+  .callout .quote:first-child { margin-top: 0; }
+  .callout blockquote:last-child,
+  .callout .quote:last-child  { margin-bottom: 0; }
+  .takeaway {
+    background: var(--ivory);
+    border-radius: 4pt;
+    padding: 10pt 14pt;
+    margin: 14pt 0;
+    break-inside: avoid;
+  }
+  .takeaway-label {
+    font-family: var(--sans);
+    font-size: 9pt;
+    color: var(--brand);
+    letter-spacing: 1pt;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 4pt;
+  }
+
+  /* TAG */
+  .tag {
+    display: inline-block;
+    background: var(--tag-bg);
+    color: var(--brand);
+    font-family: var(--sans);
+    font-size: 9pt;
+    font-weight: 500;
+    padding: 1pt 6pt;
+    border-radius: 3pt;
+    letter-spacing: 0.4pt;
+    text-transform: uppercase;
+    margin-right: 4pt;
+  }
+
+  /* FIGURE */
+  figure { margin: 14pt 0; break-inside: avoid; }
+  figure img { max-width: 100%; border-radius: 4pt; }
+  figcaption {
+    font-family: var(--sans);
+    font-size: 9pt;
+    color: var(--stone);
+    margin-top: 6pt;
+    text-align: center;
+  }
+
+  /* CHAPTER BREAK */
+  .chapter { break-before: page; }
+</style>
+</head>
+<body>
+<section class="cover">
+  <div>
+    <div class="cover-eyebrow">White Paper · Developers &amp; Researchers</div>
+    <div class="cover-title">Toddler<br>a governed, specialisable learning agent</div>
+    <div class="cover-sub">Design, objective functions, a brain-network-inspired evaluation method, and the extension points for building company roles on one safe base.</div>
+  </div>
+  <div class="cover-meta">
+    <strong>virtuanalytica</strong><br>
+    Version 0.1 (review draft) · 2026.10<br>
+    github.com/virtuanalytica/toddler
+  </div>
+</section>
+
+<section class="toc">
+  <h2>Contents</h2>
+  <div class="toc-item"><span class="toc-num">01</span><span class="toc-title">Summary</span><span class="toc-page">03</span></div>
+  <div class="toc-item"><span class="toc-num">02</span><span class="toc-title">Problem and design goals</span><span class="toc-page">04</span></div>
+  <div class="toc-item"><span class="toc-num">03</span><span class="toc-title">Architecture and objective</span><span class="toc-page">05</span></div>
+  <div class="toc-item"><span class="toc-num">04</span><span class="toc-title">From infant brain networks to agent evaluation</span><span class="toc-page">07</span></div>
+  <div class="toc-item"><span class="toc-num">05</span><span class="toc-title">Specialisation, guardrails and audit</span><span class="toc-page">09</span></div>
+  <div class="toc-item"><span class="toc-num">06</span><span class="toc-title">P2P compute, credentials and the physical roadmap</span><span class="toc-page">10</span></div>
+  <div class="toc-item"><span class="toc-num">07</span><span class="toc-title">Results, limitations and status</span><span class="toc-page">11</span></div>
+  <div class="toc-item"><span class="toc-num">08</span><span class="toc-title">Appendix: references and glossary</span><span class="toc-page">12</span></div>
+</section>
+
+<section class="chapter">
+  <div class="chapter-num">01 · Summary</div>
+  <h1>Summary</h1>
+  <p class="lead">Toddler is a learning agent built to be the <span class="hl">general base that every deployment specialises</span>: a developer or consultant adds company guardrails, rule questions and expert models to reach one role in an organisation's function house, but can never remove the base safety.</p>
+  <h2>Key points</h2>
+  <ul>
+    <li>Decisions maximise one utility (task reward, weekly profit, energy and compute cost, expected risk) <em>subject to</em> hard STOP rules, so no reward can buy a forbidden action.</li>
+    <li>Every logic step of a neonatal brain-network study (Wee et al., 2017), 25 in total, is linked to a Toddler function, and all 25 resolve to code in a woven knowledge graph with zero coverage gaps.</li>
+    <li>The evaluation stack reproduces the study's statistics on real public data: consensus clustering with a null model (z = 3.3, p = 0.004 on Zachary's karate club) and nested 10×10 cross-validation (accuracy 0.912, sensitivity 0.944, specificity 0.858 on the Wisconsin breast-cancer data).</li>
+    <li>Version 0.1 contains 10 modules and 63 passing tests; the credential module is written but held back pending operator approval.</li>
+  </ul>
+  <h2>Questions this paper answers</h2>
+  <p>How should an agent weigh learning signal, business value and energy without letting any of them override safety? What can the structure of an infant's brain network teach about evaluating an agent early in its life? How can one base be specialised per company role while staying auditable?</p>
+</section>
+
+<section class="chapter">
+  <div class="chapter-num">02 · Problem</div>
+  <h1>Problem and design goals</h1>
+  <p class="lead">"Toddler" is not a formal term in neural-network literature but a common metaphor for a network early in training, and the toddler is the usual benchmark for efficient learning.</p>
+  <p>A human toddler recognises a new animal after a few examples and generalises it to toys and cartoons, while current networks often need thousands to millions of examples; the human brain runs on about <span class="hl">20 W</span> against roughly 1 MW for AlphaGo (Salelanonda, Embedded.com). Toddler takes three design goals from that comparison and adds two from deployment practice:</p>
+  <table>
+    <thead><tr><th>Goal</th><th>Design consequence</th></tr></thead>
+    <tbody>
+      <tr><td>Learn from few, verified signals</td><td>Reward comes only from an independent judge; claiming "done" without confirmation is the worst outcome</td></tr>
+      <tr><td>Generalise safely</td><td>Hard STOP constraints outside the utility; low confidence hands off to a human</td></tr>
+      <tr><td>Be energy-aware</td><td>Joules and euros are explicit terms in every decision and in expert routing</td></tr>
+      <tr><td>One base, many roles</td><td>Declarative specialisation that can only add constraints</td></tr>
+      <tr><td>Provable behaviour</td><td>Hash-chained audit trail with scoped, sanitised views</td></tr>
+    </tbody>
+  </table>
+  <div class="callout">Physical care is safety-critical (EU AI Act high-risk, Medical Device Regulation, Machinery Regulation). Physical contact with infants is out of scope by design; elderly care starts with non-contact help and always with a caregiver present.</div>
+</section>
+
+<section class="chapter">
+  <div class="chapter-num">03 · Architecture</div>
+  <h1>Architecture and objective</h1>
+  <p class="lead">The brain has four layers that run in a fixed order: a deterministic logic layer that can veto, a fast reflex path, a slow deliberate path, and a decision step that maximises utility under the veto.</p>
+  <figure>
+<pre><code>inputs (web now, sensors later)
+  -&gt; logic layer: STOP rules, allowlist, provenance      [veto]
+  -&gt; fast path: Jev physical-rule probabilities          [reflex, &lt;= 20 ms]
+  -&gt; slow path: planner + world model + memory graph     [deliberate]
+  -&gt; choose a maximising U(a) under STOP                 [decision]
+  -&gt; act locally, or relay to a knitweb peer (Pulse)     [execution]
+  -&gt; judge confirms -&gt; reward; weekly -&gt; profit          [learning signal]
+  -&gt; append to the hash-chained audit trail              [oversight]</code></pre>
+    <figcaption>Figure 1. Toddler's processing order. Safety runs first and can veto everything after it.</figcaption>
+  </figure>
+  <h2>The objective</h2>
+<pre><code>U(a) = E[reward(a)] + w_profit * E[profit(a)]
+       - w_energy * energy_J(a) - w_compute * cost_EUR(a)
+       - w_risk * P(failure | a) * severity(a)
+subject to  STOP(a) == false</code></pre>
+  <p>Four quantities are kept apart because they answer different questions. The <strong>loss function</strong> is what a learned component minimises during training; it shapes weights and is not the decision rule. The <strong>reward</strong> is the per-task learning signal: +1 for a judge-confirmed result, +0.2 for an honest "I don't know", +0.1 for new useful knowledge, −1 for a wrong result and −5 for claiming success without confirmation, minus cost. The <strong>profit</strong> is the weekly account (value minus energy, compute, human review time and expected incidents) and decides whether a phase continues. <strong>Energy and compute</strong> enter every decision.</p>
+  <p>STOP rules are constraints rather than penalties. A penalty invites the agent to compute whether a violation "pays"; a constraint removes the option. In the implementation (<code>objective.choose</code>), a candidate with reward 10<sup>9</sup> that would reveal a secret loses to a safe candidate with reward 0.1, and when every option is vetoed the function returns no choice so the caller hands off to a human.</p>
+  <h2>Modules in version 0.1</h2>
+  <table>
+    <thead><tr><th>Module</th><th>Responsibility</th></tr></thead>
+    <tbody>
+      <tr><td><code>stop</code></td><td>Hard STOP rules; veto before utility</td></tr>
+      <tr><td><code>objective</code></td><td>Reward, profit, energy/compute cost, decision rule</td></tr>
+      <tr><td><code>structure</code></td><td>Module-graph analysis after Wee et al. (rows 6-13)</td></tr>
+      <tr><td><code>evaluation</code></td><td>Behaviour evaluation statistics (rows 2-4, 14-18, 23-24)</td></tr>
+      <tr><td><code>fastpath</code></td><td>Reflex layer: hard limits over Jev probabilities</td></tr>
+      <tr><td><code>provenance</code></td><td>Source and consent register</td></tr>
+      <tr><td><code>relay</code></td><td>Pulse relay to knitweb peers with verified cost</td></tr>
+      <tr><td><code>specialize</code></td><td>Roles, company guardrails, Jev rules, expert routing</td></tr>
+      <tr><td><code>audit</code></td><td>Hash-chained trail, prune anchor, scoped views</td></tr>
+      <tr><td><code>config</code> + GUI</td><td>Validated deployment configuration (toddler-config/v1)</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="chapter">
+  <div class="chapter-num">04 · Method</div>
+  <h1>From infant brain networks to agent evaluation</h1>
+  <p class="lead">Wee et al. (2017) built anatomical brain networks for 120 newborns from diffusion tensor imaging, grouped them by network structure, and found that the structure at birth was associated with behaviour at 24 and 48 months.</p>
+  <p>The study concerns real infant brains, not artificial networks. We use it as a <span class="hl">methodological template</span> for a question every agent operator faces: does the structure an agent starts with predict how it behaves later, and how would we know? Four groups emerged (sizes 22, 37, 44 and 17); modularity Q = 0.293 lay 45 standard deviations above 10,000 random graphs; a linear SVM separated the two extreme groups with 89.4 % accuracy (sensitivity 0.954, specificity 0.765); the right amygdala's clustering coefficient was linked to behaviour at 24 months and the right inferior frontal gyrus and insula to externalising behaviour at 48 months.</p>
+  <h2>Complete mapping</h2>
+  <table class="compact" style="break-inside: auto">
+    <thead><tr><th>#</th><th>Step in the study</th><th>Toddler function (module)</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Cohort with ethics approval, consent, inclusion criteria</td><td>Source/consent register; no synthetic data (provenance)</td></tr>
+      <tr><td>2</td><td>Independent rater, age-standardised T-scores</td><td>Judge-only scoring, T-scores per task type (evaluation)</td></tr>
+      <tr><td>3</td><td>Internalising vs externalising axes</td><td>Inward (over-cautious) vs outward (overreach) rates (evaluation)</td></tr>
+      <tr><td>4</td><td>Two horizons; attrition reported</td><td>Task reward and weekly profit; missingness reported (evaluation, objective)</td></tr>
+      <tr><td>5</td><td>No sedation, clinician present, vitals monitored</td><td>Supervisor and hard limits for risky steps (fastpath, stop)</td></tr>
+      <tr><td>6</td><td>Registration to a 64-region atlas</td><td>Fixed capability atlas of 17 modules (structure)</td></tr>
+      <tr><td>7</td><td>Tractography with stopping criteria</td><td>Path tracing with explicit stop criteria (structure, fastpath)</td></tr>
+      <tr><td>8</td><td>Volume normalisation; sign test removes noise edges</td><td><code>normalise_by_size</code>, <code>sign_test_edges</code> (structure)</td></tr>
+      <tr><td>9</td><td>Clustering coefficient per region</td><td><code>clustering_profile</code> (structure)</td></tr>
+      <tr><td>10</td><td>Subject similarity, trimmed at r = 0.60</td><td><code>similarity_matrix</code>, isolate-free <code>trim_threshold</code> (structure)</td></tr>
+      <tr><td>11</td><td>Louvain consensus over 10,000 runs</td><td><code>consensus_partition</code> (structure)</td></tr>
+      <tr><td>12</td><td>Null model of 10,000 random graphs</td><td><code>modularity_null_test</code> (structure)</td></tr>
+      <tr><td>13</td><td>Assignment confidence</td><td><code>assignment_confidence</code>; low → ask a human (structure, objective)</td></tr>
+      <tr><td>14</td><td>Extremes compared with Welch tests</td><td><code>compare_extremes</code> (evaluation)</td></tr>
+      <tr><td>15</td><td>Nested 10-fold CV, mRMR, SVM-RFE, &gt;65 % selection</td><td><code>nested_feature_selection</code> (evaluation)</td></tr>
+      <tr><td>16</td><td>Sensitivity and specificity reported apart</td><td><code>sens_spec</code>; alarms count misses and false alarms (evaluation)</td></tr>
+      <tr><td>17</td><td>CCA with Bonferroni correction</td><td><code>cca_test</code> (evaluation)</td></tr>
+      <tr><td>18</td><td>Correlations for visualisation only</td><td>Findings flagged exploratory or confirmatory (evaluation)</td></tr>
+      <tr><td>19</td><td>Right amygdala (threat) predicts early behaviour</td><td>Threat detector first and best connected (fastpath)</td></tr>
+      <tr><td>20</td><td>Inferior frontal gyrus (inhibition), insula</td><td>STOP layer wired to every action (stop, fastpath)</td></tr>
+      <tr><td>21</td><td>Sensory regions early, higher regions later</td><td>Phase order: perception and safety before control (fastpath)</td></tr>
+      <tr><td>22</td><td>Prenatal environment shapes the amygdala</td><td>Curated data; scraped content is data, never instructions (provenance)</td></tr>
+      <tr><td>23</td><td>Robust after removing extremes</td><td><code>robust_without_extremes</code> (evaluation)</td></tr>
+      <tr><td>24</td><td>Weak early signal; replication needed</td><td>Promotion only after confirmatory replication (evaluation)</td></tr>
+      <tr><td>25</td><td>Structure at birth predicts later behaviour</td><td>Governance shipped before capability (stop, objective)</td></tr>
+    </tbody>
+  </table>
+  <h2>Reproduction on real data</h2>
+  <p>We ran the clustering pipeline on Zachary's karate club (34 members, an observed social network with a documented split). Consensus clustering over 1,000 Louvain runs produced 4 groups with <span class="hl">purity 0.941</span> against the two real factions; mean modularity Q = 0.416 against a weight-preserving null mean of 0.345 gave z = 3.3 and p = 0.004 over 1,000 null graphs; 91 % of members were assigned with confidence above 0.75. The nested 10×10 selection on the first ten Wisconsin breast-cancer features reached accuracy 0.912, sensitivity 0.944 and specificity 0.858, and kept two features above the 65 % selection threshold (mean perimeter, mean concave points).</p>
+  <blockquote>Our findings suggested that neural organization established during fetal development could to some extent predict individual differences in behavioral profiles.<span class="cite"> - Wee et al., Human Brain Mapping 38(3), 2017</span></blockquote>
+</section>
+
+<section class="chapter">
+  <div class="chapter-num">05 · Specialisation</div>
+  <h1>Specialisation, guardrails and audit</h1>
+  <p class="lead">A deployment is a declarative file (toddler-config/v1) edited in the Toddler configurator and validated by Python, which stays the authority even if a modified GUI produced the file.</p>
+  <h2>Extension points</h2>
+  <ul>
+    <li><strong>Role</strong>: a position in the function house (family, level, tasks) or a single task.</li>
+    <li><strong>Company guardrails</strong>: STOP rules owned by the company, e.g. a compliance officer's "never export personal data"; ids are namespaced <code>company:*</code> and the owner appears in every veto.</li>
+    <li><strong>Jev rules</strong>: extra typed questions for the reflex layer with slow and stop thresholds (0 ≤ slow ≤ stop ≤ 1).</li>
+    <li><strong>Experts</strong>: helper models on the mixture-of-models base, each with measured quality, euro and joule cost per 1,000 tokens and an evidence reference; the router picks the expert whose quality minus cost beats the base model.</li>
+  </ul>
+  <p>Safety is monotonic: <code>specialize.build</code> rejects any rule id that shadows a base rule and any question that replaces a base reflex question, so a specialisation can add constraints but never weaken them.</p>
+  <h2>Audit trail</h2>
+  <p>The trail follows the design fillslava built for ClaudeClaw: each row stores the previous hash and its own hash, so editing any row breaks verification from that row on; retention pruning moves a stored anchor so the remaining chain still verifies; secret-shaped values are refused at write time. Readers get scoped views: a compliance audience sees guardrail and STOP events, a deployer only the events of their own role, with e-mail and IP masked and every row still carrying its hash for independent checking.</p>
+</section>
+
+<section class="chapter">
+  <div class="chapter-num">06 · Infrastructure</div>
+  <h1>P2P compute, credentials and the physical roadmap</h1>
+  <h2>Pulse relay over knitweb</h2>
+  <p>Pulse is a trustless relay to compute with node-to-node sharing. Toddler reuses knitweb's proof-of-useful-work primitives: a peer's result is accepted only after sampled re-execution, and the sample size comes from knitweb's exact hypergeometric <code>required_samples</code>. For a job of 1,000 output blocks and a tolerated 1 % miss of a 1 % corruption, 368 blocks are re-run. With electricity at €0.30 per kWh and a local job of 36 MJ, local execution costs €3.00 while a peer at €1.00 plus verification costs <span class="hl">€2.10</span>; a peer whose collateral makes fraud profitable is refused, and peers above 90 % load are skipped. The woven knowledge graph is published as a deterministic knitweb synaptic bundle (122 relations, 1,961 bytes); signing stays with the operator.</p>
+  <h2>Credentials and multiple identities</h2>
+  <p>A toddler has several e-mail identities: one per provider, so a revoked key never exposes another account. Keys are stored in OpenBao under <code>toddler/&lt;identity&gt;/&lt;provider&gt;/&lt;key&gt;</code>. Creation uses only official endpoints (Google API Keys, Cloudflare tokens, OpenAI service accounts, GitHub App installation tokens, AWS IAM) behind the operator-approval STOP rule; Anthropic and TransIP do not allow key creation by API and become human tasks. Rotation never revokes the old key before the new one is verified. Mass account creation, CAPTCHA bypass and temp-mail farming are out of scope. This module is complete and tested but held back from the repository pending explicit operator approval.</p>
+  <h2>Physical roadmap</h2>
+  <p>The physical Toddler combines camera and lidar perception, industrial-grade motion precision (ISO 10218, ISO/TS 15066 contact limits), learned policies in the style of current legged and humanoid platforms trained in simulation, and Jev answering many physical-rule questions in parallel for the reflex layer. The reflex is already implemented in software: a measured force, speed or proximity limit stops the robot whatever Jev reports, a late (&gt; 20 ms) or missing answer stops it, and an uncertain answer counts at its upper bound. Real hardware waits for a care partner, an ethics committee and a CE/MDR path.</p>
+</section>
+
+<section class="chapter">
+  <div class="chapter-num">07 · Status</div>
+  <h1>Results, limitations and status</h1>
+  <h2>What is delivered</h2>
+  <ul>
+    <li>Ten modules, 63 passing tests on real public data or explicit small inputs.</li>
+    <li>Knowledge base: 36 AI/NN concepts from 1796 to 2023 fetched with hash and licence; woven graph of 88 nodes and 295 edges linking concepts, the 25 study steps and code, with no coverage gaps.</li>
+    <li>Configurator GUI with client-side validation mirrored and enforced in Python; tested end to end in a headless browser.</li>
+  </ul>
+  <h2>Limitations</h2>
+  <ul>
+    <li>The mapping from infant brains is an analogy; the study is correlational, single-cohort and needs replication, and so does every structural claim about Toddler.</li>
+    <li>Reward and utility weights are documented starting points, not calibrated values.</li>
+    <li>The structure module is validated on social-network data, not yet on Toddler's own versions; that needs many recorded versions first.</li>
+    <li>Competing with large robotics programmes on scale is not a goal; the contribution is a governed, auditable base for fine-tuning open models.</li>
+  </ul>
+  <div class="takeaway">
+    <div class="takeaway-label">For developers</div>
+    Start from <code>toddler-config/v1</code>: define the role, add your company's guardrails, and register experts only with measured evidence. Run <code>python3 -m pytest -q</code> before every deployment.
+  </div>
+</section>
+
+<section class="chapter">
+  <div class="chapter-num">08 · Appendix</div>
+  <h1>Appendix</h1>
+  <h2>A. References</h2>
+  <ul>
+    <li>Wee, C.-Y., Tuan, T. A., Broekman, B. F. P., et al., &amp; Qiu, A. (2017). Neonatal neural networks predict children behavioral profiles later in life. <em>Human Brain Mapping</em>, 38(3), 1362-1373. doi:10.1002/hbm.23459</li>
+    <li>Salelanonda, G. Learning how to learn: toddlers vs. neural networks. Embedded.com.</li>
+    <li>Blondel, V. D., et al. (2008). Fast unfolding of communities in large networks. <em>J. Stat. Mech.</em></li>
+    <li>Peng, H., Long, F., &amp; Ding, C. (2005). Feature selection based on mutual information (mRMR). <em>IEEE TPAMI</em>.</li>
+    <li>Guyon, I., et al. (2002). Gene selection for cancer classification using support vector machines (SVM-RFE). <em>Machine Learning</em>.</li>
+    <li>Zachary, W. W. (1977). An information flow model for conflict and fission in small groups. <em>J. Anthropological Research</em>.</li>
+  </ul>
+  <h2>B. Glossary</h2>
+  <p><strong>Clustering coefficient</strong> - the share of a node's neighbours that are connected to each other (0 to 1).</p>
+  <p><strong>Consensus clustering</strong> - repeating a non-deterministic clustering many times and clustering the co-assignment matrix.</p>
+  <p><strong>Jev</strong> - a model that answers many typed questions in parallel and returns probabilities with uncertainty; used as a feature generator, never as the sole authority.</p>
+  <p><strong>Pulse</strong> - knitweb's trustless relay to compute and node-to-node resource sharing.</p>
+  <p><strong>STOP rule</strong> - a hard constraint that vetoes an action before utility is compared.</p>
+</section>
+
+</body>
+</html>
