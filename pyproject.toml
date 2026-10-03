@@ -13,6 +13,7 @@ dependencies = ["numpy", "networkx>=3.2", "scikit-learn", "scipy", "requests"]
 dev = ["pytest"]
 aws = ["boto3"]
 learn = ["torch", "gymnasium==1.2.1"]
+grid = ["minigrid==3.1.0"]
 gpu = ["nvidia-ml-py", "psutil"]
 jev = ["fastapi", "uvicorn", "datasets"]
 

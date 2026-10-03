@@ -137,3 +137,13 @@ def test_statistics_refuse_degenerate_input():
         scoring.prob_improvement(np.array([0.1]), np.array([0.2]))
     with pytest.raises(ValueError):
         T.normalise("cartpole", 100.0, 500.0)          # anchor above the solve threshold
+
+
+def test_minigrid_tasks_are_flat_vectors_with_a_measured_anchor():
+    pytest.importorskip("minigrid")
+    env = T.make("doorkey5")
+    obs, _ = env.reset(seed=T.EVAL_SEEDS[0])
+    assert obs.shape == (147,) and env.action_space.n == 7
+    env.close()
+    a = T.random_anchor("doorkey5", T.EVAL_SEEDS[:3])
+    assert 0.0 <= a < T.TASKS["doorkey5"].solved
