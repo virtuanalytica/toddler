@@ -1,0 +1,66 @@
+{
+ "prereg": "docs/learn/PREREG_return_scaling.md",
+ "budget": 150000,
+ "seeds": [
+  21,
+  22,
+  23,
+  24,
+  25
+ ],
+ "tasks": {
+  "acrobot": {
+   "anchor": -499.03333333333336,
+   "groups": {
+    "scaled": [
+     1.0454,
+     1.0434,
+     1.0403,
+     1.0404,
+     1.0419
+    ],
+    "unscaled": [
+     -0.0024,
+     -0.0024,
+     -0.0024,
+     -0.0024,
+     -0.0024
+    ]
+   },
+   "iqm": {
+    "scaled": 1.0419,
+    "unscaled": -0.0024
+   },
+   "p": 0.0037,
+   "prob_improvement": 1.0,
+   "passes": true
+  },
+  "cartpole": {
+   "anchor": 22.333333333333332,
+   "groups": {
+    "scaled": [
+     1.0552,
+     1.0552,
+     1.0552,
+     1.0552,
+     1.0552
+    ],
+    "unscaled": [
+     1.0105,
+     0.7123,
+     1.0333,
+     0.2199,
+     0.2272
+    ]
+   },
+   "iqm": {
+    "scaled": 1.0552,
+    "unscaled": 0.65
+   },
+   "p": 0.0037,
+   "prob_improvement": 1.0,
+   "passes": true
+  }
+ },
+ "default_changes": true
+}

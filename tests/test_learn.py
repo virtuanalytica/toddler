@@ -101,6 +101,23 @@ def test_gae_mid_episode_uses_last_value():
     assert adv[0] == 3.5
 
 
+def test_return_scaler_brings_long_negative_returns_to_unit_scale():
+    s = ppo.ReturnScaler(gamma=0.99)
+    scaled = [s(-1.0, end=(i % 500 == 499)) for i in range(5000)]
+    # unscaled discounted returns reach about -99; scaled rewards keep their sign and shrink
+    assert all(x < 0 for x in scaled) and abs(scaled[-1]) < 0.2
+
+
+def test_unscaled_method_version_stays_reproducible():
+    """Generations recorded before return scaling became the default must stay reproducible."""
+    torch.set_num_threads(2)
+    n1, _ = ppo.train("cartpole", ppo.PPOConfig(seed=7, scale_rewards=False, **SMALL))
+    n2, _ = ppo.train("cartpole", ppo.PPOConfig(seed=7, scale_rewards=False, **SMALL))
+    n3, _ = ppo.train("cartpole", ppo.PPOConfig(seed=7, **SMALL))
+    assert all(torch.equal(a, b) for a, b in zip(n1.parameters(), n2.parameters()))
+    assert not all(torch.equal(a, b) for a, b in zip(n1.parameters(), n3.parameters()))
+
+
 def test_behaviour_clone_and_run_bc_smoke():
     from toddler.learn import peer
 
