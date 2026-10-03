@@ -107,17 +107,23 @@ def collect_states(net: ActorCritic, task: str, n: int = 512) -> torch.Tensor:
     return torch.as_tensor(np.asarray(states), dtype=torch.float32)
 
 
-def _energy_mj(index: int) -> float | None:
+def _energy_mj(index: int) -> tuple[float | None, str]:
+    """(millijoules since driver load, "") or (None, why it could not be read)."""
     try:
         import pynvml
-
+    except ImportError:
+        return None, "pynvml not installed"
+    try:
         pynvml.nvmlInit()
         try:
-            return float(pynvml.nvmlDeviceGetTotalEnergyConsumption(pynvml.nvmlDeviceGetHandleByIndex(index)))
+            h = pynvml.nvmlDeviceGetHandleByIndex(index)
+            return float(pynvml.nvmlDeviceGetTotalEnergyConsumption(h)), ""
         finally:
             pynvml.nvmlShutdown()
-    except Exception:
-        return None
+    except pynvml.NVMLError_NotSupported:
+        return None, "no energy counter on this device"
+    except pynvml.NVMLError as exc:
+        return None, f"energy read failed: {type(exc).__name__}"
 
 
 def measure_efficiency(net: ActorCritic, states: torch.Tensor, cfg: HardwareConfig,
@@ -148,13 +154,13 @@ def measure_efficiency(net: ActorCritic, states: torch.Tensor, cfg: HardwareConf
                 model(s)
                 sync()
                 lat.append((time.perf_counter() - t0) * 1e3)
-            e0 = _energy_mj(cfg.gpu_index) if cfg.gpu_index is not None else None
+            e0, why0 = _energy_mj(cfg.gpu_index) if cfg.gpu_index is not None else (None, "CPU: no energy counter read")
             t0 = time.perf_counter()
             for _ in range(batch_reps):
                 model(x)
             sync()
             dt = time.perf_counter() - t0
-            e1 = _energy_mj(cfg.gpu_index) if cfg.gpu_index is not None else None
+            e1, why1 = _energy_mj(cfg.gpu_index) if cfg.gpu_index is not None else (None, why0)
     finally:
         torch.set_num_threads(prev_threads)
         del model, x
@@ -168,8 +174,10 @@ def measure_efficiency(net: ActorCritic, states: torch.Tensor, cfg: HardwareConf
         # board energy over the window, shared with anything else on that GPU: an upper bound
         eff.energy_mj_per_1000 = round((e1 - e0) / passes * 1000, 3)
         eff.energy_note = "GPU board counter over the window (upper bound: includes idle and other users)"
+    elif e0 is not None and e1 is not None:
+        eff.energy_note = "not measured (energy counter went backwards during the window)"
     else:
-        eff.energy_note = "not measured (no energy counter on this device)"
+        eff.energy_note = f"not measured ({why0 or why1})"
     return eff
 
 
@@ -178,7 +186,7 @@ def benchmark_toddler(net: ActorCritic, generation: str, toddler_id: str, task: 
                       tol: float = 1e-6) -> ToddlerBenchmark:
     q = [float(T.normalise(task, r, anchor)) for r in scoring.evaluate(net, task)]
     out = ToddlerBenchmark(generation, toddler_id, float(np.mean(q)), float(np.mean(recorded)),
-                           bool(np.allclose(q, recorded, atol=tol)))
+                           bool(np.allclose(q, recorded, rtol=0.0, atol=tol)))
     states = collect_states(net, task)
     for cfg in hw:
         if cfg.gpu_index is not None:

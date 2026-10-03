@@ -1,12 +1,12 @@
 {
  "task": "cartpole",
- "registry_root": "/media/knight2/EDS2/toddler-generations",
- "seconds": 14.7,
+ "measured_at": "2026-10-03T14:38:51+0200",
+ "seconds": 15.3,
  "reference": {
   "generation": "gen-0",
-  "fingerprint": "089619ab0a4517776718515a02fa1739cb4256a14de8dcea0618995b559ef5d8",
-  "frozen_raw_mean": 0.5852,
-  "remeasured_raw_mean": 0.5852,
+  "fingerprint": "5efe10842214827540eed30390345db2af81a2a7216072e5d9ee270d13d80393",
+  "frozen_raw_iqm": 0.5351,
+  "remeasured_raw_iqm": 0.5351,
   "drift": 0.0
  },
  "quality_reproduced_all": true,
@@ -14,19 +14,19 @@
   "gen-0": {
    "toddlers": 5,
    "iq_raw": 0.535,
-   "iq_quotient": 98.1,
+   "iq_quotient": 100.0,
    "iq_quotient_95ci": [
-    88.4,
-    116.7
+    90.3,
+    118.6
    ]
   },
   "gen-1": {
    "toddlers": 5,
    "iq_raw": 0.31,
-   "iq_quotient": 89.8,
+   "iq_quotient": 91.6,
    "iq_quotient_95ci": [
-    86.5,
-    95.5
+    88.3,
+    97.3
    ]
   }
  },
@@ -37,8 +37,8 @@
    "measured": 10,
    "skipped": 0,
    "skip_reasons": [],
-   "latency_ms_median": 0.0533,
-   "throughput_states_per_s_median": 2841329.2
+   "latency_ms_median": 0.0548,
+   "throughput_states_per_s_median": 2827541.0
   },
   "gpu0": {
    "device": "cuda:0",
@@ -88,12 +88,13 @@
  "host": {
   "cpu": "x86_64",
   "cores": 96,
-  "load_1m_at_start": 5.9,
+  "load_1m_at_start": 9.4,
   "torch": "2.6.0+cu124"
  },
  "notes": [
   "Quality is CPU-measured and hardware-independent; efficiency never enters a quotient.",
-  "GPU configs are measured only when the governor allows them at that moment; skipped is reported, not filled in."
+  "GPU configs are measured only when the governor allows them at that moment; skipped is reported, not filled in.",
+  "Efficiency rows are a point-in-time snapshot; quality rows must be identical on every re-run."
  ],
  "toddlers": [
   {
@@ -107,11 +108,11 @@
      "config": "cpu-8t",
      "measured": true,
      "reason": "",
-     "latency_ms_median": 0.055,
-     "latency_ms_p95": 0.0644,
-     "throughput_states_per_s": 2445171.6,
+     "latency_ms_median": 0.0564,
+     "latency_ms_p95": 0.0662,
+     "throughput_states_per_s": 2452431.9,
      "energy_mj_per_1000": null,
-     "energy_note": "not measured (no energy counter on this device)"
+     "energy_note": "not measured (CPU: no energy counter read)"
     },
     {
      "config": "gpu0",
@@ -166,11 +167,11 @@
      "config": "cpu-8t",
      "measured": true,
      "reason": "",
-     "latency_ms_median": 0.0548,
-     "latency_ms_p95": 0.0643,
-     "throughput_states_per_s": 2712275.0,
+     "latency_ms_median": 0.0544,
+     "latency_ms_p95": 0.0655,
+     "throughput_states_per_s": 2823905.9,
      "energy_mj_per_1000": null,
-     "energy_note": "not measured (no energy counter on this device)"
+     "energy_note": "not measured (CPU: no energy counter read)"
     },
     {
      "config": "gpu0",
@@ -225,11 +226,11 @@
      "config": "cpu-8t",
      "measured": true,
      "reason": "",
-     "latency_ms_median": 0.0532,
-     "latency_ms_p95": 0.0654,
-     "throughput_states_per_s": 2757916.3,
+     "latency_ms_median": 0.0548,
+     "latency_ms_p95": 0.0664,
+     "throughput_states_per_s": 2866807.8,
      "energy_mj_per_1000": null,
-     "energy_note": "not measured (no energy counter on this device)"
+     "energy_note": "not measured (CPU: no energy counter read)"
     },
     {
      "config": "gpu0",
@@ -284,11 +285,11 @@
      "config": "cpu-8t",
      "measured": true,
      "reason": "",
-     "latency_ms_median": 0.0598,
-     "latency_ms_p95": 0.073,
-     "throughput_states_per_s": 2739456.0,
+     "latency_ms_median": 0.0561,
+     "latency_ms_p95": 0.0698,
+     "throughput_states_per_s": 2676806.7,
      "energy_mj_per_1000": null,
-     "energy_note": "not measured (no energy counter on this device)"
+     "energy_note": "not measured (CPU: no energy counter read)"
     },
     {
      "config": "gpu0",
@@ -343,11 +344,11 @@
      "config": "cpu-8t",
      "measured": true,
      "reason": "",
-     "latency_ms_median": 0.0534,
-     "latency_ms_p95": 0.0649,
-     "throughput_states_per_s": 2837021.9,
+     "latency_ms_median": 0.0548,
+     "latency_ms_p95": 0.0657,
+     "throughput_states_per_s": 2881869.4,
      "energy_mj_per_1000": null,
-     "energy_note": "not measured (no energy counter on this device)"
+     "energy_note": "not measured (CPU: no energy counter read)"
     },
     {
      "config": "gpu0",
@@ -402,11 +403,11 @@
      "config": "cpu-8t",
      "measured": true,
      "reason": "",
-     "latency_ms_median": 0.053,
-     "latency_ms_p95": 0.0593,
-     "throughput_states_per_s": 2892630.9,
+     "latency_ms_median": 0.0545,
+     "latency_ms_p95": 0.0665,
+     "throughput_states_per_s": 2831176.0,
      "energy_mj_per_1000": null,
-     "energy_note": "not measured (no energy counter on this device)"
+     "energy_note": "not measured (CPU: no energy counter read)"
     },
     {
      "config": "gpu0",
@@ -461,11 +462,11 @@
      "config": "cpu-8t",
      "measured": true,
      "reason": "",
-     "latency_ms_median": 0.0549,
-     "latency_ms_p95": 0.0655,
-     "throughput_states_per_s": 2855176.1,
+     "latency_ms_median": 0.0565,
+     "latency_ms_p95": 0.0631,
+     "throughput_states_per_s": 2554029.4,
      "energy_mj_per_1000": null,
-     "energy_note": "not measured (no energy counter on this device)"
+     "energy_note": "not measured (CPU: no energy counter read)"
     },
     {
      "config": "gpu0",
@@ -520,11 +521,11 @@
      "config": "cpu-8t",
      "measured": true,
      "reason": "",
-     "latency_ms_median": 0.0531,
-     "latency_ms_p95": 0.0659,
-     "throughput_states_per_s": 2845636.5,
+     "latency_ms_median": 0.0557,
+     "latency_ms_p95": 0.0657,
+     "throughput_states_per_s": 2851670.3,
      "energy_mj_per_1000": null,
-     "energy_note": "not measured (no energy counter on this device)"
+     "energy_note": "not measured (CPU: no energy counter read)"
     },
     {
      "config": "gpu0",
@@ -579,11 +580,11 @@
      "config": "cpu-8t",
      "measured": true,
      "reason": "",
-     "latency_ms_median": 0.0532,
-     "latency_ms_p95": 0.0646,
-     "throughput_states_per_s": 2890742.3,
+     "latency_ms_median": 0.0544,
+     "latency_ms_p95": 0.0624,
+     "throughput_states_per_s": 2882453.1,
      "energy_mj_per_1000": null,
-     "energy_note": "not measured (no energy counter on this device)"
+     "energy_note": "not measured (CPU: no energy counter read)"
     },
     {
      "config": "gpu0",
@@ -638,11 +639,11 @@
      "config": "cpu-8t",
      "measured": true,
      "reason": "",
-     "latency_ms_median": 0.0514,
-     "latency_ms_p95": 0.0607,
-     "throughput_states_per_s": 2915693.3,
+     "latency_ms_median": 0.0546,
+     "latency_ms_p95": 0.0658,
+     "throughput_states_per_s": 2822143.6,
      "energy_mj_per_1000": null,
-     "energy_note": "not measured (no energy counter on this device)"
+     "energy_note": "not measured (CPU: no energy counter read)"
     },
     {
      "config": "gpu0",

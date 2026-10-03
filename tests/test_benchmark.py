@@ -1,6 +1,7 @@
 import pytest
 
 pytest.importorskip("gymnasium")
+pytest.importorskip("torch")
 
 from toddler import resources  # noqa: E402
 from toddler.learn import benchmark as B  # noqa: E402
@@ -38,7 +39,7 @@ def test_cpu_benchmark_reproduces_quality_and_measures_efficiency():
     assert r.quality_reproduced
     e = r.efficiency[0]
     assert e.measured and e.latency_ms_median > 0 and e.throughput_states_per_s > 0
-    assert "not measured" in e.energy_note
+    assert e.energy_note == "not measured (CPU: no energy counter read)"
 
 
 def test_states_come_from_real_rollouts():

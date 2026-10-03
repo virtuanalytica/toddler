@@ -5,12 +5,16 @@ efficiency is measured per configuration the resource governor allows right now;
 reported as skipped. Quotients use the frozen gen-0 reference, whose fingerprint must match.
 
 Run: TODDLER_GPU_GUARD=... TODDLER_COORD=... PYTHONPATH=. python3 scripts/benchmark_generations.py [--root DIR]
+The registry must exist first (scripts/build_generations.py; same --root / TODDLER_GENERATIONS_ROOT).
+GPU rows are a snapshot: which GPUs the governor allows depends on the moment and on whether the
+guard and lease are configured (TODDLER_GPU_GUARD, TODDLER_COORD); without them, any idle GPU is used.
 Report: docs/learn/generation_benchmarks.json
 """
 
 import argparse
 import json
 import platform
+import sys
 import time
 from pathlib import Path
 
@@ -20,12 +24,16 @@ import torch
 from toddler import business, quotients, resources
 from toddler.learn import benchmark as B
 from toddler.learn import generations as G
+from toddler.learn import scoring
 from toddler.learn import tasks as T
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from build_generations import default_root  # noqa: E402
 
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--root", default="/media/knight2/EDS2/toddler-generations")
+    ap.add_argument("--root", default=default_root())
     ap.add_argument("--reference", default="gen-0")
     a = ap.parse_args()
     t0 = time.time()
@@ -36,20 +44,20 @@ def main() -> None:
     gens = sorted(p.name for p in Path(a.root).iterdir() if p.is_dir() and p.name.startswith("gen-"))
     hw = B.configs(host, threads)
 
-    results, by_gen, task = [], {}, None
+    results, by_gen, task, anchors = [], {}, None, {}
     for gen in gens:
         for rec in reg.generation(gen):
             task = task or rec.task
             if rec.task != task:
                 raise SystemExit(f"{gen}/{rec.toddler_id} is on {rec.task}, not {task}; benchmark one task per run")
             net, _ = reg.load(gen, rec.toddler_id)
-            anchor = T.random_anchor(rec.task)
-            r = B.benchmark_toddler(net, gen, rec.toddler_id, rec.task, anchor, rec.eval_scores, hw)
+            anchors.setdefault(rec.task, T.random_anchor(rec.task))      # deterministic: measure once
+            r = B.benchmark_toddler(net, gen, rec.toddler_id, rec.task, anchors[rec.task], rec.eval_scores, hw)
             results.append(r)
             by_gen.setdefault(gen, []).append(r.quality)
             print(f"{gen}/{rec.toddler_id} quality {r.quality:.3f} reproduced={r.quality_reproduced}", flush=True)
 
-    fp = quotients.fingerprint([task], T.EVAL_SEEDS, [T.random_anchor(task)])
+    fp = quotients.fingerprint([task], T.EVAL_SEEDS, [anchors[task]], [T.TASKS[task].solved])
     frozen = reg.reference(a.reference, fp)
     remeasured = by_gen[a.reference]
     gens_out = {}
@@ -70,18 +78,19 @@ def main() -> None:
         }
 
     report = {
-        "task": task, "registry_root": a.root, "seconds": round(time.time() - t0, 1),
+        "task": task, "measured_at": time.strftime("%Y-%m-%dT%H:%M:%S%z"), "seconds": round(time.time() - t0, 1),
         "reference": {"generation": a.reference, "fingerprint": fp.digest(),
-                      "frozen_raw_mean": round(float(np.mean(frozen)), 4),
-                      "remeasured_raw_mean": round(float(np.mean(remeasured)), 4),
-                      "drift": round(float(np.mean(remeasured) - np.mean(frozen)), 6)},
+                      "frozen_raw_iqm": round(scoring.iqm(frozen), 4),
+                      "remeasured_raw_iqm": round(scoring.iqm(remeasured), 4),
+                      "drift": round(scoring.iqm(remeasured) - scoring.iqm(frozen), 6)},
         "quality_reproduced_all": all(r.quality_reproduced for r in results),
         "generations": gens_out,
         "hardware_configs": per_config,
         "host": {"cpu": platform.processor() or platform.machine(), "cores": host.cores,
                  "load_1m_at_start": round(host.load_1m, 1), "torch": torch.__version__},
         "notes": ["Quality is CPU-measured and hardware-independent; efficiency never enters a quotient.",
-                  "GPU configs are measured only when the governor allows them at that moment; skipped is reported, not filled in."],
+                  "GPU configs are measured only when the governor allows them at that moment; skipped is reported, not filled in.",
+                  "Efficiency rows are a point-in-time snapshot; quality rows must be identical on every re-run."],
         "toddlers": [r.to_dict() for r in results],
         **business.FIELDS,
     }
