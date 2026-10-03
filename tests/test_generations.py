@@ -4,6 +4,7 @@ from dataclasses import asdict
 import pytest
 
 pytest.importorskip("gymnasium")
+pytest.importorskip("torch")
 
 from toddler.learn import generations as G  # noqa: E402
 from toddler.learn import ppo  # noqa: E402
