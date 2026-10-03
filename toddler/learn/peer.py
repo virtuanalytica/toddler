@@ -19,6 +19,10 @@ conservative, distribution-free choice and is also the test registered for the f
 The behaviour-cloning variant (behaviour_clone, run_bc) is that pre-registered follow-up
 (docs/learn/PREREG_peer_bc.md): the teacher's knowledge is passed by cloning its actions on
 teacher rollouts that count against the student's step budget, then self-reinforcement learning.
+
+Method version: both registered experiments ran before return scaling became the PPO default
+(docs/learn/return_scaling.json), so run() and run_bc() pin scale_rewards=False to stay
+reproducible. A run with scaling is a new experiment and needs its own registration.
 """
 
 from __future__ import annotations
@@ -57,15 +61,16 @@ def _score(net: ActorCritic, task: str, anchor: float, seeds: tuple[int, ...]) -
 
 def run(task: str = "cartpole", teacher_steps: int = 150_000, student_steps: int = 30_000,
         student_seeds: tuple[int, ...] = (11, 12, 13, 14, 15), teacher_seed: int = 2,
-        eval_seeds: tuple[int, ...] = T.EVAL_SEEDS, alpha: float = 0.05) -> PeerResult:
+        eval_seeds: tuple[int, ...] = T.EVAL_SEEDS, alpha: float = 0.05,
+        scale_rewards: bool = False) -> PeerResult:
     anchor = T.random_anchor(task, eval_seeds)
-    teacher, _ = ppo.train(task, ppo.PPOConfig(total_steps=teacher_steps, seed=teacher_seed))
+    teacher, _ = ppo.train(task, ppo.PPOConfig(total_steps=teacher_steps, seed=teacher_seed, scale_rewards=scale_rewards))
     env = T.make(task)
     random_teacher = ActorCritic(env.observation_space.shape[0], env.action_space.n)
     env.close()
     groups: dict[str, list[float]] = {"real_teacher": [], "no_teacher": [], "random_teacher": []}
     for s in student_seeds:
-        cfg = ppo.PPOConfig(total_steps=student_steps, seed=s)
+        cfg = ppo.PPOConfig(total_steps=student_steps, seed=s, scale_rewards=scale_rewards)
         for name, t in (("real_teacher", teacher), ("no_teacher", None), ("random_teacher", random_teacher)):
             net, _ = ppo.train(task, cfg, teacher=t)
             groups[name].append(_score(net, task, anchor, eval_seeds))
@@ -117,10 +122,11 @@ def behaviour_clone(teacher: ActorCritic, task: str, steps: int, seed: int,
 
 def run_bc(task: str = "cartpole", teacher_steps: int = 150_000, budget: int = 30_000, clone_steps: int = 10_000,
            student_seeds: tuple[int, ...] = (11, 12, 13, 14, 15), teacher_seed: int = 2,
-           eval_seeds: tuple[int, ...] = T.EVAL_SEEDS, alpha: float = 0.05) -> PeerResult:
+           eval_seeds: tuple[int, ...] = T.EVAL_SEEDS, alpha: float = 0.05,
+           scale_rewards: bool = False) -> PeerResult:
     """Pre-registered follow-up (docs/learn/PREREG_peer_bc.md): behaviour-cloning warm start."""
     anchor = T.random_anchor(task, eval_seeds)
-    teacher, _ = ppo.train(task, ppo.PPOConfig(total_steps=teacher_steps, seed=teacher_seed))
+    teacher, _ = ppo.train(task, ppo.PPOConfig(total_steps=teacher_steps, seed=teacher_seed, scale_rewards=scale_rewards))
     env = T.make(task)
     random_teacher = ActorCritic(env.observation_space.shape[0], env.action_space.n)
     env.close()
@@ -128,10 +134,10 @@ def run_bc(task: str = "cartpole", teacher_steps: int = 150_000, budget: int = 3
     for s in student_seeds:
         for name, t in (("real_teacher", teacher), ("no_teacher", None), ("random_teacher", random_teacher)):
             if t is None:
-                net, _ = ppo.train(task, ppo.PPOConfig(total_steps=budget, seed=s))
+                net, _ = ppo.train(task, ppo.PPOConfig(total_steps=budget, seed=s, scale_rewards=scale_rewards))
             else:
                 warm = behaviour_clone(t, task, clone_steps, seed=s)
-                net, _ = ppo.train(task, ppo.PPOConfig(total_steps=budget - clone_steps, seed=s), net=warm)
+                net, _ = ppo.train(task, ppo.PPOConfig(total_steps=budget - clone_steps, seed=s, scale_rewards=scale_rewards), net=warm)
             groups[name].append(_score(net, task, anchor, eval_seeds))
     real = np.asarray(groups["real_teacher"])
     p_none = float(stats.mannwhitneyu(real, groups["no_teacher"], alternative="greater").pvalue)
