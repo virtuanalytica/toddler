@@ -1,6 +1,7 @@
 """Hardware-independent evaluation and robust comparison of toddler generations.
 
-Evaluation always runs on the CPU, greedy actions, on the held-out EVAL_SEEDS, so the score of
+Evaluation always runs on the CPU on the held-out EVAL_SEEDS, greedy by default (every recorded
+score is greedy; a sampled mode exists and is recorded in the reference fingerprint), so the score of
 a toddler does not depend on which GPU trained it or how busy it was. Aggregation follows
 Agarwal et al. (2021, "Deep RL at the edge of the statistical precipice"): normalised scores,
 aggregate interquartile mean (mean of per-task IQMs), stratified bootstrap confidence intervals, and the probability of
@@ -18,23 +19,37 @@ if TYPE_CHECKING:
     from toddler.learn.policy import ActorCritic
 
 
-def evaluate(net: "ActorCritic", task: str, seeds: tuple[int, ...] | None = None) -> np.ndarray:
-    """Greedy returns on held-out seeds (default T.EVAL_SEEDS), on the CPU. torch and gymnasium
-    are imported here so the statistics below work without the `learn` extra."""
+def evaluate(net: "ActorCritic", task: str, seeds: tuple[int, ...] | None = None,
+             mode: str = "greedy") -> np.ndarray:
+    """Returns on held-out seeds (default T.EVAL_SEEDS), on the CPU. torch and gymnasium are
+    imported here so the statistics below work without the `learn` extra.
+
+    mode "greedy" (default, used by every recorded score): argmax action.
+    mode "sample": actions drawn from the policy with a generator seeded by the evaluation seed,
+    so the score is still deterministic per (network, seed). On tasks where a greedy policy can
+    loop (MiniGrid DoorKey) the two can differ widely; a report must say which mode it used and
+    never compare scores across modes."""
     import torch
 
     from toddler.learn import tasks as T
 
+    if mode not in ("greedy", "sample"):
+        raise ValueError(f"unknown evaluation mode {mode!r}")
     seeds = T.EVAL_SEEDS if seeds is None else seeds
     net = net.to("cpu").eval()
     out = []
     for s in seeds:
         env = T.make(task)
         obs, _ = env.reset(seed=s)
+        gen = torch.Generator().manual_seed(int(s)) if mode == "sample" else None
         total, done = 0.0, False
         while not done:
             with torch.no_grad():
-                a = int(torch.argmax(net(torch.as_tensor(obs, dtype=torch.float32))[0]))
+                logits = net(torch.as_tensor(obs, dtype=torch.float32))[0]
+                if mode == "greedy":
+                    a = int(torch.argmax(logits))
+                else:
+                    a = int(torch.multinomial(torch.softmax(logits, -1), 1, generator=gen))
             obs, r, term, trunc, _ = env.step(a)
             total += r
             done = term or trunc

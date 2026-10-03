@@ -94,3 +94,12 @@ def test_iq_quotient_ci_brackets_point():
     scores = rng.normal(0.6, 0.1, size=(10, 2))
     point, lo, hi = q.iq_quotient_ci(scores, [0.4, 0.5, 0.6], reps=300)
     assert lo <= point <= hi
+
+
+def test_eval_mode_is_part_of_the_fingerprint_and_greedy_keeps_old_digests():
+    greedy = q.fingerprint(["doorkey5"], (10000,), [0.03], [0.9])
+    sampled = q.fingerprint(["doorkey5"], (10000,), [0.03], [0.9], eval_mode="sample")
+    legacy = q.ReferenceFingerprint(("doorkey5",), (10000,), (0.03,), (0.9,))   # frozen before the field
+    assert greedy.digest() == legacy.digest()
+    with pytest.raises(ValueError, match="evaluation mode"):
+        greedy.require_same(sampled)

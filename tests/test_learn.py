@@ -219,3 +219,12 @@ def test_pbt_population_is_reproducible_from_its_seed():
     _, b = pbt.run_population("cartpole", seed=5, pbt=True, members=2, intervals=2, interval_steps=1024, base=base)
     torch.set_num_threads(prev)
     assert a == b
+
+
+def test_sampled_evaluation_is_deterministic_per_seed_and_mode_is_checked():
+    net, _ = ppo.train("cartpole", ppo.PPOConfig(seed=3, **SMALL))
+    a = scoring.evaluate(net, "cartpole", T.EVAL_SEEDS[:4], mode="sample")
+    b = scoring.evaluate(net, "cartpole", T.EVAL_SEEDS[:4], mode="sample")
+    assert np.array_equal(a, b)
+    with pytest.raises(ValueError):
+        scoring.evaluate(net, "cartpole", T.EVAL_SEEDS[:1], mode="mean")
