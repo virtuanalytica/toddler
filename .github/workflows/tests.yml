@@ -12,5 +12,7 @@ jobs:
         with:
           python-version: "3.12"
       - run: python -m pip install -e ".[dev]"
+      # Jev server tests: the web stack only (the `datasets` part of the jev extra is for calibration runs)
+      - run: python -m pip install fastapi uvicorn httpx
       # knitweb is optional here: tests that need it are skipped when it is absent.
       - run: python -m pytest -q

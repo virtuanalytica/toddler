@@ -2,12 +2,16 @@
 The backend is a deterministic stand-in; the live model is exercised by the smoke run."""
 
 import pytest
-from fastapi.testclient import TestClient
 
-from jevserver.app import TTLCache, create_app
-from jevserver.keys import KeyStore
-from toddler import fastpath as fp
-from toddler import jev
+pytest.importorskip("fastapi")
+pytest.importorskip("httpx")            # required by fastapi.testclient
+
+from fastapi.testclient import TestClient  # noqa: E402
+
+from jevserver.app import TTLCache, create_app  # noqa: E402
+from jevserver.keys import KeyStore  # noqa: E402
+from toddler import fastpath as fp  # noqa: E402
+from toddler import jev  # noqa: E402
 
 
 class FixedBackend:
