@@ -48,6 +48,32 @@ class PPOConfig:
 
 
 @dataclass
+class TrainState:
+    """Everything a training run carries between calls, so that k calls of N/k steps continue
+    one run instead of restarting it: environment and current observation, optimiser, return
+    scaler, novelty counts, curiosity weight and both random generators. In memory only (the
+    environment is a live object); pass the same instance to consecutive `train` calls."""
+    env: object = None
+    obs: object = None
+    ep_ret: float = 0.0
+    rng: object = None
+    torch_rng: object = None
+    opt: object = None
+    counts: object = None
+    cur_w: float = 0.0
+    scaler: object = None
+
+    @property
+    def started(self) -> bool:
+        return self.env is not None
+
+    def close(self) -> None:
+        if self.env is not None:
+            self.env.close()
+            self.env = None
+
+
+@dataclass
 class TrainLog:
     updates: int = 0
     steps: int = 0
@@ -112,20 +138,34 @@ def gae_advantages(rewards, values, ends, boots, last_value: float, gamma: float
 def train(task: str, cfg: PPOConfig, net: ActorCritic | None = None, teacher: ActorCritic | None = None,
           device: str = "cpu", watchdog: Callable[[], str | None] | None = None,
           checkpoint: Callable[[ActorCritic, TrainLog], None] | None = None,
-          checkpoint_every: int = 10) -> tuple[ActorCritic, TrainLog]:
-    torch.manual_seed(cfg.seed)
-    rng = np.random.default_rng(cfg.seed)
-    env = T.make(task)
-    obs_dim, n_act = env.observation_space.shape[0], env.action_space.n
-    net = net or ActorCritic(obs_dim, n_act)
-    net.to(device)
+          checkpoint_every: int = 10, state: TrainState | None = None) -> tuple[ActorCritic, TrainLog]:
+    """Train for cfg.total_steps environment steps. With `state`, a started run continues
+    (cfg.seed is then ignored; a changed cfg.lr is applied to the running optimiser) and the
+    state is updated for the next call; the caller closes it with state.close()."""
+    log = TrainLog()
+    if state is not None and state.started:
+        if net is None:
+            raise ValueError("continuing a run needs the same network it was trained with")
+        torch.set_rng_state(state.torch_rng)
+        rng, env, opt, counts = state.rng, state.env, state.opt, state.counts
+        cur_w, scaler, obs, ep_ret = state.cur_w, state.scaler, state.obs, state.ep_ret
+        for g in opt.param_groups:
+            g["lr"] = cfg.lr
+        net.to(device)
+    else:
+        torch.manual_seed(cfg.seed)
+        rng = np.random.default_rng(cfg.seed)
+        env = T.make(task)
+        obs_dim, n_act = env.observation_space.shape[0], env.action_space.n
+        net = net or ActorCritic(obs_dim, n_act)
+        net.to(device)
+        opt = torch.optim.Adam(net.parameters(), lr=cfg.lr)
+        counts, cur_w = defaultdict(int), cfg.curiosity
+        scaler = ReturnScaler(cfg.gamma) if cfg.scale_rewards else None
+        obs, _ = env.reset(seed=T.train_seed(rng))
+        ep_ret = 0.0
     if teacher is not None:
         teacher.to(device).eval()
-    opt = torch.optim.Adam(net.parameters(), lr=cfg.lr)
-    log, counts, cur_w = TrainLog(), defaultdict(int), cfg.curiosity
-    scaler = ReturnScaler(cfg.gamma) if cfg.scale_rewards else None
-    obs, _ = env.reset(seed=T.train_seed(rng))
-    ep_ret = 0.0
     while log.steps < cfg.total_steps:
         if watchdog and device != "cpu":
             reason = watchdog()
@@ -200,5 +240,9 @@ def train(task: str, cfg: PPOConfig, net: ActorCritic | None = None, teacher: Ac
         if checkpoint is not None and log.updates % checkpoint_every == 0:
             checkpoint(net, log)
         cur_w *= cfg.curiosity_decay
-    env.close()
+    if state is None:
+        env.close()
+    else:
+        state.env, state.obs, state.ep_ret, state.rng, state.torch_rng = env, obs, ep_ret, rng, torch.get_rng_state()
+        state.opt, state.counts, state.cur_w, state.scaler = opt, counts, cur_w, scaler
     return net.to("cpu"), log

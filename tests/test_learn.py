@@ -137,3 +137,25 @@ def test_statistics_refuse_degenerate_input():
         scoring.prob_improvement(np.array([0.1]), np.array([0.2]))
     with pytest.raises(ValueError):
         T.normalise("cartpole", 100.0, 500.0)          # anchor above the solve threshold
+
+
+def test_resumed_training_equals_one_continuous_run():
+    """k calls with a TrainState continue one run: bitwise identical to a single call on the CPU
+    (interval a multiple of the rollout, so rollout boundaries coincide)."""
+    torch.set_num_threads(2)
+    cfg = ppo.PPOConfig(seed=11, total_steps=4096, rollout=1024, epochs=2, minibatch=256)
+    one, log1 = ppo.train("cartpole", cfg)
+    st = ppo.TrainState()
+    net, la = ppo.train("cartpole", ppo.PPOConfig(**{**cfg.__dict__, "total_steps": 2048}), state=st)
+    net, lb = ppo.train("cartpole", ppo.PPOConfig(**{**cfg.__dict__, "total_steps": 2048}), net=net, state=st)
+    st.close()
+    assert all(torch.equal(a, b) for a, b in zip(one.parameters(), net.parameters()))
+    assert la.episode_returns + lb.episode_returns == log1.episode_returns[:len(la.episode_returns) + len(lb.episode_returns)]
+
+
+def test_continuing_needs_the_network():
+    st = ppo.TrainState()
+    ppo.train("cartpole", ppo.PPOConfig(seed=1, total_steps=512, rollout=512, epochs=1, minibatch=256), state=st)
+    with pytest.raises(ValueError):
+        ppo.train("cartpole", ppo.PPOConfig(seed=1, total_steps=512, rollout=512, epochs=1, minibatch=256), state=st)
+    st.close()
