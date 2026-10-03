@@ -35,3 +35,31 @@ def test_empty_regions_stay_zero_after_normalisation():
         i = ATLAS.index(r)
         assert g.sizes[r] == 0 and not n[i].any() and not n[:, i].any()
     assert np.allclose(n, n.T)
+
+
+def test_relative_imports_from_a_package_init_resolve_to_the_package(tmp_path):
+    pkg = tmp_path / "toddler"
+    pkg.mkdir()
+    (pkg / "__init__.py").write_text("from . import stop\n")
+    (pkg / "stop.py").write_text("x = 1\n")
+    (pkg / "objective.py").write_text("from .stop import x\n")
+    g = cg.build(tmp_path, ("toddler",))
+    assert g.edges[("logic.stop", "objective.reward")] == 1
+    assert g.edges[("logic.stop", "oversight.judge")] == 1           # the __init__ re-export
+
+
+def test_committed_report_matches_a_fresh_measurement():
+    import json
+    import subprocess
+    import sys
+
+    report = json.loads((REPO / "docs" / "design" / "module_graph.json").read_text())
+    commits = [r["commit"] for r in report["revisions"]]
+    for c in commits:
+        if subprocess.run(["git", "-C", str(REPO), "cat-file", "-e", c], capture_output=True).returncode:
+            pytest.skip(f"commit {c} not in this clone (shallow checkout)")
+    sys.path.insert(0, str(REPO / "scripts"))
+    import module_graph
+
+    fresh = [module_graph.measure(c) for c in commits]
+    assert fresh == report["revisions"]

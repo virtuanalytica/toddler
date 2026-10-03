@@ -1,7 +1,9 @@
 """Measure Toddler's own module graph over the ATLAS for one or more git revisions (step B).
 
 Run: PYTHONPATH=. python3 scripts/module_graph.py [REV ...]   (default: HEAD)
-Report: docs/design/module_graph.json
+Report: docs/design/module_graph.json (revisions are stored as resolved commits)
+Regenerate the committed report exactly: PYTHONPATH=. python3 scripts/module_graph.py <the
+commits listed in the report>; tests/test_codegraph.py checks that it matches.
 Each revision is exported with `git archive` into a temporary directory, so the working tree is
 never touched and every number comes from committed code.
 """
@@ -23,6 +25,7 @@ REPO = Path(__file__).resolve().parents[1]
 def measure(rev: str) -> dict:
     sha = subprocess.run(["git", "-C", str(REPO), "rev-parse", "--short", rev], capture_output=True,
                          text=True, check=True).stdout.strip()
+    rev = sha                                    # store the commit, not a moving name like HEAD
     paths = [p for p in ("toddler", "jevserver")
              if subprocess.run(["git", "-C", str(REPO), "cat-file", "-e", f"{rev}:{p}"], capture_output=True).returncode == 0]
     blob = subprocess.run(["git", "-C", str(REPO), "archive", rev, *paths], capture_output=True, check=True).stdout

@@ -50,10 +50,12 @@ EXACT_ONLY = {"toddler"}    # never a prefix: a new toddler.* module must be pla
 
 
 def module_name(root: Path, path: Path) -> str:
-    rel = path.relative_to(root).with_suffix("")
-    parts = list(rel.parts)
-    if parts[-1] in ("__init__", "__main__"):
-        parts = parts[:-1] if parts[-1] == "__init__" else parts
+    """Dotted name; a package's __init__ is the package itself. __main__ keeps its name on
+    purpose (jevserver.__main__ is placed through the "jevserver" prefix; a future
+    toddler/__main__.py would need its own MODULE_REGION entry, since "toddler" is exact-only)."""
+    parts = list(path.relative_to(root).with_suffix("").parts)
+    if parts[-1] == "__init__":
+        parts = parts[:-1]
     return ".".join(parts)
 
 
@@ -72,14 +74,15 @@ def region_of(module: str) -> str:
     return region
 
 
-def _imports(tree: ast.AST, module: str) -> list[str]:
+def _imports(tree: ast.AST, module: str, is_package: bool = False) -> list[str]:
     out = []
+    package = module.split(".") if is_package else module.split(".")[:-1]
     for node in ast.walk(tree):
         if isinstance(node, ast.Import):
             out += [a.name for a in node.names]
         elif isinstance(node, ast.ImportFrom):
             if node.level:                       # relative import: resolve against the package
-                base = module.split(".")[: -node.level] if node.level else []
+                base = package[: len(package) - (node.level - 1)]
                 prefix = ".".join(base + ([node.module] if node.module else []))
             else:
                 prefix = node.module or ""
@@ -97,7 +100,7 @@ class CodeGraph:
 def build(root: Path, packages: tuple[str, ...] = ("toddler", "jevserver")) -> CodeGraph:
     root = Path(root)
     modules, sizes, edges = {}, Counter(), Counter()
-    trees = {}
+    trees, packages_seen = {}, set()
     for pkg in packages:
         for path in sorted((root / pkg).rglob("*.py")):
             mod = module_name(root, path)
@@ -105,8 +108,10 @@ def build(root: Path, packages: tuple[str, ...] = ("toddler", "jevserver")) -> C
             modules[mod] = region_of(mod)
             sizes[modules[mod]] += sum(1 for line in src.splitlines() if line.strip())
             trees[mod] = ast.parse(src, filename=str(path))
+            if path.name == "__init__.py":
+                packages_seen.add(mod)
     for mod, tree in trees.items():
-        for target in _imports(tree, mod):
+        for target in _imports(tree, mod, mod in packages_seen):
             if not target.split(".")[0] in packages:
                 continue                          # third-party or stdlib
             b, a = region_of(target), modules[mod]       # "toddler.stop.allowed" -> prefix toddler.stop
