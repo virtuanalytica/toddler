@@ -1,6 +1,7 @@
 """Hardware-independent evaluation and robust comparison of toddler generations.
 
-Evaluation always runs on the CPU, greedy actions, on the held-out EVAL_SEEDS, so the score of
+Evaluation always runs on the CPU on the held-out EVAL_SEEDS, greedy by default (every recorded
+score is greedy; a sampled mode exists and is recorded in the reference fingerprint), so the score of
 a toddler does not depend on which GPU trained it or how busy it was. Aggregation follows
 Agarwal et al. (2021, "Deep RL at the edge of the statistical precipice"): normalised scores,
 aggregate interquartile mean (mean of per-task IQMs), stratified bootstrap confidence intervals, and the probability of
@@ -40,7 +41,7 @@ def evaluate(net: "ActorCritic", task: str, seeds: tuple[int, ...] | None = None
     for s in seeds:
         env = T.make(task)
         obs, _ = env.reset(seed=s)
-        gen = torch.Generator().manual_seed(int(s))
+        gen = torch.Generator().manual_seed(int(s)) if mode == "sample" else None
         total, done = 0.0, False
         while not done:
             with torch.no_grad():

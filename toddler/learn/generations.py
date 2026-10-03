@@ -155,7 +155,8 @@ class Registry:
         ref = json.loads((self.root / generation / "reference.json").read_text())
         f = ref["fingerprint"]
         frozen = quotients.ReferenceFingerprint(tuple(f["tasks"]), tuple(f["eval_seeds"]), tuple(f["anchors"]),
-                                                tuple(f.get("solved", ())), int(f.get("version", 1)))
+                                                tuple(f.get("solved", ())), int(f.get("version", 1)),
+                                                f.get("eval_mode", "greedy"))
         frozen.require_same(fp)
         return list(ref["raw"].values())
 
