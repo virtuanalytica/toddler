@@ -33,22 +33,56 @@ class Deployment:
     audiences: tuple[audit.Audience, ...]
 
 
+class ConfigError(ValueError):
+    """A configuration problem, with the JSON path of the offending field."""
+
+
+def _get(d: dict, key: str, where: str, kind: type | tuple = object):
+    if not isinstance(d, dict) or key not in d:
+        raise ConfigError(f"{where}.{key}: missing")
+    v = d[key]
+    if not isinstance(v, kind):
+        raise ConfigError(f"{where}.{key}: expected {getattr(kind, '__name__', kind)}")
+    return v
+
+
+def _num(d: dict, key: str, where: str) -> float:
+    v = _get(d, key, where, (int, float))
+    if isinstance(v, bool):
+        raise ConfigError(f"{where}.{key}: expected a number")
+    return float(v)
+
+
 def from_dict(cfg: dict) -> Deployment:
-    if cfg.get("schema") != SCHEMA:
-        raise ValueError(f"expected schema {SCHEMA}")
-    r = cfg["role"]
-    role = specialize.Role(r["name"], r["family"], r.get("level", ""), tuple(r.get("tasks", ())))
-    guardrails = [specialize.company_guardrail(g["id"], g["reason"], g["owner"], frozenset(g["forbidden_tags"]))
-                  for g in cfg.get("guardrails", [])]
-    questions = [fastpath.PhysicalQuestion(q["qid"], q["text"], float(q["stop_if_above"]), float(q["slow_if_above"]))
-                 for q in cfg.get("jev_rules", [])]
-    experts = [specialize.Expert(e["model_id"], frozenset(e["domains"]), float(e["quality"]),
-                                 float(e["eur_per_1k_tokens"]), float(e["joules_per_1k_tokens"]), e["evidence"])
-               for e in cfg.get("experts", [])]
+    if not isinstance(cfg, dict) or cfg.get("schema") != SCHEMA:
+        raise ConfigError(f"schema: expected {SCHEMA}")
+    r = _get(cfg, "role", "$", dict)
+    role = specialize.Role(_get(r, "name", "$.role", str), _get(r, "family", "$.role", str),
+                           r.get("level", ""), tuple(r.get("tasks", ())))
+    guardrails = []
+    for i, g in enumerate(cfg.get("guardrails", [])):
+        w = f"$.guardrails[{i}]"
+        guardrails.append(specialize.company_guardrail(_get(g, "id", w, str), _get(g, "reason", w, str),
+                                                       _get(g, "owner", w, str),
+                                                       frozenset(_get(g, "forbidden_tags", w, list))))
+    questions = []
+    for i, q in enumerate(cfg.get("jev_rules", [])):
+        w = f"$.jev_rules[{i}]"
+        questions.append(fastpath.PhysicalQuestion(_get(q, "qid", w, str), _get(q, "text", w, str),
+                                                   _num(q, "stop_if_above", w), _num(q, "slow_if_above", w)))
+    experts = []
+    for i, e in enumerate(cfg.get("experts", [])):
+        w = f"$.experts[{i}]"
+        experts.append(specialize.Expert(_get(e, "model_id", w, str), frozenset(_get(e, "domains", w, list)),
+                                         _num(e, "quality", w), _num(e, "eur_per_1k_tokens", w),
+                                         _num(e, "joules_per_1k_tokens", w), _get(e, "evidence", w, str)))
     spec = specialize.build(role, questions, guardrails, experts)
-    audiences = tuple(audit.Audience(a["name"], frozenset(a["event_types"]), a.get("role"))
-                      for a in cfg.get("audiences", []))
-    return Deployment(spec, audiences)
+    audiences = []
+    for i, a in enumerate(cfg.get("audiences", [])):
+        w = f"$.audiences[{i}]"
+        audiences.append(audit.Audience(_get(a, "name", w, str), frozenset(_get(a, "event_types", w, list)),
+                                        a.get("role")))
+    return Deployment(spec, tuple(audiences))
 
 
 def load(path: Path) -> Deployment:

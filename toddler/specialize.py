@@ -80,10 +80,17 @@ def build(role: Role, jev_questions: Sequence[fastpath.PhysicalQuestion] = (),
           extra_stop_rules: Sequence[stop.StopRule] = (), experts: Sequence[Expert] = ()) -> Specialisation:
     """Validate and freeze a deployment. Rejects anything that would weaken the base."""
     base_ids = {r.rule_id for r in stop.DEFAULT_RULES}
+    seen: set[str] = set()
     for r in extra_stop_rules:
         if r.rule_id in base_ids:
             raise UnsafeSpecialisation(f"rule id {r.rule_id} would shadow a base STOP rule")
+        if r.rule_id in seen:
+            raise UnsafeSpecialisation(f"duplicate rule id {r.rule_id}")
+        seen.add(r.rule_id)
     base_q = {q.qid for q in fastpath.DEFAULT_QUESTIONS}
+    qids = [q.qid for q in jev_questions]
+    if len(qids) != len(set(qids)):
+        raise UnsafeSpecialisation("duplicate Jev question ids")
     for q in jev_questions:
         if q.qid in base_q:
             raise UnsafeSpecialisation(f"question {q.qid} would replace a base reflex question")
