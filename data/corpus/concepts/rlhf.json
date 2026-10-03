@@ -1,0 +1,10 @@
+{
+  "concept": "rlhf",
+  "title": "Reinforcement learning from human feedback",
+  "url": "https://en.wikipedia.org/wiki/Reinforcement_learning_from_human_feedback",
+  "revision": "1376235007",
+  "extract": "In machine learning, reinforcement learning from human feedback (RLHF) is a technique to align an intelligent agent with human preferences. It involves training a reward model to represent preferences, which can then be used to train other models through reinforcement learning.",
+  "licence": "CC BY-SA 4.0",
+  "retrieved": "2026-10-03",
+  "sha256": "637353df994fb96ae7aab162578d6c3fcc9dea199f22d826f6edf3e2b2f2673d"
+}

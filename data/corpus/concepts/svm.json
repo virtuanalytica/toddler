@@ -1,0 +1,10 @@
+{
+  "concept": "svm",
+  "title": "Support vector machine",
+  "url": "https://en.wikipedia.org/wiki/Support_vector_machine",
+  "revision": "1377218945",
+  "extract": "In machine learning, a support vector machine (SVM) or support vector network is a supervised max-margin model with associated learning algorithms that analyze data for classification and regression analysis. Developed at AT&T Bell Laboratories, SVMs are one of the most studied models, being based on statistical learning frameworks of VC theory proposed by Vapnik and Chervonenkis (1974).",
+  "licence": "CC BY-SA 4.0",
+  "retrieved": "2026-10-03",
+  "sha256": "cb4ad69bcccfeed603fed6979a6eb74794a0489b1a46994c98386c941c2ef4be"
+}

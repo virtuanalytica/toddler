@@ -1,0 +1,10 @@
+{
+  "concept": "proof_of_work",
+  "title": "Proof of work",
+  "url": "https://en.wikipedia.org/wiki/Proof_of_work",
+  "revision": "1371438279",
+  "extract": "Proof of work is a form of cryptographic proof in which one party proves to others that a certain amount of a specific computational effort has been expended. Verifiers can subsequently confirm this expenditure with minimal effort on their part. The concept was first proposed by Moni Naor and Cynthia Dwork in 1993 as a way to deter denial-of-service attacks and other service abuses such as spam on a network by requiring some work from a service requester, usually meaning processing time by a computer. Extending the work of Cynthia Dwork and Moni Naor, Adam Back formally described a proof of work system called Hashcash as a protection against email spam in 1997. The term \"proof of work\" was coined and formalized in a 1999 paper by Markus Jakobsson and Ari Juels. The concept was adapted to digital tokens by Hal Finney in 2004 through the idea of \"reusable proof of work\" using the 160-bit secure hash algorithm 1 (SHA-1).",
+  "licence": "CC BY-SA 4.0",
+  "retrieved": "2026-10-03",
+  "sha256": "14efa12c6046554c18efa4b172dcec66e4af2d8b2bdfdb3e274352905c423089"
+}

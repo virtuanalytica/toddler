@@ -12,6 +12,7 @@ dependencies = ["numpy", "networkx>=3.2", "scikit-learn", "scipy", "requests"]
 [project.optional-dependencies]
 dev = ["pytest"]
 aws = ["boto3"]
+learn = ["torch", "gymnasium==1.2.1"]
 gpu = ["nvidia-ml-py", "psutil"]
 
 [tool.setuptools.packages.find]

@@ -28,7 +28,8 @@ TASKS: dict[str, Task] = {
 
 EVAL_SEEDS: tuple[int, ...] = tuple(range(10_000, 10_030))   # held out: never used for training
 TRAIN_SEED_LOW = 1_000_000     # training resets draw from [TRAIN_SEED_LOW, 2**31), disjoint from EVAL_SEEDS
-assert max(EVAL_SEEDS) < TRAIN_SEED_LOW
+if max(EVAL_SEEDS) >= TRAIN_SEED_LOW:  # survives python -O, unlike assert
+    raise RuntimeError("EVAL_SEEDS overlap the training seed range")
 
 
 def train_seed(rng: np.random.Generator) -> int:

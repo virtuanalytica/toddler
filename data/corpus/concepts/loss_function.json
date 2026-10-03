@@ -1,0 +1,10 @@
+{
+  "concept": "loss_function",
+  "title": "Loss function",
+  "url": "https://en.wikipedia.org/wiki/Loss_function",
+  "revision": "1377426506",
+  "extract": "In mathematical optimization and decision theory, a loss function or cost function is a function that maps an event or values of one or more variables onto a real number intuitively representing some \"cost\" associated with the event. An optimization problem seeks to minimize a loss function. An objective function is either a loss function or its opposite, in which case it is to be maximized. The loss function could include terms from several levels of the hierarchy.",
+  "licence": "CC BY-SA 4.0",
+  "retrieved": "2026-10-03",
+  "sha256": "c06327303d5a9144c15be79358a784d8b5214d2a5d57449296c61dee0856d4e2"
+}

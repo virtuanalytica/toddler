@@ -1,0 +1,10 @@
+{
+  "concept": "lidar",
+  "title": "Lidar",
+  "url": "https://en.wikipedia.org/wiki/Lidar",
+  "revision": "1377603074",
+  "extract": "Lidar is a method for determining ranges by targeting an object or a surface with a laser and measuring the time for the reflected light to return to the optical receiver. Lidar may operate in a fixed direction or it may scan directions, in a special combination of 3D scanning and laser scanning.",
+  "licence": "CC BY-SA 4.0",
+  "retrieved": "2026-10-03",
+  "sha256": "9538de8c4c67aa0ad90436aa38bb3a3a12e3d19f5f726dee4285bfaacf8c1dcd"
+}
