@@ -27,11 +27,11 @@ import numpy as np
 import torch
 from scipy import stats
 
+from toddler import business, quotients
 from toddler.learn import scoring
 from toddler.learn.policy import ActorCritic
 
-BUSINESS = {"invoicing_entity": "VirtualV Holding B.V.",
-            "compute_and_sales_entity": "virtuanalytica VOF (commission)"}
+BUSINESS = business.FIELDS
 
 
 @dataclass
@@ -44,6 +44,7 @@ class ToddlerRecord:
     parents: list[str]
     eval_scores: list[float]                      # normalised, per held-out seed
     hardware: dict
+    device_switches: list[str] = field(default_factory=list)   # non-empty: not bitwise reproducible
     weights_sha256: str = ""
     created_at: float = field(default_factory=time.time)
     business: dict = field(default_factory=lambda: dict(BUSINESS))
@@ -106,6 +107,24 @@ class Registry:
         net = ActorCritic(**blob["spec"])
         net.load_state_dict(blob["state"])
         return net, rec
+
+    def freeze_reference(self, generation: str, fp: quotients.ReferenceFingerprint) -> Path:
+        """Freeze a generation as the quotient reference: its per-toddler raw scores plus the
+        fingerprint (tasks, eval seeds, anchors) they were measured on."""
+        recs = self.generation(generation)
+        if len(recs) < 2:
+            raise ValueError("a reference generation needs at least two toddlers")
+        path = self.root / generation / "reference.json"
+        path.write_text(json.dumps({"generation": generation, "fingerprint": asdict(fp), "digest": fp.digest(),
+                                    "raw": {r.toddler_id: r.score for r in recs}}, indent=1))
+        return path
+
+    def reference(self, generation: str, fp: quotients.ReferenceFingerprint) -> list[float]:
+        """Per-toddler raw scores of the frozen reference; refuses a different fingerprint."""
+        ref = json.loads((self.root / generation / "reference.json").read_text())
+        frozen = quotients.ReferenceFingerprint(**{k: tuple(v) for k, v in ref["fingerprint"].items()})
+        frozen.require_same(fp)
+        return list(ref["raw"].values())
 
     def generation(self, generation: str) -> list[ToddlerRecord]:
         base = self.root / generation

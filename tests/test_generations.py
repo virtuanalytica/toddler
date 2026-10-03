@@ -1,3 +1,6 @@
+import json
+from dataclasses import asdict
+
 import pytest
 
 pytest.importorskip("gymnasium")
@@ -48,3 +51,17 @@ def test_promotion_rule():
     assert not G.decide_promotion(worse, better).promote
     with pytest.raises(ValueError):
         G.decide_promotion([0.9], worse)
+
+
+def test_frozen_reference_refuses_changed_fingerprint(tmp_path):
+    from toddler import quotients
+
+    reg = G.Registry(tmp_path)
+    for tid in ("a", "b"):
+        (tmp_path / "gen-0" / tid).mkdir(parents=True)
+        (tmp_path / "gen-0" / tid / "meta.json").write_text(json.dumps(asdict(_rec("gen-0", tid))))
+    fp = quotients.fingerprint(["cartpole"], (10000, 10001), [22.0])
+    reg.freeze_reference("gen-0", fp)
+    assert reg.reference("gen-0", fp) == pytest.approx([0.15, 0.15])
+    with pytest.raises(ValueError):
+        reg.reference("gen-0", quotients.fingerprint(["cartpole"], (10000, 10001), [23.0]))
