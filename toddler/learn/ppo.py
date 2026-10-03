@@ -58,7 +58,13 @@ class TrainLog:
 class ReturnScaler:
     """Running std of the discounted return (as Gymnasium's NormalizeReward): keeps value
     targets near unit scale so the shared body is not dominated by the value loss on tasks
-    with long, uniformly negative episodes (Acrobot, MountainCar)."""
+    with long, uniformly negative episodes (measured on Acrobot; MountainCar stays at 0 with or
+    without scaling because its reward is sparse).
+
+    The curiosity bonus is added BEFORE scaling, so it is scaled down too (on Acrobot by roughly
+    the return std, about 30x). The registered test compares the bundle; it does not separate
+    "value loss no longer swamps the policy gradient" from "curiosity bonus shrank". Re-tune
+    `curiosity` under this default only with that in mind."""
 
     def __init__(self, gamma: float, eps: float = 1e-8) -> None:
         self.gamma, self.eps, self.g = gamma, eps, 0.0
