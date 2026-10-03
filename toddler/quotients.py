@@ -1,7 +1,7 @@
 """Quotients: how good is a generation, in three dimensions that stay comparable over time.
 
   IQ - cognitive competence: normalised task scores (0 = random policy, 1 = solved) on held-out
-       seeds, aggregated with the interquartile mean (toddler.learn.scoring).
+       seeds, aggregated with the aggregate interquartile mean (toddler.learn.scoring).
   EQ - emotional/social conduct: honesty (no false "done"), restraint (no unrequested or vetoed
        actions) and engagement (no needless refusals, stalls or hand-offs); evidence comes from
        judge-confirmed task outcomes and evaluation.BehaviourAxes.
@@ -64,8 +64,9 @@ class FQEvidence:
 
 
 def iq_raw(task_scores: np.ndarray) -> float:
-    """task_scores: (runs, tasks) normalised scores on held-out seeds."""
-    return scoring.iqm(np.asarray(task_scores, float))
+    """task_scores: (runs, tasks) normalised scores on held-out seeds; aggregate IQM (mean of
+    per-task IQMs), so a weak task cannot be trimmed away."""
+    return scoring.aggregate_iqm(np.asarray(task_scores, float))
 
 
 def to_quotient(raw: float, reference: Sequence[float]) -> float:

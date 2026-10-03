@@ -7,7 +7,11 @@ visiting states it has not seen yet. A teacher can be attached (peer training): 
 distribution is distilled into the student with a KL term on the student's own states.
 
 A watchdog callable is checked every update; when it returns a reason, training continues on
-the CPU (the GPU is handed back to its owner).
+the CPU (the GPU is handed back to its owner). Reproducibility contract: a CPU run is exactly
+reproducible from (seed, step budget). A GPU run is not bitwise reproducible, and a watchdog
+switch (timing-dependent, logged in TrainLog.device_switches) changes the run further; toddlers
+that will be compared as a generation must therefore train on the CPU, or carry their device
+switches in their record so the comparison can exclude them.
 """
 
 from __future__ import annotations
@@ -68,7 +72,7 @@ def train(task: str, cfg: PPOConfig, net: ActorCritic | None = None, teacher: Ac
         teacher.to(device).eval()
     opt = torch.optim.Adam(net.parameters(), lr=cfg.lr)
     log, counts, cur_w = TrainLog(), defaultdict(int), cfg.curiosity
-    obs, _ = env.reset(seed=int(rng.integers(1_000_000)))
+    obs, _ = env.reset(seed=T.train_seed(rng))
     ep_ret = 0.0
     while log.steps < cfg.total_steps:
         if watchdog and device != "cpu":
@@ -81,7 +85,7 @@ def train(task: str, cfg: PPOConfig, net: ActorCritic | None = None, teacher: Ac
                 opt = torch.optim.Adam(net.parameters(), lr=cfg.lr)
                 log.device_switches.append(reason)
         n = min(cfg.rollout, cfg.total_steps - log.steps)
-        buf_o, buf_a, buf_lp, buf_r, buf_v, buf_d = [], [], [], [], [], []
+        buf_o, buf_a, buf_lp, buf_r, buf_v, buf_end, buf_boot = [], [], [], [], [], [], []
         for _ in range(n):
             o = torch.as_tensor(obs, dtype=torch.float32, device=device)
             with torch.no_grad():
@@ -92,20 +96,31 @@ def train(task: str, cfg: PPOConfig, net: ActorCritic | None = None, teacher: Ac
             ep_ret += r
             bonus = cur_w * _novelty(counts, nobs)
             buf_o.append(obs); buf_a.append(int(a)); buf_lp.append(float(d.log_prob(a)))
-            buf_r.append(r + bonus); buf_v.append(float(v)); buf_d.append(term)
+            buf_r.append(r + bonus); buf_v.append(float(v)); buf_end.append(term or trunc)
+            # Bootstrap target at an episode end: 0 after a real termination, V(final state)
+            # after a time-limit truncation (the episode would have continued).
+            if trunc and not term:
+                with torch.no_grad():
+                    _, v_last = net(torch.as_tensor(nobs, dtype=torch.float32, device=device))
+                buf_boot.append(float(v_last))
+            else:
+                buf_boot.append(0.0)
             obs = nobs
             if term or trunc:
                 log.episode_returns.append(ep_ret)
                 ep_ret = 0.0
-                obs, _ = env.reset(seed=int(rng.integers(1_000_000)))
+                obs, _ = env.reset(seed=T.train_seed(rng))
         with torch.no_grad():
             _, last_v = net(torch.as_tensor(obs, dtype=torch.float32, device=device))
         adv = np.zeros(n, dtype=np.float32)
         gae, next_v = 0.0, float(last_v)
         for t in reversed(range(n)):
-            nonterm = 1.0 - float(buf_d[t])
-            delta = buf_r[t] + cfg.gamma * next_v * nonterm - buf_v[t]
-            gae = delta + cfg.gamma * cfg.lam * nonterm * gae
+            if buf_end[t]:          # never bootstrap across a reset into the next episode
+                target_v, cont = buf_boot[t], 0.0
+            else:
+                target_v, cont = next_v, 1.0
+            delta = buf_r[t] + cfg.gamma * target_v - buf_v[t]
+            gae = delta + cfg.gamma * cfg.lam * cont * gae
             adv[t], next_v = gae, buf_v[t]
         ret = adv + np.asarray(buf_v, dtype=np.float32)
         O = torch.as_tensor(np.asarray(buf_o), dtype=torch.float32, device=device)
