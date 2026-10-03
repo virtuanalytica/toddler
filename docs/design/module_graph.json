@@ -111,8 +111,8 @@
    ]
   },
   {
-   "rev": "HEAD",
-   "commit": "d26b91c",
+   "rev": "ae3df90",
+   "commit": "ae3df90",
    "edges": [
     {
      "a": "fastpath.jev",
@@ -176,7 +176,7 @@
     "p2p.knitweb": 72,
     "p2p.pulse_relay": 74,
     "actuation": 0,
-    "oversight.judge": 615,
+    "oversight.judge": 620,
     "oversight.audit": 162
    },
    "normalised": {
@@ -187,7 +187,7 @@
     "logic.provenance|memory.graph": 0.005587,
     "planner|objective.profit": 0.002068,
     "planner|objective.energy": 0.003521,
-    "planner|oversight.judge": 0.00254,
+    "planner|oversight.judge": 0.002532,
     "p2p.knitweb|p2p.pulse_relay": 0.013699
    },
    "clustering": {
