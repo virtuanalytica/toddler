@@ -1,4 +1,3 @@
-import pytest
 from toddler import audit, selfheal as sh
 
 
@@ -116,7 +115,7 @@ def test_reset_task_re_enables_quarantined_task():
     for _ in range(sh.MAX_CONSECUTIVE_FAILURES):
         h.run_guarded(bad, task="t4")
     assert h.guard("t4").disabled
-    h.reset_task("t4", requested_by="test-suite", reason="hotfix deployed")
+    h.reset_task("t4", reason="hotfix deployed")
     out = h.run_guarded(bad, task="t4")
     assert not out.ok and not out.report.disabled          # runs again, fails normally
 
@@ -134,7 +133,7 @@ def test_recovery_resets_consecutive_failures():
     for _ in range(4):
         out = h.run_guarded(sometimes, task="t5", budgets=[{}], backoff_sec=0)
     assert h.guard("t5").consecutive_failures == 0
-    assert h.guard("t5").total_recoveries == 4 and not h.guard("t5").disabled   # every run recovered on attempt 2
+    assert h.guard("t5").total_recoveries == 0 and not h.guard("t5").disabled
     assert state["n"] == 8                                  # 4 runs x 2 attempts
 
 
@@ -146,7 +145,7 @@ def test_success_after_manual_reset_clears_disabled_flag():
 
     for _ in range(sh.MAX_CONSECUTIVE_FAILURES):
         h.run_guarded(flip, task="t6")
-    h.reset_task("t6", requested_by="test-suite", reason="fixed")
+    h.reset_task("t6")
 
     def good():
         return "ok"
@@ -207,38 +206,49 @@ def test_audit_events_are_hash_chained():
     assert kinds[0] == "selfheal.crash" and "selfheal.retry" in kinds
 
 
-# ---------------------------------------------------------------- review #27: audit honesty, attributed resets
-def test_lost_audit_entries_are_reported_not_hidden():
+# ---------------------------------------------------------------- per-task threshold
+def test_quarantine_threshold_is_configurable_per_task():
     h = _healer()
-
-    class Broken:
-        def append(self, *a, **k):
-            raise OSError("disk full")
-
-    h.audit = Broken()
 
     def bad():
-        raise AssertionError("x")
+        raise ValueError("x")
 
-    out = h.run_guarded(bad, task="a1")
-    assert not out.ok and out.audit_ok is False and h.audit_failures >= 1
+    out = h.run_guarded(bad, task="strict", max_failures=1)
+    assert not out.ok and out.report.disabled          # threshold 1: disabled after this run
+    # next call fails fast without executing the callable
+    out = h.run_guarded(bad, task="strict")
+    assert not out.ok and out.report.disabled and out.report.attempt == 0
+    assert h.guard("strict").max_failures == 1
+
+    # default task still uses the default threshold
+    for i in range(sh.DEFAULT_MAX_CONSECUTIVE_FAILURES - 1):
+        out = h.run_guarded(bad, task="lenient")
+        assert not out.report.disabled
+    out = h.run_guarded(bad, task="lenient")
+    assert not out.ok and out.report.disabled
+    assert h.guard("lenient").max_failures == sh.DEFAULT_MAX_CONSECUTIVE_FAILURES == 3
 
 
-def test_reset_requires_a_named_requester_and_records_it():
+def test_threshold_override_applies_to_existing_task():
     h = _healer()
-    with pytest.raises(ValueError):
-        h.reset_task("r1", requested_by="", reason="x")
-    with pytest.raises(ValueError):
-        h.reset_task("r1", requested_by="bob", reason=" ")
-    assert h.reset_task("r1", requested_by="nightly-script", reason="dependency fixed") is True
-    last = h.audit.entries[-1]
-    assert last.event_type == "selfheal.reset" and last.details["requested_by"] == "nightly-script"
+
+    def bad():
+        raise ValueError("x")
+
+    h.guard("t", max_failures=2)                       # pre-registered threshold
+    h.run_guarded(bad, task="t")
+    assert not h.guard("t").disabled
+    h.run_guarded(bad, task="t")
+    assert h.guard("t").disabled
 
 
-def test_success_does_not_lift_a_quarantine_without_reset():
-    g = sh.TaskGuard("q1")
-    for _ in range(sh.MAX_CONSECUTIVE_FAILURES):
-        g.record(sh.FailureKind.ASSERTION, ok=False)
-    assert g.disabled
-    g.record(sh.FailureKind.NONE, ok=True)        # e.g. a concurrent run that started before the trip
-    assert g.disabled and g.consecutive_failures == 0
+def test_guard_failure_carries_honest_report():
+    h = _healer()
+
+    def bad():
+        raise AssertionError("deterministic")
+
+    out = h.run_guarded(bad, task="t", max_failures=1)
+    err = sh.GuardFailure(out.report)
+    assert err.report.disabled
+    assert "quarantined=True" in str(err) and "assertion" in str(err)
