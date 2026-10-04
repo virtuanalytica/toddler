@@ -44,6 +44,7 @@ MODULE_REGION: dict[str, str] = {
     "toddler.structure": "oversight.judge",
     "toddler.codegraph": "oversight.judge",     # this module: measurement, like structure
     "toddler.audit": "oversight.audit",
+    "toddler.selfheal": "oversight.audit",      # crash watchdog: classify, retry, quarantine
     "toddler": "oversight.judge",              # toddler/__init__.py (package marker only)
 }
 EXACT_ONLY = {"toddler"}    # never a prefix: a new toddler.* module must be placed explicitly

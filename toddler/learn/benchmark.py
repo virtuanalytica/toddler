@@ -24,14 +24,14 @@ from __future__ import annotations
 
 import os
 import time
-from dataclasses import asdict, dataclass, field
+from dataclasses import asdict, dataclass, field, replace
 
 os.environ.setdefault("CUDA_DEVICE_ORDER", "PCI_BUS_ID")   # CUDA index == nvidia-smi index
 
 import numpy as np
 import torch
 
-from toddler import resources
+from toddler import resources, selfheal
 from toddler.learn import scoring
 from toddler.learn import tasks as T
 from toddler.learn.policy import ActorCritic
@@ -181,9 +181,51 @@ def measure_efficiency(net: ActorCritic, states: torch.Tensor, cfg: HardwareConf
     return eff
 
 
+def measure_cell(net: ActorCritic, states: "torch.Tensor", cfg: HardwareConfig, task: str,
+                 *, healer=None, single_reps: int = 300, batch_reps: int = 50) -> Efficiency:
+    """One efficiency cell under the crash watchdog: a CUDA OOM (or any crash)
+    degrades THIS cell to an honest 'watchdog' record instead of aborting the
+    whole benchmark; a retryable crash gets one retry with fewer threads and
+    fewer repetitions (the budget only ever shrinks)."""
+    h = healer or selfheal.shared_healer()
+    retry_threads = max(1, (cfg.threads or (os.cpu_count() or 2)) // 2)
+    retry_cfg = replace(cfg, threads=retry_threads)
+    # cfg as keyword: the retry budget must be able to REPLACE it (a positional
+    # binding would raise "multiple values for argument" on attempt 2)
+    out = h.run_guarded(measure_efficiency, net, states,
+                        task=f"benchmark.eff.{task}.{cfg.name}", cfg=cfg,
+                        budgets=[{"single_reps": max(1, single_reps // 3),
+                                  "batch_reps": max(1, batch_reps // 3),
+                                  "cfg": retry_cfg}], backoff_sec=1.0)
+    if out.ok:
+        return out.value
+    r = out.report
+    return Efficiency(cfg.name, False, reason=f"watchdog: {r.kind.value} ({r.message[:140]})")
+
+
 def benchmark_toddler(net: ActorCritic, generation: str, toddler_id: str, task: str, anchor: float,
-                      recorded: list[float], hw: list[HardwareConfig],
-                      tol: float = 1e-6) -> ToddlerBenchmark:
+                      recorded: list[float], hw: list[HardwareConfig], tol: float = 1e-6,
+                      *, healer=None, max_failures: int | None = None) -> ToddlerBenchmark:
+    """benchmark_toddler under the crash watchdog (toddler.selfheal).
+
+    A crash that classifies retryable gets one retry with CPU-only cells (the
+    quality score itself is CPU and hardware-independent by design).  Raises
+    selfheal.GuardFailure when the run did not succeed.
+    """
+    h = healer or selfheal.shared_healer()
+    cpu_hw = [c for c in hw if not c.device.startswith("cuda")]
+    # hw as keyword: the retry budget must be able to REPLACE it (CPU-only cells)
+    out = h.run_guarded(_benchmark_toddler, net, generation, toddler_id, task, anchor,
+                        recorded, task=f"benchmark.{task}", hw=hw, tol=tol,
+                        budgets=[{"hw": cpu_hw}], max_failures=max_failures)
+    if not out.ok:
+        raise selfheal.GuardFailure(out.report)
+    return out.value
+
+
+def _benchmark_toddler(net: ActorCritic, generation: str, toddler_id: str, task: str, anchor: float,
+                       recorded: list[float], hw: list[HardwareConfig],
+                       tol: float = 1e-6) -> ToddlerBenchmark:
     q = [float(T.normalise(task, r, anchor)) for r in scoring.evaluate(net, task)]
     out = ToddlerBenchmark(generation, toddler_id, float(np.mean(q)), float(np.mean(recorded)),
                            bool(np.allclose(q, recorded, rtol=0.0, atol=tol)))
@@ -194,5 +236,5 @@ def benchmark_toddler(net: ActorCritic, generation: str, toddler_id: str, task: 
             if reason:
                 out.efficiency.append(Efficiency(cfg.name, False, f"skipped by governor: {reason}"))
                 continue
-        out.efficiency.append(measure_efficiency(net, states, cfg))
+        out.efficiency.append(measure_cell(net, states, cfg, task))
     return out
