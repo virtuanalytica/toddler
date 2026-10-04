@@ -4,7 +4,7 @@ Toddler is a governed learning agent that integrates virtualpc and Alexander.
 It grows capability in gated phases: phase 0 is scraping only; every later capability (account actions, robot capability, physical care) passes a deliberation judge and operator approval first.
 
 Design: [`docs/design/brain.md`](docs/design/brain.md) (architecture) and [`docs/design/wee2017-mapping.md`](docs/design/wee2017-mapping.md) (every logic step of Wee et al. 2017 linked to a Toddler function).
-The ClaudeClaw agent definition lives on branch `feat/toddler-agent` of the fillslava ClaudeClaw fork (`agents/toddler/`).
+The ClaudeClaw agent definition (`agents/toddler/`) lives on a local, unpublished branch `feat/toddler-agent` of the operator's ClaudeClaw checkout; it is not on github.com/fillslava/ClaudeClaw. Changes to it go through ClaudeClaw's own orchestration process (`.ai/inbox` intake).
 
 ## Modules (v0.1)
 
@@ -51,7 +51,7 @@ Several documents mention artefacts that live outside this repository:
 
 | Artefact | Where |
 | -------- | ----- |
-| ClaudeClaw agent definition (`agents/toddler/config.yaml`, `skills_allowlist`) | branch `feat/toddler-agent` of the fillslava ClaudeClaw fork ([fillslava/ClaudeClaw](https://github.com/fillslava/ClaudeClaw)) |
+| ClaudeClaw agent definition (`agents/toddler/config.yaml`, `skills_allowlist`) | local unpublished branch `feat/toddler-agent` of the operator's ClaudeClaw checkout (not publicly resolvable) |
 | Deliberation gate and judge authority (`docs/deliberation-gate.md`, `config/model-routing.yaml`) | [fillslava/ClaudeClaw](https://github.com/fillslava/ClaudeClaw) |
 | Review discipline (`.claude/rules/review-discipline.md`) | [fillslava/ClaudeClaw](https://github.com/fillslava/ClaudeClaw) |
 | LightRAG source policy (`src/lightrag-source-policy.ts`) | [fillslava/ClaudeClaw](https://github.com/fillslava/ClaudeClaw) |
