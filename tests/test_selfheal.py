@@ -1,3 +1,4 @@
+import pytest
 from toddler import audit, selfheal as sh
 
 
@@ -115,7 +116,7 @@ def test_reset_task_re_enables_quarantined_task():
     for _ in range(sh.MAX_CONSECUTIVE_FAILURES):
         h.run_guarded(bad, task="t4")
     assert h.guard("t4").disabled
-    h.reset_task("t4", reason="hotfix deployed")
+    h.reset_task("t4", requested_by="test-suite", reason="hotfix deployed")
     out = h.run_guarded(bad, task="t4")
     assert not out.ok and not out.report.disabled          # runs again, fails normally
 
@@ -133,7 +134,7 @@ def test_recovery_resets_consecutive_failures():
     for _ in range(4):
         out = h.run_guarded(sometimes, task="t5", budgets=[{}], backoff_sec=0)
     assert h.guard("t5").consecutive_failures == 0
-    assert h.guard("t5").total_recoveries == 0 and not h.guard("t5").disabled
+    assert h.guard("t5").total_recoveries == 4 and not h.guard("t5").disabled   # every run recovered on attempt 2
     assert state["n"] == 8                                  # 4 runs x 2 attempts
 
 
@@ -145,7 +146,7 @@ def test_success_after_manual_reset_clears_disabled_flag():
 
     for _ in range(sh.MAX_CONSECUTIVE_FAILURES):
         h.run_guarded(flip, task="t6")
-    h.reset_task("t6")
+    h.reset_task("t6", requested_by="test-suite", reason="fixed")
 
     def good():
         return "ok"
@@ -204,3 +205,40 @@ def test_audit_events_are_hash_chained():
         assert cur.prev_hash == prev.row_hash
     kinds = [e.event_type for e in entries]
     assert kinds[0] == "selfheal.crash" and "selfheal.retry" in kinds
+
+
+# ---------------------------------------------------------------- review #27: audit honesty, attributed resets
+def test_lost_audit_entries_are_reported_not_hidden():
+    h = _healer()
+
+    class Broken:
+        def append(self, *a, **k):
+            raise OSError("disk full")
+
+    h.audit = Broken()
+
+    def bad():
+        raise AssertionError("x")
+
+    out = h.run_guarded(bad, task="a1")
+    assert not out.ok and out.audit_ok is False and h.audit_failures >= 1
+
+
+def test_reset_requires_a_named_requester_and_records_it():
+    h = _healer()
+    with pytest.raises(ValueError):
+        h.reset_task("r1", requested_by="", reason="x")
+    with pytest.raises(ValueError):
+        h.reset_task("r1", requested_by="bob", reason=" ")
+    assert h.reset_task("r1", requested_by="nightly-script", reason="dependency fixed") is True
+    last = h.audit.entries[-1]
+    assert last.event_type == "selfheal.reset" and last.details["requested_by"] == "nightly-script"
+
+
+def test_success_does_not_lift_a_quarantine_without_reset():
+    g = sh.TaskGuard("q1")
+    for _ in range(sh.MAX_CONSECUTIVE_FAILURES):
+        g.record(sh.FailureKind.ASSERTION, ok=False)
+    assert g.disabled
+    g.record(sh.FailureKind.NONE, ok=True)        # e.g. a concurrent run that started before the trip
+    assert g.disabled and g.consecutive_failures == 0
