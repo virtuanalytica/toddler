@@ -148,7 +148,26 @@
 </div>
 <p class="note">Elke nieuwe fase gaat pas open als een raad van controleurs en een grote mens "ja" zeggen. Alles wat Toddler doet, komt in een logboek dat niet stiekem veranderd kan worden.</p>
 
-<h2>5. Wat we leren van echte peuters</h2>
+<h2>5. Als Toddler valt: opstaan, zonder te jokken</h2>
+<p>Een peuter die leert lopen, valt soms. Dan staat hij op en probeert het nog eens, een beetje voorzichtiger. Toddler doet dat ook, met een vaste wachter die meekijkt.</p>
+<div class="grid">
+  <div class="card sky"><div class="emoji">🩹</div><h3>Eerst kijken waarom</h3><p>Viel Toddler omdat het te zwaar was (te weinig geheugen) of omdat het pad glad was (internet even weg)? Dan probeert het nog eens, maar <strong>lichter</strong>: minder tegelijk, of rustig op de gewone computer in plaats van de snelle videokaart.</p></div>
+  <div class="card berry"><div class="emoji">🧱</div><h3>Soms helpt opnieuw proberen niet</h3><p>Als een puzzelstuk gewoon niet past, helpt nog eens drukken niet. Dan stopt Toddler meteen en zegt eerlijk wat er mis is, in plaats van eindeloos te blijven duwen.</p></div>
+  <div class="card sun"><div class="emoji">🪑</div><h3>Drie keer vallen = even op de bank</h3><p>Valt dezelfde klus drie keer achter elkaar, dan gaat die klus "op de bank". Toddler doet hem niet meer tot een grote mens zegt: "probeer maar weer". En die grote mens moet zijn naam erbij zetten.</p></div>
+  <div class="card leaf"><div class="emoji">📒</div><h3>Alles in het logboek</h3><p>Elke val, elke nieuwe poging en elke keer op de bank komt in het logboek dat niet stiekem veranderd kan worden. Lukt het opschrijven een keer niet, dan zegt de wachter dat ook. Niets verdwijnt stilletjes.</p></div>
+</div>
+<details>
+  <summary>Voor ontwikkelaars: de self-heal watchdog (<code>toddler/selfheal.py</code>)</summary>
+  <ul>
+    <li><strong>Classificatie</strong> (<code>classify_failure</code>, puur, zonder I/O): exception + stderr &rarr; <code>FailureKind</code> (cuda_oom, host_oom, segfault, timeout, network, assertion, import_error, unknown) en een ernstband groen/oranje/rood.</li>
+    <li><strong>Herstel</strong> (<code>run_guarded</code>): alleen herhaalbare soorten krijgen een nieuwe poging, en altijd met een <em>kleiner</em> budget (<code>budgets=[{"threads": 4}, {"device": "cpu", "threads": 2}]</code>). Deterministische fouten (assertion, import) worden niet herhaald. Retries blijven in hetzelfde proces, dus STOP-regels en de fail-closed resource-governor blijven gelden.</li>
+    <li><strong>Quarantaine</strong>: drie mislukte runs op rij (niet pogingen) zetten de taak op <code>disabled</code>; volgende runs geven direct <code>Outcome(disabled=True)</code>. Alleen <code>reset_task(task, requested_by=..., reason=...)</code> heft dat op; een succesvolle run doet dat niet.</li>
+    <li><strong>Audit</strong>: elke crash, retry, herstel, quarantaine en reset gaat in de hash-chained audit trail (<code>toddler.audit</code>), standaard persistent in <code>$TODDLER_SELFHEAL_AUDIT</code>. De watchdog gooit nooit een exception, maar een mislukte audit-write staat in <code>Outcome.audit_ok</code> en <code>audit_failures</code>.</li>
+    <li><strong>Grenzen</strong>: geen herstarts of configwijzigingen buiten het proces; <code>KeyboardInterrupt</code>/<code>SystemExit</code> gaan altijd door. Een cuda&rarr;cpu-fallback rond een leerrun is een andere methode-configuratie en moet in de vingerafdruk en de preregistratie vastgelegd worden.</li>
+  </ul>
+</details>
+
+<h2>6. Wat we leren van echte peuters</h2>
 <div class="grid">
   <div class="card sun">
     <div class="emoji">🐘</div>
