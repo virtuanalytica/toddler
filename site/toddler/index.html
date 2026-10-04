@@ -43,11 +43,39 @@
   a { color: var(--sky); }
   .stop { background: var(--berry); color: #fff; border-radius: 22px; padding: 20px; }
   .stop h3 { color: #fff; }
+  .tabs { display: flex; gap: 8px; justify-content: center; margin: 4px 0 8px; flex-wrap: wrap; }
+  .tabs a { text-decoration: none; color: var(--ink); border: 2px solid var(--line); border-radius: 999px;
+    padding: 6px 18px; font-weight: 700; background: var(--card); }
+  .tabs a[aria-current="page"] { border-color: var(--sky); color: var(--sky); }
+  .viz-root { --surface-1: var(--card); --text-primary: var(--ink); --text-secondary: var(--muted);
+    --grid: var(--line); --series-1: #2a78d6; --series-2: #eb6834; --series-3: #1baf7a; --series-4: #eda100; }
+  @media (prefers-color-scheme: dark) {
+    .viz-root { --series-1: #3987e5; --series-2: #d95926; --series-3: #199e70; --series-4: #c98500; } }
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin: 16px 0; }
+  .tile { background: var(--card); border: 2px solid var(--line); border-radius: 18px; padding: 14px 16px; }
+  .tile .k { font-size: .85rem; color: var(--muted); } .tile .v { font-size: 1.9rem; font-weight: 800; }
+  .tile .s { font-size: .85rem; color: var(--muted); }
+  .chartcard { background: var(--card); border: 2px solid var(--line); border-radius: 22px; padding: 16px; position: relative; }
+  .legend { display: flex; flex-wrap: wrap; gap: 14px; font-size: .95rem; margin: 6px 0 10px; }
+  .legend span::before { content: ""; display: inline-block; width: 12px; height: 12px; border-radius: 3px;
+    margin-right: 6px; background: var(--c); vertical-align: -1px; }
+  #chart svg { width: 100%; height: auto; display: block; overflow: visible; }
+  #chart .gridline { stroke: var(--grid); stroke-width: 1; }
+  #chart .axis text { fill: var(--text-secondary); font-size: 12px; }
+  #tip { position: absolute; pointer-events: none; background: var(--surface-1); color: var(--text-primary);
+    border: 1px solid var(--grid); border-radius: 10px; padding: 8px 10px; font-size: .85rem; line-height: 1.4;
+    box-shadow: 0 4px 14px rgba(0,0,0,.12); }
 </style>
 </head>
 <body>
 <main>
 
+<nav class="tabs" aria-label="Weergave">
+  <a href="#uitleg" data-tab="uitleg">Uitleg</a>
+  <a href="#dashboard" data-tab="dashboard">Dashboard</a>
+</nav>
+
+<section id="uitleg">
 <header>
   <div class="big">🧸🤖</div>
   <h1>Hoe Toddler leert</h1>
@@ -141,6 +169,22 @@
   <p>De getallen in de tabel zijn een startpunt om mee te beginnen, niet bewezen of afgesteld. Ze worden pas aangepast nadat metingen laten zien dat het beter werkt.</p>
 </details>
 
+</section>
+
+<section id="dashboard" class="viz-root">
+  <h2>Hoe goed leren de toddlers?</h2>
+  <p class="note">Elke stip is een generatie toddlers. De score is per taak: <strong>0</strong> = zo goed als willekeurig drukken, <strong>1</strong> = de taak opgelost. We nemen het midden van de groep (interkwartielgemiddelde), zodat één uitschieter het beeld niet bepaalt. Scores die op een andere manier gemeten zijn (greedy of gesampeld) worden nooit met een lijn verbonden.</p>
+  <div class="tiles" id="tiles"></div>
+  <div class="chartcard">
+    <div class="legend" id="legend"></div>
+    <div id="chart" role="img" aria-label="Score per taak per generatie over tijd"></div>
+    <div id="tip" hidden></div>
+  </div>
+  <h3 style="margin-top:20px">Alle generaties</h3>
+  <div class="tablewrap"><table id="gentable"></table></div>
+  <p class="note" id="dashnote"></p>
+</section>
+
 <footer>
   <p><strong>Bronnen</strong></p>
   <ul>
@@ -151,5 +195,108 @@
 </footer>
 
 </main>
+<script>
+(function () {
+  var tabs = document.querySelectorAll('.tabs a');
+  function show(name) {
+    ['uitleg', 'dashboard'].forEach(function (id) { document.getElementById(id).hidden = id !== name; });
+    tabs.forEach(function (a) { a.setAttribute('aria-current', a.dataset.tab === name ? 'page' : 'false'); });
+  }
+  function route() { show(location.hash === '#dashboard' ? 'dashboard' : 'uitleg'); }
+  window.addEventListener('hashchange', route); route();
+
+  var TASKS = { cartpole: 'CartPole (balanceren)', acrobot: 'Acrobot (zwaaien)', empty5: 'MiniGrid leeg (lopen)',
+                doorkey5: 'MiniGrid deur+sleutel', mountaincar: 'MountainCar' };
+  var ORDER = ['cartpole', 'acrobot', 'empty5', 'doorkey5', 'mountaincar'];
+  function esc(t) { return String(t).replace(/[&<>"]/g, function (c) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  function fmt(x) { return (Math.round(x * 100) / 100).toFixed(2).replace('.', ','); }
+  function day(iso) { return iso.slice(0, 16).replace('T', ' '); }
+
+  fetch('learning.json', { cache: 'no-store' }).then(function (r) { return r.json(); }).then(function (d) {
+    var gens = d.generations || [];
+    if (!gens.length) { document.getElementById('dashnote').textContent = 'Nog geen generaties.'; return; }
+    var last = gens[gens.length - 1];
+    var tasks = ORDER.filter(function (t) { return gens.some(function (g) { return g.tasks[t]; }); });
+    var color = {}; tasks.forEach(function (t, i) { color[t] = 'var(--series-' + (i + 1) + ')'; });
+
+    document.getElementById('tiles').innerHTML = [
+      ['Laatste generatie', last.generation, day(last.trained_at) + ' UTC'],
+      ['Gemiddelde score', fmt(last.iq_raw), 'over ' + Object.keys(last.tasks).length + ' taken'],
+      ['Toddlers', last.toddlers, last.network === 'multitask' ? 'één brein voor alle taken' : 'één taak per brein'],
+      ['Generaties', gens.length, 'evaluatie: ' + last.eval_mode]
+    ].map(function (t) { return '<div class="tile"><div class="k">' + esc(t[0]) + '</div><div class="v">' + esc(t[1]) +
+      '</div><div class="s">' + esc(t[2]) + '</div></div>'; }).join('');
+
+    document.getElementById('legend').innerHTML = tasks.map(function (t) {
+      return '<span style="--c:' + color[t] + '">' + esc(TASKS[t] || t) + '</span>'; }).join('');
+
+    var W = 760, H = 320, L = 44, R = 16, T = 12, B = 40;
+    var times = gens.map(function (g) { return Date.parse(g.trained_at); });
+    var t0 = Math.min.apply(null, times), t1 = Math.max.apply(null, times);
+    if (t1 === t0) { t0 -= 3600e3; t1 += 3600e3; }
+    var ymax = Math.max(1.1, Math.max.apply(null, gens.map(function (g) { return Math.max.apply(null,
+      Object.keys(g.tasks).map(function (k) { return g.tasks[k].iqm; })); })) + 0.05);
+    var ymin = Math.min(-0.1, Math.min.apply(null, gens.map(function (g) { return Math.min.apply(null,
+      Object.keys(g.tasks).map(function (k) { return g.tasks[k].iqm; })); })) - 0.05);
+    function x(t) { return L + (t - t0) / (t1 - t0) * (W - L - R); }
+    function y(v) { return T + (ymax - v) / (ymax - ymin) * (H - T - B); }
+    var svg = '<svg viewBox="0 0 ' + W + ' ' + H + '" xmlns="http://www.w3.org/2000/svg">';
+    [0, 0.5, 1].forEach(function (v) {
+      svg += '<line class="gridline" x1="' + L + '" x2="' + (W - R) + '" y1="' + y(v) + '" y2="' + y(v) + '"/>' +
+        '<g class="axis"><text x="' + (L - 8) + '" y="' + (y(v) + 4) + '" text-anchor="end">' + fmt(v) + '</text></g>';
+    });
+    svg += '<g class="axis"><text x="' + (W - R) + '" y="' + (y(1) - 6) + '" text-anchor="end">opgelost</text>' +
+      '<text x="' + (W - R) + '" y="' + (y(0) - 6) + '" text-anchor="end">willekeurig</text></g>';
+    var marks = [];
+    tasks.forEach(function (t) {
+      var pts = gens.filter(function (g) { return g.tasks[t]; });
+      for (var i = 1; i < pts.length; i++) {
+        var a = pts[i - 1], b = pts[i];
+        if (a.eval_mode === b.eval_mode && a.network === b.network) {
+          svg += '<line x1="' + x(Date.parse(a.trained_at)) + '" y1="' + y(a.tasks[t].iqm) + '" x2="' +
+            x(Date.parse(b.trained_at)) + '" y2="' + y(b.tasks[t].iqm) + '" stroke="' + color[t] + '" stroke-width="2"/>';
+        }
+      }
+      pts.forEach(function (g) { marks.push({ t: t, g: g }); });
+    });
+    marks.forEach(function (m, i) {
+      var cx = x(Date.parse(m.g.trained_at)), cy = y(m.g.tasks[m.t].iqm);
+      var shape = m.g.eval_mode === 'sample'
+        ? '<rect x="' + (cx - 5) + '" y="' + (cy - 5) + '" width="10" height="10" rx="2"'
+        : '<circle cx="' + cx + '" cy="' + cy + '" r="5"';
+      svg += shape + ' fill="' + color[m.t] + '" stroke="var(--surface-1)" stroke-width="2"/>' +
+        '<circle class="hit" data-i="' + i + '" cx="' + cx + '" cy="' + cy + '" r="14" fill="transparent"/>';
+    });
+    svg += '<g class="axis">' + gens.map(function (g) {
+      return '<text x="' + x(Date.parse(g.trained_at)) + '" y="' + (H - 14) + '" text-anchor="middle">' + esc(g.generation) + '</text>';
+    }).join('') + '</g></svg>';
+    var chart = document.getElementById('chart'); chart.innerHTML = svg;
+    var tip = document.getElementById('tip');
+    chart.querySelectorAll('.hit').forEach(function (h) {
+      h.addEventListener('mouseenter', function () {
+        var m = marks[+h.dataset.i], s = m.g.tasks[m.t];
+        tip.innerHTML = '<strong>' + esc(TASKS[m.t] || m.t) + '</strong><br>' + esc(m.g.generation) + ' · ' +
+          esc(day(m.g.trained_at)) + '<br>score ' + fmt(s.iqm) + ' (' + s.n + ' toddlers)<br>evaluatie: ' +
+          esc(m.g.eval_mode) + ' · ' + esc(m.g.network);
+        tip.hidden = false;
+        var r = chart.getBoundingClientRect(), box = h.getBoundingClientRect();
+        tip.style.left = Math.min(box.left - r.left + 18, r.width - 200) + 'px';
+        tip.style.top = (box.top - r.top + 10) + 'px';
+      });
+      h.addEventListener('mouseleave', function () { tip.hidden = true; });
+    });
+
+    var head = '<tr><th>Generatie</th><th>Getraind</th><th>Brein</th><th>Evaluatie</th><th>Toddlers</th>' +
+      tasks.map(function (t) { return '<th>' + esc(TASKS[t] || t) + '</th>'; }).join('') + '</tr>';
+    document.getElementById('gentable').innerHTML = head + gens.map(function (g) {
+      return '<tr><td>' + esc(g.generation) + (g.frozen_reference ? ' (referentie)' : '') + '</td><td>' + esc(day(g.trained_at)) +
+        '</td><td>' + esc(g.network) + '</td><td>' + esc(g.eval_mode) + '</td><td>' + g.toddlers + '</td>' +
+        tasks.map(function (t) { return '<td>' + (g.tasks[t] ? fmt(g.tasks[t].iqm) : '–') + '</td>'; }).join('') + '</tr>';
+    }).join('');
+    document.getElementById('dashnote').textContent = 'Rondjes = greedy gemeten, vierkantjes = gesampeld gemeten. Bijgewerkt: ' +
+      day(d.generated_at) + ' UTC.';
+  }).catch(function () { document.getElementById('dashnote').textContent = 'Dashboarddata kon niet geladen worden.'; });
+})();
+</script>
 </body>
 </html>
