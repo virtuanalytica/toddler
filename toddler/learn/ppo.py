@@ -282,3 +282,35 @@ def train(task: str, cfg: PPOConfig, net: ActorCritic | None = None, teacher: Ac
         state.env, state.obs, state.ep_ret, state.rng, state.torch_rng = env, obs, ep_ret, rng, torch.get_rng_state()
         state.opt, state.counts, state.cur_w, state.scaler = opt, counts, cur_w, scaler
     return net.to("cpu"), log
+
+
+class TrainGuardError(RuntimeError):
+    pass
+
+
+def train_guarded(task: str, cfg: PPOConfig, *, device: str = "cpu", healer=None,
+                  max_failures: int | None = None, **train_kwargs):
+    """train() under the crash watchdog (toddler.selfheal).
+
+    Budget discipline: a CUDA-OOM is retried on the CPU with the SAME PPOConfig —
+    the budget is environment steps, not wall-clock, so a recovered run stays
+    comparable with pure-CPU runs (train itself logs the device switch in
+    TrainLog.device_switches).  Deterministic failures (assertion, import) are
+    not retried: a retry cannot change their outcome.  After `max_failures`
+    consecutive failed runs (default 3, per task configurable) the task is
+    quarantined and subsequent calls fail fast — deferred, not crashed — until
+    healer.reset_task().  Every decision lands in the hash-chained audit trail.
+
+    Returns whatever train() returns on success; raises TrainGuardError (with
+    .report) when the run did not succeed.
+    """
+    from toddler import selfheal
+
+    h = healer or selfheal.shared_healer()
+    budgets = [{"device": "cpu"}] if str(device).startswith("cuda") else []
+    out = h.run_guarded(train, task, cfg, task=f"ppo.{task}", device=device,
+                        budgets=budgets, backoff_sec=2.0, max_failures=max_failures,
+                        **train_kwargs)
+    if out.ok:
+        return out.value
+    raise selfheal.GuardFailure(out.report)
