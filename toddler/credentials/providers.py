@@ -122,9 +122,11 @@ def create_github_installation_token(installation_id: int, app_jwt: str, approve
 @_audited("aws")
 def create_aws_access_key(user_name: str, approved: bool, iam_client=None) -> CreatedKey:
     _require_approval("aws", approved)
-    import boto3
+    if iam_client is None:
+        import boto3            # optional dependency: only needed without an injected client
 
-    iam = iam_client or boto3.client("iam")
+        iam_client = boto3.client("iam")
+    iam = iam_client
     k = iam.create_access_key(UserName=user_name)["AccessKey"]
     return CreatedKey("aws", k["AccessKeyId"], k["SecretAccessKey"], "iam:CreateAccessKey")
 
