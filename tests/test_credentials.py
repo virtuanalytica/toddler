@@ -2,6 +2,7 @@ from datetime import datetime, timedelta, timezone
 
 import pytest
 
+from toddler import audit
 from toddler.credentials import identities as ids
 from toddler.credentials import providers, rotation, vault
 
@@ -40,9 +41,51 @@ def test_vault_refuses_without_token(monkeypatch):
         vault.OpenBaoKV()
 
 
-def test_key_creation_needs_operator_approval():
+def test_key_creation_needs_operator_approval_and_refusal_is_audited():
+    log = audit.AuditLog()
     with pytest.raises(providers.ApprovalRequired):
-        providers.create_openai_service_account("proj", "toddler", admin_key="unused", approved=False)
+        providers.create_openai_service_account("proj", "toddler", admin_key="unused", approved=False,
+                                                audit_log=log)
+    assert [e.event_type for e in log.entries] == ["key_creation_refused"]
+    assert log.entries[0].details["provider"] == "openai"
+
+
+def test_key_creation_without_audit_log_is_refused_before_any_call():
+    with pytest.raises(TypeError):
+        providers.create_openai_service_account("proj", "toddler", admin_key="unused", approved=True)
+
+
+def test_created_key_is_audited_without_its_secret():
+    class IAM:                                   # stands in for boto3's IAM client; no network
+        def create_access_key(self, UserName):
+            return {"AccessKey": {"AccessKeyId": "key-id-1", "SecretAccessKey": "do-not-log-this-value"}}
+
+    log = audit.AuditLog()
+    key = providers.create_aws_access_key("toddler", approved=True, iam_client=IAM(), audit_log=log, actor="op")
+    assert key.secret == "do-not-log-this-value"
+    (entry,) = log.entries
+    assert entry.event_type == "key_created" and entry.actor == "op"
+    assert entry.details["key_id"] == "key-id-1" and entry.details["provider"] == "aws"
+    assert "do-not-log-this-value" not in entry.to_json()
+
+
+@pytest.mark.parametrize("bad", [".", "..", "a/b", ""])
+def test_secret_path_rejects_traversal_segments(bad):
+    with pytest.raises(ValueError):
+        vault.secret_path("t@example.nl", bad, "k")
+    assert vault.secret_path("t@example.nl", "openai", "k.v1") == "toddler/t@example.nl/openai/k.v1"
+
+
+def test_reassigning_a_provider_must_be_explicit():
+    reg = ids.IdentityRegistry()
+    reg.add(ids.Identity("toddler-a@example.nl", "manual", "x", "operator"))
+    reg.add(ids.Identity("toddler-b@example.nl", "manual", "x", "operator"))
+    reg.assign("openai", "toddler-a@example.nl")
+    reg.assign("openai", "toddler-a@example.nl")                 # same binding: idempotent
+    with pytest.raises(ValueError):
+        reg.assign("openai", "toddler-b@example.nl")
+    reg.assign("openai", "toddler-b@example.nl", replace=True)
+    assert reg.for_provider("openai").email == "toddler-b@example.nl"
 
 
 def test_human_only_providers_become_tasks():

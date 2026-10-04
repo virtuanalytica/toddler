@@ -4,6 +4,11 @@ Path scheme: kv/toddler/<identity_email>/<provider>/<key_name>, with metadata
 owner_identity, created_via, expires_at and rotation_policy. Infisical or HashiCorp Vault can
 replace OpenBao behind the same interface. The token comes from the environment
 (TODDLER_VAULT_TOKEN), never from code, prompts or memory.
+
+Storage and rotation are not gated by toddler.stop on purpose: they never create a credential at
+a provider or log into an account. They only move an existing secret into the local vault (whose
+own token policy and audit device govern access), and rotation's only outward step, `create`,
+calls the gated and audited creators in providers.py.
 """
 
 from __future__ import annotations
@@ -20,7 +25,7 @@ _SAFE = re.compile(r"^[A-Za-z0-9@._+-]+$")
 
 def secret_path(identity_email: str, provider: str, key_name: str, prefix: str = "toddler") -> str:
     for part in (identity_email, provider, key_name):
-        if not _SAFE.match(part):
+        if not _SAFE.match(part) or part in (".", ".."):
             raise ValueError(f"unsafe path segment: {part!r}")
     return f"{prefix}/{identity_email}/{provider}/{key_name}"
 

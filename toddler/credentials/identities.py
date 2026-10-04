@@ -53,12 +53,17 @@ class IdentityRegistry:
             raise ValueError(f"identity already registered: {identity.email}")
         self.identities[identity.email] = identity
 
-    def assign(self, provider: str, email: str) -> None:
+    def assign(self, provider: str, email: str, *, replace: bool = False) -> None:
+        """Bind a provider to an identity. Re-binding a provider to another identity must be explicit
+        (`replace=True`): a silent overwrite would orphan the old identity's keys."""
         if email not in self.identities:
             raise KeyError(f"unknown identity: {email}")
         used_by = [p for p, e in self.assignments.items() if e == email and p != provider]
         if used_by:
             raise ValueError(f"{email} already serves {used_by[0]}; use a separate identity per provider")
+        current = self.assignments.get(provider)
+        if current and current != email and not replace:
+            raise ValueError(f"{provider} is already assigned to {current}; pass replace=True to re-bind")
         self.assignments[provider] = email
 
     def for_provider(self, provider: str) -> Identity:
