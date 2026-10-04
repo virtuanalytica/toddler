@@ -230,37 +230,38 @@
     document.getElementById('legend').innerHTML = tasks.map(function (t) {
       return '<span style="--c:' + color[t] + '">' + esc(TASKS[t] || t) + '</span>'; }).join('');
 
-    var W = 760, H = 320, L = 44, R = 16, T = 12, B = 40;
-    var times = gens.map(function (g) { return Date.parse(g.trained_at); });
-    var t0 = Math.min.apply(null, times), t1 = Math.max.apply(null, times);
-    if (t1 === t0) { t0 -= 3600e3; t1 += 3600e3; }
+    var W = 760, H = 330, L = 44, R = 36, T = 16, B = 48;
+    // generations at equal spacing in training order (dates are labelled below each one)
+    var idx = {}; gens.forEach(function (g, i) { idx[g.generation] = i; });
+    var n = gens.length;
     var ymax = Math.max(1.1, Math.max.apply(null, gens.map(function (g) { return Math.max.apply(null,
       Object.keys(g.tasks).map(function (k) { return g.tasks[k].iqm; })); })) + 0.05);
     var ymin = Math.min(-0.1, Math.min.apply(null, gens.map(function (g) { return Math.min.apply(null,
       Object.keys(g.tasks).map(function (k) { return g.tasks[k].iqm; })); })) - 0.05);
-    function x(t) { return L + (t - t0) / (t1 - t0) * (W - L - R); }
+    function xg(g) { return n === 1 ? (L + W - R) / 2 : L + 30 + idx[g.generation] / (n - 1) * (W - L - R - 60); }
+    function dodge(t) { return (tasks.indexOf(t) - (tasks.length - 1) / 2) * 7; }
     function y(v) { return T + (ymax - v) / (ymax - ymin) * (H - T - B); }
     var svg = '<svg viewBox="0 0 ' + W + ' ' + H + '" xmlns="http://www.w3.org/2000/svg">';
     [0, 0.5, 1].forEach(function (v) {
       svg += '<line class="gridline" x1="' + L + '" x2="' + (W - R) + '" y1="' + y(v) + '" y2="' + y(v) + '"/>' +
         '<g class="axis"><text x="' + (L - 8) + '" y="' + (y(v) + 4) + '" text-anchor="end">' + fmt(v) + '</text></g>';
     });
-    svg += '<g class="axis"><text x="' + (W - R) + '" y="' + (y(1) - 6) + '" text-anchor="end">opgelost</text>' +
-      '<text x="' + (W - R) + '" y="' + (y(0) - 6) + '" text-anchor="end">willekeurig</text></g>';
+    svg += '<g class="axis"><text x="' + (L + 4) + '" y="' + (y(1) - 6) + '">opgelost</text>' +
+      '<text x="' + (L + 4) + '" y="' + (y(0) - 6) + '">willekeurig</text></g>';
     var marks = [];
     tasks.forEach(function (t) {
       var pts = gens.filter(function (g) { return g.tasks[t]; });
       for (var i = 1; i < pts.length; i++) {
         var a = pts[i - 1], b = pts[i];
         if (a.eval_mode === b.eval_mode && a.network === b.network) {
-          svg += '<line x1="' + x(Date.parse(a.trained_at)) + '" y1="' + y(a.tasks[t].iqm) + '" x2="' +
-            x(Date.parse(b.trained_at)) + '" y2="' + y(b.tasks[t].iqm) + '" stroke="' + color[t] + '" stroke-width="2"/>';
+          svg += '<line x1="' + (xg(a) + dodge(t)) + '" y1="' + y(a.tasks[t].iqm) + '" x2="' +
+            (xg(b) + dodge(t)) + '" y2="' + y(b.tasks[t].iqm) + '" stroke="' + color[t] + '" stroke-width="2"/>';
         }
       }
       pts.forEach(function (g) { marks.push({ t: t, g: g }); });
     });
     marks.forEach(function (m, i) {
-      var cx = x(Date.parse(m.g.trained_at)), cy = y(m.g.tasks[m.t].iqm);
+      var cx = xg(m.g) + dodge(m.t), cy = y(m.g.tasks[m.t].iqm);
       var shape = m.g.eval_mode === 'sample'
         ? '<rect x="' + (cx - 5) + '" y="' + (cy - 5) + '" width="10" height="10" rx="2"'
         : '<circle cx="' + cx + '" cy="' + cy + '" r="5"';
@@ -268,7 +269,8 @@
         '<circle class="hit" data-i="' + i + '" cx="' + cx + '" cy="' + cy + '" r="14" fill="transparent"/>';
     });
     svg += '<g class="axis">' + gens.map(function (g) {
-      return '<text x="' + x(Date.parse(g.trained_at)) + '" y="' + (H - 14) + '" text-anchor="middle">' + esc(g.generation) + '</text>';
+      return '<text x="' + xg(g) + '" y="' + (H - 26) + '" text-anchor="middle">' + esc(g.generation) + '</text>' +
+        '<text x="' + xg(g) + '" y="' + (H - 10) + '" text-anchor="middle">' + esc(g.trained_at.slice(5, 10)) + '</text>';
     }).join('') + '</g></svg>';
     var chart = document.getElementById('chart'); chart.innerHTML = svg;
     var tip = document.getElementById('tip');
