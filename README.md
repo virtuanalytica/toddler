@@ -62,3 +62,7 @@ Several documents mention artefacts that live outside this repository:
 
 - The capability `ATLAS` in `toddler/structure.py` lists regions that have no code yet (`perception.*`, `actuation`). `toddler/codegraph.py` (mapping step B) emits module-graph edges from the real repository: static imports between atlas regions, sizes in lines, empty regions kept at zero; `scripts/module_graph.py` measures committed revisions into `docs/design/module_graph.json`. Execution-path tracing with stop criteria (mapping row 7) is still planned.
 - See issue #1 for the open review items.
+
+## Licence
+
+Proprietary: copyright VirtualV Holding B.V., all rights reserved (see `LICENSE`). Use only under a written agreement. The Wikipedia extracts in `data/corpus/` stay under CC BY-SA 4.0 (attribution per file).

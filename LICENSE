@@ -1,0 +1,19 @@
+Copyright (c) 2026 VirtualV Holding B.V. All rights reserved.
+
+This software and its documentation, including trained Toddler generations, model weights,
+benchmark reports and configuration formats (together "the Software"), are proprietary to
+VirtualV Holding B.V.
+
+No licence is granted to use, copy, modify, merge, publish, distribute, sublicense or sell the
+Software, in whole or in part, except under a separate written agreement with
+VirtualV Holding B.V. Access to this repository for review or collaboration does not grant
+any such licence.
+
+Third-party components keep their own licences (see their package metadata). Cited
+publications remain the property of their authors. data/corpus/ contains Wikipedia article
+extracts under CC BY-SA 4.0; attribution and share-alike apply to that data on distribution
+(source URL, revision, licence and sha256 are recorded per file).
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED. IN NO
+EVENT SHALL VIRTUALV HOLDING B.V. BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY ARISING
+FROM THE SOFTWARE OR ITS USE, EXCEPT WHERE A WRITTEN AGREEMENT PROVIDES OTHERWISE.
