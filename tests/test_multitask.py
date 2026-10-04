@@ -1,0 +1,48 @@
+import pytest
+
+pytest.importorskip("gymnasium")
+pytest.importorskip("torch")
+
+import torch  # noqa: E402
+
+from toddler.learn import generations as G  # noqa: E402
+from toddler.learn import multitask as M  # noqa: E402
+from toddler.learn import ppo  # noqa: E402
+from toddler.learn import tasks as T  # noqa: E402
+
+SMALL = ppo.PPOConfig(rollout=512, epochs=1, minibatch=256)
+
+
+def test_views_share_the_trunk_and_keep_their_own_heads():
+    net = M.MultiTaskNet({"cartpole": (4, 2), "acrobot": (6, 3)})
+    a, b = M.TaskView(net, "cartpole"), M.TaskView(net, "acrobot")
+    shared = [p for p in a.parameters() if any(p is q for q in b.parameters())]
+    assert shared == list(net.trunk.parameters())
+    logits, value = a(torch.zeros(4))
+    assert logits.shape == (2,) and value.shape == ()
+    assert b(torch.zeros(6))[0].shape == (3,)
+
+
+def test_training_updates_the_shared_trunk_from_every_task():
+    torch.manual_seed(0)
+    net, log = M.train_multitask(["cartpole", "acrobot"], steps_per_task=1024, block_steps=512, seed=3, base=SMALL)
+    assert log.steps_per_task == {"cartpole": 1024, "acrobot": 1024} and log.blocks == 2
+    with pytest.raises(ValueError):
+        M.train_multitask(["cartpole"], steps_per_task=1000, block_steps=512, seed=3, base=SMALL)
+
+
+def test_registry_round_trips_a_multitask_toddler(tmp_path):
+    net = M.MultiTaskNet({"cartpole": (4, 2), "acrobot": (6, 3)})
+    reg = G.Registry(tmp_path)
+    rec = G.ToddlerRecord("G1", "t1", "multitask:cartpole+acrobot", {"seed": 1}, 2048, [], [0.1, 0.2], {"device": "cpu"})
+    reg.save(net, rec)
+    back, rec2 = reg.load("G1", "t1")
+    assert isinstance(back, M.MultiTaskNet) and rec2.task.startswith("multitask:")
+    assert all(torch.equal(x, y) for x, y in zip(net.state_dict().values(), back.state_dict().values()))
+
+
+def test_sampled_evaluation_per_task():
+    net = M.MultiTaskNet.for_tasks(["cartpole", "acrobot"])
+    anchors = {t: T.random_anchor(t, T.EVAL_SEEDS[:2]) for t in ["cartpole", "acrobot"]}
+    out = M.evaluate_multitask(net, ["cartpole", "acrobot"], anchors, seeds=T.EVAL_SEEDS[:2])
+    assert set(out) == {"cartpole", "acrobot"} and all(len(v) == 2 for v in out.values())
