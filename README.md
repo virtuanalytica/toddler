@@ -65,4 +65,4 @@ Several documents mention artefacts that live outside this repository:
 
 ## Licence
 
-Proprietary: copyright VirtualV Holding B.V., all rights reserved (see `LICENSE`). Use only under a written agreement.
+Proprietary: copyright VirtualV Holding B.V., all rights reserved (see `LICENSE`). Use only under a written agreement. The Wikipedia extracts in `data/corpus/` stay under CC BY-SA 4.0 (attribution per file).
