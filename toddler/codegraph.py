@@ -27,6 +27,7 @@ MODULE_REGION: dict[str, str] = {
     "toddler.stop": "logic.stop",
     "toddler.specialize": "logic.allowlist",
     "toddler.config": "logic.allowlist",
+    "toddler.credentials": "logic.allowlist",   # access control: identities, governed keys, vault
     "toddler.provenance": "logic.provenance",
     "toddler.fastpath": "fastpath.jev",
     "toddler.jev": "fastpath.jev",
