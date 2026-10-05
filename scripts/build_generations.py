@@ -259,6 +259,13 @@ def backfill_g1_lineage(reg: "G.Registry", led) -> None:
                                     "reference_fingerprint": report["reference_fingerprint"], "backfilled": True})
 
 
+def _plain_state(net) -> dict:
+    """Parent weights as numpy arrays for the worker pool: torch tensors are shared with workers
+    through file descriptors, and 15 jobs exhausted the 1024-fd limit of a systemd --user unit
+    (G3 run 2026-10-05: "OSError: [Errno 24] Too many open files" -> BrokenProcessPool)."""
+    return {k: v.detach().cpu().numpy() for k, v in net.state_dict().items()}
+
+
 def _train_g2_toddler(job: dict) -> dict:
     """Worker: one G2 toddler (inheriting from its G1 parent, or from scratch for the control arm),
     scored on the public EVAL_SEEDS and on the secret seed set (scores only; seeds never returned)."""
@@ -269,7 +276,7 @@ def _train_g2_toddler(job: dict) -> dict:
     if job["parent"]:
         spec = job["parent"]["spec"]
         parent = M.MultiTaskNet({k: tuple(v) for k, v in spec["task_dims"].items()}, spec["hidden"])
-        parent.load_state_dict(job["parent"]["state"])
+        parent.load_state_dict({k: torch.as_tensor(v) for k, v in job["parent"]["state"].items()})
     tasks, steps = job.get("tasks", G2_TASKS), job.get("steps", G2_STEPS)
     net, log = M.train_multitask(tasks, 0, job.get("block", G2_BLOCK), job["seed"], parent=parent, steps=steps,
                                  inherit_mode=job.get("inherit_mode", "full"))
@@ -314,7 +321,7 @@ def build_g2(root: str, refreeze: bool, allow_dirty: bool = False) -> None:
             parent = None
             if arm == "G2":
                 pnet, prec = reg.load("G1", f"t{s - 1000}")
-                parent = {"spec": pnet.spec(), "state": pnet.state_dict(), "ref": f"G1/t{s - 1000}",
+                parent = {"spec": pnet.spec(), "state": _plain_state(pnet), "ref": f"G1/t{s - 1000}",
                           "sha": prec.weights_sha256, "tasks": list(pnet.task_dims)}
             jobs.append({"arm": arm, "seed": s, "parent": parent, "threads": threads, "anchors_pub": anchors_pub,
                          "anchors_sec": anchors_sec, "secret_seeds": secret})
@@ -450,7 +457,7 @@ def build_g3(root: str, refreeze: bool, allow_dirty: bool = False) -> None:
             parent = None
             if mode:
                 pnet, prec = reg.load("G2", f"t{s - 1000}")
-                parent = {"spec": pnet.spec(), "state": pnet.state_dict(), "ref": f"G2/t{s - 1000}",
+                parent = {"spec": pnet.spec(), "state": _plain_state(pnet), "ref": f"G2/t{s - 1000}",
                           "sha": prec.weights_sha256, "tasks": list(pnet.task_dims)}
             jobs.append({"arm": arm, "seed": s, "parent": parent, "inherit_mode": mode or "full", "threads": G3_THREADS,
                          "anchors_pub": anchors_pub, "anchors_sec": anchors_sec, "secret_seeds": secret})
