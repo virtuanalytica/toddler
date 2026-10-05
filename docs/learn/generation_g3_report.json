@@ -1,0 +1,199 @@
+{
+ "generation": "G3",
+ "parents": "G2",
+ "tasks": [
+  "cartpole",
+  "acrobot",
+  "empty5",
+  "doorkey5",
+  "doorkey8",
+  "unlock",
+  "unlockpickup",
+  "keycorridor3",
+  "lavacross9"
+ ],
+ "steps": {
+  "cartpole": 150000,
+  "acrobot": 150000,
+  "empty5": 150000,
+  "doorkey5": 150000,
+  "doorkey8": 1000000,
+  "unlock": 1000000,
+  "unlockpickup": 1000000,
+  "keycorridor3": 1000000,
+  "lavacross9": 1000000
+ },
+ "block_steps": 25000,
+ "eval_mode": "sample",
+ "arms": {
+  "G3-sp": {
+   "inherit_mode": "shrink_perturb",
+   "battery_iqm_public": 0.8519,
+   "battery_iqm_public_95ci": [
+    0.7391,
+    0.9403
+   ],
+   "battery_iqm_secret": 0.8377,
+   "new_tasks_iqm_public": 0.6859,
+   "per_task_iqm_public": {
+    "cartpole": 1.0552,
+    "acrobot": 1.0371,
+    "empty5": 1.0723,
+    "doorkey5": 1.0728,
+    "doorkey8": 0.4455,
+    "unlock": 1.0781,
+    "unlockpickup": 0.0,
+    "keycorridor3": 1.0565,
+    "lavacross9": 0.8496
+   },
+   "per_task_iqm_secret": {
+    "cartpole": 1.0553,
+    "acrobot": 1.0299,
+    "empty5": 1.079,
+    "doorkey5": 1.0748,
+    "doorkey8": 0.3788,
+    "unlock": 1.0756,
+    "unlockpickup": 0.0,
+    "keycorridor3": 1.0585,
+    "lavacross9": 0.7878
+   },
+   "promotion_vs_G2": {
+    "promote": false,
+    "p_value": 0.15476190476190477,
+    "prob_improvement": 0.72,
+    "candidate_iqm": 0.8497997175709927,
+    "reference_iqm": 0.8069688889671774
+   },
+   "P_vs_G1_on_G1_tasks": 0.595,
+   "eligible": false,
+   "P_vs_G2_per_task_mean": 0.589
+  },
+  "G3-trunk": {
+   "inherit_mode": "trunk_only",
+   "battery_iqm_public": 0.8055,
+   "battery_iqm_public_95ci": [
+    0.732,
+    0.892
+   ],
+   "battery_iqm_secret": 0.8163,
+   "new_tasks_iqm_public": 0.6055,
+   "per_task_iqm_public": {
+    "cartpole": 1.0552,
+    "acrobot": 1.0234,
+    "empty5": 1.0723,
+    "doorkey5": 1.0709,
+    "doorkey8": 0.4877,
+    "unlock": 1.0707,
+    "unlockpickup": 0.0,
+    "keycorridor3": 1.0546,
+    "lavacross9": 0.4146
+   },
+   "per_task_iqm_secret": {
+    "cartpole": 1.0553,
+    "acrobot": 1.0326,
+    "empty5": 1.08,
+    "doorkey5": 1.0711,
+    "doorkey8": 0.4521,
+    "unlock": 1.0735,
+    "unlockpickup": 0.0,
+    "keycorridor3": 1.0544,
+    "lavacross9": 0.5279
+   },
+   "promotion_vs_G2": {
+    "promote": false,
+    "p_value": 0.27380952380952384,
+    "prob_improvement": 0.64,
+    "candidate_iqm": 0.8030636263787793,
+    "reference_iqm": 0.8069688889671774
+   },
+   "P_vs_G1_on_G1_tasks": 0.44,
+   "eligible": false,
+   "P_vs_G2_per_task_mean": 0.44
+  },
+  "G3-scratch": {
+   "inherit_mode": null,
+   "battery_iqm_public": 0.8543,
+   "battery_iqm_public_95ci": [
+    0.7254,
+    0.9366
+   ],
+   "battery_iqm_secret": 0.8619,
+   "new_tasks_iqm_public": 0.6929,
+   "per_task_iqm_public": {
+    "cartpole": 1.0552,
+    "acrobot": 1.0288,
+    "empty5": 1.0707,
+    "doorkey5": 1.0691,
+    "doorkey8": 0.3522,
+    "unlock": 1.0758,
+    "unlockpickup": 0.0,
+    "keycorridor3": 1.0559,
+    "lavacross9": 0.9807
+   },
+   "per_task_iqm_secret": {
+    "cartpole": 1.0553,
+    "acrobot": 1.033,
+    "empty5": 1.0785,
+    "doorkey5": 1.0712,
+    "doorkey8": 0.3495,
+    "unlock": 1.072,
+    "unlockpickup": 0.0,
+    "keycorridor3": 1.0579,
+    "lavacross9": 1.0394
+   },
+   "promotion_vs_G2": {
+    "promote": false,
+    "p_value": 0.34523809523809523,
+    "prob_improvement": 0.6,
+    "candidate_iqm": 0.8144812180701718,
+    "reference_iqm": 0.8069688889671774
+   },
+   "P_vs_G1_on_G1_tasks": 0.405,
+   "eligible": false,
+   "P_vs_G2_per_task_mean": 0.473
+  }
+ },
+ "winner": null,
+ "selection_rule": "eligible = decide_promotion(arm, G2 on the 9-task battery) and P(arm > G1 on G1 tasks) >= 0.25; survivor = eligible arm with the highest battery IQM; others extinct",
+ "secret_seed_commitment": {
+  "set_id": "20261005T131655Z-e396f7",
+  "n": 30,
+  "seed_low": 100000,
+  "seed_high": 1000000,
+  "created_at": "2026-10-05T13:16:55+00:00",
+  "reveal_after": "2026-10-12",
+  "commitment": "b5e479ae0f04b7d4e694eb1f628c05c02d4beda6e519118e68b8ad9d7912d8fa"
+ },
+ "measured_at": "2026-10-05T16:28:31+0200",
+ "training_seconds": 4296.3,
+ "lineage_ledger": {
+  "path": "/media/knight2/EDS2/toddler-generations/lineage.jsonl",
+  "verified": true,
+  "code": {
+   "commit": "09e23b721840f6b2d119ab4278318fc191a87610",
+   "dirty": false,
+   "remote": "git@github.com:virtuanalytica/toddler.git"
+  }
+ },
+ "hardware": {
+  "cpu": "x86_64",
+  "cores": 96,
+  "torch_threads": 3,
+  "device": "cpu",
+  "gpus": [
+   "NVIDIA RTX 4000 Ada Generation",
+   "NVIDIA RTX 4000 Ada Generation",
+   "NVIDIA RTX 4000 Ada Generation",
+   "Tesla V100-SXM2-32GB",
+   "Tesla V100-SXM2-32GB",
+   "NVIDIA RTX 4000 Ada Generation"
+  ]
+ },
+ "software": {
+  "torch": "2.6.0+cu124",
+  "gymnasium": "1.2.1",
+  "numpy": "2.3.1"
+ },
+ "invoicing_entity": "VirtualV Holding B.V.",
+ "compute_and_sales_entity": "virtuanalytica VOF (commission)"
+}
