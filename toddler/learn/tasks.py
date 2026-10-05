@@ -30,12 +30,25 @@ TASKS: dict[str, Task] = {
     # (an operator choice, documented here, part of the reference fingerprint).
     "empty5": Task("MiniGrid-Empty-5x5-v0", 0.9, grid=True),
     "doorkey5": Task("MiniGrid-DoorKey-5x5-v0", 0.9, grid=True),
+    # Harder procedural MiniGrid tasks (added 2026-10-05, beyond the G1 ceiling). Same 147-d
+    # observation and 7 actions, so a multi-task net only needs a new adapter. Measured random
+    # anchors on EVAL_SEEDS: 0.000-0.021. The 0.9 threshold leaves 26-64 steps here (10 % of the
+    # step limit), within reach of a good policy. MultiRoom-N2-S4 is left out on purpose: its
+    # 40-step limit makes 0.9 mean "goal in 4 steps", a ceiling no policy can reach.
+    "doorkey8": Task("MiniGrid-DoorKey-8x8-v0", 0.9, grid=True),
+    "unlock": Task("MiniGrid-Unlock-v0", 0.9, grid=True),
+    "unlockpickup": Task("MiniGrid-UnlockPickup-v0", 0.9, grid=True),
+    "keycorridor3": Task("MiniGrid-KeyCorridorS3R1-v0", 0.9, grid=True),
+    "lavacross9": Task("MiniGrid-LavaCrossingS9N1-v0", 0.9, grid=True),
 }
 
 EVAL_SEEDS: tuple[int, ...] = tuple(range(10_000, 10_030))   # held out: never used for training
 TRAIN_SEED_LOW = 1_000_000     # training resets draw from [TRAIN_SEED_LOW, 2**31), disjoint from EVAL_SEEDS
-if max(EVAL_SEEDS) >= TRAIN_SEED_LOW:  # survives python -O, unlike assert
-    raise RuntimeError("EVAL_SEEDS overlap the training seed range")
+# Secret evaluation seeds (toddler.learn.secret_seeds) come from their own band, disjoint from both
+# the public EVAL_SEEDS and every training seed, so no training run can ever have seen them.
+SECRET_SEED_LOW, SECRET_SEED_HIGH = 100_000, TRAIN_SEED_LOW
+if max(EVAL_SEEDS) >= SECRET_SEED_LOW or SECRET_SEED_HIGH > TRAIN_SEED_LOW:  # survives python -O
+    raise RuntimeError("EVAL_SEEDS, secret seeds and training seeds must be disjoint")
 
 
 def train_seed(rng: np.random.Generator) -> int:
