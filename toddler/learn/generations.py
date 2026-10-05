@@ -127,7 +127,13 @@ class Registry:
         if hashlib.sha256(data).hexdigest() != rec.weights_sha256:
             raise ValueError(f"{generation}/{toddler_id}: weights do not match their recorded sha256")
         blob = torch.load(io.BytesIO(data), weights_only=True)
-        net = ActorCritic(**blob["spec"])
+        spec = dict(blob["spec"])
+        if spec.get("kind") == "multitask":      # one network for several tasks (toddler/learn/multitask.py)
+            from toddler.learn.multitask import MultiTaskNet
+
+            net = MultiTaskNet({k: tuple(v) for k, v in spec["task_dims"].items()}, spec["hidden"])
+        else:
+            net = ActorCritic(**spec)
         net.load_state_dict(blob["state"])
         return net, rec
 

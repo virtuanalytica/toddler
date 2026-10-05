@@ -10,6 +10,12 @@ every quotient published against it); without it such a run is refused.
 Weights live outside git: on a fresh clone, run this script first (CPU runs are reproducible from
 seed and step budget), then scripts/benchmark_generations.py.
 Weights go to the registry root (outside git); the report goes to docs/learn/generations_report.json.
+
+--g1 builds Generation 1 (G1): 5 toddlers, each ONE multi-task network (shared trunk, per-task
+adapters and heads; toddler/learn/multitask.py) trained on cartpole, acrobot, empty5 and doorkey5,
+150k environment steps per task in interleaved blocks of 15k, return scaling on, evaluated with
+seeded sampling (mode "sample"). G1 is frozen as the quotient reference; IQ = aggregate IQM over
+the four tasks. Report: docs/learn/generation_g1_report.json.
 """
 
 import argparse
@@ -45,7 +51,11 @@ def main() -> None:
     ap.add_argument("--root", default=default_root())
     ap.add_argument("--report-only", action="store_true")
     ap.add_argument("--refreeze", action="store_true")
+    ap.add_argument("--g1", action="store_true", help="build Generation 1 (multi-task)")
     a = ap.parse_args()
+    if a.g1:
+        build_g1(a.root, a.refreeze)
+        return
     host = resources.probe()
     torch.set_num_threads(min(8, resources.cpu_threads(host.cores, host.load_1m)))
     reg, anchor, hw, t0 = G.Registry(Path(a.root)), T.random_anchor(TASK), G.hardware_fingerprint(), time.time()
@@ -118,6 +128,72 @@ def write_report(reg, fp, gen0, gen1, parent, seconds, hw) -> None:
     out = Path(__file__).resolve().parents[1] / "docs" / "learn" / "generations_report.json"
     out.write_text(json.dumps(report, indent=1) + "\n")
     print(json.dumps(report, indent=1))
+
+
+G1_TASKS = ["cartpole", "acrobot", "empty5", "doorkey5"]
+G1_SEEDS = (1001, 1002, 1003, 1004, 1005)
+G1_STEPS_PER_TASK, G1_BLOCK, G1_EVAL_MODE = 150_000, 15_000, "sample"
+
+
+def _train_g1_toddler(seed: int, threads: int) -> dict:
+    """Worker: train one G1 toddler and return weights + per-task held-out scores."""
+    torch.set_num_threads(threads)
+    from toddler.learn import multitask as M
+
+    t0 = time.time()
+    net, log = M.train_multitask(G1_TASKS, G1_STEPS_PER_TASK, G1_BLOCK, seed)
+    anchors = {t: T.random_anchor(t) for t in G1_TASKS}
+    scores = M.evaluate_multitask(net, G1_TASKS, anchors, mode=G1_EVAL_MODE)
+    return {"seed": seed, "state": {k: v.cpu() for k, v in net.state_dict().items()}, "spec": net.spec(),
+            "steps": log.steps_per_task, "scores": scores, "seconds": round(time.time() - t0, 1)}
+
+
+def build_g1(root: str, refreeze: bool) -> None:
+    from concurrent.futures import ProcessPoolExecutor
+
+    from toddler import business
+    from toddler.learn import multitask as M
+
+    host = resources.probe()
+    threads = 4
+    workers = max(1, min(len(G1_SEEDS), resources.cpu_threads(host.cores, host.load_1m) // threads))
+    reg, hw, sw, t0 = G.Registry(Path(root)), G.hardware_fingerprint(), G.software_versions(), time.time()
+    anchors = {t: T.random_anchor(t) for t in G1_TASKS}
+    with ProcessPoolExecutor(max_workers=workers) as ex:
+        results = sorted(ex.map(_train_g1_toddler, G1_SEEDS, [threads] * len(G1_SEEDS)), key=lambda r: r["seed"])
+    rows = []
+    for r in results:
+        net = M.MultiTaskNet({k: tuple(v) for k, v in r["spec"]["task_dims"].items()}, r["spec"]["hidden"])
+        net.load_state_dict(r["state"])
+        per_task = {t: float(np.mean(r["scores"][t])) for t in G1_TASKS}
+        rec = G.ToddlerRecord("G1", f"t{r['seed']}", "multitask:" + "+".join(G1_TASKS),
+                              {"seed": r["seed"], "method": "ppo-multitask", "scale_rewards": True,
+                               "eval_mode": G1_EVAL_MODE, "block_steps": G1_BLOCK, "per_task": per_task},
+                              sum(r["steps"].values()), [], [per_task[t] for t in G1_TASKS], hw, software=sw)
+        reg.save(net, rec)
+        rows.append([per_task[t] for t in G1_TASKS])
+    fp = quotients.fingerprint(G1_TASKS, T.EVAL_SEEDS, [anchors[t] for t in G1_TASKS],
+                               [T.TASKS[t].solved for t in G1_TASKS], eval_mode=G1_EVAL_MODE)
+    reg.freeze_reference("G1", fp, refreeze=refreeze)
+    scores = np.asarray(rows)                                   # (toddlers, tasks)
+    reference = reg.reference("G1", fp)
+    point, lo, hi = quotients.iq_quotient_ci(scores, reference)
+    report = {
+        "generation": "G1", "tasks": G1_TASKS, "toddlers": len(results), "steps_per_task": G1_STEPS_PER_TASK,
+        "block_steps": G1_BLOCK, "eval_mode": G1_EVAL_MODE, "method_version": {"scale_rewards": True, "network": "multitask"},
+        "measured_at": time.strftime("%Y-%m-%dT%H:%M:%S%z"), "training_seconds": round(time.time() - t0, 1),
+        "reference_fingerprint": fp.digest(),
+        "per_task_iqm": {t: round(scoring.iqm(scores[:, j]), 4) for j, t in enumerate(G1_TASKS)},
+        "per_toddler": {f"t{r['seed']}": {t: round(float(np.mean(r["scores"][t])), 4) for t in G1_TASKS} for r in results},
+        "IQ_raw": round(quotients.iq_raw(scores), 4),
+        "IQ_quotient": round(point, 1), "IQ_quotient_95ci": [round(lo, 1), round(hi, 1)],
+        "IQ_note": "G1 is the frozen reference; it scores 100 against itself by construction",
+        "EQ_FQ": "not measured (no judged tasks or reflex scenarios yet)",
+        "hardware": hw, "software": sw, **business.FIELDS,
+    }
+    out = Path(__file__).resolve().parents[1] / "docs" / "learn" / "generation_g1_report.json"
+    out.write_text(json.dumps(report, indent=1) + "\n")
+    print(json.dumps({k: report[k] for k in ("per_task_iqm", "IQ_raw", "IQ_quotient", "IQ_quotient_95ci", "training_seconds")}, indent=1))
 
 
 if __name__ == "__main__":

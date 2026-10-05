@@ -1,0 +1,85 @@
+{
+ "generation": "G1",
+ "tasks": [
+  "cartpole",
+  "acrobot",
+  "empty5",
+  "doorkey5"
+ ],
+ "toddlers": 5,
+ "steps_per_task": 150000,
+ "block_steps": 15000,
+ "eval_mode": "sample",
+ "method_version": {
+  "scale_rewards": true,
+  "network": "multitask"
+ },
+ "measured_at": "2026-10-04T22:59:09+0200",
+ "training_seconds": 375.7,
+ "reference_fingerprint": "8978f072b40ca13fdf79db1f1b12c05286e52c967a6951a08fbaa02efc178663",
+ "per_task_iqm": {
+  "cartpole": 1.0552,
+  "acrobot": 1.036,
+  "empty5": 1.0667,
+  "doorkey5": 1.0721
+ },
+ "per_toddler": {
+  "t1001": {
+   "cartpole": 1.0552,
+   "acrobot": 1.0416,
+   "empty5": 1.0723,
+   "doorkey5": 1.0734
+  },
+  "t1002": {
+   "cartpole": 1.0552,
+   "acrobot": 1.0351,
+   "empty5": 1.0604,
+   "doorkey5": 1.0729
+  },
+  "t1003": {
+   "cartpole": 1.0552,
+   "acrobot": 1.0389,
+   "empty5": -0.1529,
+   "doorkey5": 1.0668
+  },
+  "t1004": {
+   "cartpole": 1.0552,
+   "acrobot": 1.0332,
+   "empty5": 1.0675,
+   "doorkey5": 1.0712
+  },
+  "t1005": {
+   "cartpole": 1.0552,
+   "acrobot": 1.0339,
+   "empty5": 1.0723,
+   "doorkey5": 1.0722
+  }
+ },
+ "IQ_raw": 1.0575,
+ "IQ_quotient": 100.1,
+ "IQ_quotient_95ci": [
+  77.7,
+  100.3
+ ],
+ "IQ_note": "G1 is the frozen reference; it scores 100 against itself by construction",
+ "EQ_FQ": "not measured (no judged tasks or reflex scenarios yet)",
+ "hardware": {
+  "cpu": "x86_64",
+  "cores": 96,
+  "torch_threads": 4,
+  "device": "cpu",
+  "gpus": [
+   "NVIDIA RTX A4000",
+   "unreachable (NVMLError_Unknown)",
+   "unreachable (NVMLError_Unknown)",
+   "NVIDIA RTX 4000 Ada Generation"
+  ]
+ },
+ "software": {
+  "torch": "2.6.0+cu124",
+  "gymnasium": "1.2.1",
+  "numpy": "2.3.1"
+ },
+ "invoicing_entity": "VirtualV Holding B.V.",
+ "compute_and_sales_entity": "virtuanalytica VOF (commission)"
+}

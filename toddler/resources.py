@@ -140,11 +140,17 @@ def probe(own_pids: set[int] | None = None) -> HostState:
     gpus = []
     try:
         for i in range(pynvml.nvmlDeviceGetCount()):
-            h = pynvml.nvmlDeviceGetHandleByIndex(i)
-            mem = pynvml.nvmlDeviceGetMemoryInfo(h)
-            procs = [p for p in pynvml.nvmlDeviceGetComputeRunningProcesses(h) if p.pid not in own]
-            name = pynvml.nvmlDeviceGetName(h)
-            bus = pynvml.nvmlDeviceGetPciInfo(h).busId
+            try:
+                h = pynvml.nvmlDeviceGetHandleByIndex(i)
+                mem = pynvml.nvmlDeviceGetMemoryInfo(h)
+                procs = [p for p in pynvml.nvmlDeviceGetComputeRunningProcesses(h) if p.pid not in own]
+                name = pynvml.nvmlDeviceGetName(h)
+                bus = pynvml.nvmlDeviceGetPciInfo(h).busId
+            except pynvml.NVMLError as exc:
+                # A GPU that fell off the bus (e.g. Xid 74/79) is recorded as unreachable with no usable
+                # memory, so it is never planned; one dead device must not take the whole probe down.
+                gpus.append(GpuState(i, f"unreachable ({type(exc).__name__})", "", 0, 0, 0))
+                continue
             gpus.append(GpuState(i, name.decode() if isinstance(name, bytes) else name,
                                  bus.decode() if isinstance(bus, bytes) else bus,
                                  mem.total // 2**20, mem.free // 2**20, len(procs)))

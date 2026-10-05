@@ -1,3 +1,5 @@
+import pytest
+
 from toddler import resources as r
 
 V100 = dict(name="Tesla V100-SXM2-32GB", total_mib=32768)
@@ -106,3 +108,30 @@ def test_guard_reasons_for_malformed_file_and_timeout(monkeypatch, tmp_path):
 
     monkeypatch.setattr(r.subprocess, "run", hang)
     assert r.guard_status() == (False, "preflight timed out after 60 s")
+
+
+def test_probe_records_an_unreachable_gpu_instead_of_crashing(monkeypatch):
+    pynvml = pytest.importorskip("pynvml")
+
+    class Mem:
+        total, free = 16 * 2**30, 12 * 2**30
+
+    class Pci:
+        busId = "0000:01:00.0"
+
+    def handle(i):
+        if i == 1:
+            raise pynvml.NVMLError_Unknown()
+        return i
+
+    monkeypatch.setattr(pynvml, "nvmlInit", lambda: None)
+    monkeypatch.setattr(pynvml, "nvmlShutdown", lambda: None)
+    monkeypatch.setattr(pynvml, "nvmlDeviceGetCount", lambda: 2)
+    monkeypatch.setattr(pynvml, "nvmlDeviceGetHandleByIndex", handle)
+    monkeypatch.setattr(pynvml, "nvmlDeviceGetMemoryInfo", lambda h: Mem())
+    monkeypatch.setattr(pynvml, "nvmlDeviceGetComputeRunningProcesses", lambda h: [])
+    monkeypatch.setattr(pynvml, "nvmlDeviceGetName", lambda h: "Test GPU")
+    monkeypatch.setattr(pynvml, "nvmlDeviceGetPciInfo", lambda h: Pci())
+    host = r.probe(own_pids=set())
+    assert host.gpus[0].free_mib == 12 * 1024 and host.gpus[1].name.startswith("unreachable")
+    assert r.usable_mib(host.gpus[1]) == 0
