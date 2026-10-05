@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-04T20:59:33Z",
+ "generated_at": "2026-10-05T09:35:36Z",
  "score": "normalised held-out score: 0 = random policy, 1 = task solved; interquartile mean over toddlers",
  "rule": "scores with different eval_mode or network are separate series and are never joined",
  "generations": [
@@ -26,7 +26,9 @@
      ]
     }
    },
-   "iq_raw": 0.5351
+   "iq_raw": 0.5351,
+   "verdict": null,
+   "control": false
   },
   {
    "generation": "gen-1",
@@ -53,7 +55,9 @@
      ]
     }
    },
-   "iq_raw": 0.3095
+   "iq_raw": 0.3095,
+   "verdict": null,
+   "control": false
   },
   {
    "generation": "G1",
@@ -111,7 +115,245 @@
      ]
     }
    },
-   "iq_raw": 1.0575
+   "iq_raw": 1.0575,
+   "verdict": "survived",
+   "control": false
+  },
+  {
+   "generation": "G2",
+   "trained_at": "2026-10-05T09:28:26Z",
+   "toddlers": 5,
+   "network": "multitask",
+   "method": "ppo-multitask",
+   "scale_rewards": true,
+   "eval_mode": "sample",
+   "parents": [
+    "G1/t1001",
+    "G1/t1002",
+    "G1/t1003",
+    "G1/t1004",
+    "G1/t1005"
+   ],
+   "frozen_reference": true,
+   "tasks": {
+    "acrobot": {
+     "iqm": 1.0359,
+     "n": 5,
+     "values": [
+      1.0155,
+      1.03,
+      1.0485,
+      1.047,
+      1.0307
+     ]
+    },
+    "cartpole": {
+     "iqm": 1.0552,
+     "n": 5,
+     "values": [
+      1.0552,
+      1.0552,
+      1.0552,
+      1.0552,
+      1.0552
+     ]
+    },
+    "doorkey5": {
+     "iqm": 1.0729,
+     "n": 5,
+     "values": [
+      1.0716,
+      1.0747,
+      1.0709,
+      1.0736,
+      1.0736
+     ]
+    },
+    "doorkey8": {
+     "iqm": 0.0352,
+     "n": 5,
+     "values": [
+      1.0788,
+      0.1177,
+      -0.0115,
+      -0.0005,
+      -0.0115
+     ]
+    },
+    "empty5": {
+     "iqm": 1.0723,
+     "n": 5,
+     "values": [
+      1.0723,
+      1.0597,
+      1.0723,
+      1.0723,
+      1.0723
+     ]
+    },
+    "keycorridor3": {
+     "iqm": 0.6795,
+     "n": 5,
+     "values": [
+      -0.0122,
+      1.0549,
+      0.9959,
+      1.0565,
+      -0.0122
+     ]
+    },
+    "lavacross9": {
+     "iqm": 0.8856,
+     "n": 5,
+     "values": [
+      0.9674,
+      0.7442,
+      0.9452,
+      1.0555,
+      0.6331
+     ]
+    },
+    "unlock": {
+     "iqm": 1.0757,
+     "n": 5,
+     "values": [
+      1.0781,
+      1.0736,
+      1.0752,
+      1.0764,
+      1.0754
+     ]
+    },
+    "unlockpickup": {
+     "iqm": 0.0,
+     "n": 5,
+     "values": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ]
+    }
+   },
+   "iq_raw": 0.768,
+   "verdict": "survived",
+   "control": false
+  },
+  {
+   "generation": "G2-scratch",
+   "trained_at": "2026-10-05T09:28:26Z",
+   "toddlers": 5,
+   "network": "multitask",
+   "method": "ppo-multitask",
+   "scale_rewards": true,
+   "eval_mode": "sample",
+   "parents": [],
+   "frozen_reference": false,
+   "tasks": {
+    "acrobot": {
+     "iqm": 1.0239,
+     "n": 5,
+     "values": [
+      1.0198,
+      1.0332,
+      1.018,
+      1.0423,
+      1.0189
+     ]
+    },
+    "cartpole": {
+     "iqm": 1.0552,
+     "n": 5,
+     "values": [
+      1.0552,
+      1.0552,
+      1.0552,
+      0.7842,
+      1.0552
+     ]
+    },
+    "doorkey5": {
+     "iqm": 1.0704,
+     "n": 5,
+     "values": [
+      1.0605,
+      1.0726,
+      1.0722,
+      1.0672,
+      1.0719
+     ]
+    },
+    "doorkey8": {
+     "iqm": 0.7135,
+     "n": 5,
+     "values": [
+      1.079,
+      1.0736,
+      -0.0115,
+      -0.0115,
+      1.0786
+     ]
+    },
+    "empty5": {
+     "iqm": 1.0723,
+     "n": 5,
+     "values": [
+      1.0723,
+      1.0723,
+      1.0723,
+      1.0723,
+      1.0723
+     ]
+    },
+    "keycorridor3": {
+     "iqm": 1.0556,
+     "n": 5,
+     "values": [
+      1.0549,
+      1.0546,
+      0.996,
+      1.0574,
+      1.0574
+     ]
+    },
+    "lavacross9": {
+     "iqm": 0.9095,
+     "n": 5,
+     "values": [
+      0.609,
+      1.0257,
+      0.9969,
+      0.7058,
+      1.0478
+     ]
+    },
+    "unlock": {
+     "iqm": 1.0702,
+     "n": 5,
+     "values": [
+      1.0085,
+      1.0764,
+      1.0762,
+      1.0769,
+      1.058
+     ]
+    },
+    "unlockpickup": {
+     "iqm": 0.0,
+     "n": 5,
+     "values": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ]
+    }
+   },
+   "iq_raw": 0.8856,
+   "verdict": "control",
+   "control": true
   }
  ]
 }
