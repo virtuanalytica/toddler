@@ -58,6 +58,23 @@ Several documents mention artefacts that live outside this repository:
 | LightRAG source policy (`src/lightrag-source-policy.ts`) | [fillslava/ClaudeClaw](https://github.com/fillslava/ClaudeClaw) |
 | knitweb (`pouw`, `synaptic`, `p2p`) | the knitweb repository (see `toddler/_knitweb.py`) |
 
+## Chat with a toddler (OMP harness + mixture of models)
+
+A chat model can put a real toddler to work through the MCP server `toddler/learn/mcp_server.py`
+(tools: `list_toddlers`, `list_tasks`, `play_episode`, `iq_probe`, `trace`). Every result is computed
+by toddler code; the models only explain it.
+
+1. Start the live mixture of models (virtualv_llm): `infra/model_serve_configs/mom-live.sh start`
+   (OpenAI-compatible endpoint `http://127.0.0.1:8030/v1`, model `mom-live`).
+2. OMP profile `toddler` (`~/.omp/profiles/toddler/agent/`): `models.yml` adds provider `virtualv`
+   with model `mom-live`; `mcp.json` starts `python3 -m toddler.learn.mcp_server` with
+   `TODDLER_GENERATIONS_ROOT=/media/knight2/EDS2/toddler-generations`.
+3. Chat: `omp --profile toddler --model virtualv/mom-live` (shortcut `omp-toddler`), e.g.
+   "Laat G1/t1001 doorkey5 spelen met seed 424242" or "Meet het IQ van G1/t1003".
+
+Without a chat: `python3 -m toddler.learn.play episode G1/t1001 doorkey5 --seed 424242` and
+`python3 -m toddler.learn.play iq G1/t1001`.
+
 ## Known gaps
 
 - The capability `ATLAS` in `toddler/structure.py` lists regions that have no code yet (`perception.*`, `actuation`). `toddler/codegraph.py` (mapping step B) emits module-graph edges from the real repository: static imports between atlas regions, sizes in lines, empty regions kept at zero; `scripts/module_graph.py` measures committed revisions into `docs/design/module_graph.json`. Execution-path tracing with stop criteria (mapping row 7) is still planned.
