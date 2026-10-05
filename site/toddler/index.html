@@ -242,7 +242,9 @@
   fetch('learning.json', { cache: 'no-store' }).then(function (r) { return r.json(); }).then(function (d) {
     var gens = d.generations || [];
     if (!gens.length) { document.getElementById('dashnote').textContent = 'Nog geen generaties.'; return; }
-    var line = gens.filter(function (g) { return !g.control; });
+    // the line runs through generations that carry the lineage; controls and extinct arms are side branches
+    function side(g) { return g.control || g.verdict === 'extinct'; }
+    var line = gens.filter(function (g) { return !side(g); });
     var last = line[line.length - 1] || gens[gens.length - 1];
     function present(list) { return list.filter(function (t) { return gens.some(function (g) { return g.tasks[t]; }); }); }
     var baseTasks = present(BASE), newTasks = present(NEW), tasks = baseTasks.concat(newTasks);
@@ -251,7 +253,7 @@
       ['Laatste generatie', last.generation, day(last.trained_at) + ' UTC'],
       ['Gemiddelde score', fmt(last.iq_raw), 'over ' + Object.keys(last.tasks).length + ' taken'],
       ['Toddlers', last.toddlers, last.network === 'multitask' ? 'één brein voor alle taken' : 'één taak per brein'],
-      ['Generaties', line.length, gens.length > line.length ? '+ ' + (gens.length - line.length) + ' controlegroep' : 'evaluatie: ' + last.eval_mode]
+      ['Generaties', line.length, gens.length > line.length ? '+ ' + (gens.length - line.length) + ' zijtak(ken): controle of uitgestorven' : 'evaluatie: ' + last.eval_mode]
     ].map(function (t) { return '<div class="tile"><div class="k">' + esc(t[0]) + '</div><div class="v">' + esc(t[1]) +
       '</div><div class="s">' + esc(t[2]) + '</div></div>'; }).join('');
 
@@ -293,7 +295,7 @@
         var shape = m.g.eval_mode === 'sample'
           ? '<rect x="' + (cx - 5) + '" y="' + (cy - 5) + '" width="10" height="10" rx="2"'
           : '<circle cx="' + cx + '" cy="' + cy + '" r="5"';
-        svg += m.g.control
+        svg += side(m.g)
           ? shape + ' fill="var(--surface-1)" stroke="' + color[m.t] + '" stroke-width="2"/>'
           : shape + ' fill="' + color[m.t] + '" stroke="var(--surface-1)" stroke-width="2"/>';
         svg += '<circle class="hit" data-i="' + i + '" cx="' + cx + '" cy="' + cy + '" r="14" fill="transparent"/>';
@@ -308,7 +310,7 @@
         h.addEventListener('mouseenter', function () {
           var m = marks[+h.dataset.i], sc = m.g.tasks[m.t];
           tip.innerHTML = '<strong>' + esc(TASKS[m.t] || m.t) + '</strong><br>' + esc(m.g.generation) +
-            (m.g.control ? ' (controlegroep)' : '') + ' · ' + esc(day(m.g.trained_at)) + '<br>score ' + fmt(sc.iqm) +
+            (m.g.control ? ' (controlegroep)' : m.g.verdict === 'extinct' ? ' (uitgestorven)' : '') + ' · ' + esc(day(m.g.trained_at)) + '<br>score ' + fmt(sc.iqm) +
             ' (' + sc.n + ' toddlers)<br>evaluatie: ' + esc(m.g.eval_mode) + ' · ' + esc(m.g.network);
           tip.hidden = false;
           var r = chart.getBoundingClientRect(), box = h.getBoundingClientRect();
@@ -330,7 +332,7 @@
         '</td><td>' + esc(g.network) + '</td><td>' + esc(g.eval_mode) + '</td><td>' + g.toddlers + '</td>' +
         tasks.map(function (t) { return '<td>' + (g.tasks[t] ? fmt(g.tasks[t].iqm) : '–') + '</td>'; }).join('') + '</tr>';
     }).join('');
-    document.getElementById('dashnote').textContent = 'Rondjes = greedy gemeten, vierkantjes = gesampeld gemeten, open = controlegroep (zelfde recept zonder overerving). Bijgewerkt: ' +
+    document.getElementById('dashnote').textContent = 'Rondjes = greedy gemeten, vierkantjes = gesampeld gemeten, open = zijtak: controlegroep of uitgestorven arm (niet in de lijn). Bijgewerkt: ' +
       day(d.generated_at) + ' UTC.';
   }).catch(function () { document.getElementById('dashnote').textContent = 'Dashboarddata kon niet geladen worden.'; });
 })();
