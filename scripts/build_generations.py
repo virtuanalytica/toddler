@@ -52,7 +52,23 @@ def main() -> None:
     ap.add_argument("--report-only", action="store_true")
     ap.add_argument("--refreeze", action="store_true")
     ap.add_argument("--g1", action="store_true", help="build Generation 1 (multi-task)")
+    ap.add_argument("--report", metavar="GENERATION", help="write the development report PDF of a surviving generation")
+    ap.add_argument("--allow-dirty", action="store_true", help="throw-away run from uncommitted code")
+    ap.add_argument("--g2", action="store_true", help="build Generation 2 (+5 harder tasks, inherit vs scratch, secret seeds)")
     a = ap.parse_args()
+    if a.report:
+        from toddler.learn import devreport
+        from toddler.learn import lineage as L
+
+        backfill_g1_lineage(G.Registry(Path(a.root)), L.Ledger(Path(a.root)))
+        docs = Path(__file__).resolve().parents[1] / "docs" / "learn"
+        pdf = devreport.write_pdf(Path(a.root), a.report, docs / "reports" / f"{a.report}_ontwikkelverslag.pdf",
+                                  docs / f"generation_{a.report.lower()}_report.json")
+        print(pdf)
+        return
+    if a.g2:
+        build_g2(a.root, a.refreeze, a.allow_dirty)
+        return
     if a.g1:
         build_g1(a.root, a.refreeze)
         return
@@ -195,6 +211,195 @@ def build_g1(root: str, refreeze: bool) -> None:
     out.write_text(json.dumps(report, indent=1) + "\n")
     print(json.dumps({k: report[k] for k in ("per_task_iqm", "IQ_raw", "IQ_quotient", "IQ_quotient_95ci", "training_seconds")}, indent=1))
 
+
+G2_NEW = ["doorkey8", "unlock", "unlockpickup", "keycorridor3", "lavacross9"]
+G2_TASKS = G1_TASKS + G2_NEW
+G2_SEEDS = (2001, 2002, 2003, 2004, 2005)               # parent of t200x is G1/t100x
+G2_STEPS = {**{t: 150_000 for t in G1_TASKS}, **{t: 1_000_000 for t in G2_NEW}}
+G2_BLOCK, G2_SECRET_N, G2_SECRET_DAYS = 25_000, 30, 7
+
+
+G2_FORGETTING_MIN = 0.25    # P(G2 > G1) on the G1 tasks below this = G2 forgot what G1 could do
+
+
+def _seed_digest(seeds) -> str:
+    import hashlib
+
+    return hashlib.sha256(",".join(str(int(x)) for x in seeds).encode()).hexdigest()
+
+
+def _task_data(tasks: list[str]) -> dict:
+    import gymnasium
+    import minigrid
+
+    return {"tasks": {t: T.TASKS[t].env_id for t in tasks}, "solve_thresholds": {t: T.TASKS[t].solved for t in tasks},
+            "env_versions": {"gymnasium": gymnasium.__version__, "minigrid": minigrid.__version__},
+            "public_eval_seeds_sha256": _seed_digest(T.EVAL_SEEDS), "training_seed_band": [T.TRAIN_SEED_LOW, 2**31]}
+
+
+def backfill_g1_lineage(reg: "G.Registry", led) -> None:
+    """G1 was trained before the evolution ledger existed: record its births and its verdict once,
+    marked as backfilled, from the registry metadata and the G1 report."""
+    if led.members("G1"):
+        return
+    report = json.loads((Path(__file__).resolve().parents[1] / "docs/learn/generation_g1_report.json").read_text())
+    for r in reg.generation("G1"):
+        led.born(f"G1/{r.toddler_id}", r.weights_sha256, role="population", backfilled=True,
+                 code={"commit": "", "note": "not recorded at training time; built by scripts/build_generations.py --g1 (PR #28)"},
+                 data=_task_data(G1_TASKS),
+                 budget={"steps_per_task": G1_STEPS_PER_TASK, "block_steps": G1_BLOCK, "seed": r.config.get("seed"),
+                         "eval_mode": G1_EVAL_MODE},
+                 hardware=r.hardware, software=r.software)
+    led.selected("G1", "survived", {"basis": "first multi-task generation, frozen as the IQ reference",
+                                    "IQ_quotient": report["IQ_quotient"], "per_task_iqm": report["per_task_iqm"],
+                                    "reference_fingerprint": report["reference_fingerprint"], "backfilled": True})
+
+
+def _train_g2_toddler(job: dict) -> dict:
+    """Worker: one G2 toddler (inheriting from its G1 parent, or from scratch for the control arm),
+    scored on the public EVAL_SEEDS and on the secret seed set (scores only; seeds never returned)."""
+    torch.set_num_threads(job["threads"])
+    from toddler.learn import multitask as M
+
+    t0, parent = time.time(), None
+    if job["parent"]:
+        spec = job["parent"]["spec"]
+        parent = M.MultiTaskNet({k: tuple(v) for k, v in spec["task_dims"].items()}, spec["hidden"])
+        parent.load_state_dict(job["parent"]["state"])
+    net, log = M.train_multitask(G2_TASKS, 0, G2_BLOCK, job["seed"], parent=parent, steps=G2_STEPS)
+    pub = M.evaluate_multitask(net, G2_TASKS, job["anchors_pub"], mode=G1_EVAL_MODE)
+    sec = M.evaluate_multitask(net, G2_TASKS, job["anchors_sec"], mode=G1_EVAL_MODE, seeds=job["secret_seeds"])
+    return {"arm": job["arm"], "seed": job["seed"], "state": {k: v.cpu() for k, v in net.state_dict().items()},
+            "spec": net.spec(), "steps": log.steps_per_task, "pub": pub, "sec": sec,
+            "seconds": round(time.time() - t0, 1)}
+
+
+def build_g2(root: str, refreeze: bool, allow_dirty: bool = False) -> None:
+    """Generation 2: G1 tasks + five harder procedural tasks. Arm "G2" inherits its G1 parent's
+    trunk and task modules; arm "G2-scratch" is the same recipe from random init (control for the
+    inheritance effect). Evaluated on the public seeds and on a fresh secret seed set (commit-reveal,
+    toddler.learn.secret_seeds); only the commitment is reported until the window closes."""
+    from concurrent.futures import ProcessPoolExecutor
+    from dataclasses import asdict
+    from datetime import date, timedelta
+
+    from toddler import business
+    from toddler.learn import lineage as L
+    from toddler.learn import multitask as M
+    from toddler.learn import secret_seeds as SS
+
+    code = L.code_version()
+    if code["dirty"] and not allow_dirty:
+        raise SystemExit("uncommitted changes in the toddler repo: a generation must be born from a commit "
+                         "(commit first, or pass --allow-dirty for a throw-away run)")
+    led = L.Ledger(Path(root))
+    backfill_g1_lineage(G.Registry(Path(root)), led)
+    host, threads = resources.probe(), 4
+    jobs_n = 2 * len(G2_SEEDS)
+    workers = max(1, min(jobs_n, resources.cpu_threads(host.cores, host.load_1m) // threads))
+    reg, hw, sw, t0 = G.Registry(Path(root)), G.hardware_fingerprint(), G.software_versions(), time.time()
+    commitment = SS.new_set(G2_SECRET_N, date.today() + timedelta(days=G2_SECRET_DAYS))
+    _, secret, _ = SS.load_private(commitment.set_id)
+    anchors_pub = {t: T.random_anchor(t) for t in G2_TASKS}
+    anchors_sec = {t: T.random_anchor(t, secret) for t in G2_TASKS}
+    jobs = []
+    for arm in ("G2", "G2-scratch"):
+        for s in G2_SEEDS:
+            parent = None
+            if arm == "G2":
+                pnet, prec = reg.load("G1", f"t{s - 1000}")
+                parent = {"spec": pnet.spec(), "state": pnet.state_dict(), "ref": f"G1/t{s - 1000}",
+                          "sha": prec.weights_sha256, "tasks": list(pnet.task_dims)}
+            jobs.append({"arm": arm, "seed": s, "parent": parent, "threads": threads, "anchors_pub": anchors_pub,
+                         "anchors_sec": anchors_sec, "secret_seeds": secret})
+    print(f"G2: {len(jobs)} toddlers, {workers} workers x {threads} threads, secret set {commitment.set_id}", flush=True)
+    with ProcessPoolExecutor(max_workers=workers) as ex:
+        results = list(ex.map(_train_g2_toddler, jobs))
+    parents_of = {(j["arm"], j["seed"]): j["parent"] for j in jobs}
+    data = {**_task_data(G2_TASKS), "hidden_seed_set": asdict(commitment)}
+    arms: dict[str, dict] = {"G2": {"pub": [], "sec": [], "ids": []}, "G2-scratch": {"pub": [], "sec": [], "ids": []}}
+    for r in sorted(results, key=lambda r: (r["arm"], r["seed"])):
+        net = M.MultiTaskNet({k: tuple(v) for k, v in r["spec"]["task_dims"].items()}, r["spec"]["hidden"])
+        net.load_state_dict(r["state"])
+        pub = {t: float(np.mean(r["pub"][t])) for t in G2_TASKS}
+        sec = {t: float(np.mean(r["sec"][t])) for t in G2_TASKS}
+        parents = [f"G1/t{r['seed'] - 1000}"] if r["arm"] == "G2" else []
+        rec = G.ToddlerRecord(r["arm"], f"t{r['seed']}", "multitask:" + "+".join(G2_TASKS),
+                              {"seed": r["seed"], "method": "ppo-multitask", "scale_rewards": True,
+                               "eval_mode": G1_EVAL_MODE, "block_steps": G2_BLOCK, "steps": G2_STEPS,
+                               "inherits": bool(parents), "per_task": pub, "per_task_secret": sec,
+                               "secret_set": commitment.set_id},
+                              sum(r["steps"].values()), parents, [pub[t] for t in G2_TASKS], hw, software=sw)
+        reg.save(net, rec)
+        par = parents_of[(r["arm"], r["seed"])]
+        inherits = [L.Inheritance(par["ref"], par["sha"], ("trunk", *(f"task:{t}" for t in par["tasks"])))] if par else []
+        led.born(f"{r['arm']}/t{r['seed']}", rec.weights_sha256, role="population" if r["arm"] == "G2" else "control",
+                 inherits=inherits, code=code, data=data,
+                 budget={"steps": G2_STEPS, "block_steps": G2_BLOCK, "seed": r["seed"], "eval_mode": G1_EVAL_MODE,
+                         "threads": threads, "seconds": r["seconds"]},
+                 hardware=hw, software=sw)
+        a = arms[r["arm"]]
+        a["pub"].append([pub[t] for t in G2_TASKS]); a["sec"].append([sec[t] for t in G2_TASKS]); a["ids"].append(f"t{r['seed']}")
+    for a in arms.values():
+        a["pub"], a["sec"] = np.asarray(a["pub"]), np.asarray(a["sec"])
+    g1_fp = quotients.fingerprint(G1_TASKS, T.EVAL_SEEDS, [anchors_pub[t] for t in G1_TASKS],
+                                  [T.TASKS[t].solved for t in G1_TASKS], eval_mode=G1_EVAL_MODE)
+    g1_ref = reg.reference("G1", g1_fp)          # raises if the G1 reference was frozen under other anchors
+    g2_fp = quotients.fingerprint(G2_TASKS, T.EVAL_SEEDS, [anchors_pub[t] for t in G2_TASKS],
+                                  [T.TASKS[t].solved for t in G2_TASKS], eval_mode=G1_EVAL_MODE)
+    reg.freeze_reference("G2", g2_fp, refreeze=refreeze)
+    n1, new = len(G1_TASKS), slice(len(G1_TASKS), None)
+
+    def arm_summary(a: dict) -> dict:
+        lo, hi = scoring.bootstrap_ci(a["pub"][:, new])
+        slo, shi = scoring.bootstrap_ci(a["sec"][:, new])
+        iq, iq_lo, iq_hi = quotients.iq_quotient_ci(a["pub"][:, :n1], g1_ref)
+        return {"per_task_iqm_public": {t: round(scoring.iqm(a["pub"][:, j]), 4) for j, t in enumerate(G2_TASKS)},
+                "per_task_iqm_secret": {t: round(scoring.iqm(a["sec"][:, j]), 4) for j, t in enumerate(G2_TASKS)},
+                "new_tasks_iqm_public": [round(scoring.aggregate_iqm(a["pub"][:, new]), 4), [round(lo, 4), round(hi, 4)]],
+                "new_tasks_iqm_secret": [round(scoring.aggregate_iqm(a["sec"][:, new]), 4), [round(slo, 4), round(shi, 4)]],
+                "IQ_quotient_vs_G1_on_G1_tasks": [round(iq, 1), [round(iq_lo, 1), round(iq_hi, 1)]],
+                "toddlers": a["ids"]}
+
+    report = {
+        "generation": "G2", "tasks": G2_TASKS, "new_tasks": G2_NEW, "steps": G2_STEPS, "block_steps": G2_BLOCK,
+        "eval_mode": G1_EVAL_MODE, "method_version": {"scale_rewards": True, "network": "multitask", "inherit": "G1"},
+        "measured_at": time.strftime("%Y-%m-%dT%H:%M:%S%z"), "training_seconds": round(time.time() - t0, 1),
+        "reference_fingerprint": g2_fp.digest(), "g1_reference_fingerprint": g1_fp.digest(),
+        "secret_seed_commitment": asdict(commitment),
+        "arms": {k: arm_summary(v) for k, v in arms.items()},
+        "inheritance_effect": {
+            "P(G2 > G2-scratch) public, new tasks": round(scoring.prob_improvement(arms["G2"]["pub"][:, new], arms["G2-scratch"]["pub"][:, new]), 3),
+            "P(G2 > G2-scratch) secret, new tasks": round(scoring.prob_improvement(arms["G2"]["sec"][:, new], arms["G2-scratch"]["sec"][:, new]), 3),
+            "P(G2 > G1) public, G1 tasks (forgetting check)": None,
+        },
+        "public_vs_secret_gap_new_tasks": {k: round(float(scoring.aggregate_iqm(v["pub"][:, new]) - scoring.aggregate_iqm(v["sec"][:, new])), 4)
+                                           for k, v in arms.items()},
+        "IQ_note": "IQ quotient on the four G1 tasks against the frozen G1 reference; G2 is the frozen reference for the nine-task battery",
+        "EQ_FQ": "not measured (no judged tasks or reflex scenarios yet)",
+        "hardware": hw, "software": sw, **business.FIELDS,
+    }
+    g1 = reg.generation("G1")
+    if g1:
+        g1_rows = np.asarray([[r.config["per_task"][t] for t in G1_TASKS] for r in g1])
+        report["inheritance_effect"]["P(G2 > G1) public, G1 tasks (forgetting check)"] = round(
+            scoring.prob_improvement(arms["G2"]["pub"][:, :n1], g1_rows), 3)
+    # Selection (Darwin): G2 survives when it beats G1 on the nine-task battery (G1 has no capability
+    # on the new tasks, scored as 0 = random, never invented) AND did not forget the G1 tasks.
+    g1_battery = np.hstack([g1_rows, np.zeros((len(g1_rows), len(G2_NEW)))]) if g1 else None
+    promo = G.decide_promotion(arms["G2"]["pub"].mean(axis=1).tolist(), g1_battery.mean(axis=1).tolist())
+    forget = report["inheritance_effect"]["P(G2 > G1) public, G1 tasks (forgetting check)"]
+    verdict = "survived" if promo.promote and forget >= G2_FORGETTING_MIN else "extinct"
+    report["selection"] = {"verdict": verdict, "promotion": asdict(promo), "forgetting_P": forget,
+                           "forgetting_min": G2_FORGETTING_MIN,
+                           "rule": "decide_promotion(G2, G1 on the 9-task battery; G1 = 0 on new tasks) and "
+                                   "P(G2 > G1 on G1 tasks) >= forgetting_min"}
+    led.selected("G2", verdict, report["selection"])
+    led.selected("G2-scratch", "control", {"basis": "same recipe from random init; control for the inheritance effect"})
+    report["lineage_ledger"] = {"path": str(led.path), "verified": led.verify()[0], "code": code}
+    out = Path(__file__).resolve().parents[1] / "docs" / "learn" / "generation_g2_report.json"
+    out.write_text(json.dumps(report, indent=1) + "\n")
+    print(json.dumps({k: report[k] for k in ("arms", "inheritance_effect", "public_vs_secret_gap_new_tasks", "training_seconds")}, indent=1))
 
 if __name__ == "__main__":
     main()

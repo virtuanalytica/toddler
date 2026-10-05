@@ -43,6 +43,24 @@ class MultiTaskNet(nn.Module):
         return {"kind": "multitask", "task_dims": {k: list(v) for k, v in self.task_dims.items()},
                 "hidden": self.hidden}
 
+    def inherit(self, parent: "MultiTaskNet") -> list[str]:
+        """Copy the parent's trunk and every task module the parent shares with this net (a new
+        generation keeps what its parent learned and grows adapters/heads for new tasks). Shapes
+        must match exactly; a parent task this net lacks is an error, never silently dropped.
+        Returns the inherited task names."""
+        if parent.hidden != self.hidden:
+            raise ValueError(f"hidden size differs: parent {parent.hidden}, child {self.hidden}")
+        missing = [t for t in parent.task_dims if t not in self.task_dims]
+        if missing:
+            raise ValueError(f"child lacks parent tasks {missing}")
+        for t, dims in parent.task_dims.items():
+            if self.task_dims[t] != dims:
+                raise ValueError(f"{t}: parent dims {dims} != child dims {self.task_dims[t]}")
+        own = self.state_dict()
+        own.update(parent.state_dict())        # keys of parent ⊆ keys of child, checked above
+        self.load_state_dict(own)
+        return list(parent.task_dims)
+
     @classmethod
     def for_tasks(cls, task_names: list[str], hidden: int = 64) -> "MultiTaskNet":
         dims = {}
@@ -86,20 +104,32 @@ class MultiTaskLog:
 
 
 def train_multitask(task_names: list[str], steps_per_task: int, block_steps: int, seed: int,
-                    base: ppo.PPOConfig | None = None, hidden: int = 64) -> tuple[MultiTaskNet, MultiTaskLog]:
-    """Interleave the tasks in blocks of `block_steps` until each has `steps_per_task` steps."""
-    if steps_per_task % block_steps:
-        raise ValueError("steps_per_task must be a multiple of block_steps")
+                    base: ppo.PPOConfig | None = None, hidden: int = 64,
+                    parent: MultiTaskNet | None = None,
+                    steps: dict[str, int] | None = None) -> tuple[MultiTaskNet, MultiTaskLog]:
+    """Interleave the tasks in blocks of `block_steps` until each has its step budget.
+
+    `steps` overrides `steps_per_task` per task (harder tasks may get more); every budget must be
+    a multiple of `block_steps`. A task stops receiving blocks once its budget is spent, so the
+    interleaving stays fair while several tasks are still training. `parent` seeds the net via
+    MultiTaskNet.inherit (the trunk and the parent's tasks)."""
+    budgets = {t: (steps or {}).get(t, steps_per_task) for t in task_names}
+    if any(b % block_steps for b in budgets.values()):
+        raise ValueError("every step budget must be a multiple of block_steps")
     torch.manual_seed(seed)
     net = MultiTaskNet.for_tasks(task_names, hidden)
+    if parent is not None:
+        net.inherit(parent)
     rng = np.random.default_rng(seed)
     base = base or ppo.PPOConfig()
     views = {t: TaskView(net, t) for t in task_names}
     states = {t: ppo.TrainState() for t in task_names}
     cfgs = {t: replace(base, total_steps=block_steps, seed=int(rng.integers(0, 2**31))) for t in task_names}
     log = MultiTaskLog(steps_per_task={t: 0 for t in task_names})
-    for _ in range(steps_per_task // block_steps):
+    for b in range(max(budgets.values()) // block_steps):
         for t in task_names:
+            if b * block_steps >= budgets[t]:
+                continue
             _, tl = ppo.train(t, cfgs[t], net=views[t], state=states[t])
             log.steps_per_task[t] += tl.steps
             log.last_returns[t] = tl.episode_returns[-20:]
