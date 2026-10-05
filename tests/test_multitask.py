@@ -46,3 +46,31 @@ def test_sampled_evaluation_per_task():
     anchors = {t: T.random_anchor(t, T.EVAL_SEEDS[:2]) for t in ["cartpole", "acrobot"]}
     out = M.evaluate_multitask(net, ["cartpole", "acrobot"], anchors, seeds=T.EVAL_SEEDS[:2])
     assert set(out) == {"cartpole", "acrobot"} and all(len(v) == 2 for v in out.values())
+
+
+def test_inherit_copies_trunk_and_shared_tasks_and_keeps_new_tasks_fresh():
+    import torch
+
+    from toddler.learn.multitask import MultiTaskNet
+
+    torch.manual_seed(0)
+    parent = MultiTaskNet({"a": (4, 2)}, hidden=8)
+    child = MultiTaskNet({"a": (4, 2), "b": (6, 3)}, hidden=8)
+    fresh_b = child.pi["b"].weight.clone()
+    assert child.inherit(parent) == ["a"]
+    for k, v in parent.state_dict().items():
+        assert torch.equal(child.state_dict()[k], v)
+    assert torch.equal(child.pi["b"].weight, fresh_b)
+
+
+def test_inherit_refuses_mismatched_parents():
+    import pytest
+
+    from toddler.learn.multitask import MultiTaskNet
+
+    with pytest.raises(ValueError):
+        MultiTaskNet({"a": (4, 2)}, hidden=8).inherit(MultiTaskNet({"a": (4, 2)}, hidden=16))
+    with pytest.raises(ValueError):
+        MultiTaskNet({"b": (4, 2)}, hidden=8).inherit(MultiTaskNet({"a": (4, 2)}, hidden=8))
+    with pytest.raises(ValueError):
+        MultiTaskNet({"a": (5, 2)}, hidden=8).inherit(MultiTaskNet({"a": (4, 2)}, hidden=8))
