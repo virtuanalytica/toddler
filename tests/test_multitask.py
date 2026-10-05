@@ -74,3 +74,27 @@ def test_inherit_refuses_mismatched_parents():
         MultiTaskNet({"b": (4, 2)}, hidden=8).inherit(MultiTaskNet({"a": (4, 2)}, hidden=8))
     with pytest.raises(ValueError):
         MultiTaskNet({"a": (5, 2)}, hidden=8).inherit(MultiTaskNet({"a": (4, 2)}, hidden=8))
+
+
+def test_inherit_modes_shrink_perturb_and_trunk_only():
+    import pytest
+    import torch
+
+    from toddler.learn.multitask import MultiTaskNet
+
+    torch.manual_seed(1)
+    parent = MultiTaskNet({"a": (4, 2)}, hidden=8)
+    child = MultiTaskNet({"a": (4, 2), "b": (6, 3)}, hidden=8)
+    fresh = {k: v.clone() for k, v in child.state_dict().items()}
+    child.inherit(parent, mode="shrink_perturb", shrink=0.4, perturb=0.1)
+    for k, v in parent.state_dict().items():
+        assert torch.allclose(child.state_dict()[k], 0.4 * v + 0.1 * fresh[k])
+    assert torch.equal(child.pi["b"].weight, fresh["pi.b.weight"])
+
+    child2 = MultiTaskNet({"a": (4, 2)}, hidden=8)
+    fresh2 = {k: v.clone() for k, v in child2.state_dict().items()}
+    assert child2.inherit(parent, mode="trunk_only") == []
+    assert torch.equal(child2.trunk[0].weight, parent.trunk[0].weight)
+    assert torch.equal(child2.adapters["a"][0].weight, fresh2["adapters.a.0.weight"])
+    with pytest.raises(ValueError):
+        child2.inherit(parent, mode="mutate")

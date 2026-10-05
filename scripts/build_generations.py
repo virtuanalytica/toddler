@@ -54,8 +54,12 @@ def main() -> None:
     ap.add_argument("--g1", action="store_true", help="build Generation 1 (multi-task)")
     ap.add_argument("--report", metavar="GENERATION", help="write the development report PDF of a surviving generation")
     ap.add_argument("--allow-dirty", action="store_true", help="throw-away run from uncommitted code")
+    ap.add_argument("--g3", action="store_true", help="build Generation 3 (inheritance variants, selection across arms)")
     ap.add_argument("--g2", action="store_true", help="build Generation 2 (+5 harder tasks, inherit vs scratch, secret seeds)")
     a = ap.parse_args()
+    if a.g3:
+        build_g3(a.root, a.refreeze, a.allow_dirty)
+        return
     if a.report:
         from toddler.learn import devreport
         from toddler.learn import lineage as L
@@ -266,9 +270,11 @@ def _train_g2_toddler(job: dict) -> dict:
         spec = job["parent"]["spec"]
         parent = M.MultiTaskNet({k: tuple(v) for k, v in spec["task_dims"].items()}, spec["hidden"])
         parent.load_state_dict(job["parent"]["state"])
-    net, log = M.train_multitask(G2_TASKS, 0, G2_BLOCK, job["seed"], parent=parent, steps=G2_STEPS)
-    pub = M.evaluate_multitask(net, G2_TASKS, job["anchors_pub"], mode=G1_EVAL_MODE)
-    sec = M.evaluate_multitask(net, G2_TASKS, job["anchors_sec"], mode=G1_EVAL_MODE, seeds=job["secret_seeds"])
+    tasks, steps = job.get("tasks", G2_TASKS), job.get("steps", G2_STEPS)
+    net, log = M.train_multitask(tasks, 0, job.get("block", G2_BLOCK), job["seed"], parent=parent, steps=steps,
+                                 inherit_mode=job.get("inherit_mode", "full"))
+    pub = M.evaluate_multitask(net, tasks, job["anchors_pub"], mode=G1_EVAL_MODE)
+    sec = M.evaluate_multitask(net, tasks, job["anchors_sec"], mode=G1_EVAL_MODE, seeds=job["secret_seeds"])
     return {"arm": job["arm"], "seed": job["seed"], "state": {k: v.cpu() for k, v in net.state_dict().items()},
             "spec": net.spec(), "steps": log.steps_per_task, "pub": pub, "sec": sec,
             "seconds": round(time.time() - t0, 1)}
@@ -400,6 +406,124 @@ def build_g2(root: str, refreeze: bool, allow_dirty: bool = False) -> None:
     out = Path(__file__).resolve().parents[1] / "docs" / "learn" / "generation_g2_report.json"
     out.write_text(json.dumps(report, indent=1) + "\n")
     print(json.dumps({k: report[k] for k in ("arms", "inheritance_effect", "public_vs_secret_gap_new_tasks", "training_seconds")}, indent=1))
+
+G3_SEEDS = (3001, 3002, 3003, 3004, 3005)               # parent of t300x is G2/t200x
+G3_ARMS = {"G3-sp": "shrink_perturb", "G3-trunk": "trunk_only", "G3-scratch": None}
+G3_THREADS = 3
+
+
+def build_g3(root: str, refreeze: bool, allow_dirty: bool = False) -> None:
+    """Generation 3: same nine tasks and budget as G2, parents = surviving G2. G2 showed that copying
+    the whole parent (mode "full") hampers the harder tasks, so G3 tests two plasticity-keeping ways
+    to inherit against a scratch control, and selection runs ACROSS the arms (pre-registered here):
+
+      eligible  arm beats G2 on the nine-task battery (decide_promotion on per-run means) AND did not
+                forget the G1 tasks (P(arm > G1 on G1 tasks) >= G2_FORGETTING_MIN)
+      survivor  the eligible arm with the highest aggregate IQM over the nine tasks; every other
+                arm is "extinct" (the scratch arm too: if it wins, it is a new root without G2 lineage)
+      none      no arm eligible -> all G3 arms extinct, G2 stays the line
+    """
+    from concurrent.futures import ProcessPoolExecutor
+    from dataclasses import asdict
+    from datetime import date, timedelta
+
+    from toddler import business
+    from toddler.learn import lineage as L
+    from toddler.learn import multitask as M
+    from toddler.learn import secret_seeds as SS
+
+    code = L.code_version()
+    if code["dirty"] and not allow_dirty:
+        raise SystemExit("uncommitted changes in the toddler repo: a generation must be born from a commit")
+    reg, led = G.Registry(Path(root)), L.Ledger(Path(root))
+    v = led.verdict("G2")
+    if not v or v["verdict"] != "survived":
+        raise SystemExit("G3 needs a surviving G2 in the ledger")
+    hw, sw, t0 = G.hardware_fingerprint(), G.software_versions(), time.time()
+    commitment = SS.new_set(G2_SECRET_N, date.today() + timedelta(days=G2_SECRET_DAYS))
+    _, secret, _ = SS.load_private(commitment.set_id)
+    anchors_pub = {t: T.random_anchor(t) for t in G2_TASKS}
+    anchors_sec = {t: T.random_anchor(t, secret) for t in G2_TASKS}
+    jobs = []
+    for arm, mode in G3_ARMS.items():
+        for s in G3_SEEDS:
+            parent = None
+            if mode:
+                pnet, prec = reg.load("G2", f"t{s - 1000}")
+                parent = {"spec": pnet.spec(), "state": pnet.state_dict(), "ref": f"G2/t{s - 1000}",
+                          "sha": prec.weights_sha256, "tasks": list(pnet.task_dims)}
+            jobs.append({"arm": arm, "seed": s, "parent": parent, "inherit_mode": mode or "full", "threads": G3_THREADS,
+                         "anchors_pub": anchors_pub, "anchors_sec": anchors_sec, "secret_seeds": secret})
+    host = resources.probe()
+    workers = max(1, min(len(jobs), resources.cpu_threads(host.cores, host.load_1m) // G3_THREADS))
+    print(f"G3: {len(jobs)} toddlers, {workers} workers x {G3_THREADS} threads, secret set {commitment.set_id}", flush=True)
+    with ProcessPoolExecutor(max_workers=workers) as ex:
+        results = list(ex.map(_train_g2_toddler, jobs))
+    data = {**_task_data(G2_TASKS), "hidden_seed_set": asdict(commitment)}
+    modules = {"shrink_perturb": lambda ts: ("trunk~0.4p+0.1fresh", *(f"task:{t}~0.4p+0.1fresh" for t in ts)),
+               "trunk_only": lambda ts: ("trunk",)}
+    arms = {a: {"pub": [], "sec": []} for a in G3_ARMS}
+    by_key = {(j["arm"], j["seed"]): j for j in jobs}
+    for r in sorted(results, key=lambda r: (r["arm"], r["seed"])):
+        net = M.MultiTaskNet({k: tuple(v) for k, v in r["spec"]["task_dims"].items()}, r["spec"]["hidden"])
+        net.load_state_dict(r["state"])
+        job = by_key[(r["arm"], r["seed"])]
+        pub = {t: float(np.mean(r["pub"][t])) for t in G2_TASKS}
+        sec = {t: float(np.mean(r["sec"][t])) for t in G2_TASKS}
+        par, mode = job["parent"], G3_ARMS[r["arm"]]
+        rec = G.ToddlerRecord(r["arm"], f"t{r['seed']}", "multitask:" + "+".join(G2_TASKS),
+                              {"seed": r["seed"], "method": "ppo-multitask", "inherit_mode": mode, "steps": G2_STEPS,
+                               "block_steps": G2_BLOCK, "eval_mode": G1_EVAL_MODE, "per_task": pub,
+                               "per_task_secret": sec, "secret_set": commitment.set_id},
+                              sum(r["steps"].values()), [par["ref"]] if par else [], [pub[t] for t in G2_TASKS], hw,
+                              software=sw)
+        reg.save(net, rec)
+        inherits = [L.Inheritance(par["ref"], par["sha"], modules[mode](par["tasks"]))] if par else []
+        led.born(f"{r['arm']}/t{r['seed']}", rec.weights_sha256, role="population", inherits=inherits, code=code,
+                 data=data, budget={"steps": G2_STEPS, "block_steps": G2_BLOCK, "seed": r["seed"], "inherit_mode": mode,
+                                    "eval_mode": G1_EVAL_MODE, "threads": G3_THREADS, "seconds": r["seconds"]},
+                 hardware=hw, software=sw)
+        arms[r["arm"]]["pub"].append([pub[t] for t in G2_TASKS])
+        arms[r["arm"]]["sec"].append([sec[t] for t in G2_TASKS])
+    g2_rows = np.asarray([[r.config["per_task"][t] for t in G2_TASKS] for r in reg.generation("G2")])
+    g1_rows = np.asarray([[r.config["per_task"][t] for t in G1_TASKS] for r in reg.generation("G1")])
+    n1, new = len(G1_TASKS), slice(len(G1_TASKS), None)
+    summary = {}
+    for a, d in arms.items():
+        pub_, sec_ = np.asarray(d["pub"]), np.asarray(d["sec"])
+        promo = G.decide_promotion(pub_.mean(axis=1).tolist(), g2_rows.mean(axis=1).tolist())
+        forget = scoring.prob_improvement(pub_[:, :n1], g1_rows)
+        lo, hi = scoring.bootstrap_ci(pub_)
+        summary[a] = {"inherit_mode": G3_ARMS[a], "battery_iqm_public": round(scoring.aggregate_iqm(pub_), 4),
+                      "battery_iqm_public_95ci": [round(lo, 4), round(hi, 4)],
+                      "battery_iqm_secret": round(scoring.aggregate_iqm(sec_), 4),
+                      "new_tasks_iqm_public": round(scoring.aggregate_iqm(pub_[:, new]), 4),
+                      "per_task_iqm_public": {t: round(scoring.iqm(pub_[:, j]), 4) for j, t in enumerate(G2_TASKS)},
+                      "per_task_iqm_secret": {t: round(scoring.iqm(sec_[:, j]), 4) for j, t in enumerate(G2_TASKS)},
+                      "promotion_vs_G2": asdict(promo), "P_vs_G1_on_G1_tasks": round(forget, 3),
+                      "eligible": bool(promo.promote and forget >= G2_FORGETTING_MIN),
+                      "P_vs_G2_per_task_mean": round(scoring.prob_improvement(pub_, g2_rows), 3)}
+    eligible = [a for a in summary if summary[a]["eligible"]]
+    winner = max(eligible, key=lambda a: summary[a]["battery_iqm_public"]) if eligible else None
+    rule = ("eligible = decide_promotion(arm, G2 on the 9-task battery) and P(arm > G1 on G1 tasks) >= "
+            f"{G2_FORGETTING_MIN}; survivor = eligible arm with the highest battery IQM; others extinct")
+    for a in G3_ARMS:
+        led.selected(a, "survived" if a == winner else "extinct",
+                     {"rule": rule, "winner": winner, **{k: summary[a][k] for k in
+                      ("battery_iqm_public", "battery_iqm_public_95ci", "promotion_vs_G2", "P_vs_G1_on_G1_tasks", "eligible")}})
+    if winner:
+        reg.freeze_reference(winner, quotients.fingerprint(G2_TASKS, T.EVAL_SEEDS, [anchors_pub[t] for t in G2_TASKS],
+                                                           [T.TASKS[t].solved for t in G2_TASKS], eval_mode=G1_EVAL_MODE),
+                             refreeze=refreeze)
+    report = {"generation": "G3", "parents": "G2", "tasks": G2_TASKS, "steps": G2_STEPS, "block_steps": G2_BLOCK,
+              "eval_mode": G1_EVAL_MODE, "arms": summary, "winner": winner, "selection_rule": rule,
+              "secret_seed_commitment": asdict(commitment),
+              "measured_at": time.strftime("%Y-%m-%dT%H:%M:%S%z"), "training_seconds": round(time.time() - t0, 1),
+              "lineage_ledger": {"path": str(led.path), "verified": led.verify()[0], "code": code},
+              "hardware": hw, "software": sw, **business.FIELDS}
+    out = Path(__file__).resolve().parents[1] / "docs" / "learn" / "generation_g3_report.json"
+    out.write_text(json.dumps(report, indent=1) + "\n")
+    print(json.dumps({k: report[k] for k in ("arms", "winner", "training_seconds")}, indent=1))
 
 if __name__ == "__main__":
     main()

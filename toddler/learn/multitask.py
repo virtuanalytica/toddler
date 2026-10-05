@@ -43,11 +43,20 @@ class MultiTaskNet(nn.Module):
         return {"kind": "multitask", "task_dims": {k: list(v) for k, v in self.task_dims.items()},
                 "hidden": self.hidden}
 
-    def inherit(self, parent: "MultiTaskNet") -> list[str]:
-        """Copy the parent's trunk and every task module the parent shares with this net (a new
-        generation keeps what its parent learned and grows adapters/heads for new tasks). Shapes
-        must match exactly; a parent task this net lacks is an error, never silently dropped.
-        Returns the inherited task names."""
+    INHERIT_MODES = ("full", "shrink_perturb", "trunk_only")
+
+    def inherit(self, parent: "MultiTaskNet", mode: str = "full", shrink: float = 0.4,
+                perturb: float = 0.1) -> list[str]:
+        """Take over what the parent learned. Shapes must match exactly; a parent task this net
+        lacks is an error, never silently dropped. Returns the inherited task names.
+
+        full            copy the trunk and every task module the parent shares (G2 used this)
+        shrink_perturb  every shared tensor becomes shrink * parent + perturb * own fresh init
+                        (warm start that keeps plasticity, after Ash & Adams 2020, "On
+                        warm-starting neural network training"; our shrink/perturb values)
+        trunk_only      copy only the shared trunk; adapters and heads start fresh"""
+        if mode not in self.INHERIT_MODES:
+            raise ValueError(f"inherit mode must be one of {self.INHERIT_MODES}")
         if parent.hidden != self.hidden:
             raise ValueError(f"hidden size differs: parent {parent.hidden}, child {self.hidden}")
         missing = [t for t in parent.task_dims if t not in self.task_dims]
@@ -57,9 +66,12 @@ class MultiTaskNet(nn.Module):
             if self.task_dims[t] != dims:
                 raise ValueError(f"{t}: parent dims {dims} != child dims {self.task_dims[t]}")
         own = self.state_dict()
-        own.update(parent.state_dict())        # keys of parent ⊆ keys of child, checked above
+        for k, v in parent.state_dict().items():           # keys of parent ⊆ keys of child, checked above
+            if mode == "trunk_only" and not k.startswith("trunk."):
+                continue
+            own[k] = shrink * v + perturb * own[k] if mode == "shrink_perturb" else v.clone()
         self.load_state_dict(own)
-        return list(parent.task_dims)
+        return list(parent.task_dims) if mode != "trunk_only" else []
 
     @classmethod
     def for_tasks(cls, task_names: list[str], hidden: int = 64) -> "MultiTaskNet":
@@ -106,7 +118,8 @@ class MultiTaskLog:
 def train_multitask(task_names: list[str], steps_per_task: int, block_steps: int, seed: int,
                     base: ppo.PPOConfig | None = None, hidden: int = 64,
                     parent: MultiTaskNet | None = None,
-                    steps: dict[str, int] | None = None) -> tuple[MultiTaskNet, MultiTaskLog]:
+                    steps: dict[str, int] | None = None,
+                    inherit_mode: str = "full") -> tuple[MultiTaskNet, MultiTaskLog]:
     """Interleave the tasks in blocks of `block_steps` until each has its step budget.
 
     `steps` overrides `steps_per_task` per task (harder tasks may get more); every budget must be
@@ -119,7 +132,7 @@ def train_multitask(task_names: list[str], steps_per_task: int, block_steps: int
     torch.manual_seed(seed)
     net = MultiTaskNet.for_tasks(task_names, hidden)
     if parent is not None:
-        net.inherit(parent)
+        net.inherit(parent, mode=inherit_mode)
     rng = np.random.default_rng(seed)
     base = base or ppo.PPOConfig()
     views = {t: TaskView(net, t) for t in task_names}
