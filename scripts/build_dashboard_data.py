@@ -36,8 +36,17 @@ def _per_task(meta: dict) -> dict[str, float]:
     return {meta["task"]: float(np.mean(meta["eval_scores"]))}
 
 
+def _ledger(root: Path):
+    """Selection verdicts and roles from the evolution ledger (toddler.learn.lineage), if present."""
+    if not (root / "lineage.jsonl").exists():
+        return None
+    from toddler.learn import lineage
+
+    return lineage.Ledger(root)
+
+
 def collect(root: Path) -> list[dict]:
-    points = []
+    points, led = [], _ledger(root)
     for gdir in sorted(p for p in root.iterdir() if p.is_dir()):
         metas = [json.loads(m.read_text()) for m in sorted(gdir.glob("*/meta.json"))]
         if not metas:
@@ -62,6 +71,9 @@ def collect(root: Path) -> list[dict]:
             "frozen_reference": ref.exists(),
             "tasks": tasks,
             "iq_raw": round(float(np.mean([t["iqm"] for t in tasks.values()])), 4),
+            "verdict": (led.verdict(gdir.name) or {}).get("verdict") if led else None,
+            "control": bool(led) and bool(led.members(gdir.name)) and all(
+                m["role"] == "control" for m in led.members(gdir.name)),
         })
     return sorted(points, key=lambda p: p["trained_at"])
 

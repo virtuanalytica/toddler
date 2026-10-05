@@ -48,9 +48,11 @@
     padding: 6px 18px; font-weight: 700; background: var(--card); }
   .tabs a[aria-current="page"] { border-color: var(--sky); color: var(--sky); }
   .viz-root { --surface-1: var(--card); --text-primary: var(--ink); --text-secondary: var(--muted);
-    --grid: var(--line); --series-1: #2a78d6; --series-2: #eb6834; --series-3: #1baf7a; --series-4: #eda100; }
+    --grid: var(--line); --series-1: #2a78d6; --series-2: #eb6834; --series-3: #1baf7a; --series-4: #eda100; --series-5: #e87ba4; }
   @media (prefers-color-scheme: dark) {
-    .viz-root { --series-1: #3987e5; --series-2: #d95926; --series-3: #199e70; --series-4: #c98500; } }
+    .viz-root { --series-1: #3987e5; --series-2: #d95926; --series-3: #199e70; --series-4: #c98500; --series-5: #d55181; } }
+  .panel-title { font-size: 1rem; margin: 14px 0 0; }
+  .chart { position: relative; }
   .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin: 16px 0; }
   .tile { background: var(--card); border: 2px solid var(--line); border-radius: 18px; padding: 14px 16px; }
   .tile .k { font-size: .85rem; color: var(--muted); } .tile .v { font-size: 1.9rem; font-weight: 800; }
@@ -59,10 +61,10 @@
   .legend { display: flex; flex-wrap: wrap; gap: 14px; font-size: .95rem; margin: 6px 0 10px; }
   .legend span::before { content: ""; display: inline-block; width: 12px; height: 12px; border-radius: 3px;
     margin-right: 6px; background: var(--c); vertical-align: -1px; }
-  #chart svg { width: 100%; height: auto; display: block; overflow: visible; }
-  #chart .gridline { stroke: var(--grid); stroke-width: 1; }
-  #chart .axis text { fill: var(--text-secondary); font-size: 12px; }
-  #tip { position: absolute; pointer-events: none; background: var(--surface-1); color: var(--text-primary);
+  #chart svg, #chart2 svg { width: 100%; height: auto; display: block; overflow: visible; }
+  #chart .gridline, #chart2 .gridline { stroke: var(--grid); stroke-width: 1; }
+  #chart .axis text, #chart2 .axis text { fill: var(--text-secondary); font-size: 12px; }
+  .tip { position: absolute; pointer-events: none; background: var(--surface-1); color: var(--text-primary);
     border: 1px solid var(--grid); border-radius: 10px; padding: 8px 10px; font-size: .85rem; line-height: 1.4;
     box-shadow: 0 4px 14px rgba(0,0,0,.12); }
 </style>
@@ -195,9 +197,12 @@
   <p class="note">Elke stip is een generatie toddlers. De score is per taak: <strong>0</strong> = zo goed als willekeurig drukken, <strong>1</strong> = de taak opgelost. We nemen het midden van de groep (interkwartielgemiddelde), zodat één uitschieter het beeld niet bepaalt. Scores die op een andere manier gemeten zijn (greedy of gesampeld) worden nooit met een lijn verbonden.</p>
   <div class="tiles" id="tiles"></div>
   <div class="chartcard">
+    <h3 class="panel-title">Basistaken (G1)</h3>
     <div class="legend" id="legend"></div>
-    <div id="chart" role="img" aria-label="Score per taak per generatie over tijd"></div>
-    <div id="tip" hidden></div>
+    <div id="chart" class="chart" role="img" aria-label="Score per basistaak per generatie"></div>
+    <h3 class="panel-title">Nieuwe, moeilijkere taken (vanaf G2)</h3>
+    <div class="legend" id="legend2"></div>
+    <div id="chart2" class="chart" role="img" aria-label="Score per nieuwe taak per generatie"></div>
   </div>
   <h3 style="margin-top:20px">Alle generaties</h3>
   <div class="tablewrap"><table id="gentable"></table></div>
@@ -225,8 +230,11 @@
   window.addEventListener('hashchange', route); route();
 
   var TASKS = { cartpole: 'CartPole (balanceren)', acrobot: 'Acrobot (zwaaien)', empty5: 'MiniGrid leeg (lopen)',
-                doorkey5: 'MiniGrid deur+sleutel', mountaincar: 'MountainCar' };
-  var ORDER = ['cartpole', 'acrobot', 'empty5', 'doorkey5', 'mountaincar'];
+                doorkey5: 'MiniGrid deur+sleutel', mountaincar: 'MountainCar',
+                doorkey8: 'Deur+sleutel groot (8x8)', unlock: 'Deur ontgrendelen', unlockpickup: 'Ontgrendelen + doos pakken',
+                keycorridor3: 'Sleutel in de gang', lavacross9: 'Lava oversteken' };
+  var BASE = ['cartpole', 'acrobot', 'empty5', 'doorkey5', 'mountaincar'];
+  var NEW = ['doorkey8', 'unlock', 'unlockpickup', 'keycorridor3', 'lavacross9'];
   function esc(t) { return String(t).replace(/[&<>"]/g, function (c) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
   function fmt(x) { return (Math.round(x * 100) / 100).toFixed(2).replace('.', ','); }
   function day(iso) { return iso.slice(0, 16).replace('T', ' '); }
@@ -234,87 +242,95 @@
   fetch('learning.json', { cache: 'no-store' }).then(function (r) { return r.json(); }).then(function (d) {
     var gens = d.generations || [];
     if (!gens.length) { document.getElementById('dashnote').textContent = 'Nog geen generaties.'; return; }
-    var last = gens[gens.length - 1];
-    var tasks = ORDER.filter(function (t) { return gens.some(function (g) { return g.tasks[t]; }); });
-    var color = {}; tasks.forEach(function (t, i) { color[t] = 'var(--series-' + (i + 1) + ')'; });
+    var line = gens.filter(function (g) { return !g.control; });
+    var last = line[line.length - 1] || gens[gens.length - 1];
+    function present(list) { return list.filter(function (t) { return gens.some(function (g) { return g.tasks[t]; }); }); }
+    var baseTasks = present(BASE), newTasks = present(NEW), tasks = baseTasks.concat(newTasks);
 
     document.getElementById('tiles').innerHTML = [
       ['Laatste generatie', last.generation, day(last.trained_at) + ' UTC'],
       ['Gemiddelde score', fmt(last.iq_raw), 'over ' + Object.keys(last.tasks).length + ' taken'],
       ['Toddlers', last.toddlers, last.network === 'multitask' ? 'één brein voor alle taken' : 'één taak per brein'],
-      ['Generaties', gens.length, 'evaluatie: ' + last.eval_mode]
+      ['Generaties', line.length, gens.length > line.length ? '+ ' + (gens.length - line.length) + ' controlegroep' : 'evaluatie: ' + last.eval_mode]
     ].map(function (t) { return '<div class="tile"><div class="k">' + esc(t[0]) + '</div><div class="v">' + esc(t[1]) +
       '</div><div class="s">' + esc(t[2]) + '</div></div>'; }).join('');
 
-    document.getElementById('legend').innerHTML = tasks.map(function (t) {
-      return '<span style="--c:' + color[t] + '">' + esc(TASKS[t] || t) + '</span>'; }).join('');
-
-    var W = 760, H = 330, L = 44, R = 36, T = 16, B = 48;
-    // generations at equal spacing in training order (dates are labelled below each one)
-    var idx = {}; gens.forEach(function (g, i) { idx[g.generation] = i; });
-    var n = gens.length;
-    var ymax = Math.max(1.1, Math.max.apply(null, gens.map(function (g) { return Math.max.apply(null,
-      Object.keys(g.tasks).map(function (k) { return g.tasks[k].iqm; })); })) + 0.05);
-    var ymin = Math.min(-0.1, Math.min.apply(null, gens.map(function (g) { return Math.min.apply(null,
-      Object.keys(g.tasks).map(function (k) { return g.tasks[k].iqm; })); })) - 0.05);
-    function xg(g) { return n === 1 ? (L + W - R) / 2 : L + 30 + idx[g.generation] / (n - 1) * (W - L - R - 60); }
-    function dodge(t) { return (tasks.indexOf(t) - (tasks.length - 1) / 2) * 7; }
-    function y(v) { return T + (ymax - v) / (ymax - ymin) * (H - T - B); }
-    var svg = '<svg viewBox="0 0 ' + W + ' ' + H + '" xmlns="http://www.w3.org/2000/svg">';
-    [0, 0.5, 1].forEach(function (v) {
-      svg += '<line class="gridline" x1="' + L + '" x2="' + (W - R) + '" y1="' + y(v) + '" y2="' + y(v) + '"/>' +
-        '<g class="axis"><text x="' + (L - 8) + '" y="' + (y(v) + 4) + '" text-anchor="end">' + fmt(v) + '</text></g>';
-    });
-    svg += '<g class="axis"><text x="' + (L + 4) + '" y="' + (y(1) - 6) + '">opgelost</text>' +
-      '<text x="' + (L + 4) + '" y="' + (y(0) - 6) + '">willekeurig</text></g>';
-    var marks = [];
-    tasks.forEach(function (t) {
-      var pts = gens.filter(function (g) { return g.tasks[t]; });
-      for (var i = 1; i < pts.length; i++) {
-        var a = pts[i - 1], b = pts[i];
-        if (a.eval_mode === b.eval_mode && a.network === b.network) {
-          svg += '<line x1="' + (xg(a) + dodge(t)) + '" y1="' + y(a.tasks[t].iqm) + '" x2="' +
-            (xg(b) + dodge(t)) + '" y2="' + y(b.tasks[t].iqm) + '" stroke="' + color[t] + '" stroke-width="2"/>';
-        }
-      }
-      pts.forEach(function (g) { marks.push({ t: t, g: g }); });
-    });
-    marks.forEach(function (m, i) {
-      var cx = xg(m.g) + dodge(m.t), cy = y(m.g.tasks[m.t].iqm);
-      var shape = m.g.eval_mode === 'sample'
-        ? '<rect x="' + (cx - 5) + '" y="' + (cy - 5) + '" width="10" height="10" rx="2"'
-        : '<circle cx="' + cx + '" cy="' + cy + '" r="5"';
-      svg += shape + ' fill="' + color[m.t] + '" stroke="var(--surface-1)" stroke-width="2"/>' +
-        '<circle class="hit" data-i="' + i + '" cx="' + cx + '" cy="' + cy + '" r="14" fill="transparent"/>';
-    });
-    svg += '<g class="axis">' + gens.map(function (g) {
-      return '<text x="' + xg(g) + '" y="' + (H - 26) + '" text-anchor="middle">' + esc(g.generation) + '</text>' +
-        '<text x="' + xg(g) + '" y="' + (H - 10) + '" text-anchor="middle">' + esc(g.trained_at.slice(5, 10)) + '</text>';
-    }).join('') + '</g></svg>';
-    var chart = document.getElementById('chart'); chart.innerHTML = svg;
-    var tip = document.getElementById('tip');
-    chart.querySelectorAll('.hit').forEach(function (h) {
-      h.addEventListener('mouseenter', function () {
-        var m = marks[+h.dataset.i], s = m.g.tasks[m.t];
-        tip.innerHTML = '<strong>' + esc(TASKS[m.t] || m.t) + '</strong><br>' + esc(m.g.generation) + ' · ' +
-          esc(day(m.g.trained_at)) + '<br>score ' + fmt(s.iqm) + ' (' + s.n + ' toddlers)<br>evaluatie: ' +
-          esc(m.g.eval_mode) + ' · ' + esc(m.g.network);
-        tip.hidden = false;
-        var r = chart.getBoundingClientRect(), box = h.getBoundingClientRect();
-        tip.style.left = Math.min(box.left - r.left + 18, r.width - 200) + 'px';
-        tip.style.top = (box.top - r.top + 10) + 'px';
+    function panel(chartId, legendId, list) {
+      var chart = document.getElementById(chartId), legend = document.getElementById(legendId);
+      if (!list.length) { chart.innerHTML = '<p class="note">Nog geen generatie heeft deze taken.</p>'; legend.innerHTML = ''; return; }
+      var color = {}; list.forEach(function (t, i) { color[t] = 'var(--series-' + (i + 1) + ')'; });
+      var pg = gens.filter(function (g) { return list.some(function (t) { return g.tasks[t]; }); });
+      var idx = {}; pg.forEach(function (g, i) { idx[g.generation] = i; });
+      var n = pg.length;
+      legend.innerHTML = list.map(function (t) { return '<span style="--c:' + color[t] + '">' + esc(TASKS[t] || t) + '</span>'; }).join('');
+      var vals = []; gens.forEach(function (g) { list.forEach(function (t) { if (g.tasks[t]) vals.push(g.tasks[t].iqm); }); });
+      var W = 760, H = 300, L = 44, R = 36, T = 16, B = 48;
+      var ymax = Math.max(1.1, Math.max.apply(null, vals) + 0.05), ymin = Math.min(-0.1, Math.min.apply(null, vals) - 0.05);
+      function xg(g) { return n === 1 ? (L + W - R) / 2 : L + 90 + idx[g.generation] / (n - 1) * (W - L - R - 130); }
+      function dodge(t) { return (list.indexOf(t) - (list.length - 1) / 2) * 7; }
+      function y(v) { return T + (ymax - v) / (ymax - ymin) * (H - T - B); }
+      var svg = '<svg viewBox="0 0 ' + W + ' ' + H + '" xmlns="http://www.w3.org/2000/svg">';
+      [0, 0.5, 1].forEach(function (v) {
+        svg += '<line class="gridline" x1="' + L + '" x2="' + (W - R) + '" y1="' + y(v) + '" y2="' + y(v) + '"/>' +
+          '<g class="axis"><text x="' + (L - 8) + '" y="' + (y(v) + 4) + '" text-anchor="end">' + fmt(v) + '</text></g>';
       });
-      h.addEventListener('mouseleave', function () { tip.hidden = true; });
-    });
+      svg += '<g class="axis"><text x="' + (L + 4) + '" y="' + (y(1) - 6) + '">opgelost</text>' +
+        '<text x="' + (L + 4) + '" y="' + (y(0) - 6) + '">willekeurig</text></g>';
+      var marks = [];
+      list.forEach(function (t) {
+        var pts = line.filter(function (g) { return g.tasks[t]; });
+        for (var i = 1; i < pts.length; i++) {
+          var a = pts[i - 1], b = pts[i];
+          if (a.eval_mode === b.eval_mode && a.network === b.network) {
+            svg += '<line x1="' + (xg(a) + dodge(t)) + '" y1="' + y(a.tasks[t].iqm) + '" x2="' +
+              (xg(b) + dodge(t)) + '" y2="' + y(b.tasks[t].iqm) + '" stroke="' + color[t] + '" stroke-width="2"/>';
+          }
+        }
+        gens.forEach(function (g) { if (g.tasks[t]) marks.push({ t: t, g: g }); });
+      });
+      marks.forEach(function (m, i) {
+        var cx = xg(m.g) + dodge(m.t), cy = y(m.g.tasks[m.t].iqm);
+        var shape = m.g.eval_mode === 'sample'
+          ? '<rect x="' + (cx - 5) + '" y="' + (cy - 5) + '" width="10" height="10" rx="2"'
+          : '<circle cx="' + cx + '" cy="' + cy + '" r="5"';
+        svg += m.g.control
+          ? shape + ' fill="var(--surface-1)" stroke="' + color[m.t] + '" stroke-width="2"/>'
+          : shape + ' fill="' + color[m.t] + '" stroke="var(--surface-1)" stroke-width="2"/>';
+        svg += '<circle class="hit" data-i="' + i + '" cx="' + cx + '" cy="' + cy + '" r="14" fill="transparent"/>';
+      });
+      svg += '<g class="axis">' + pg.map(function (g) {
+        return '<text x="' + xg(g) + '" y="' + (H - 26) + '" text-anchor="middle">' + esc(g.generation) + '</text>' +
+          '<text x="' + xg(g) + '" y="' + (H - 10) + '" text-anchor="middle">' + esc(g.trained_at.slice(5, 10)) + '</text>';
+      }).join('') + '</g></svg>';
+      chart.innerHTML = svg + '<div class="tip" hidden></div>';
+      var tip = chart.querySelector('.tip');
+      chart.querySelectorAll('.hit').forEach(function (h) {
+        h.addEventListener('mouseenter', function () {
+          var m = marks[+h.dataset.i], sc = m.g.tasks[m.t];
+          tip.innerHTML = '<strong>' + esc(TASKS[m.t] || m.t) + '</strong><br>' + esc(m.g.generation) +
+            (m.g.control ? ' (controlegroep)' : '') + ' · ' + esc(day(m.g.trained_at)) + '<br>score ' + fmt(sc.iqm) +
+            ' (' + sc.n + ' toddlers)<br>evaluatie: ' + esc(m.g.eval_mode) + ' · ' + esc(m.g.network);
+          tip.hidden = false;
+          var r = chart.getBoundingClientRect(), box = h.getBoundingClientRect();
+          tip.style.left = Math.min(box.left - r.left + 18, r.width - 200) + 'px';
+          tip.style.top = (box.top - r.top + 10) + 'px';
+        });
+        h.addEventListener('mouseleave', function () { tip.hidden = true; });
+      });
+    }
+    panel('chart', 'legend', baseTasks);
+    panel('chart2', 'legend2', newTasks);
 
-    var head = '<tr><th>Generatie</th><th>Getraind</th><th>Brein</th><th>Evaluatie</th><th>Toddlers</th>' +
+    var VERDICT = { survived: 'overleefd', extinct: 'uitgestorven', control: 'controlegroep' };
+    var head = '<tr><th>Generatie</th><th>Selectie</th><th>Getraind</th><th>Brein</th><th>Evaluatie</th><th>Toddlers</th>' +
       tasks.map(function (t) { return '<th>' + esc(TASKS[t] || t) + '</th>'; }).join('') + '</tr>';
     document.getElementById('gentable').innerHTML = head + gens.map(function (g) {
-      return '<tr><td>' + esc(g.generation) + (g.frozen_reference ? ' (referentie)' : '') + '</td><td>' + esc(day(g.trained_at)) +
+      return '<tr><td>' + esc(g.generation) + (g.frozen_reference ? ' (referentie)' : '') + '</td><td>' +
+        esc(g.verdict ? (VERDICT[g.verdict] || g.verdict) : '–') + '</td><td>' + esc(day(g.trained_at)) +
         '</td><td>' + esc(g.network) + '</td><td>' + esc(g.eval_mode) + '</td><td>' + g.toddlers + '</td>' +
         tasks.map(function (t) { return '<td>' + (g.tasks[t] ? fmt(g.tasks[t].iqm) : '–') + '</td>'; }).join('') + '</tr>';
     }).join('');
-    document.getElementById('dashnote').textContent = 'Rondjes = greedy gemeten, vierkantjes = gesampeld gemeten. Bijgewerkt: ' +
+    document.getElementById('dashnote').textContent = 'Rondjes = greedy gemeten, vierkantjes = gesampeld gemeten, open = controlegroep (zelfde recept zonder overerving). Bijgewerkt: ' +
       day(d.generated_at) + ' UTC.';
   }).catch(function () { document.getElementById('dashnote').textContent = 'Dashboarddata kon niet geladen worden.'; });
 })();
