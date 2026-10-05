@@ -1,0 +1,212 @@
+{
+ "generation": "G2",
+ "tasks": [
+  "cartpole",
+  "acrobot",
+  "empty5",
+  "doorkey5",
+  "doorkey8",
+  "unlock",
+  "unlockpickup",
+  "keycorridor3",
+  "lavacross9"
+ ],
+ "new_tasks": [
+  "doorkey8",
+  "unlock",
+  "unlockpickup",
+  "keycorridor3",
+  "lavacross9"
+ ],
+ "steps": {
+  "cartpole": 150000,
+  "acrobot": 150000,
+  "empty5": 150000,
+  "doorkey5": 150000,
+  "doorkey8": 1000000,
+  "unlock": 1000000,
+  "unlockpickup": 1000000,
+  "keycorridor3": 1000000,
+  "lavacross9": 1000000
+ },
+ "block_steps": 25000,
+ "eval_mode": "sample",
+ "method_version": {
+  "scale_rewards": true,
+  "network": "multitask",
+  "inherit": "G1"
+ },
+ "measured_at": "2026-10-05T11:28:26+0200",
+ "training_seconds": 4224.7,
+ "reference_fingerprint": "8e69e3b86f262131cb9ae4caa8e70080e353749bcc9829e0614136ad50eb7e4b",
+ "g1_reference_fingerprint": "8978f072b40ca13fdf79db1f1b12c05286e52c967a6951a08fbaa02efc178663",
+ "secret_seed_commitment": {
+  "set_id": "20261005T081801Z-0244f5",
+  "n": 30,
+  "seed_low": 100000,
+  "seed_high": 1000000,
+  "created_at": "2026-10-05T08:18:01+00:00",
+  "reveal_after": "2026-10-12",
+  "commitment": "e2b94c7d6946d8cd53ec829016629acf31f9e0c3fd4129d3945d6871d966cfc4"
+ },
+ "arms": {
+  "G2": {
+   "per_task_iqm_public": {
+    "cartpole": 1.0552,
+    "acrobot": 1.0359,
+    "empty5": 1.0723,
+    "doorkey5": 1.0729,
+    "doorkey8": 0.0352,
+    "unlock": 1.0757,
+    "unlockpickup": 0.0,
+    "keycorridor3": 0.6795,
+    "lavacross9": 0.8856
+   },
+   "per_task_iqm_secret": {
+    "cartpole": 1.0553,
+    "acrobot": 1.0436,
+    "empty5": 1.0723,
+    "doorkey5": 1.0733,
+    "doorkey8": 0.0029,
+    "unlock": 1.0779,
+    "unlockpickup": 0.0,
+    "keycorridor3": 0.6837,
+    "lavacross9": 0.9485
+   },
+   "new_tasks_iqm_public": [
+    0.5352,
+    [
+     0.3874,
+     0.7076
+    ]
+   ],
+   "new_tasks_iqm_secret": [
+    0.5426,
+    [
+     0.3928,
+     0.7094
+    ]
+   ],
+   "IQ_quotient_vs_G1_on_G1_tasks": [
+    100.2,
+    [
+     99.7,
+     100.6
+    ]
+   ],
+   "toddlers": [
+    "t2001",
+    "t2002",
+    "t2003",
+    "t2004",
+    "t2005"
+   ]
+  },
+  "G2-scratch": {
+   "per_task_iqm_public": {
+    "cartpole": 1.0552,
+    "acrobot": 1.0239,
+    "empty5": 1.0723,
+    "doorkey5": 1.0704,
+    "doorkey8": 0.7135,
+    "unlock": 1.0702,
+    "unlockpickup": 0.0,
+    "keycorridor3": 1.0556,
+    "lavacross9": 0.9095
+   },
+   "per_task_iqm_secret": {
+    "cartpole": 1.0553,
+    "acrobot": 1.0331,
+    "empty5": 1.0723,
+    "doorkey5": 1.0723,
+    "doorkey8": 0.7041,
+    "unlock": 1.0715,
+    "unlockpickup": 0.0,
+    "keycorridor3": 1.0551,
+    "lavacross9": 0.9547
+   },
+   "new_tasks_iqm_public": [
+    0.7498,
+    [
+     0.5845,
+     0.8447
+    ]
+   ],
+   "new_tasks_iqm_secret": [
+    0.7571,
+    [
+     0.5985,
+     0.847
+    ]
+   ],
+   "IQ_quotient_vs_G1_on_G1_tasks": [
+    99.8,
+    [
+     94.8,
+     100.2
+    ]
+   ],
+   "toddlers": [
+    "t2001",
+    "t2002",
+    "t2003",
+    "t2004",
+    "t2005"
+   ]
+  }
+ },
+ "inheritance_effect": {
+  "P(G2 > G2-scratch) public, new tasks": 0.436,
+  "P(G2 > G2-scratch) secret, new tasks": 0.448,
+  "P(G2 > G1) public, G1 tasks (forgetting check)": 0.575
+ },
+ "public_vs_secret_gap_new_tasks": {
+  "G2": -0.0074,
+  "G2-scratch": -0.0073
+ },
+ "IQ_note": "IQ quotient on the four G1 tasks against the frozen G1 reference; G2 is the frozen reference for the nine-task battery",
+ "EQ_FQ": "not measured (no judged tasks or reflex scenarios yet)",
+ "hardware": {
+  "cpu": "x86_64",
+  "cores": 96,
+  "torch_threads": 4,
+  "device": "cpu",
+  "gpus": [
+   "NVIDIA RTX 4000 Ada Generation",
+   "NVIDIA RTX 4000 Ada Generation",
+   "NVIDIA RTX 4000 Ada Generation",
+   "Tesla V100-SXM2-32GB",
+   "Tesla V100-SXM2-32GB",
+   "NVIDIA RTX 4000 Ada Generation"
+  ]
+ },
+ "software": {
+  "torch": "2.6.0+cu124",
+  "gymnasium": "1.2.1",
+  "numpy": "2.3.1"
+ },
+ "invoicing_entity": "VirtualV Holding B.V.",
+ "compute_and_sales_entity": "virtuanalytica VOF (commission)",
+ "selection": {
+  "verdict": "survived",
+  "promotion": {
+   "promote": true,
+   "p_value": 0.003968253968253968,
+   "prob_improvement": 1.0,
+   "candidate_iqm": 0.8069688889671774,
+   "reference_iqm": 0.46979370481231647
+  },
+  "forgetting_P": 0.575,
+  "forgetting_min": 0.25,
+  "rule": "decide_promotion(G2, G1 on the 9-task battery; G1 = 0 on new tasks) and P(G2 > G1 on G1 tasks) >= forgetting_min"
+ },
+ "lineage_ledger": {
+  "path": "/media/knight2/EDS2/toddler-generations/lineage.jsonl",
+  "verified": true,
+  "code": {
+   "commit": "9e4dfc29a88b2ed215232c31555a54ad9577c4a6",
+   "dirty": false,
+   "remote": "git@github.com:virtuanalytica/toddler.git"
+  }
+ }
+}
