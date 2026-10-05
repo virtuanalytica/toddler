@@ -284,10 +284,6 @@ def train(task: str, cfg: PPOConfig, net: ActorCritic | None = None, teacher: Ac
     return net.to("cpu"), log
 
 
-class TrainGuardError(RuntimeError):
-    pass
-
-
 def train_guarded(task: str, cfg: PPOConfig, *, device: str = "cpu", healer=None,
                   max_failures: int | None = None, **train_kwargs):
     """train() under the crash watchdog (toddler.selfheal).
@@ -299,9 +295,9 @@ def train_guarded(task: str, cfg: PPOConfig, *, device: str = "cpu", healer=None
     not retried: a retry cannot change their outcome.  After `max_failures`
     consecutive failed runs (default 3, per task configurable) the task is
     quarantined and subsequent calls fail fast — deferred, not crashed — until
-    healer.reset_task().  Every decision lands in the hash-chained audit trail.
+    healer.reset_task(requested_by=..., reason=...).  Every decision lands in the hash-chained audit trail.
 
-    Returns whatever train() returns on success; raises TrainGuardError (with
+    Returns whatever train() returns on success; raises selfheal.GuardFailure (with
     .report) when the run did not succeed.
     """
     from toddler import selfheal

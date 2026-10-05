@@ -11,13 +11,23 @@ natively for Toddler — that repository is read-only reference for us):
   CPU — recovery must never claim more resources than the crash allowed);
   deterministic kinds (assertion failures, missing modules) are not retried
   because a retry cannot change their outcome.
-- Three consecutive failures quarantine a task (`TaskGuard`, the heartbeat
+- Three consecutive failures (per task configurable: `max_failures`) quarantine a task (`TaskGuard`, the heartbeat
   "3-strikes" pattern): later calls fail fast with an honest
   `Outcome(disabled=True)` — the work is *deferred*, not crashed, until a
   human or an operator script calls `reset_task`.
 - Every decision lands in the hash-chained audit trail (`toddler.audit`), so
   what crashed, what we tried and what was disabled is provable afterwards.
-  Audit failures are swallowed: the watchdog itself must never throw.
+  The watchdog never throws, but it never hides a lost audit entry either:
+  every `Outcome` carries `audit_ok`, and `SelfHealer.audit_failures` counts
+  entries that could not be written. The shared instance persists its trail
+  to `$TODDLER_SELFHEAL_AUDIT` (default ~/.local/share/toddler/selfheal_audit.jsonl).
+- Lifting a quarantine (`reset_task`) requires a named `requested_by` and a
+  reason; the audit records exactly who asked, never an assumed "operator".
+- Forward note: when this wraps learn/PPO runs, a cuda->cpu fallback retry is a
+  different method configuration and must be recorded like any other
+  (TrainState `_check_resume`, reference fingerprint, pre-registration).
+  `ppo.train_guarded` keeps the step budget on that fallback and train() logs the switch in
+  TrainLog.device_switches; consumers comparing runs must read that field.
 
 Nothing here re-raises application errors: `run_guarded` returns an `Outcome`.
 Only `KeyboardInterrupt` / `SystemExit` pass through untouched — an operator
@@ -26,8 +36,10 @@ must always be able to stop the process.
 
 from __future__ import annotations
 
+import os
 import threading
 import time
+from pathlib import Path
 from dataclasses import dataclass, field
 from enum import Enum
 from typing import Callable, Mapping, Sequence
@@ -131,6 +143,7 @@ class Outcome:
     value: object = None
     report: Report | None = None
     attempts: int = 0
+    audit_ok: bool = True        # False when an audit entry for this run could not be written
 
     def __bool__(self) -> bool:  # convenience: `if outcome:`
         return self.ok
@@ -159,11 +172,10 @@ class TaskGuard:
         self.history.append(f"{'ok' if ok else kind.value}")
         del self.history[:-20]
         if ok:
+            # success clears the strike counter but never the quarantine itself:
+            # only reset() (an audited, attributed request) lifts `disabled`
             self.consecutive_failures = 0
             self.last_kind = FailureKind.NONE
-            if self.disabled:
-                # a successful run after manual reset clears the flag naturally
-                self.disabled = False
             return
         self.consecutive_failures += 1
         self.total_failures += 1
@@ -195,6 +207,7 @@ class SelfHealer:
                  now_ms: Callable[[], int] | None = None,
                  sleep: Callable[[float], None] = time.sleep) -> None:
         self.audit = audit_log or _audit.AuditLog()
+        self.audit_failures = 0
         self.actor = actor
         self._now_ms = now_ms or (lambda: int(time.time() * 1000))
         self._sleep = sleep
@@ -204,17 +217,23 @@ class SelfHealer:
     # -- guard registry ---------------------------------------------------
     def guard(self, task: str, max_failures: int | None = None) -> TaskGuard:
         with self._lock:
-            if task not in self.guards:
-                self.guards[task] = TaskGuard(task, max_failures=max_failures
-                                              or DEFAULT_MAX_CONSECUTIVE_FAILURES)
-            elif max_failures is not None:
-                self.guards[task].max_failures = max_failures
-            return self.guards[task]
+            return self.guard_unlocked(task, max_failures)
 
-    def reset_task(self, task: str, *, reason: str = "operator reset") -> None:
-        g = self.guard(task)
-        g.reset()
-        self._audit("selfheal.reset", {"task": task, "reason": reason})
+    def guard_unlocked(self, task: str, max_failures: int | None = None) -> TaskGuard:
+        if task not in self.guards:
+            self.guards[task] = TaskGuard(task, max_failures=max_failures or DEFAULT_MAX_CONSECUTIVE_FAILURES)
+        elif max_failures is not None:
+            self.guards[task].max_failures = max_failures
+        return self.guards[task]
+
+    def reset_task(self, task: str, *, requested_by: str, reason: str) -> bool:
+        """Lift a quarantine. `requested_by` names who asked (a person, a script, a service);
+        the audit records that name, never an assumed operator. Returns audit_ok."""
+        if not requested_by.strip() or not reason.strip():
+            raise ValueError("reset_task needs a non-empty requested_by and reason")
+        with self._lock:
+            self.guard_unlocked(task).reset()
+        return self._audit("selfheal.reset", {"task": task, "requested_by": requested_by, "reason": reason})
 
     # -- main entry -------------------------------------------------------
     def run_guarded(self, fn: Callable, *args, task: str, budgets: Sequence[Mapping] = (),
@@ -222,7 +241,8 @@ class SelfHealer:
                     max_failures: int | None = None, **kwargs) -> Outcome:
         try:
             guard = self.guard(task, max_failures)
-            guard.check()
+            with self._lock:
+                guard.check()
             return self._run(fn, *args, task=task, guard=guard, budgets=budgets,
                              backoff_sec=backoff_sec, stderr_of=stderr_of, **kwargs)
         except TaskDisabled as e:
@@ -231,9 +251,9 @@ class SelfHealer:
         except (KeyboardInterrupt, SystemExit):
             raise
         except Exception as e:  # the watchdog itself must never propagate
-            self._audit("selfheal.watchdog_error", {"task": task, "error": repr(e)})
+            ok = self._audit("selfheal.watchdog_error", {"task": task, "error": repr(e)})
             return Outcome(ok=False, report=Report(task, FailureKind.UNKNOWN, RED, attempt=0,
-                                                   message=f"watchdog failure: {e!r}"))
+                                                   message=f"watchdog failure: {e!r}"), audit_ok=ok)
 
     # -- internals --------------------------------------------------------
     def _run(self, fn, *args, task, guard, budgets, backoff_sec, stderr_of, **kwargs) -> Outcome:
@@ -241,6 +261,7 @@ class SelfHealer:
         attempt = 0
         first_report: Report | None = None
         last_kind = FailureKind.UNKNOWN
+        audit_ok = True
         while attempt < max_attempts:
             attempt += 1
             override = budgets[attempt - 2] if attempt >= 2 else {}
@@ -253,7 +274,7 @@ class SelfHealer:
                 last_kind = kind
                 report = Report(task, kind, severity, attempt=attempt, message=repr(e))
                 first_report = first_report or report
-                self._audit("selfheal.crash", {"task": task, "kind": kind.value, "attempt": attempt,
+                audit_ok &= self._audit("selfheal.crash", {"task": task, "kind": kind.value, "attempt": attempt,
                                                "budget": dict(override), "error": repr(e)})
                 # NB: guard state is recorded once per RUN (after the attempt
                 # loop), never per attempt — otherwise one run that exhausts a
@@ -263,42 +284,57 @@ class SelfHealer:
                 if attempt < max_attempts and not guard.disabled:
                     report = Report(task, kind, severity, attempt=attempt,
                                     message=repr(e), backoff_sec=backoff_sec)
-                    self._audit("selfheal.retry", {"task": task, "attempt": attempt,
+                    audit_ok &= self._audit("selfheal.retry", {"task": task, "attempt": attempt,
                                                    "next_budget": dict(budgets[attempt - 1])})
                     self._sleep(backoff_sec)
                     continue
                 break
             else:
-                guard.record(kind=FailureKind.NONE, ok=True)
+                with self._lock:
+                    guard.record(kind=FailureKind.NONE, ok=True)
+                    if attempt > 1:
+                        guard.total_recoveries += 1
                 if attempt > 1:
-                    self._audit("selfheal.recovered", {"task": task, "attempt": attempt,
-                                                       "budget": dict(override)})
+                    audit_ok &= self._audit("selfheal.recovered", {"task": task, "attempt": attempt,
+                                                                   "budget": dict(override)})
                 return Outcome(ok=True, value=value,
                                report=first_report and Report(task, first_report.kind,
                                                               first_report.severity,
                                                               attempt=attempt, recovered=True,
                                                               message=first_report.message),
-                               attempts=attempt)
+                               attempts=attempt, audit_ok=audit_ok)
         # One guard record per run: a failed run counts one strike, a
         # successful run clears the consecutive-failure counter.
-        guard.record(last_kind, ok=False)
+        with self._lock:
+            guard.record(last_kind, ok=False)
         if guard.disabled and not (first_report and first_report.disabled):
-            self._audit("selfheal.disabled", {"task": task,
+            audit_ok &= self._audit("selfheal.disabled", {"task": task,
                                               "consecutive_failures": guard.consecutive_failures})
         final = first_report or Report(task, FailureKind.UNKNOWN, AMBER, attempt=attempt)
         return Outcome(ok=False, report=Report(task, final.kind, final.severity, attempt=final.attempt,
                                                disabled=guard.disabled, message=final.message,
                                                backoff_sec=final.backoff_sec),
-                       attempts=attempt)
+                       attempts=attempt, audit_ok=audit_ok)
 
-    def _audit(self, event_type: str, details: Mapping) -> None:
+    def _audit(self, event_type: str, details: Mapping) -> bool:
+        """Append one entry; never raises, but a failure is counted and reported (audit_ok)."""
         try:
             self.audit.append(self._now_ms(), self.actor, event_type, dict(details))
+            return True
         except Exception:
-            pass  # never let bookkeeping kill the watchdog
+            with self._lock:
+                self.audit_failures += 1
+            return False
 
 
-_SHARED = SelfHealer()
+def _default_audit_path() -> Path:
+    p = Path(os.environ.get("TODDLER_SELFHEAL_AUDIT")
+             or Path.home() / ".local" / "share" / "toddler" / "selfheal_audit.jsonl")
+    p.parent.mkdir(parents=True, exist_ok=True)
+    return p
+
+
+_SHARED = SelfHealer(_audit.AuditLog(_default_audit_path()))
 
 
 def shared_healer() -> SelfHealer:
@@ -311,6 +347,10 @@ def run_guarded(fn, *args, task: str, **kwargs) -> Outcome:
     return _SHARED.run_guarded(fn, *args, task=task, **kwargs)
 
 
+def reset_task(task: str, *, requested_by: str, reason: str) -> bool:
+    return _SHARED.reset_task(task, requested_by=requested_by, reason=reason)
+
+
 class GuardFailure(RuntimeError):
     """Raised by guarded wrappers (train_guarded, benchmark_toddler) when the
     guarded run did not succeed. Carries the honest Report, including whether
@@ -321,7 +361,3 @@ class GuardFailure(RuntimeError):
             f"guarded run failed ({report.kind.value}, attempt {report.attempt}, "
             f"quarantined={report.disabled}): {report.message}")
         self.report = report
-
-
-def reset_task(task: str, *, reason: str = "operator reset") -> None:
-    _SHARED.reset_task(task, reason=reason)
