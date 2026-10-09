@@ -77,9 +77,11 @@ MiniGrid `unlock` and `unlockpickup` are separate navigation skills. This is a
 training taxonomy, not an IQ/EQ score or a Montessori certification.
 
 `teacher.g4_nightly` trains a small cognitive answer-ranker on answer-keyed
-practice items and a PPO navigation candidate inherited from a verified G2
-parent. Its larger overnight navigation budget emphasizes unlock and
-unlockpickup. Artifacts and a hash-bearing manifest stay under
+practice items and inherits a verified G2 navigation policy. A simulator oracle
+demonstrates `unlockpickup` on training maps; the student imitates actions using
+only egocentric observations. The G2 trunk remains frozen during imitation.
+PPO continues in a separate trial, preserving the imitation candidate.
+Artifacts and a hash-bearing manifest stay under
 `~/.local/share/teacher/g4/`. The run never reads private evaluation seeds and
 never promotes G4. The fixed public practice questions and development seeds
 cannot establish generalization; an independent hidden, matched comparison to
@@ -87,6 +89,10 @@ G3 and its ancestors is needed for promotion.
 
 The first short navigation smoke run (13,000 environment steps) completed on
 9 October 2026. `unlockpickup` scored **0.0** for both the parent and candidate
-on the ten public development seeds. It remains unsolved. Cognitive training
-completed, but its development check shares public question templates with
-training and is not a benchmark.
+on ten public development seeds. A later oracle imitation run used 128 training
+maps and 2,319 actions. On 50 separate public development seeds, the imitation
+candidate solved `unlockpickup` **45/50** (normalised mean 0.9117) versus **0/50**
+for G2, while preserving `unlock` at **50/50** for both. The separate PPO trial
+solved `unlockpickup` 12/50. These public measurements choose a research candidate,
+not a promoted G4. Cognitive training completed, but its development check shares
+public question templates with training and is not a benchmark.
