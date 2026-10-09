@@ -39,12 +39,15 @@ class Expert:
     eur_per_1k_tokens: float
     joules_per_1k_tokens: float
     evidence: str                     # where `quality` was measured (MLflow run, report)
+    tokens_per_second: float | None = None  # measured decode speed; needed for a speed floor
 
     def __post_init__(self) -> None:
         if not 0.0 <= self.quality <= 1.0:
             raise ValueError("quality must be in [0, 1]")
         if not self.evidence:
             raise ValueError("an expert needs measured evidence for its quality")
+        if self.tokens_per_second is not None and self.tokens_per_second <= 0:
+            raise ValueError("tokens_per_second must be positive when given")
 
 
 def company_guardrail(rule_id: str, reason: str, owner: str, forbidden_tags: frozenset[str]) -> stop.StopRule:
@@ -110,12 +113,21 @@ class Route:
 
 
 def route(spec: Specialisation, domain: str, tokens_k: float, eur_per_joule: float,
-          w_cost: float = 1.0, base_quality: float = 0.5) -> Route:
+          w_cost: float = 1.0, base_quality: float = 0.5,
+          min_tokens_per_second: float | None = None) -> Route:
     """Mixture-of-models gate: pick the expert with the best quality minus cost for this
-    domain; fall back to the base model when no expert covers the domain or none beats it."""
+    domain; fall back to the base model when no expert covers the domain or none beats it.
+
+    `min_tokens_per_second` is a hard speed floor: an expert without a measured speed, or
+    slower than the floor, is never routed to. None keeps the quality-minus-cost behaviour."""
+    if min_tokens_per_second is not None and min_tokens_per_second <= 0:
+        raise ValueError("min_tokens_per_second must be positive when given")
     best = Route(spec.base_model, base_quality, ("base model",))
     for e in spec.experts:
         if domain not in e.domains:
+            continue
+        if min_tokens_per_second is not None and (
+                e.tokens_per_second is None or e.tokens_per_second < min_tokens_per_second):
             continue
         cost = tokens_k * (e.eur_per_1k_tokens + e.joules_per_1k_tokens * eur_per_joule)
         score = e.quality - w_cost * cost
