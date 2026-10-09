@@ -37,3 +37,6 @@ regression verdicts, but no hidden seeds or per-child private rows before the
 scheduled reveal. A failed or incomplete run stays a candidate. The cognitive
 head has a separate independent assessment track because its current public
 question templates overlap training and cannot justify generation promotion.
+
+The [first five-child result](G4_ORACLE_RESULT_20261009.md) did not pass both
+private sets and was not imported.

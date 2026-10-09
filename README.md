@@ -100,8 +100,9 @@ router, JEV reflex, CLM shadow adapter and measured GPU mixture. The
 [G4 curriculum and CLM protocol](docs/G4_CLM_SHADOW.md) documents the
 non-promoted cognitive/navigation candidate, nightly Teacher run and local CLM
 comparison. Oracle imitation solved `unlockpickup` on 45/50 public development
-maps for one child; the five-child cohort and private ancestor trial determine
-whether G4 actually succeeds its surviving parents.
+maps for one child. The first [five-child private ancestor trial](docs/learn/G4_ORACLE_RESULT_20261009.md)
+improved the aggregate score without passing both pre-registered tests; G4 is
+not yet a surviving generation.
 The Qwen3.8 1Cat
 TP2 comparison records the 1.5.0 repetition failures, the 1.5.1 quality
 improvement, throughput and GPU-board energy. Haiku 5.5 closed the separate
