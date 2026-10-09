@@ -20,9 +20,12 @@ a new Toddler generation.
 | Add code, data, game development and game interaction specialists | Separate specialist tests and individual promotion gates | Benchmark design in progress; agents not certified |
 | Use JEV and CLM in a fast reflex | Hardware limits first, then measured model risk decisions and independent safety checks | Software path exists; physical validation open |
 
-The full Qwen3.8 1Cat-vLLM TP2 run measures its observed repetition loops
-as quality failures while still completing the private tasks, throughput and
-GPU-board-energy battery. Claude Haiku 5.5 closes the model baseline sequence.
+The full Qwen3.8 1Cat-vLLM TP2 run measured repetition loops under 1.5.0.
+Version 1.5.1 passed all nine public stability checks and improved the separate
+private eight-task and ten-specialist scores; its E4M3 configuration completed
+B1/B4/B16 throughput probes. Claude Haiku 5.5 closed the 16-item cloud-safe
+software/data pilot with 8/8 on each track. That pack is closed for later
+local candidates, including 1Cat 1.5.1.
 No individual model score establishes that **Toddler + Teacher + agent on
 ClaudeClaw** makes better software. That claim requires a fresh independent
 holdout and at least 73 paired tasks per software role. The public
