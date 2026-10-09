@@ -1,5 +1,9 @@
 # Her-G3: task-expert recombination, 8 October 2026
 
+**Later status (9 October 2026):** the [signed review and import](G3_PROMOTION_20261009.md)
+made G3-recombined the official surviving generation. The trial results below
+remain the frozen, pre-promotion evidence.
+
 **Verdict:** a five-child composite successor passed the promotion gate on **two independent
 secret seed sets**, without changing its route or source weights between tests. It is
 **eligible for lineage review**. The first trial is held in
