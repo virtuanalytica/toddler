@@ -284,6 +284,7 @@ vooraf geregistreerde vergelijking op nieuwe, afgeschermde toetsdata nodig.</p>
   <h2>Hoe goed leren de toddlers?</h2>
   <p class="note">Elke stip is een generatie toddlers. De score is per taak: <strong>0</strong> = zo goed als willekeurig drukken, <strong>1</strong> = de taak opgelost. We nemen het midden van de groep (interkwartielgemiddelde), zodat één uitschieter het beeld niet bepaalt. Scores die op een andere manier gemeten zijn (greedy of gesampeld) worden nooit met een lijn verbonden.</p>
   <div class="tiles" id="tiles"></div>
+  <div class="chartcard" id="g3review" hidden></div>
   <div class="chartcard">
     <h3 class="panel-title">Basistaken (G1)</h3>
     <div class="legend" id="legend"></div>
@@ -304,7 +305,7 @@ vooraf geregistreerde vergelijking op nieuwe, afgeschermde toetsdata nodig.</p>
     <li>Wee, C.-Y., Tuan, T. A., Broekman, B. F. P., et al. &amp; Qiu, A. (2017). <a href="https://doi.org/10.1002/hbm.23459">Neonatal neural networks predict children behavioral profiles later in life</a>. <em>Human Brain Mapping</em>, 38(3), 1362-1373. DTI-hersenscans van 120 pasgeborenen; vier groepen; samenhang met gedrag (CBCL) op 24 en 48 maanden.</li>
   </ul>
   <p>Toddler is een project in ontwikkeling. De reflexlaag en het curriculum zijn software en proeven;
-  fysieke inzet en latere bevoegdheden zijn niet vrijgegeven. Documentatie bijgewerkt 8 oktober 2026.</p>
+  fysieke inzet en latere bevoegdheden zijn niet vrijgegeven. Documentatie bijgewerkt 9 oktober 2026.</p>
 </footer>
 
 </main>
@@ -332,7 +333,7 @@ vooraf geregistreerde vergelijking op nieuwe, afgeschermde toetsdata nodig.</p>
     var gens = d.generations || [];
     if (!gens.length) { document.getElementById('dashnote').textContent = 'Nog geen generaties.'; return; }
     // the line runs through generations that carry the lineage; controls and extinct arms are side branches
-    function side(g) { return g.control || g.verdict === 'extinct'; }
+    function side(g) { return g.control || g.verdict === 'extinct' || g.verdict === 'pending_review'; }
     var line = gens.filter(function (g) { return !side(g); });
     var last = line[line.length - 1] || gens[gens.length - 1];
     function present(list) { return list.filter(function (t) { return gens.some(function (g) { return g.tasks[t]; }); }); }
@@ -341,10 +342,23 @@ vooraf geregistreerde vergelijking op nieuwe, afgeschermde toetsdata nodig.</p>
     document.getElementById('tiles').innerHTML = [
       ['Laatste generatie', last.generation, day(last.trained_at) + ' UTC'],
       ['Gemiddelde score', fmt(last.iq_raw), 'over ' + Object.keys(last.tasks).length + ' taken'],
-      ['Toddlers', last.toddlers, last.network === 'multitask' ? 'één brein voor alle taken' : 'één taak per brein'],
+      ['Toddlers', last.toddlers, last.network === 'multitask' ? 'één brein voor alle taken' :
+        last.network === 'task-router' ? 'taakexperts met vaste route' : 'één taak per brein'],
       ['Generaties', line.length, gens.length > line.length ? '+ ' + (gens.length - line.length) + ' zijtak(ken): controle of uitgestorven' : 'evaluatie: ' + last.eval_mode]
     ].map(function (t) { return '<div class="tile"><div class="k">' + esc(t[0]) + '</div><div class="v">' + esc(t[1]) +
       '</div><div class="s">' + esc(t[2]) + '</div></div>'; }).join('');
+
+    if (d.g3_review) {
+      var review = d.g3_review, box = document.getElementById('g3review');
+      var status = review.status === 'survived' ? 'overleefd na getekende review' : 'wacht op menselijke review';
+      box.innerHTML = '<h3>Her-G3: ' + esc(status) + '</h3>' +
+        '<p>Vijf kinderen, vaste taakexperts. Twee vooraf geregistreerde, afgeschermde toetsen vergeleken elk kind met G2 en een willekeurige route op dezelfde seedset.</p>' +
+        '<div class="tablewrap"><table><tr><th>Toets</th><th>G3</th><th>G2, dezelfde seeds</th><th>p tegen G2</th><th>p tegen willekeurige route</th></tr>' +
+        review.comparisons.map(function (x) { return '<tr><td>' + esc(x.label) + '</td><td>' + fmt(x.candidate) +
+          '</td><td>' + fmt(x.g2) + '</td><td>' + esc(x.p_vs_g2) + '</td><td>' + esc(x.p_vs_random) + '</td></tr>'; }).join('') +
+        '</table></div><p class="note">UnlockPickup bleef in beide toetsen onopgelost. De G3-punten in de grafiek zijn geaggregeerde afgeschermde scores; vergelijk ze via de gepaarde G2-rijen hierboven, niet met de openbare G2-punten in de grafiek.</p>';
+      box.hidden = false;
+    }
 
     function panel(chartId, legendId, list) {
       var chart = document.getElementById(chartId), legend = document.getElementById(legendId);
@@ -372,7 +386,7 @@ vooraf geregistreerde vergelijking op nieuwe, afgeschermde toetsdata nodig.</p>
         var pts = line.filter(function (g) { return g.tasks[t]; });
         for (var i = 1; i < pts.length; i++) {
           var a = pts[i - 1], b = pts[i];
-          if (a.eval_mode === b.eval_mode && a.network === b.network) {
+          if (a.eval_mode === b.eval_mode && a.network === b.network && a.score_basis === b.score_basis) {
             svg += '<line x1="' + (xg(a) + dodge(t)) + '" y1="' + y(a.tasks[t].iqm) + '" x2="' +
               (xg(b) + dodge(t)) + '" y2="' + y(b.tasks[t].iqm) + '" stroke="' + color[t] + '" stroke-width="2"/>';
           }
@@ -399,8 +413,10 @@ vooraf geregistreerde vergelijking op nieuwe, afgeschermde toetsdata nodig.</p>
         h.addEventListener('mouseenter', function () {
           var m = marks[+h.dataset.i], sc = m.g.tasks[m.t];
           tip.innerHTML = '<strong>' + esc(TASKS[m.t] || m.t) + '</strong><br>' + esc(m.g.generation) +
-            (m.g.control ? ' (controlegroep)' : m.g.verdict === 'extinct' ? ' (uitgestorven)' : '') + ' · ' + esc(day(m.g.trained_at)) + '<br>score ' + fmt(sc.iqm) +
-            ' (' + sc.n + ' toddlers)<br>evaluatie: ' + esc(m.g.eval_mode) + ' · ' + esc(m.g.network);
+            (m.g.control ? ' (controlegroep)' : m.g.verdict === 'extinct' ? ' (uitgestorven)' :
+              m.g.verdict === 'pending_review' ? ' (wacht op review)' : '') + ' · ' + esc(day(m.g.trained_at)) + '<br>score ' + fmt(sc.iqm) +
+            ' (' + sc.n + ' toddlers)<br>evaluatie: ' + esc(m.g.eval_mode) + ' · ' + esc(m.g.network) +
+            '<br>bron: ' + esc(m.g.score_basis || 'onbekend');
           tip.hidden = false;
           var r = chart.getBoundingClientRect(), box = h.getBoundingClientRect();
           tip.style.left = Math.min(box.left - r.left + 18, r.width - 200) + 'px';
@@ -412,16 +428,16 @@ vooraf geregistreerde vergelijking op nieuwe, afgeschermde toetsdata nodig.</p>
     panel('chart', 'legend', baseTasks);
     panel('chart2', 'legend2', newTasks);
 
-    var VERDICT = { survived: 'overleefd', extinct: 'uitgestorven', control: 'controlegroep' };
-    var head = '<tr><th>Generatie</th><th>Selectie</th><th>Getraind</th><th>Brein</th><th>Evaluatie</th><th>Toddlers</th>' +
+    var VERDICT = { survived: 'overleefd', extinct: 'uitgestorven', control: 'controlegroep', pending_review: 'wacht op review' };
+    var head = '<tr><th>Generatie</th><th>Selectie</th><th>Gebouwd</th><th>Brein</th><th>Evaluatie</th><th>Scorebron</th><th>Toddlers</th>' +
       tasks.map(function (t) { return '<th>' + esc(TASKS[t] || t) + '</th>'; }).join('') + '</tr>';
     document.getElementById('gentable').innerHTML = head + gens.map(function (g) {
       return '<tr><td>' + esc(g.generation) + (g.frozen_reference ? ' (referentie)' : '') + '</td><td>' +
         esc(g.verdict ? (VERDICT[g.verdict] || g.verdict) : '–') + '</td><td>' + esc(day(g.trained_at)) +
-        '</td><td>' + esc(g.network) + '</td><td>' + esc(g.eval_mode) + '</td><td>' + g.toddlers + '</td>' +
+        '</td><td>' + esc(g.network) + '</td><td>' + esc(g.eval_mode) + '</td><td>' + esc(g.score_basis || 'onbekend') + '</td><td>' + g.toddlers + '</td>' +
         tasks.map(function (t) { return '<td>' + (g.tasks[t] ? fmt(g.tasks[t].iqm) : '–') + '</td>'; }).join('') + '</tr>';
     }).join('');
-    document.getElementById('dashnote').textContent = 'Rondjes = greedy gemeten, vierkantjes = gesampeld gemeten, open = zijtak: controlegroep of uitgestorven arm (niet in de lijn). Bijgewerkt: ' +
+    document.getElementById('dashnote').textContent = 'Rondjes = greedy gemeten, vierkantjes = gesampeld gemeten, open = zijtak: controlegroep, uitgestorven arm of kandidaat die op review wacht. Afgeschermde G3-scores staan apart van openbare G2-scores. Bijgewerkt: ' +
       day(d.generated_at) + ' UTC.';
   }).catch(function () { document.getElementById('dashnote').textContent = 'Dashboarddata kon niet geladen worden.'; });
 })();

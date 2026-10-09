@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-05T14:31:14Z",
+ "generated_at": "2026-10-09T10:04:02Z",
  "score": "normalised held-out score: 0 = random policy, 1 = task solved; interquartile mean over toddlers",
  "rule": "scores with different eval_mode or network are separate series and are never joined",
  "generations": [
@@ -28,7 +28,8 @@
    },
    "iq_raw": 0.5351,
    "verdict": null,
-   "control": false
+   "control": false,
+   "score_basis": "public evaluation seeds"
   },
   {
    "generation": "gen-1",
@@ -57,7 +58,8 @@
    },
    "iq_raw": 0.3095,
    "verdict": null,
-   "control": false
+   "control": false,
+   "score_basis": "public evaluation seeds"
   },
   {
    "generation": "G1",
@@ -117,7 +119,8 @@
    },
    "iq_raw": 1.0575,
    "verdict": "survived",
-   "control": false
+   "control": false,
+   "score_basis": "public evaluation seeds"
   },
   {
    "generation": "G2",
@@ -238,7 +241,8 @@
    },
    "iq_raw": 0.768,
    "verdict": "survived",
-   "control": false
+   "control": false,
+   "score_basis": "public evaluation seeds"
   },
   {
    "generation": "G2-scratch",
@@ -353,7 +357,8 @@
    },
    "iq_raw": 0.8856,
    "verdict": "control",
-   "control": true
+   "control": true,
+   "score_basis": "public evaluation seeds"
   },
   {
    "generation": "G3-scratch",
@@ -468,7 +473,8 @@
    },
    "iq_raw": 0.8543,
    "verdict": "extinct",
-   "control": false
+   "control": false,
+   "score_basis": "public evaluation seeds"
   },
   {
    "generation": "G3-sp",
@@ -589,7 +595,8 @@
    },
    "iq_raw": 0.8519,
    "verdict": "extinct",
-   "control": false
+   "control": false,
+   "score_basis": "public evaluation seeds"
   },
   {
    "generation": "G3-trunk",
@@ -710,7 +717,89 @@
    },
    "iq_raw": 0.8055,
    "verdict": "extinct",
-   "control": false
+   "control": false,
+   "score_basis": "public evaluation seeds"
+  },
+  {
+   "generation": "G3-recombined",
+   "trained_at": "2026-10-08T17:59:42+00:00",
+   "toddlers": 5,
+   "network": "task-router",
+   "method": "frozen-task-expert-route",
+   "scale_rewards": true,
+   "eval_mode": "sample",
+   "parents": [
+    "t2001",
+    "t2002",
+    "t2003",
+    "t2004",
+    "t2005"
+   ],
+   "frozen_reference": false,
+   "tasks": {
+    "cartpole": {
+     "iqm": 1.0553,
+     "n": 5
+    },
+    "acrobot": {
+     "iqm": 1.0454,
+     "n": 5
+    },
+    "empty5": {
+     "iqm": 1.0832,
+     "n": 5
+    },
+    "doorkey5": {
+     "iqm": 1.0704,
+     "n": 5
+    },
+    "doorkey8": {
+     "iqm": 1.0828,
+     "n": 5
+    },
+    "unlock": {
+     "iqm": 1.0749,
+     "n": 5
+    },
+    "unlockpickup": {
+     "iqm": 0.0,
+     "n": 5
+    },
+    "keycorridor3": {
+     "iqm": 1.0582,
+     "n": 5
+    },
+    "lavacross9": {
+     "iqm": 1.0341,
+     "n": 5
+    }
+   },
+   "iq_raw": 0.9449,
+   "aggregate_iqm": 0.9449,
+   "verdict": "pending_review",
+   "control": false,
+   "score_basis": "preregistered private set; aggregate only"
   }
- ]
+ ],
+ "g3_review": {
+  "status": "pending_review",
+  "children": 5,
+  "comparisons": [
+   {
+    "label": "first",
+    "candidate": 0.9458,
+    "g2": 0.8115,
+    "p_vs_g2": 0.00397,
+    "p_vs_random": 0.01587
+   },
+   {
+    "label": "replication",
+    "candidate": 0.9468,
+    "g2": 0.812,
+    "p_vs_g2": 0.00397,
+    "p_vs_random": 0.02778
+   }
+  ],
+  "limitation": "UnlockPickup unsolved on both private sets"
+ }
 }

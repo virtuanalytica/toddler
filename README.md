@@ -81,6 +81,10 @@ records the two secret-seed confirmations separately from an operational CPU
 probe. The official lineage remains G2 until the review packet is signed;
 the probe verifies frozen source weights and measures latency and storage,
 without opening secret seeds or judging answer quality.
+The [survivor import procedure](docs/learn/G3_SURVIVOR_IMPORT.md) verifies
+both frozen trials, shows the review-eligible candidate separately on the
+dashboard, and requires a trusted human signature before importing it into
+the official lineage.
 
 ## Software-agent benchmark integration
 
