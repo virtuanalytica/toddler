@@ -103,6 +103,21 @@ after that pack closed and is absent from its role tables.
 - The capability `ATLAS` in `toddler/structure.py` lists regions that have no code yet (`perception.*`, `actuation`). `toddler/codegraph.py` (mapping step B) emits module-graph edges from the real repository: static imports between atlas regions, sizes in lines, empty regions kept at zero; `scripts/module_graph.py` measures committed revisions into `docs/design/module_graph.json`. Execution-path tracing with stop criteria (mapping row 7) is still planned.
 - See issue #1 for the open review items.
 
+## Distributed development
+
+Anyone can propose a stronger Toddler through a fork and pull request. See
+[CONTRIBUTING.md](CONTRIBUTING.md) for the required reproducible recipe, model
+and interaction disclosure, contributor trials, and the independent hidden
+ancestor audit. The G3 promotion was the final originator-signed pivot by
+Deve Luse; later promotions use preregistered audit trials and lineage
+verification. A merged trial PR does not itself create a survivor. Contributors
+with repository merge access may merge their own passing PRs; everyone else
+uses maintainer review.
+
 ## Licence
 
-Proprietary: copyright VirtualV Holding B.V., all rights reserved (see `LICENSE`). Use only under a written agreement. The Wikipedia extracts in `data/corpus/` stay under CC BY-SA 4.0 (attribution per file).
+Original source code, documentation and generated reports in this repository
+are Apache-2.0; see [LICENSE](LICENSE) and [NOTICE](NOTICE). Wikipedia extracts
+in `data/corpus/` remain CC BY-SA 4.0 with attribution in each file. External
+trained weights, private datasets and third-party models are not distributed
+or relicensed by this repository.

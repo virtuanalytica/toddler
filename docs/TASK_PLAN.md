@@ -25,6 +25,16 @@ near-G2 forward latency and about five times G2's saved weight size.
 UnlockPickup remained unsolved. A new training trial may not tune against
 either completed secret seed set.
 
+G3 is the last promotion with a human originator signature (Deve Luse;
+signature identity `knight2`). Later candidates can be developed on independent
+machines and submitted by PR with complete model, data, interaction and trial
+provenance; see [distributed trials](learn/DISTRIBUTED_TRIALS.md). The
+[ancestor gate](../toddler/learn/ancestor_gate.py) re-evaluates every surviving
+ancestor on matched hidden seeds, enforces retention of mastered tasks and
+requires two unchanged-weight, independent trials against both the strongest
+ancestor and a matched control. A PR merge records a contribution; a passing
+independent audit records a survivor.
+
 ## Quotients
 
 - IQ: task competence on held-out seeds (aggregate IQM).

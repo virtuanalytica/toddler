@@ -22,6 +22,12 @@ De privésleutel staat daar niet. De oorspronkelijke review-JSON houdt bewust
 `pending_human_review`: de ondertekende beslissing is een afzonderlijk,
 hashgebonden bewijsstuk.
 
+Dit was de laatste menselijke promotiecontrole van de originator Deve Luse.
+De cryptografische SSH-identiteit op het getekende bewijs is `knight2`; het
+bewijsstuk zelf noemt niet de burgerlijke naam. Voor latere generaties is
+een menselijke handtekening geen standaardpoort: onafhankelijke audittrials,
+voorouderbehoud en een verifieerbaar lineage-event nemen die rol over.
+
 Voor de import zijn beide protocol- en rapporthashes, de onafhankelijke
 seedset-ID's, alle geregistreerde promotievoorwaarden, de vijf kandidaatgewichten
 in beide proefregistries en alle 25 brongewichten opnieuw gecontroleerd.
