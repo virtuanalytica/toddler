@@ -97,9 +97,11 @@ and the [public Toddler page](site/toddler/index.html), including a
 The [technical brain audit](docs/design/CURRENT_BRAIN_20261009.md) and
 [architecture page](site/toddler/architectuur.html) distinguish the G3 policy
 router, JEV reflex, CLM shadow adapter and measured GPU mixture. The
-[G4 curriculum and CLM protocol](docs/G4_CLM_SHADOW.md) documents the new
-non-promoted cognitive/navigation candidate, nightly Teacher run and local
-CLM comparison. G4 is still a candidate; unlockpickup remains unsolved.
+[G4 curriculum and CLM protocol](docs/G4_CLM_SHADOW.md) documents the
+non-promoted cognitive/navigation candidate, nightly Teacher run and local CLM
+comparison. Oracle imitation solved `unlockpickup` on 45/50 public development
+maps for one child; the five-child cohort and private ancestor trial determine
+whether G4 actually succeeds its surviving parents.
 The Qwen3.8 1Cat
 TP2 comparison records the 1.5.0 repetition failures, the 1.5.1 quality
 improvement, throughput and GPU-board energy. Haiku 5.5 closed the separate
