@@ -41,8 +41,9 @@ def load(ref: str, root: Path | None = None):
 
 def _policy(net, task: str):
     from toddler.learn.multitask import MultiTaskNet, TaskView
+    from toddler.learn.routing import TaskExpertRouter
 
-    if isinstance(net, MultiTaskNet):
+    if isinstance(net, (MultiTaskNet, TaskExpertRouter)):
         if task not in net.task_dims:
             raise KeyError(f"this toddler never learned {task!r}; it knows {sorted(net.task_dims)}")
         return TaskView(net, task)

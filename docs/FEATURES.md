@@ -31,6 +31,14 @@ ClaudeClaw** makes better software. That claim requires a fresh independent
 holdout and at least 73 paired tasks per software role. The public
 [Toddler page](../site/toddler/index.html) uses the same measured/planned split.
 
+The next RL-generation candidate is a **frozen task-expert router**, distinct
+from the planned LLM model router above. The G3-recombined candidate passed
+two secret-seed gates but remains outside the official G2 lineage pending
+signed review. Its [runtime cost probe](learn/G3_RUNTIME_BENCHMARK_20261009.md)
+verified all source weights and measured CPU latency and storage; CPU energy
+is not attributable on the shared host. UnlockPickup still needs a new
+training approach and fresh secret seeds.
+
 ## Delivered (v0.1.0)
 
 | Feature | Module | Tests |

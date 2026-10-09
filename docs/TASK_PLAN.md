@@ -11,6 +11,17 @@ What is trained, in which order, and when a step counts as done. Each step is on
 | E Benchmarks | IQ / EQ / FQ per generation and per hardware configuration | Quality measured hardware-independently on the CPU; efficiency (time, energy) per hardware configuration; skipped configurations reported explicitly; frozen reference generation re-measured every run | PR #16: quality reproduced 10/10, drift 0; GPUs skipped while the guard's preflight script is missing; EQ/FQ not yet measured |
 | F Literature | Keep the method grounded | Every technique in the code points to a primary source | this document and `TRAINING_LITERATURE.md` |
 
+## Next generation status (9 October 2026)
+
+G2 remains the official generation. A frozen G3-recombined task-expert
+candidate passed its pre-registered comparison against G2 and a random route
+on two independent secret seed sets. It is **eligible for review**, not
+promoted; its [review packet](learn/G3_RECOMBINED_REVIEW.json) has no reviewer
+or signature. The [CPU serving probe](learn/G3_RUNTIME_BENCHMARK_20261009.md)
+verified source weights, measured near-G2 forward latency and about five
+times G2's saved weight size. UnlockPickup remained unsolved. A new training
+trial may not tune against either completed secret seed set.
+
 ## Quotients
 
 - IQ: task competence on held-out seeds (aggregate IQM).

@@ -132,6 +132,10 @@ class Registry:
             from toddler.learn.multitask import MultiTaskNet
 
             net = MultiTaskNet({k: tuple(v) for k, v in spec["task_dims"].items()}, spec["hidden"])
+        elif spec.get("kind") == "task_router":
+            from toddler.learn.routing import TaskExpertRouter
+
+            net = TaskExpertRouter.from_spec(spec)
         else:
             net = ActorCritic(**spec)
         net.load_state_dict(blob["state"])

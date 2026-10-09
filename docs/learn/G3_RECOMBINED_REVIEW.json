@@ -1,0 +1,89 @@
+{
+  "schema": "toddler-lineage-review/v1",
+  "candidate_generation": "G3-recombined",
+  "current_official_generation": "G2",
+  "decision": "pending_human_review",
+  "trial_registry": "/media/knight2/EDS2/toddler-g3-recombined-20261008/registry",
+  "official_registry": "/media/knight2/EDS2/toddler-generations",
+  "candidate_weight_sha256": {
+    "t5001": "143b97dbdd92496b8d7187366ed32da9b21f59103b67eea6466a3cf7e681e0d6",
+    "t5002": "b78134381192b713e5a67b8748dea3eb7ea603a2636e60042d9b85f48abb9c15",
+    "t5003": "855c89a66c3414e5470b95fc0b1e3ef97ba43af7c10be2a14e79551b46a054be",
+    "t5004": "17ae7be6e8ecca01057ad6dd7f9425ab819a4e41f10c70dae6620fb30937470f",
+    "t5005": "95af37f23ca7ded3e78f23a7e1c966bb5d798866c75cc888d6bab75fda0672f2"
+  },
+  "confirmations": [
+    {
+      "label": "first",
+      "protocol": "docs/learn/PREREG_rerun_g3.json",
+      "protocol_sha256": "fbdb806fd77ee14e6519ab3efb774a484417a07649a38f3f95c59059074e359d",
+      "report": "docs/learn/generation_g3_recombined_trial.json",
+      "report_sha256": "d3ba19a2b52f343f52b67b8426f33c350e4d580ae99357b9897f0e2c038dace4",
+      "secret_seed_commitment": {
+        "set_id": "20261008T175942Z-5b684c",
+        "n": 30,
+        "seed_low": 100000,
+        "seed_high": 1000000,
+        "created_at": "2026-10-08T17:59:42+00:00",
+        "reveal_after": "2026-10-15",
+        "commitment": "e756a6526f000ef7e207e3e974c3388991770e35f53da32c2443db3cc7dda7a8"
+      },
+      "promotion_vs_G2": {
+        "promote": true,
+        "p_value": 0.003968253968253968,
+        "prob_improvement": 1.0,
+        "candidate_iqm": 0.9457662001266569,
+        "reference_iqm": 0.8115200559194508
+      },
+      "promotion_vs_random_control": {
+        "promote": true,
+        "p_value": 0.015873015873015872,
+        "prob_improvement": 0.92,
+        "candidate_iqm": 0.9457662001266569,
+        "reference_iqm": 0.8025422676783659
+      },
+      "eligible_for_lineage_review": true
+    },
+    {
+      "label": "replication",
+      "protocol": "docs/learn/PREREG_rerun_g3_replication.json",
+      "protocol_sha256": "b7b7d8277da2236fe1516f7e6f47a4cc1964267d4777c1ebea543334342bc8ca",
+      "report": "docs/learn/generation_g3_recombined_replication.json",
+      "report_sha256": "429064212fa6258d5956ffa2064e252a510623b76fd470219893b68cc88bbe0a",
+      "secret_seed_commitment": {
+        "set_id": "20261008T180515Z-b53769",
+        "n": 30,
+        "seed_low": 100000,
+        "seed_high": 1000000,
+        "created_at": "2026-10-08T18:05:15+00:00",
+        "reveal_after": "2026-10-15",
+        "commitment": "339ea961400007b6c9f22aa28a4f5b423e40c674bb6a943f963fe4b36280ed02"
+      },
+      "promotion_vs_G2": {
+        "promote": true,
+        "p_value": 0.003968253968253968,
+        "prob_improvement": 1.0,
+        "candidate_iqm": 0.9468078452393512,
+        "reference_iqm": 0.8120188649605979
+      },
+      "promotion_vs_random_control": {
+        "promote": true,
+        "p_value": 0.027777777777777776,
+        "prob_improvement": 0.88,
+        "candidate_iqm": 0.9468078452393512,
+        "reference_iqm": 0.7990488750523056
+      },
+      "eligible_for_lineage_review": true
+    }
+  ],
+  "method": "frozen per-child task-expert recombination, zero new environment steps",
+  "known_limitations": [
+    "UnlockPickup IQM 0 on both secret sets",
+    "about 5x G2 weight storage; serving energy and latency unmeasured"
+  ],
+  "approval": {
+    "reviewed_by": null,
+    "approved_at": null,
+    "signature": null
+  }
+}
