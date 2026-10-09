@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Het huidige Toddler-brein — technische analyse</title>
+<meta name="description" content="Technische stand van Toddler: G3, JEV-reflex, CLM-kandidaat en de gemeten Qwen3.8-mixture op zes GPU's.">
+<style>
+  :root { --bg:#fffaf2; --card:#fff; --ink:#2b2a33; --muted:#625f6e; --line:#e9e1d5;
+    --sky:#25668c; --leaf:#197a70; --sun:#a75c00; --red:#9c4032; color-scheme:light; }
+  @media (prefers-color-scheme:dark) { :root { --bg:#1d1b24; --card:#292632; --ink:#f3efe6;
+    --muted:#c2bdca; --line:#474250; --sky:#8fc6e9; --leaf:#78d2c3; --sun:#ffc36e; --red:#ff9d91; } }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:17px/1.65 "Segoe UI",system-ui,sans-serif; }
+  main { max-width:1000px; margin:auto; padding:24px 18px 72px; }
+  a { color:var(--sky); } a:focus-visible { outline:3px solid var(--sun); outline-offset:3px; }
+  nav { display:flex; flex-wrap:wrap; gap:9px; }
+  nav a { border:2px solid var(--line); border-radius:999px; padding:5px 14px;
+    text-decoration:none; font-weight:700; color:var(--ink); }
+  nav a[aria-current="page"] { border-color:var(--sky); color:var(--sky); }
+  header { padding:36px 0 12px; }
+  .eyebrow { color:var(--leaf); font-size:.82rem; font-weight:800; text-transform:uppercase; letter-spacing:.06em; }
+  h1 { font-size:clamp(2rem,5vw,3.4rem); line-height:1.15; margin:10px 0 14px; }
+  h2 { font-size:1.55rem; line-height:1.3; margin:42px 0 12px; }
+  h3 { font-size:1.12rem; margin:0 0 7px; }
+  p { margin:0 0 16px; }
+  .lead { color:var(--muted); font-size:1.13rem; max-width:760px; }
+  .note { color:var(--muted); font-size:.94rem; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(245px,1fr)); gap:14px; }
+  .card { background:var(--card); border:2px solid var(--line); border-radius:18px; padding:19px; }
+  .card p:last-child { margin:0; }
+  .tag { display:inline-block; border:1px solid currentColor; border-radius:99px; padding:1px 8px;
+    font-size:.78rem; font-weight:800; margin-bottom:9px; }
+  .done { color:var(--leaf); } .test { color:var(--sun); } .gap { color:var(--red); }
+  .flow { background:var(--card); border:2px solid var(--line); border-radius:18px; padding:18px;
+    font: .92rem/1.55 ui-monospace,SFMono-Regular,Consolas,monospace; overflow-x:auto; white-space:pre; }
+  .tablewrap { overflow-x:auto; }
+  table { width:100%; min-width:650px; border-collapse:collapse; }
+  th,td { padding:11px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; }
+  th { background:var(--card); }
+  .callout { background:var(--card); border-left:5px solid var(--sun); padding:15px 20px; margin:22px 0; }
+  .callout p:last-child { margin:0; }
+  footer { border-top:1px solid var(--line); margin-top:46px; padding-top:20px; }
+</style>
+</head>
+<body>
+<main>
+<nav aria-label="Toddler-pagina's">
+  <a href="/toddler/">Uitleg &amp; dashboard</a>
+  <a href="/toddler/neurowetenschap.html">Brein &amp; AI</a>
+  <a href="/toddler/architectuur.html" aria-current="page">Technische architectuur</a>
+  <a href="/teacher/">Teacher</a>
+</nav>
+<header>
+  <div class="eyebrow">Code-audit · 9 oktober 2026</div>
+  <h1>Het huidige Toddler-brein</h1>
+  <p class="lead">Waar zitten de reflex, het lerende beleid en de taalmodellen? Deze analyse zet de gebouwde onderdelen, de benchmarkopstellingen en de nog ontbrekende verbindingen naast elkaar.</p>
+</header>
+
+<div class="grid" aria-label="Status van de drie hoofdlagen">
+  <div class="card"><span class="tag done">Officieel</span><h3>G3-beleid</h3><p>Een bevroren route kiest per spel- of leertak een getrainde expert. G3 heeft twee afgeschermde opvolgertoetsen overleefd. Dit is geen LLM-router.</p></div>
+  <div class="card"><span class="tag test">Softwareproef</span><h3>JEV-reflex</h3><p>Harde grenzen en vier getypeerde risicovragen kunnen <em>stop</em>, <em>langzaam</em> of <em>doorgaan</em> opleveren. Fysieke inzet en risicokalibratie zijn nog niet gevalideerd.</p></div>
+  <div class="card"><span class="tag gap">Nog niet gekoppeld</span><h3>CLM en GPU-motor</h3><p>CLM is nog geen draaiende Toddler-adapter. De gemeten mixture is een aparte chatservice; zij verandert G3 niet automatisch.</p></div>
+</div>
+
+<h2 id="kaart">De lagen en hun verbindingen</h2>
+<div class="flow" role="img" aria-label="Taak naar STOP-regels en vervolgens een beleidsroute of taalmodelroute">taak / waarneming
+   │
+   ├── vaste STOP-regels ──────────────────────── veto vóór beloning
+   │
+   ├── fysieke toestand → sensordrempels → JEV → stop / langzaam / door
+   │                                  CLM: kandidaat, nog niet gekoppeld
+   │
+   ├── speltaak → G3: vaste route naar één beleidsnet → actie
+   │
+   └── teksttaak → MoM-proxy
+                 ├── Ada-kaarten: modellen maken parallel concepten
+                 └── V100-paar: Qwen-aggregator maakt antwoord / tool-call
+                                      → controle en audit</div>
+<p class="note">Het schema toont twee aparte routes. Een antwoord uit de chatservice is geen nieuwe Toddler-generatie; een MCP-tool kan wel een echte G3-policy laten spelen.</p>
+
+<h2 id="reflex">JEV en CLM: de snelle beslislaag</h2>
+<p>De <a href="https://github.com/virtuanalytica/toddler/blob/main/toddler/fastpath.py">huidige reflexcode</a> controleert eerst kracht, snelheid en afstand. Daarna beoordeelt zij vier vragen: gripverlies, persoon in veiligheidszone, aanstaande botsing en instabiel object. Ontbreekt een antwoord of duurt het langer dan 20 ms, dan volgt een stop. Het JEV-antwoord gebruikt een ingestelde onzekerheidsmarge; die marge is nog geen gemeten betrouwbaarheidsinterval voor echte gevaren.</p>
+<p>De <a href="https://github.com/virtuanalytica/toddler/blob/main/docs/jev/README.md">JEV-proef</a> mat 1.385 ms voor een koud verzoek en 5 ms uit cache. De kalibratie verbeterde op PIQA-vragen, maar is niet gevalideerd voor de vier fysieke gevaren. De JEV-webservice was bij deze audit bereikbaar terwijl de benodigde modelbackend niet draaide. Een werkende healthcheck bewijst dus geen werkende reflex.</p>
+<p><a href="https://github.com/Contrastive-LM/CLM">CLM</a> kan volgens de eigen documentatie toestanden en kandidaat-acties vergelijken via een Qwen3-8B-encoder en een contrastieve kop. De Toddler-code bevat nu geen CLM-adapter of lokale meting van VRAM, vertraging en fout-negatieven. CLM past daarom in het ontwerp als extra ranker of controleur, met harde STOP-regels erboven.</p>
+<div class="callout"><h3>Open veiligheidspunt</h3><p>De huidige sensordrempels vergelijken getallen, maar wijzen <code>NaN</code> of oneindige sensorwaarden niet expliciet af. Ook een niet-eindige tijdmeting wordt niet expliciet afgewezen. Dat moet worden gerepareerd en getest voordat de reflex fysieke handelingen mag vrijgeven.</p></div>
+
+<h2 id="gpu">De zes GPU's als modelmotor</h2>
+<p>De gemeten <a href="https://github.com/virtuanalytica/virtualv_llm/blob/main/infra/model_serve_configs/mom-live.sh">MoM-opstelling</a> gebruikt twee V100 32 GB kaarten voor Qwen3.8-27B Q4-aggregators. Vier RTX 4000 Ada 20 GB kaarten leveren Devstral-, Qwen3.5- en Gemma4-concepten. De proxy vraagt de concepten parallel op; de aggregator schrijft het uiteindelijke antwoord. Extra replica's verhogen vooral de capaciteit voor meerdere vragen, niet de snelheid van één gegenereerd antwoord.</p>
+<div class="tablewrap"><table>
+  <thead><tr><th>Route</th><th>Wat is gemeten?</th><th>Status als Toddler-motor</th></tr></thead>
+  <tbody>
+    <tr><td>Qwen3.8-27B Q4 + Ada-concepten</td><td>Historische mixture: composite 0,885; specialist 0,720; kleine holdout 0,750.</td><td>Werkende referentieopstelling. Publieke composite telt niet voor promotie.</td></tr>
+    <tr><td>Qwen3.8 Flash-Next AP-IQ2_S GGUF</td><td>Los model rond 40,8 token/s op het V100-paar.</td><td>Kandidaat als aggregator met Ada-concepten; die combinatie is nog niet gelijkwaardig getoetst. Dit is geen TP2.</td></tr>
+    <tr><td>Qwen3.8-27B QUASAR NVFP4, 1Cat TP2</td><td>Een eerdere mixture scoorde 0,578 op de historische composite; een latere <a href="https://github.com/virtuanalytica/virtualv_llm/blob/main/reports/qwen38_tp2_full_status_20261009.json">TP2-status</a> meldt een gefaalde kwaliteitscanary.</td><td>Afzonderlijke TP2-proef, nog niet goedgekeurd als motor.</td></tr>
+    <tr><td>Qwen3.8 Flash-Next NVFP4, 1Cat TP2</td><td>De lokale poging op twee V100's liep vast op geheugen. <a href="https://github.com/1CatAI/1Cat-vLLM/releases/tag/v1.5.1">Upstream 1.5.1</a> documenteert Flash-Next op vier gekoppelde V100's met TP4.</td><td>Geen bewezen lokale TP2-snelheid of kwaliteit; vier V100's zijn hier niet aanwezig.</td></tr>
+  </tbody>
+</table></div>
+<p class="note">GPU-indeling is een benchmarkconfiguratie, geen vaste productiebezetting. Tijdens deze audit draaiden de MoM- en TP2-services niet. De cijfers zijn taak- en protocolgebonden; token/s van één model zegt niets rechtstreeks over antwoorden per minuut van de hele mixture.</p>
+
+<h2 id="besluit">Wat eerst bewezen moet worden</h2>
+<ol>
+  <li>Repareer de niet-eindige sensor- en tijdwaarden; meet koude p95/p99-vertraging en risicokalibratie op eigen gevallen.</li>
+  <li>Meet een Flash-Next GGUF-aggregator met de vier Ada-concepten tegen de bestaande Q4-mixture op dezelfde nieuwe, afgeschermde taken.</li>
+  <li>Test CLM apart op getypeerde beslissingen en de extra GPU-kosten. Een snel upstream resultaat geldt niet automatisch op deze host.</li>
+  <li>Maak voor TP2 onderscheid tussen <strong>27B QUASAR</strong> en <strong>Flash-Next</strong>; promoveer pas na geldige kwaliteitscanary, specialistentoets, 256-token-snelheidsmeting en GPU-board-energie per antwoord.</li>
+</ol>
+<p>De volledige onderbouwing, inclusief codepaden, meetbeperkingen en de beoogde GPU-indeling, staat in de <a href="https://github.com/virtuanalytica/toddler/blob/main/docs/design/CURRENT_BRAIN_20261009.md">technische audit</a>.</p>
+<footer><p class="note">Momentopname van 9 oktober 2026. Bronnen: <a href="https://github.com/virtuanalytica/toddler">Toddler-code</a>, <a href="https://github.com/virtuanalytica/virtualv_llm">VirtualV-metingen</a>, <a href="https://github.com/Contrastive-LM/CLM">CLM</a> en <a href="https://github.com/1CatAI/1Cat-vLLM/releases/tag/v1.5.1">1Cat-vLLM 1.5.1</a>.</p></footer>
+</main>
+</body>
+</html>

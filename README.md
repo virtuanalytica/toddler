@@ -94,6 +94,9 @@ an independently controlled private holdout and at least 73 tasks per
 software role. See [feature status](docs/FEATURES.md#external-benchmark-and-agent-roadmap-9-october-2026)
 and the [public Toddler page](site/toddler/index.html), including a
 [neuroscience-to-AI guide for the public](site/toddler/neurowetenschap.html).
+The [technical brain audit](docs/design/CURRENT_BRAIN_20261009.md) and
+[architecture page](site/toddler/architectuur.html) distinguish the G3 policy
+router, JEV reflex, proposed CLM verifier and measured GPU mixture.
 The Qwen3.8 1Cat
 TP2 comparison records the 1.5.0 repetition failures, the 1.5.1 quality
 improvement, throughput and GPU-board energy. Haiku 5.5 closed the separate
