@@ -41,3 +41,28 @@ def test_router_prefers_cheaper_equal_expert_and_falls_back_to_base():
     r = sp.route(spec, "dq", tokens_k=10, eur_per_joule=0.30 / 3.6e6)
     assert r.model_id == "small"
     assert sp.route(spec, "legal", tokens_k=10, eur_per_joule=0).model_id == "mixture-of-models"
+
+
+def _fast(mid, q, tps, domains=("dq",)):
+    return sp.Expert(mid, frozenset(domains), q, 0.0, 50.0, evidence="report row", tokens_per_second=tps)
+
+
+def test_speed_floor_excludes_slow_expert_even_if_better():
+    spec = sp.build(ROLE, experts=[_fast("slow-best", 0.95, 20), _fast("fast-ok", 0.85, 100)])
+    assert sp.route(spec, "dq", tokens_k=1, eur_per_joule=0).model_id == "slow-best"
+    r = sp.route(spec, "dq", tokens_k=1, eur_per_joule=0, min_tokens_per_second=88)
+    assert r.model_id == "fast-ok"
+
+
+def test_speed_floor_excludes_expert_without_measured_speed():
+    spec = sp.build(ROLE, experts=[_expert("unmeasured", 0.99)])
+    r = sp.route(spec, "dq", tokens_k=1, eur_per_joule=0, min_tokens_per_second=10)
+    assert r.model_id == "mixture-of-models"
+
+
+def test_speed_floor_must_be_positive_and_speed_must_be_valid():
+    spec = sp.build(ROLE, experts=[_fast("a", 0.9, 100)])
+    with pytest.raises(ValueError):
+        sp.route(spec, "dq", tokens_k=1, eur_per_joule=0, min_tokens_per_second=0)
+    with pytest.raises(ValueError):
+        sp.Expert("m", frozenset({"dq"}), 0.9, 0, 0, evidence="x", tokens_per_second=0)
