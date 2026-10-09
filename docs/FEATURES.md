@@ -18,7 +18,11 @@ a new Toddler generation.
 | Route local models by task, latency and GPU-board energy | Compare the oracle ceiling, best single model and random routing on the same private items | Planned; no Toddler model router promoted |
 | Add Teacher plans and reviews to ClaudeClaw | Paired, independently verified software tasks against ordinary ClaudeClaw workers | Not proven |
 | Add code, data, game development and game interaction specialists | Separate specialist tests and individual promotion gates | Benchmark design in progress; agents not certified |
-| Use JEV and CLM in a fast reflex | Hardware limits first, then measured model risk decisions and independent safety checks | Software path exists; physical validation open |
+| Use JEV and CLM in a fast reflex | Hardware limits first, then measured model risk decisions and independent safety checks | Four JEV questions and software reflex exist; CLM adapter and physical validation open |
+
+The [current-brain audit](design/CURRENT_BRAIN_20261009.md) separates the
+surviving G3 policy router from the LLM mixture, records the JEV/CLM gaps and
+distinguishes Qwen3.8-27B TP2 from Flash-Next TP2.
 
 The full Qwen3.8 1Cat-vLLM TP2 run measured repetition loops under 1.5.0.
 Version 1.5.1 passed all nine public stability checks and improved the separate

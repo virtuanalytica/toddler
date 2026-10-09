@@ -81,6 +81,7 @@
   <a href="#uitleg" data-tab="uitleg">Uitleg</a>
   <a href="#dashboard" data-tab="dashboard">Dashboard</a>
   <a href="neurowetenschap.html">Brein &amp; AI</a>
+  <a href="architectuur.html">Technische architectuur</a>
 </nav>
 
 <aside class="public-callout" aria-label="Publiek bijdragen">
@@ -101,7 +102,8 @@
 
 <p class="note">Verder lezen: <a href="#curriculum">curriculum en generaties</a> ·
   <a href="#reflex">JEV, CLM en veiligheid</a> ·
-  <a href="neurowetenschap.html">van brein naar AI</a> · <a href="/teacher/">Teacher</a>.</p>
+  <a href="neurowetenschap.html">van brein naar AI</a> ·
+  <a href="architectuur.html">technische architectuur</a> · <a href="/teacher/">Teacher</a>.</p>
 
 <h2>1. Twee vragen, twee functies</h2>
 <div class="grid">
@@ -272,13 +274,14 @@ Zo kan gedeelde kennis nieuwe Toddlers opleveren, met een controleerbaar spoor v
 <h2 id="reflex">8. Eerst stoppen, dan pas een slim antwoord</h2>
 <p>Voor een toekomstige fysieke Toddler bestaat een softwarematige reflexlaag. Gemeten kracht,
 snelheid en afstand tot een persoon hebben voorrang op modelantwoorden. Daarnaast stelt Toddler
-acht getypeerde risicovragen via JEV of een lokale <a href="https://github.com/Contrastive-LM/CLM">CLM</a>-server:
-uitglijden van een greep, iemand in de veiligheidszone, een nabije botsing, een instabiel object,
-een vallend object, een knelpunt voor vingers, een geblokkeerde uitweg en onzekere waarneming.</p>
-<p>Ontbreekt een antwoord, zijn sensoren ongeldig of duurt de ronde langer dan 20 milliseconden,
-dan zegt de reflex <strong>stop</strong>. De CLM-aansluiting en tests zijn gebouwd; een draaiend CLM-model,
-risicokalibratie en fysieke veiligheidsvalidatie zijn nog niet aangetoond. Deze software bestuurt
-geen echte robot.</p>
+vier getypeerde risicovragen via JEV: uitglijden van een greep, iemand in de veiligheidszone,
+een nabije botsing en een instabiel object. Extra vragen over vallende voorwerpen,
+vingers, uitwegen en onzekere waarneming zijn nog ontwerpwerk.</p>
+<p>Ontbreekt een antwoord of duurt de ronde langer dan 20 milliseconden, dan zegt de reflex
+<strong>stop</strong>. Een <a href="https://github.com/Contrastive-LM/CLM">CLM</a>-aansluiting
+ontbreekt; kalibratie voor deze risico's en fysieke veiligheidsvalidatie zijn niet aangetoond.
+Niet-eindige sensordata worden nog niet expliciet afgewezen; zie de
+<a href="architectuur.html#reflex">technische analyse</a>. Deze software bestuurt geen echte robot.</p>
 
 <h2>9. De volgende tien verbeteringen</h2>
 <div class="tablewrap"><table>
@@ -290,8 +293,8 @@ geen echte robot.</p>
   <tr><td>5</td><td>Goede taakexperts in één gedeeld model samenbrengen</td><td>Onderzoek</td></tr>
   <tr><td>6</td><td>Meer onafhankelijke oudermodellen trainen</td><td>Onderzoek</td></tr>
   <tr><td>7</td><td>Eerst deeltaken beheersen, dan moeilijkere varianten</td><td>Onderzoek</td></tr>
-  <tr><td>8</td><td>CLM koppelen aan snelle risicovragen</td><td>Koppeling gebouwd; modelmeting open</td></tr>
-  <tr><td>9</td><td>Meer JEV-regels en controle van sensordata</td><td>Code gebouwd; praktijktoets open</td></tr>
+  <tr><td>8</td><td>CLM koppelen aan snelle risicovragen</td><td>Ontwerp; adapter en lokale modelmeting open</td></tr>
+  <tr><td>9</td><td>Meer JEV-regels en controle van sensordata</td><td>Vier regels bestaan; uitbreiding en niet-eindige sensorwaarden open</td></tr>
   <tr><td>10</td><td>CLM-routering vergelijken met vaste taakroutering</td><td>Onderzoek</td></tr>
 </table></div>
 <p class="note">Een gebouwd onderdeel maakt nog geen nieuwe generatie sterker. Daarvoor is een
