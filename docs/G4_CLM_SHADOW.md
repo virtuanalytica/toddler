@@ -96,3 +96,12 @@ for G2, while preserving `unlock` at **50/50** for both. The separate PPO trial
 solved `unlockpickup` 12/50. These public measurements choose a research candidate,
 not a promoted G4. Cognitive training completed, but its development check shares
 public question templates with training and is not a benchmark.
+
+The next step is a five-child cohort matched to the five official
+`G3-recombined` parents. Each child preserves its parent's eight other task
+routes and inherited expert weights. A new `unlockpickup` specialist is routed
+only if it gains at least 0.05 normalised mean on the fixed public development
+set. An independent evaluator freezes the cohort and uses two fresh private
+30-seed sets for a matched nine-task ancestor trial. See
+[the G4 private protocol](learn/G4_ORACLE_TRIAL.md); neither the public route
+selection nor the present cognitive template check is a promotion score.
