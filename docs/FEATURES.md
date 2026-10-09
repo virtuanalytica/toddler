@@ -3,6 +3,31 @@
 Status legend: **delivered** = on `main` (v0.1.0, pushed 2026-10-03); **ready for review** = implemented and tested locally, committed only after review; **backlog** = specified, not built.
 Reference document: [`docs/whitepaper/toddler-whitepaper-en.pdf`](whitepaper/toddler-whitepaper-en.pdf).
 
+## External benchmark and agent roadmap (9 October 2026)
+
+The active model and specialist benchmark contract is in
+[virtualv_llm](https://github.com/virtuanalytica/virtualv_llm). It keeps
+software development and data in separate tables, with coder, reviewer,
+architect, debugger, data engineer, data analyst, data architect and data
+steward as distinct roles. A 16-item private pilot exists, with only two
+items per role. It calibrates the scorers and does not rank agents or justify
+a new Toddler generation.
+
+| Proposed feature | Evidence gate | Current status |
+|---|---|---|
+| Route local models by task, latency and GPU-board energy | Compare the oracle ceiling, best single model and random routing on the same private items | Planned; no Toddler model router promoted |
+| Add Teacher plans and reviews to ClaudeClaw | Paired, independently verified software tasks against ordinary ClaudeClaw workers | Not proven |
+| Add code, data, game development and game interaction specialists | Separate specialist tests and individual promotion gates | Benchmark design in progress; agents not certified |
+| Use JEV and CLM in a fast reflex | Hardware limits first, then measured model risk decisions and independent safety checks | Software path exists; physical validation open |
+
+The full Qwen3.8 1Cat-vLLM TP2 run measures its observed repetition loops
+as quality failures while still completing the private tasks, throughput and
+GPU-board-energy battery. Claude Haiku 5.5 closes the model baseline sequence.
+No individual model score establishes that **Toddler + Teacher + agent on
+ClaudeClaw** makes better software. That claim requires a fresh independent
+holdout and at least 73 paired tasks per software role. The public
+[Toddler page](../site/toddler/index.html) uses the same measured/planned split.
+
 ## Delivered (v0.1.0)
 
 | Feature | Module | Tests |

@@ -67,6 +67,8 @@
   .tip { position: absolute; pointer-events: none; background: var(--surface-1); color: var(--text-primary);
     border: 1px solid var(--grid); border-radius: 10px; padding: 8px 10px; font-size: .85rem; line-height: 1.4;
     box-shadow: 0 4px 14px rgba(0,0,0,.12); }
+  .status { display: inline-block; font-size: .8rem; font-weight: 700; border: 1px solid var(--line);
+    border-radius: 999px; padding: 2px 9px; white-space: nowrap; }
 </style>
 </head>
 <body>
@@ -83,6 +85,9 @@
   <h1>Hoe Toddler leert</h1>
   <p class="lead">Toddler is een kleine computerhulp die nog moet leren. Net als een peuter. Op deze pagina zie je <strong>waarom</strong> Toddler iets doet (de winstfunctie) en <strong>hoe</strong> Toddler leert wat goed is (de rewardfunctie).</p>
 </header>
+
+<p class="note">Verder lezen: <a href="#curriculum">curriculum en generaties</a> ·
+  <a href="#reflex">JEV, CLM en veiligheid</a> · <a href="/teacher/">Teacher</a>.</p>
 
 <h2>1. Twee vragen, twee functies</h2>
 <div class="grid">
@@ -190,6 +195,87 @@
   <p>De getallen in de tabel zijn een startpunt om mee te beginnen, niet bewezen of afgesteld. Ze worden pas aangepast nadat metingen laten zien dat het beter werkt.</p>
 </details>
 
+<h2 id="curriculum">7. Oefenen zonder een oude vaardigheid te vergeten</h2>
+<p><a href="/teacher/">Teacher</a> mag een oefenplan voorstellen. Toddler traint daarmee in echte
+simulatietaken, waaronder CartPole, Acrobot en zeven MiniGrid-taken. Een nieuwe planner geeft
+<strong>elke taak een begin- en eindblok</strong>. De tussenliggende oefenblokken gaan vooral naar taken
+die op de openbare toets zwak zijn; geen taak kan het hele budget opeisen. Een controlegroep krijgt
+precies evenveel stappen per taak, maar oefent de taken afwisselend.</p>
+<div class="grid">
+  <div class="card sun"><div class="emoji">🧩</div><h3>Vooraf vastleggen</h3>
+  <p>Het plan, de ouders, de stappen per taak en de vergelijkingen worden vastgezet vóór de geheime toets.
+  Geheime scores bepalen nooit welke taak extra oefening krijgt.</p></div>
+  <div class="card leaf"><div class="emoji">🔁</div><h3>Oude vaardigheden bewaken</h3>
+  <p>De eindronde herhaalt alle taken. De toets kijkt ook of Toddler eerdere taken nog kan. Meer oefenen
+  telt pas als vooruitgang wanneer het op nieuwe toetsrondes beter werkt.</p></div>
+</div>
+
+<h3>Welke generatie is nu geldig?</h3>
+<p><strong>G2 blijft de officiële generatie.</strong> Twee G4-proeven van 8 oktober 2026 zijn apart
+geregistreerd en hebben de promotiepoort niet gehaald. De dashboardgrafiek toont alleen geregistreerde
+generaties; proefmodellen worden niet stilzwijgend aan de officiële lijn toegevoegd.</p>
+<div class="tablewrap"><table>
+  <tr><th>Proef</th><th>Geheime totaalscore (IQM)</th><th>Uitkomst</th></tr>
+  <tr><td>Teacher-schema met herhaling</td><td>0,488 tegenover 0,770 voor G2</td><td><span class="status">Geen promotie</span> · p = 1,000 tegenover G2</td></tr>
+  <tr><td>Taakexperts per taak</td><td>0,889 tegenover 0,767 voor G2</td><td><span class="status">Geen promotie</span> · p = 0,155 tegenover G2</td></tr>
+</table></div>
+<p class="note">De proeven gebruikten verschillende geheime seedsets; daardoor verschillen ook hun
+G2-referenties (0,770 en 0,767). De tweede proef scoorde hoger op zijn eigen set, maar de vooraf
+vastgelegde statistische grens was p &lt; 0,05 en is niet gehaald. Een volgende poging gebruikt minstens vijf onafhankelijke runs,
+een gelijkwaardig controlemodel en nieuwe, afgeschermde toetsseeds. Een geslaagde proef komt daarna
+pas voor menselijke review in aanmerking.</p>
+
+<h3>Her-G3: een opvolger voor review</h3>
+<p>Na deze twee mislukte proeven is op 8 oktober een nieuw protocol vastgezet: per Toddler-kind
+kiest een route op basis van <strong>openbare</strong> taakscores een bestaande G2- of G3-expert.
+De vier oorspronkelijke taken blijven exact bij G2. Op dertig nieuwe geheime seeds haalde deze
+samengestelde kandidaat een totaalscore (IQM) van <strong>0,945</strong>, tegenover 0,772 voor G2
+en 0,843 voor een willekeurige route door dezelfde experts. De vijf-kind-toets passeerde beide
+promotievergelijkingen (p = 0,00397 en p = 0,01587). Met <strong>dezelfde gewichten en route</strong>
+werd dit bevestigd op een tweede geheime seedset (p = 0,00397 tegenover G2 en p = 0,02778
+tegenover de controle).</p>
+<p class="note">Dit is een <strong>gerepliceerde, review-geschikte kandidaat</strong>, nog geen officiële promotie.
+Er zijn geen nieuwe trainingsstappen uitgevoerd: bestaande beleidsmodellen zijn per taak gecombineerd.
+UnlockPickup bleef op de geheime toets onopgelost. De kandidaat gebruikt ook meer opslag dan G2;
+de inzetkosten moeten nog worden gemeten.</p>
+
+<h2 id="reflex">8. Eerst stoppen, dan pas een slim antwoord</h2>
+<p>Voor een toekomstige fysieke Toddler bestaat een softwarematige reflexlaag. Gemeten kracht,
+snelheid en afstand tot een persoon hebben voorrang op modelantwoorden. Daarnaast stelt Toddler
+acht getypeerde risicovragen via JEV of een lokale <a href="https://github.com/Contrastive-LM/CLM">CLM</a>-server:
+uitglijden van een greep, iemand in de veiligheidszone, een nabije botsing, een instabiel object,
+een vallend object, een knelpunt voor vingers, een geblokkeerde uitweg en onzekere waarneming.</p>
+<p>Ontbreekt een antwoord, zijn sensoren ongeldig of duurt de ronde langer dan 20 milliseconden,
+dan zegt de reflex <strong>stop</strong>. De CLM-aansluiting en tests zijn gebouwd; een draaiend CLM-model,
+risicokalibratie en fysieke veiligheidsvalidatie zijn nog niet aangetoond. Deze software bestuurt
+geen echte robot.</p>
+
+<h2>9. De volgende tien verbeteringen</h2>
+<div class="tablewrap"><table>
+  <tr><th>#</th><th>Verbetering</th><th>Status</th></tr>
+  <tr><td>1</td><td>Elke taak vroeg oefenen</td><td>Gebouwd</td></tr>
+  <tr><td>2</td><td>Elke taak aan het einde herhalen</td><td>Gebouwd</td></tr>
+  <tr><td>3</td><td>Zwakke taken extra oefentijd geven op basis van openbare scores</td><td>Gebouwd</td></tr>
+  <tr><td>4</td><td>Extra oefentijd per taak begrenzen</td><td>Gebouwd</td></tr>
+  <tr><td>5</td><td>Goede taakexperts in één gedeeld model samenbrengen</td><td>Onderzoek</td></tr>
+  <tr><td>6</td><td>Meer onafhankelijke oudermodellen trainen</td><td>Onderzoek</td></tr>
+  <tr><td>7</td><td>Eerst deeltaken beheersen, dan moeilijkere varianten</td><td>Onderzoek</td></tr>
+  <tr><td>8</td><td>CLM koppelen aan snelle risicovragen</td><td>Koppeling gebouwd; modelmeting open</td></tr>
+  <tr><td>9</td><td>Meer JEV-regels en controle van sensordata</td><td>Code gebouwd; praktijktoets open</td></tr>
+  <tr><td>10</td><td>CLM-routering vergelijken met vaste taakroutering</td><td>Onderzoek</td></tr>
+</table></div>
+<p class="note">Een gebouwd onderdeel maakt nog geen nieuwe generatie sterker. Daarvoor is een
+vooraf geregistreerde vergelijking op nieuwe, afgeschermde toetsdata nodig.</p>
+
+<h2 id="agentmix">10. Van taakexperts naar een agentmix</h2>
+<p>De volgende stap is een router die per vraag een geschikt lokaal model kiest, bijvoorbeeld voor code, data of een specialistisch onderwerp. Eerst berekenen we uit bewaarde antwoorden hoeveel een perfecte router maximaal zou kunnen winnen. Daarna vergelijken we een eenvoudige vaste keuze, een willekeurige route en de echte router op dezelfde afgeschermde vragen. Snelheid en GPU-board-energie per antwoord tellen mee naast kwaliteit.</p>
+<div class="grid">
+  <div class="card sun"><div class="emoji">🧭</div><h3>Modelkeuze</h3><p>Qwen3.8 Flash-Next en GLM-5.3-Flash REAP50 zijn op een kleine private pilot gemeten. De volledige Qwen3.8 1Cat TP2-proef loopt apart; herhaal-lussen uit de eerste controle worden als kwaliteitsfout bewaard.</p></div>
+  <div class="card leaf"><div class="emoji">🛠️</div><h3>Specialisten</h3><p>Coder, reviewer, architect, debugger en vier datarollen krijgen ieder een eigen slagingspercentage. Gameontwikkeling en spelbegrip blijven afzonderlijke specialistische onderzoeksrichtingen totdat hun agenten daadwerkelijk zijn getoetst.</p></div>
+  <div class="card sky"><div class="emoji">🧑‍🏫</div><h3>Teacher erbij</h3><p>Teacher mag plannen en reviews leveren, maar een betere losse modelscore bewijst nog niet dat de hele ClaudeClaw-keten beter werkt. De proef vergelijkt dezelfde afgeschermde softwaretaken met en zonder Toddler + Teacher + agent.</p></div>
+</div>
+<p class="note">De huidige software/data-pilot heeft slechts twee vragen per rol. De Haiku 5.5-baseline komt na de lokale runs; er is nog geen bewezen voordeel op echte softwaretaken. Voor een positieve claim zijn een nieuwe, onafhankelijk beheerde toetsset, minstens 73 taken per softwaremaker en een gepaarde kwaliteitsvergelijking nodig. Zie <a href="/teacher/#softwaretoets">de Teacher-uitleg</a> en de <a href="https://github.com/virtuanalytica/virtualv_llm">benchmarkopzet</a>.</p>
+
 </section>
 
 <section id="dashboard" class="viz-root">
@@ -215,7 +301,8 @@
     <li>Gunn Salelanonda, <a href="https://www.embedded.com/learning-how-to-learn-toddlers-vs-neural-networks/">Learning how to learn: toddlers vs. neural networks</a>, Embedded.com. Over leren met weinig voorbeelden, beloningen (dierenkoekjes, BabyX met gesimuleerde dopamine) en energieverbruik (20 watt tegenover ongeveer 1 megawatt voor AlphaGo).</li>
     <li>Wee, C.-Y., Tuan, T. A., Broekman, B. F. P., et al. &amp; Qiu, A. (2017). <a href="https://doi.org/10.1002/hbm.23459">Neonatal neural networks predict children behavioral profiles later in life</a>. <em>Human Brain Mapping</em>, 38(3), 1362-1373. DTI-hersenscans van 120 pasgeborenen; vier groepen; samenhang met gedrag (CBCL) op 24 en 48 maanden.</li>
   </ul>
-  <p>Toddler is een project in ontwikkeling. Fase 0 (lezen en opschrijven) is gestart; alle latere fases zijn plannen.</p>
+  <p>Toddler is een project in ontwikkeling. De reflexlaag en het curriculum zijn software en proeven;
+  fysieke inzet en latere bevoegdheden zijn niet vrijgegeven. Documentatie bijgewerkt 8 oktober 2026.</p>
 </footer>
 
 </main>
