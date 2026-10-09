@@ -96,7 +96,10 @@ and the [public Toddler page](site/toddler/index.html), including a
 [neuroscience-to-AI guide for the public](site/toddler/neurowetenschap.html).
 The [technical brain audit](docs/design/CURRENT_BRAIN_20261009.md) and
 [architecture page](site/toddler/architectuur.html) distinguish the G3 policy
-router, JEV reflex, proposed CLM verifier and measured GPU mixture.
+router, JEV reflex, CLM shadow adapter and measured GPU mixture. The
+[G4 curriculum and CLM protocol](docs/G4_CLM_SHADOW.md) documents the new
+non-promoted cognitive/navigation candidate, nightly Teacher run and local
+CLM comparison. G4 is still a candidate; unlockpickup remains unsolved.
 The Qwen3.8 1Cat
 TP2 comparison records the 1.5.0 repetition failures, the 1.5.1 quality
 improvement, throughput and GPU-board energy. Haiku 5.5 closed the separate

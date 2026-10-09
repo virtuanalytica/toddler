@@ -31,7 +31,11 @@ MODULE_REGION: dict[str, str] = {
     "toddler.provenance": "logic.provenance",
     "toddler.fastpath": "fastpath.jev",
     "toddler.jev": "fastpath.jev",
+    "toddler.clm": "fastpath.jev",
+    "toddler.reflex_shadow": "fastpath.jev",
     "jevserver": "fastpath.jev",
+    "toddler.g4_curriculum": "planner",
+    "toddler.g4_student": "planner",
     "toddler.learn": "planner",                # the learning brain: policies, PPO, generations
     "toddler.knowledge.publish": "p2p.knitweb",
     "toddler.knowledge": "memory.graph",
