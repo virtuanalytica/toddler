@@ -75,6 +75,18 @@ by toddler code; the models only explain it.
 Without a chat: `python3 -m toddler.learn.play episode G1/t1001 doorkey5 --seed 424242` and
 `python3 -m toddler.learn.play iq G1/t1001`.
 
+## Software-agent benchmark integration
+
+The current model comparisons and the separate software/data specialist pilot
+live in [virtualv_llm](https://github.com/virtuanalytica/virtualv_llm).
+The pilot measures eight roles but cannot prove that Toddler + Teacher + an
+agent on ClaudeClaw improves software work. That claim needs paired tasks,
+an independently controlled private holdout and at least 73 tasks per
+software role. See [feature status](docs/FEATURES.md#external-benchmark-and-agent-roadmap-9-october-2026)
+and the [public Toddler page](site/toddler/index.html). The Qwen3.8 1Cat
+TP2 benchmark records its quality failures as well as speed and GPU-board
+energy; Haiku 5.5 is the last model baseline in that sequence.
+
 ## Known gaps
 
 - The capability `ATLAS` in `toddler/structure.py` lists regions that have no code yet (`perception.*`, `actuation`). `toddler/codegraph.py` (mapping step B) emits module-graph edges from the real repository: static imports between atlas regions, sizes in lines, empty regions kept at zero; `scripts/module_graph.py` measures committed revisions into `docs/design/module_graph.json`. Execution-path tracing with stop criteria (mapping row 7) is still planned.
