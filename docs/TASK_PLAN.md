@@ -22,6 +22,13 @@ verified source weights, measured near-G2 forward latency and about five
 times G2's saved weight size. UnlockPickup remained unsolved. A new training
 trial may not tune against either completed secret seed set.
 
+The [G3 survivor import procedure](learn/G3_SURVIVOR_IMPORT.md) now verifies
+both frozen trials and all candidate/source weights before any official
+lineage write. It requires a human SSH-signed review bound to the exact review
+packet. The dashboard shows the candidate as a pending side branch and pairs
+each private G3 score with G2 on the same seeds; it never silently turns a
+pending candidate into a survivor.
+
 ## Quotients
 
 - IQ: task competence on held-out seeds (aggregate IQM).
