@@ -1,0 +1,290 @@
+{
+  "protocol_sha256": "b7b7d8277da2236fe1516f7e6f47a4cc1964267d4777c1ebea543334342bc8ca",
+  "secret_seed_commitment": {
+    "set_id": "20261008T180515Z-b53769",
+    "n": 30,
+    "seed_low": 100000,
+    "seed_high": 1000000,
+    "created_at": "2026-10-08T18:05:15+00:00",
+    "reveal_after": "2026-10-15",
+    "commitment": "339ea961400007b6c9f22aa28a4f5b423e40c674bb6a943f963fe4b36280ed02"
+  },
+  "selection_rule": "On fresh secret seeds, candidate must pass decide_promotion versus frozen G2 and an equal-expert-bank random route; all original G1 tasks stay routed to G2. Candidate aggregate IQM must exceed every single source generation. Five matched children per arm; no official promotion before review.",
+  "routes": {
+    "t2001": {
+      "cartpole": "G2",
+      "acrobot": "G2",
+      "empty5": "G2",
+      "doorkey5": "G2",
+      "doorkey8": "G2",
+      "unlock": "G2",
+      "unlockpickup": "G3-sp",
+      "keycorridor3": "G3-sp",
+      "lavacross9": "G3-scratch"
+    },
+    "t2002": {
+      "cartpole": "G2",
+      "acrobot": "G2",
+      "empty5": "G2",
+      "doorkey5": "G2",
+      "doorkey8": "G2-scratch",
+      "unlock": "G2",
+      "unlockpickup": "G2",
+      "keycorridor3": "G2",
+      "lavacross9": "G2-scratch"
+    },
+    "t2003": {
+      "cartpole": "G2",
+      "acrobot": "G2",
+      "empty5": "G2",
+      "doorkey5": "G2",
+      "doorkey8": "G3-trunk",
+      "unlock": "G2",
+      "unlockpickup": "G2",
+      "keycorridor3": "G3-trunk",
+      "lavacross9": "G3-scratch"
+    },
+    "t2004": {
+      "cartpole": "G2",
+      "acrobot": "G2",
+      "empty5": "G2",
+      "doorkey5": "G2",
+      "doorkey8": "G3-scratch",
+      "unlock": "G2",
+      "unlockpickup": "G2",
+      "keycorridor3": "G2",
+      "lavacross9": "G2"
+    },
+    "t2005": {
+      "cartpole": "G2",
+      "acrobot": "G2",
+      "empty5": "G2",
+      "doorkey5": "G2",
+      "doorkey8": "G2-scratch",
+      "unlock": "G2",
+      "unlockpickup": "G2",
+      "keycorridor3": "G2-scratch",
+      "lavacross9": "G2-scratch"
+    }
+  },
+  "secret": {
+    "candidate": {
+      "aggregate_iqm": 0.9465227973510919,
+      "per_child_mean": [
+        1.0594499312856602,
+        0.939709309853928,
+        0.9471671238901797,
+        0.9494189473653059,
+        0.9438374644625684
+      ],
+      "per_task_iqm": {
+        "cartpole": 1.0550499119201406,
+        "acrobot": 1.0407500000000003,
+        "empty5": 1.0779552111877537,
+        "doorkey5": 1.0730851597029205,
+        "doorkey8": 1.0814930555555555,
+        "unlock": 1.0763831706073796,
+        "unlockpickup": 0.0,
+        "keycorridor3": 1.0576786534686544,
+        "lavacross9": 1.056310013717421
+      }
+    },
+    "random_control": {
+      "aggregate_iqm": 0.8400475294276991,
+      "per_child_mean": [
+        0.949350258244738,
+        0.8629919310831918,
+        0.8083484527125671,
+        0.7104934535158907,
+        0.7258062413611578
+      ],
+      "per_task_iqm": {
+        "cartpole": 1.0550499119201406,
+        "acrobot": 1.0407500000000003,
+        "empty5": 1.0779552111877537,
+        "doorkey5": 1.0730851597029205,
+        "doorkey8": 0.4193576388888889,
+        "unlock": 1.0746578833862683,
+        "unlockpickup": 0.005748456790123456,
+        "keycorridor3": 1.0258948335630453,
+        "lavacross9": 0.7879286694101509
+      }
+    },
+    "G2": {
+      "aggregate_iqm": 0.7725134612650645,
+      "per_child_mean": [
+        0.8261794392084839,
+        0.8027870847739096,
+        0.8070900708994002,
+        0.8291623887233305,
+        0.6449931269350032
+      ],
+      "per_task_iqm": {
+        "cartpole": 1.0550499119201406,
+        "acrobot": 1.0407500000000003,
+        "empty5": 1.0779552111877537,
+        "doorkey5": 1.0730851597029205,
+        "doorkey8": 0.024677854938271602,
+        "unlock": 1.0763831706073796,
+        "unlockpickup": 0.0,
+        "keycorridor3": 0.6648707346614876,
+        "lavacross9": 0.9398491083676269
+      }
+    },
+    "G2-scratch": {
+      "aggregate_iqm": 0.8880787441319288,
+      "per_child_mean": [
+        0.9014684579209208,
+        0.9406733393779854,
+        0.8069194764112233,
+        0.7583951120691539,
+        0.9449808339920964
+      ],
+      "per_task_iqm": {
+        "cartpole": 1.0550499119201406,
+        "acrobot": 1.030166666666667,
+        "empty5": 1.0779552111877537,
+        "doorkey5": 1.0709436369435457,
+        "doorkey8": 0.7187615740740739,
+        "unlock": 1.070187821040662,
+        "unlockpickup": 0.013811728395061729,
+        "keycorridor3": 1.0561750824875744,
+        "lavacross9": 0.8996570644718793
+      }
+    },
+    "G3-sp": {
+      "aggregate_iqm": 0.8566823687219461,
+      "per_child_mean": [
+        0.9219320723093016,
+        0.7077580894350655,
+        0.8121577859804083,
+        0.9479449228410558,
+        0.8246463691502277
+      ],
+      "per_task_iqm": {
+        "cartpole": 1.0550499119201406,
+        "acrobot": 1.0359722222222223,
+        "empty5": 1.0771047907020692,
+        "doorkey5": 1.0727206451906866,
+        "doorkey8": 0.4076601080246914,
+        "unlock": 1.0773242363643494,
+        "unlockpickup": 0.0,
+        "keycorridor3": 1.0566345069540155,
+        "lavacross9": 0.9276748971193415
+      }
+    },
+    "G3-trunk": {
+      "aggregate_iqm": 0.8074948720902592,
+      "per_child_mean": [
+        0.8319937469784903,
+        0.7435456252272701,
+        0.8469064392952632,
+        0.9045709708060586,
+        0.7281088150619915
+      ],
+      "per_task_iqm": {
+        "cartpole": 1.0550499119201406,
+        "acrobot": 1.0218333333333331,
+        "empty5": 1.0779552111877537,
+        "doorkey5": 1.0704879938032532,
+        "doorkey8": 0.46664351851851854,
+        "unlock": 1.075638160216445,
+        "unlockpickup": 0.0,
+        "keycorridor3": 1.0562586142087456,
+        "lavacross9": 0.4435871056241427
+      }
+    },
+    "G3-scratch": {
+      "aggregate_iqm": 0.8609837313144726,
+      "per_child_mean": [
+        0.6745020786792928,
+        0.8161548900719519,
+        0.943927028002363,
+        0.8288507956719562,
+        0.8197631156153139
+      ],
+      "per_task_iqm": {
+        "cartpole": 1.0550499119201406,
+        "acrobot": 1.0318333333333334,
+        "empty5": 1.0754039497307002,
+        "doorkey5": 1.0702146079190775,
+        "doorkey8": 0.3706327160493828,
+        "unlock": 1.0751284162647534,
+        "unlockpickup": 0.0,
+        "keycorridor3": 1.0570103996992855,
+        "lavacross9": 1.0135802469135804
+      }
+    }
+  },
+  "promotion_vs_G2": {
+    "promote": true,
+    "p_value": 0.003968253968253968,
+    "prob_improvement": 1.0,
+    "candidate_iqm": 0.9468078452393512,
+    "reference_iqm": 0.8120188649605979
+  },
+  "promotion_vs_random_control": {
+    "promote": true,
+    "p_value": 0.027777777777777776,
+    "prob_improvement": 0.88,
+    "candidate_iqm": 0.9468078452393512,
+    "reference_iqm": 0.7990488750523056
+  },
+  "beats_all_source_IQMs": true,
+  "preserves_G1_tasks": true,
+  "eligible_for_lineage_review": true,
+  "verdict": "eligible successor for review",
+  "children": [
+    {
+      "arm": "candidate",
+      "id": "t5001",
+      "weights_sha256": "143b97dbdd92496b8d7187366ed32da9b21f59103b67eea6466a3cf7e681e0d6"
+    },
+    {
+      "arm": "random_control",
+      "id": "t5001",
+      "weights_sha256": "9003ddd190a681cc383313b577f0eedc66e1d6a82b931bf3fa00dc5a4df41e71"
+    },
+    {
+      "arm": "candidate",
+      "id": "t5002",
+      "weights_sha256": "b78134381192b713e5a67b8748dea3eb7ea603a2636e60042d9b85f48abb9c15"
+    },
+    {
+      "arm": "random_control",
+      "id": "t5002",
+      "weights_sha256": "38ce371b88405463dafd3356c38fcf577b26ff74db76d77364238219fb10006e"
+    },
+    {
+      "arm": "candidate",
+      "id": "t5003",
+      "weights_sha256": "855c89a66c3414e5470b95fc0b1e3ef97ba43af7c10be2a14e79551b46a054be"
+    },
+    {
+      "arm": "random_control",
+      "id": "t5003",
+      "weights_sha256": "45a56168b7ffe5ff54e4d9401bf4d8fff1aad7d03b4ca070f75747334c5c72bd"
+    },
+    {
+      "arm": "candidate",
+      "id": "t5004",
+      "weights_sha256": "17ae7be6e8ecca01057ad6dd7f9425ab819a4e41f10c70dae6620fb30937470f"
+    },
+    {
+      "arm": "random_control",
+      "id": "t5004",
+      "weights_sha256": "03b615cfaf9745d33af34a709bcdaab857861f36c7a67873667c33a8d00e5972"
+    },
+    {
+      "arm": "candidate",
+      "id": "t5005",
+      "weights_sha256": "95af37f23ca7ded3e78f23a7e1c966bb5d798866c75cc888d6bab75fda0672f2"
+    },
+    {
+      "arm": "random_control",
+      "id": "t5005",
+      "weights_sha256": "115d3f14f74926190da21ecdc2dbcce67e5409ad6337237b2b91eb3530d1e3f8"
+    }
+  ],
+  "duration_s": 104.2
+}

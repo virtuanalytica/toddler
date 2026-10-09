@@ -1,0 +1,292 @@
+{
+  "protocol": "public-state-routed-successor-efficiency-v1",
+  "measured_at": "2026-10-09T09:43:46.099847+00:00",
+  "cpu": "x86_64",
+  "torch": "2.6.0+cu124",
+  "torch_threads": 1,
+  "tasks": [
+    "doorkey8",
+    "unlockpickup"
+  ],
+  "children_per_arm": 5,
+  "source_protocol_sha256": "fbdb806fd77ee14e6519ab3efb774a484417a07649a38f3f95c59059074e359d",
+  "source_weights_verified": true,
+  "input": "real observations from seeded uniform-action walks on public evaluation seeds",
+  "measurement": "300 single-state and 40 batch-128 forwards per round; three rounds by default",
+  "energy": {
+    "status": "not_measured",
+    "reason": "shared host CPU energy cannot be attributed to these small forwards"
+  },
+  "quality": {
+    "status": "not_measured",
+    "reason": "public states are used only for timing, not a promotion test"
+  },
+  "summary": {
+    "doorkey8": {
+      "G2": {
+        "single_ms_median_across_children": 0.056,
+        "batch_states_per_second_median_across_children": 1303421.5,
+        "weights_bytes_mean": 319662
+      },
+      "G3-recombined": {
+        "single_ms_median_across_children": 0.058,
+        "batch_states_per_second_median_across_children": 1262574.3,
+        "weights_bytes_mean": 1608117
+      }
+    },
+    "unlockpickup": {
+      "G2": {
+        "single_ms_median_across_children": 0.0567,
+        "batch_states_per_second_median_across_children": 1280368.4,
+        "weights_bytes_mean": 319662
+      },
+      "G3-recombined": {
+        "single_ms_median_across_children": 0.0579,
+        "batch_states_per_second_median_across_children": 1263266.5,
+        "weights_bytes_mean": 1608117
+      }
+    }
+  },
+  "rows": [
+    {
+      "task": "doorkey8",
+      "child_index": 1,
+      "arm": "G2",
+      "model_id": "t2001",
+      "weights_sha256": "129643dcbbfb35ac752eeb3bbf0a3858a08d107ca1914a353510265d2c5eec1f",
+      "weights_bytes": 319662,
+      "single_ms_median": 0.056,
+      "single_ms_p95": 0.0768,
+      "batch_states_per_second": 1303421.5,
+      "timing_rounds": 3
+    },
+    {
+      "task": "doorkey8",
+      "child_index": 1,
+      "arm": "G3-recombined",
+      "model_id": "t5001",
+      "weights_sha256": "143b97dbdd92496b8d7187366ed32da9b21f59103b67eea6466a3cf7e681e0d6",
+      "weights_bytes": 1608130,
+      "single_ms_median": 0.0564,
+      "single_ms_p95": 0.0782,
+      "batch_states_per_second": 1266905.3,
+      "timing_rounds": 3
+    },
+    {
+      "task": "unlockpickup",
+      "child_index": 1,
+      "arm": "G2",
+      "model_id": "t2001",
+      "weights_sha256": "129643dcbbfb35ac752eeb3bbf0a3858a08d107ca1914a353510265d2c5eec1f",
+      "weights_bytes": 319662,
+      "single_ms_median": 0.0558,
+      "single_ms_p95": 0.0743,
+      "batch_states_per_second": 1271327.6,
+      "timing_rounds": 3
+    },
+    {
+      "task": "unlockpickup",
+      "child_index": 1,
+      "arm": "G3-recombined",
+      "model_id": "t5001",
+      "weights_sha256": "143b97dbdd92496b8d7187366ed32da9b21f59103b67eea6466a3cf7e681e0d6",
+      "weights_bytes": 1608130,
+      "single_ms_median": 0.0579,
+      "single_ms_p95": 0.0757,
+      "batch_states_per_second": 1236523.5,
+      "timing_rounds": 3
+    },
+    {
+      "task": "doorkey8",
+      "child_index": 2,
+      "arm": "G2",
+      "model_id": "t2002",
+      "weights_sha256": "6aba323367f8a0967f9028e1c51fabef584808ca08f31f0f04685b915c5accca",
+      "weights_bytes": 319662,
+      "single_ms_median": 0.0559,
+      "single_ms_p95": 0.0742,
+      "batch_states_per_second": 1282694.3,
+      "timing_rounds": 3
+    },
+    {
+      "task": "doorkey8",
+      "child_index": 2,
+      "arm": "G3-recombined",
+      "model_id": "t5002",
+      "weights_sha256": "b78134381192b713e5a67b8748dea3eb7ea603a2636e60042d9b85f48abb9c15",
+      "weights_bytes": 1608130,
+      "single_ms_median": 0.0581,
+      "single_ms_p95": 0.0754,
+      "batch_states_per_second": 1262574.3,
+      "timing_rounds": 3
+    },
+    {
+      "task": "unlockpickup",
+      "child_index": 2,
+      "arm": "G2",
+      "model_id": "t2002",
+      "weights_sha256": "6aba323367f8a0967f9028e1c51fabef584808ca08f31f0f04685b915c5accca",
+      "weights_bytes": 319662,
+      "single_ms_median": 0.0571,
+      "single_ms_p95": 0.0747,
+      "batch_states_per_second": 1288135.2,
+      "timing_rounds": 3
+    },
+    {
+      "task": "unlockpickup",
+      "child_index": 2,
+      "arm": "G3-recombined",
+      "model_id": "t5002",
+      "weights_sha256": "b78134381192b713e5a67b8748dea3eb7ea603a2636e60042d9b85f48abb9c15",
+      "weights_bytes": 1608130,
+      "single_ms_median": 0.0584,
+      "single_ms_p95": 0.0787,
+      "batch_states_per_second": 1268953.1,
+      "timing_rounds": 3
+    },
+    {
+      "task": "doorkey8",
+      "child_index": 3,
+      "arm": "G2",
+      "model_id": "t2003",
+      "weights_sha256": "16ec22df7a650c0b720a7f5125b794213ffed73aa1cba6616d193a679a6a6087",
+      "weights_bytes": 319662,
+      "single_ms_median": 0.0566,
+      "single_ms_p95": 0.0746,
+      "batch_states_per_second": 1335548.1,
+      "timing_rounds": 3
+    },
+    {
+      "task": "doorkey8",
+      "child_index": 3,
+      "arm": "G3-recombined",
+      "model_id": "t5003",
+      "weights_sha256": "855c89a66c3414e5470b95fc0b1e3ef97ba43af7c10be2a14e79551b46a054be",
+      "weights_bytes": 1608130,
+      "single_ms_median": 0.0571,
+      "single_ms_p95": 0.0748,
+      "batch_states_per_second": 1276731.6,
+      "timing_rounds": 3
+    },
+    {
+      "task": "unlockpickup",
+      "child_index": 3,
+      "arm": "G2",
+      "model_id": "t2003",
+      "weights_sha256": "16ec22df7a650c0b720a7f5125b794213ffed73aa1cba6616d193a679a6a6087",
+      "weights_bytes": 319662,
+      "single_ms_median": 0.0574,
+      "single_ms_p95": 0.0751,
+      "batch_states_per_second": 1300082.0,
+      "timing_rounds": 3
+    },
+    {
+      "task": "unlockpickup",
+      "child_index": 3,
+      "arm": "G3-recombined",
+      "model_id": "t5003",
+      "weights_sha256": "855c89a66c3414e5470b95fc0b1e3ef97ba43af7c10be2a14e79551b46a054be",
+      "weights_bytes": 1608130,
+      "single_ms_median": 0.0569,
+      "single_ms_p95": 0.0766,
+      "batch_states_per_second": 1263266.5,
+      "timing_rounds": 3
+    },
+    {
+      "task": "doorkey8",
+      "child_index": 4,
+      "arm": "G2",
+      "model_id": "t2004",
+      "weights_sha256": "dfde4eec4229e5e954567e8daecbb5830a18d5e8fe71d9022b001767d05d327b",
+      "weights_bytes": 319662,
+      "single_ms_median": 0.0579,
+      "single_ms_p95": 0.0801,
+      "batch_states_per_second": 1249072.3,
+      "timing_rounds": 3
+    },
+    {
+      "task": "doorkey8",
+      "child_index": 4,
+      "arm": "G3-recombined",
+      "model_id": "t5004",
+      "weights_sha256": "17ae7be6e8ecca01057ad6dd7f9425ab819a4e41f10c70dae6620fb30937470f",
+      "weights_bytes": 1608066,
+      "single_ms_median": 0.0588,
+      "single_ms_p95": 0.0811,
+      "batch_states_per_second": 1210479.2,
+      "timing_rounds": 3
+    },
+    {
+      "task": "unlockpickup",
+      "child_index": 4,
+      "arm": "G2",
+      "model_id": "t2004",
+      "weights_sha256": "dfde4eec4229e5e954567e8daecbb5830a18d5e8fe71d9022b001767d05d327b",
+      "weights_bytes": 319662,
+      "single_ms_median": 0.0565,
+      "single_ms_p95": 0.0847,
+      "batch_states_per_second": 1251648.0,
+      "timing_rounds": 3
+    },
+    {
+      "task": "unlockpickup",
+      "child_index": 4,
+      "arm": "G3-recombined",
+      "model_id": "t5004",
+      "weights_sha256": "17ae7be6e8ecca01057ad6dd7f9425ab819a4e41f10c70dae6620fb30937470f",
+      "weights_bytes": 1608066,
+      "single_ms_median": 0.0588,
+      "single_ms_p95": 0.0847,
+      "batch_states_per_second": 1233872.3,
+      "timing_rounds": 3
+    },
+    {
+      "task": "doorkey8",
+      "child_index": 5,
+      "arm": "G2",
+      "model_id": "t2005",
+      "weights_sha256": "811164b29af7821321e44c561d15063ac5855e5d2766ad47d3bec902b76521cc",
+      "weights_bytes": 319662,
+      "single_ms_median": 0.0555,
+      "single_ms_p95": 0.074,
+      "batch_states_per_second": 1314135.3,
+      "timing_rounds": 3
+    },
+    {
+      "task": "doorkey8",
+      "child_index": 5,
+      "arm": "G3-recombined",
+      "model_id": "t5005",
+      "weights_sha256": "95af37f23ca7ded3e78f23a7e1c966bb5d798866c75cc888d6bab75fda0672f2",
+      "weights_bytes": 1608130,
+      "single_ms_median": 0.058,
+      "single_ms_p95": 0.0787,
+      "batch_states_per_second": 1223466.1,
+      "timing_rounds": 3
+    },
+    {
+      "task": "unlockpickup",
+      "child_index": 5,
+      "arm": "G2",
+      "model_id": "t2005",
+      "weights_sha256": "811164b29af7821321e44c561d15063ac5855e5d2766ad47d3bec902b76521cc",
+      "weights_bytes": 319662,
+      "single_ms_median": 0.0567,
+      "single_ms_p95": 0.0752,
+      "batch_states_per_second": 1280368.4,
+      "timing_rounds": 3
+    },
+    {
+      "task": "unlockpickup",
+      "child_index": 5,
+      "arm": "G3-recombined",
+      "model_id": "t5005",
+      "weights_sha256": "95af37f23ca7ded3e78f23a7e1c966bb5d798866c75cc888d6bab75fda0672f2",
+      "weights_bytes": 1608130,
+      "single_ms_median": 0.0569,
+      "single_ms_p95": 0.0778,
+      "batch_states_per_second": 1281341.2,
+      "timing_rounds": 3
+    }
+  ]
+}

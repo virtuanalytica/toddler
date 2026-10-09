@@ -1,0 +1,193 @@
+{
+  "title": "G3 recombination from frozen public-score experts",
+  "tasks": [
+    "cartpole",
+    "acrobot",
+    "empty5",
+    "doorkey5",
+    "doorkey8",
+    "unlock",
+    "unlockpickup",
+    "keycorridor3",
+    "lavacross9"
+  ],
+  "parents": [
+    "t2001",
+    "t2002",
+    "t2003",
+    "t2004",
+    "t2005"
+  ],
+  "source_generations": [
+    "G2",
+    "G2-scratch",
+    "G3-sp",
+    "G3-trunk",
+    "G3-scratch"
+  ],
+  "source_weights": {
+    "G2": {
+      "t2001": "129643dcbbfb35ac752eeb3bbf0a3858a08d107ca1914a353510265d2c5eec1f",
+      "t2002": "6aba323367f8a0967f9028e1c51fabef584808ca08f31f0f04685b915c5accca",
+      "t2003": "16ec22df7a650c0b720a7f5125b794213ffed73aa1cba6616d193a679a6a6087",
+      "t2004": "dfde4eec4229e5e954567e8daecbb5830a18d5e8fe71d9022b001767d05d327b",
+      "t2005": "811164b29af7821321e44c561d15063ac5855e5d2766ad47d3bec902b76521cc"
+    },
+    "G2-scratch": {
+      "t2001": "b593b7395016ea78a1e8ebb643ec6a613d72829d5d6948758845b42b0f20583e",
+      "t2002": "cd7c85c7bc2aabf632d65a9a1a623df979355d5b065fd28b7ace2e51bb383112",
+      "t2003": "812a2b5dc2d002d9c2df6b24c3b04ca1fef807c413dbaba5c28351ce9a4b0d8b",
+      "t2004": "ae5281e60243c04db4ee3e973e52e2a29aefde73e42f26b2cb0760b9532986d4",
+      "t2005": "31f472cd25a74f9724c536acdf9b449324673af25503b3905d8fbdf523a2e358"
+    },
+    "G3-sp": {
+      "t2001": "49bb5103d45d5a94f6240d0ff533d86f253d4b890732f8beba6a84860bdc4b92",
+      "t2002": "c40e3683f452f49e2e50e54394c08c897a32d90f9d82dc7ca37e6293b8224138",
+      "t2003": "988afc781d2a63d08d30f1c948eb9e0ac83b41116e989d4fcead0ef1cc21b411",
+      "t2004": "cdcf1d25b16bae03c21ee3e8659476cc227a31dbe05fa6f855e5aecb304fbdf0",
+      "t2005": "4b9cbefb1aaaef85c7508033bd89180d4cd16bd0cf278ed5e2e199ee33004bd5"
+    },
+    "G3-trunk": {
+      "t2001": "ca5eb55a2a655da37ab4ab22d9f0e5ee4a46968709c3d8db82b1f46e6e4f20ed",
+      "t2002": "a05f776220ebddd4c3fa70dcd7cc394858fa3620505630c6d5c7be1cbb329fb5",
+      "t2003": "a915a6d1f6f8bd8be78fffad65020b31826a03879e007f687f417728b7036398",
+      "t2004": "4ea321eb3b6be829cb7bb4585a03fa6f4d61ea025400fdd656b5ee6a686dc7cc",
+      "t2005": "cdd3f2f8142bc305b1176dc636ef286a2ec0b94007a7979f66cea43796fd2101"
+    },
+    "G3-scratch": {
+      "t2001": "25aedea4f5ce87f3973e7827243af173bbe40ddd5d1fdb7ba7880657fc50c9ae",
+      "t2002": "3333fc18baa3a7e5df7560395aae09e73d774ac1034ce10c2da37223717fec03",
+      "t2003": "7bfe21c4e047d91e96a1d811f8821111e6549a32e7d542df91a97bbc037e4def",
+      "t2004": "3f2be853243b2233e78c5b302c8ca17506663529450f5c34c8cd96be50fca604",
+      "t2005": "0d4d2576754ce86c6b4e5980744879ea8f0867abf6326aee24a16eb15adcbd5c"
+    }
+  },
+  "selection": "per-child public task mean; switch only when best exceeds G2 by 0.05",
+  "control_seed": 734293,
+  "margin": 0.05,
+  "candidate_routes": {
+    "t2001": {
+      "cartpole": "G2",
+      "acrobot": "G2",
+      "empty5": "G2",
+      "doorkey5": "G2",
+      "doorkey8": "G2",
+      "unlock": "G2",
+      "unlockpickup": "G3-sp",
+      "keycorridor3": "G3-sp",
+      "lavacross9": "G3-scratch"
+    },
+    "t2002": {
+      "cartpole": "G2",
+      "acrobot": "G2",
+      "empty5": "G2",
+      "doorkey5": "G2",
+      "doorkey8": "G2-scratch",
+      "unlock": "G2",
+      "unlockpickup": "G2",
+      "keycorridor3": "G2",
+      "lavacross9": "G2-scratch"
+    },
+    "t2003": {
+      "cartpole": "G2",
+      "acrobot": "G2",
+      "empty5": "G2",
+      "doorkey5": "G2",
+      "doorkey8": "G3-trunk",
+      "unlock": "G2",
+      "unlockpickup": "G2",
+      "keycorridor3": "G3-trunk",
+      "lavacross9": "G3-scratch"
+    },
+    "t2004": {
+      "cartpole": "G2",
+      "acrobot": "G2",
+      "empty5": "G2",
+      "doorkey5": "G2",
+      "doorkey8": "G3-scratch",
+      "unlock": "G2",
+      "unlockpickup": "G2",
+      "keycorridor3": "G2",
+      "lavacross9": "G2"
+    },
+    "t2005": {
+      "cartpole": "G2",
+      "acrobot": "G2",
+      "empty5": "G2",
+      "doorkey5": "G2",
+      "doorkey8": "G2-scratch",
+      "unlock": "G2",
+      "unlockpickup": "G2",
+      "keycorridor3": "G2-scratch",
+      "lavacross9": "G2-scratch"
+    }
+  },
+  "random_control_routes": {
+    "t2001": {
+      "cartpole": "G2",
+      "acrobot": "G2",
+      "empty5": "G2",
+      "doorkey5": "G2",
+      "doorkey8": "G2",
+      "unlock": "G3-trunk",
+      "unlockpickup": "G2-scratch",
+      "keycorridor3": "G3-scratch",
+      "lavacross9": "G3-scratch"
+    },
+    "t2002": {
+      "cartpole": "G2",
+      "acrobot": "G2",
+      "empty5": "G2",
+      "doorkey5": "G2",
+      "doorkey8": "G2-scratch",
+      "unlock": "G3-scratch",
+      "unlockpickup": "G2",
+      "keycorridor3": "G3-trunk",
+      "lavacross9": "G3-trunk"
+    },
+    "t2003": {
+      "cartpole": "G2",
+      "acrobot": "G2",
+      "empty5": "G2",
+      "doorkey5": "G2",
+      "doorkey8": "G2",
+      "unlock": "G3-sp",
+      "unlockpickup": "G3-trunk",
+      "keycorridor3": "G2-scratch",
+      "lavacross9": "G2"
+    },
+    "t2004": {
+      "cartpole": "G2",
+      "acrobot": "G2",
+      "empty5": "G2",
+      "doorkey5": "G2",
+      "doorkey8": "G2",
+      "unlock": "G3-scratch",
+      "unlockpickup": "G3-sp",
+      "keycorridor3": "G2",
+      "lavacross9": "G3-scratch"
+    },
+    "t2005": {
+      "cartpole": "G2",
+      "acrobot": "G2",
+      "empty5": "G2",
+      "doorkey5": "G2",
+      "doorkey8": "G3-trunk",
+      "unlock": "G2",
+      "unlockpickup": "G2-scratch",
+      "keycorridor3": "G2",
+      "lavacross9": "G3-scratch"
+    }
+  },
+  "promotion_rule": "On fresh secret seeds, candidate must pass decide_promotion versus frozen G2 and an equal-expert-bank random route; all original G1 tasks stay routed to G2. Candidate aggregate IQM must exceed every single source generation. Five matched children per arm; no official promotion before review.",
+  "secret_seed_set_id": "20261008T180515Z-b53769",
+  "secret_seed_commitment": {
+    "set_id": "20261008T180515Z-b53769",
+    "n": 30,
+    "seed_low": 100000,
+    "seed_high": 1000000,
+    "created_at": "2026-10-08T18:05:15+00:00",
+    "reveal_after": "2026-10-15",
+    "commitment": "339ea961400007b6c9f22aa28a4f5b423e40c674bb6a943f963fe4b36280ed02"
+  }
+}

@@ -23,6 +23,7 @@ The ClaudeClaw agent definition (`agents/toddler/`) lives on a local, unpublishe
 | `toddler/learn/pbt.py` | Population-based training: members keep a TrainState, exploit copies weights + optimiser of the best, explore multiplies lr / ent_coef by 0.8 or 1.2; pre-registered test on DoorKey-5x5 is NULL (p 0.091, PR #21) | 11, 14 |
 | `toddler/quotients.py` | IQ / EQ / FQ quotients (operational metrics named by analogy, not human IQ/EQ): 100 + 15 z against a frozen reference generation with a task/seed/anchor fingerprint, bootstrap CI on IQ; FQ = physical quotient; Toddler scored on IQ+EQ+FQ, Genie on IQ only | 2, 3, 18 |
 | `toddler/learn/benchmark.py` | Generation benchmarks per hardware configuration: quality on CPU (hardware-independent, checked against the training record), efficiency (latency, throughput, GPU energy) only where the governor allows it now; skipped configurations reported with reason. Chain: `scripts/build_generations.py` (weights to `$TODDLER_GENERATIONS_ROOT`, outside git) then `scripts/benchmark_generations.py` | 6, 11 |
+| `toddler/learn/routing.py` | Frozen task-expert successors: complete source networks per task, hash-checked generation loading and a public-state CPU cost probe; G3-recombined is review-eligible, not the official generation | 6, 11, 14 |
 | `toddler/provenance.py` | Source and consent register: no synthetic data, consent for data about people | 1, 22 |
 | `toddler/specialize.py` | Roles, company guardrails, Jev questions, experts and mixture-of-models routing; safety is monotonic (add, never remove or duplicate) | 13, 20 |
 | `toddler/audit.py` | Hash-chained, immutable audit trail with JSONL persistence, secret redaction, prune anchor and scoped views | 2, 25 |
@@ -74,6 +75,12 @@ by toddler code; the models only explain it.
 
 Without a chat: `python3 -m toddler.learn.play episode G1/t1001 doorkey5 --seed 424242` and
 `python3 -m toddler.learn.play iq G1/t1001`.
+
+The [G3-recombined runtime review](docs/learn/G3_RUNTIME_BENCHMARK_20261009.md)
+records the two secret-seed confirmations separately from an operational CPU
+probe. The official lineage remains G2 until the review packet is signed;
+the probe verifies frozen source weights and measures latency and storage,
+without opening secret seeds or judging answer quality.
 
 ## Software-agent benchmark integration
 
