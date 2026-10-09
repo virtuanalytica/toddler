@@ -36,3 +36,17 @@ beide is gebruikt om de volgende trainingsreceptuur te kiezen.
 Een volgende G4-kandidaat moet vóór een nieuwe toets weer volledig worden
 bevroren en twee **nieuwe** geheime seedsets krijgen. De huidige test blijft
 als mislukte maar informatieve trial in het auditarchief.
+
+Een CPU-microproef met één thread en 2.000 herhaalde toestanden mat voor kind
+t6004 een mediaan van 0,0603 ms per `unlockpickup`-beslissing, gelijk aan zijn
+G3-ouder; `doorkey8` bleef eveneens circa 0,060 ms. Het gewichtsbestand groeide
+van 1.608.066 naar 1.929.810 bytes (+20%). Dit meet alleen policy-forwardtijd,
+geen volledige spel- of systeemenergie.
+
+Na bevriezing is op uitsluitend **openbare** ontwikkelkaarten een apart
+onderzoeksvoorstel getest: het eerste kind starten vanuit de al sterke G3-sp
+`unlockpickup`-expert en daarop 128 oracle-demonstraties trainen. Dat gaf
+50/50 en mean 1,0240, tegenover 50/50 en 1,0148 voor zijn G3-ouder.
+Dit gewicht behoort niet tot de afgeschermde cohortproef. Een eventuele nieuwe
+kandidaat vereist een nieuw vooraf vastgelegd protocol met een expliciete
+correctie voor opeenvolgende pogingen en volledig nieuwe geheime sets.
