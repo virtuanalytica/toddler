@@ -333,12 +333,16 @@ vooraf geregistreerde vergelijking op nieuwe, afgeschermde toetsdata nodig.</p>
     function side(g) { return g.control || g.verdict === 'extinct'; }
     var line = gens.filter(function (g) { return !side(g); });
     var last = line[line.length - 1] || gens[gens.length - 1];
+    // newest evaluation over ALL generations (side branches included): a fresh G-run
+    // that did not win promotion must still be visible as the latest measurement
+    var newest = gens.slice().sort(function (a, b) { return a.trained_at < b.trained_at ? -1 : 1; }).pop();
     function present(list) { return list.filter(function (t) { return gens.some(function (g) { return g.tasks[t]; }); }); }
     var baseTasks = present(BASE), newTasks = present(NEW), tasks = baseTasks.concat(newTasks);
 
     document.getElementById('tiles').innerHTML = [
-      ['Laatste generatie', last.generation, day(last.trained_at) + ' UTC'],
+      ['Kampioen (lijn)', last.generation, day(last.trained_at) + ' UTC'],
       ['Gemiddelde score', fmt(last.iq_raw), 'over ' + Object.keys(last.tasks).length + ' taken'],
+      ['Nieuwste evaluatie', newest.generation + (side(newest) ? ' · zijtak, ' + (newest.verdict === 'extinct' ? 'uitgestorven' : 'controlegroep') : ''), day(newest.trained_at) + ' UTC · score ' + fmt(newest.iq_raw)],
       ['Toddlers', last.toddlers, last.network === 'multitask' ? 'één brein voor alle taken' : 'één taak per brein'],
       ['Generaties', line.length, gens.length > line.length ? '+ ' + (gens.length - line.length) + ' zijtak(ken): controle of uitgestorven' : 'evaluatie: ' + last.eval_mode]
     ].map(function (t) { return '<div class="tile"><div class="k">' + esc(t[0]) + '</div><div class="v">' + esc(t[1]) +
