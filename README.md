@@ -92,7 +92,9 @@ The pilot measures eight roles but cannot prove that Toddler + Teacher + an
 agent on ClaudeClaw improves software work. That claim needs paired tasks,
 an independently controlled private holdout and at least 73 tasks per
 software role. See [feature status](docs/FEATURES.md#external-benchmark-and-agent-roadmap-9-october-2026)
-and the [public Toddler page](site/toddler/index.html). The Qwen3.8 1Cat
+and the [public Toddler page](site/toddler/index.html), including a
+[neuroscience-to-AI guide for the public](site/toddler/neurowetenschap.html).
+The Qwen3.8 1Cat
 TP2 comparison records the 1.5.0 repetition failures, the 1.5.1 quality
 improvement, throughput and GPU-board energy. Haiku 5.5 closed the separate
 cloud-safe model pilot at 8/8 software and 8/8 data; 1.5.1 was measured
