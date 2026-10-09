@@ -60,7 +60,7 @@
 <div class="grid" aria-label="Status van de drie hoofdlagen">
   <div class="card"><span class="tag done">Officieel</span><h3>G3-beleid</h3><p>Een bevroren route kiest per spel- of leertak een getrainde expert. G3 heeft twee afgeschermde opvolgertoetsen overleefd. Dit is geen LLM-router.</p></div>
   <div class="card"><span class="tag test">Softwareproef</span><h3>JEV-reflex</h3><p>Harde grenzen en vier getypeerde risicovragen kunnen <em>stop</em>, <em>langzaam</em> of <em>doorgaan</em> opleveren. Fysieke inzet en risicokalibratie zijn nog niet gevalideerd.</p></div>
-  <div class="card"><span class="tag gap">Nog niet gekoppeld</span><h3>CLM en GPU-motor</h3><p>CLM is nog geen draaiende Toddler-adapter. De gemeten mixture is een aparte chatservice; zij verandert G3 niet automatisch.</p></div>
+  <div class="card"><span class="tag test">Schaduwproef</span><h3>CLM en GPU-motor</h3><p>De CLM-adapter is lokaal getest met Qwen3-8B op één V100. Nieuwe toestanden waren te traag voor de 20 ms-reflex; risicokalibratie ontbreekt. De mixture is een aparte chatservice; zij verandert G3 niet automatisch.</p></div>
 </div>
 
 <h2 id="kaart">De lagen en hun verbindingen</h2>
@@ -69,7 +69,7 @@
    ├── vaste STOP-regels ──────────────────────── veto vóór beloning
    │
    ├── fysieke toestand → sensordrempels → JEV → stop / langzaam / door
-   │                                  CLM: kandidaat, nog niet gekoppeld
+   │                                  CLM: alleen schaduwvergelijking
    │
    ├── speltaak → G3: vaste route naar één beleidsnet → actie
    │
@@ -82,8 +82,8 @@
 <h2 id="reflex">JEV en CLM: de snelle beslislaag</h2>
 <p>De <a href="https://github.com/virtuanalytica/toddler/blob/main/toddler/fastpath.py">huidige reflexcode</a> controleert eerst kracht, snelheid en afstand. Daarna beoordeelt zij vier vragen: gripverlies, persoon in veiligheidszone, aanstaande botsing en instabiel object. Ontbreekt een antwoord of duurt het langer dan 20 ms, dan volgt een stop. Het JEV-antwoord gebruikt een ingestelde onzekerheidsmarge; die marge is nog geen gemeten betrouwbaarheidsinterval voor echte gevaren.</p>
 <p>De <a href="https://github.com/virtuanalytica/toddler/blob/main/docs/jev/README.md">JEV-proef</a> mat 1.385 ms voor een koud verzoek en 5 ms uit cache. De kalibratie verbeterde op PIQA-vragen, maar is niet gevalideerd voor de vier fysieke gevaren. De JEV-webservice was bij deze audit bereikbaar terwijl de benodigde modelbackend niet draaide. Een werkende healthcheck bewijst dus geen werkende reflex.</p>
-<p><a href="https://github.com/Contrastive-LM/CLM">CLM</a> kan volgens de eigen documentatie toestanden en kandidaat-acties vergelijken via een Qwen3-8B-encoder en een contrastieve kop. De Toddler-code bevat nu geen CLM-adapter of lokale meting van VRAM, vertraging en fout-negatieven. CLM past daarom in het ontwerp als extra ranker of controleur, met harde STOP-regels erboven.</p>
-<div class="callout"><h3>Open veiligheidspunt</h3><p>De huidige sensordrempels vergelijken getallen, maar wijzen <code>NaN</code> of oneindige sensorwaarden niet expliciet af. Ook een niet-eindige tijdmeting wordt niet expliciet afgewezen. Dat moet worden gerepareerd en getest voordat de reflex fysieke handelingen mag vrijgeven.</p></div>
+<p><a href="https://github.com/Contrastive-LM/CLM">CLM</a> vergelijkt toestanden en kandidaat-antwoorden via een Qwen3-8B-encoder en een contrastieve kop. Toddler heeft nu een CLM-client en een schaduwvergelijking voor dezelfde vier risicovragen als JEV. Op deze machine gebruikte de proef circa 24,6 GB V100-geheugen. De eerste aanvraag duurde ongeveer 400 ms; twaalf verschillende toestanden hadden een mediaan van 98 ms en twaalf herhalingen van één toestand 5,1 ms. De JEV-koppeling gaf bij de gepaarde proef een HTTP-fout, dus er is nog geen kwaliteitsvergelijking. CLM bestuurt niets. Zie het <a href="https://github.com/virtuanalytica/toddler/blob/main/docs/G4_CLM_SHADOW.md">testprotocol</a>.</p>
+<div class="callout"><h3>Veiligheidsstatus</h3><p>Niet-eindige sensor-, tijd- en antwoordwaarden leiden nu tot een stop in de software. De fysieke drempels, de vaste onzekerheidsmarge en de hele robotketen zijn nog niet gevalideerd voor inzet.</p></div>
 
 <h2 id="gpu">De zes GPU's als modelmotor</h2>
 <p>De gemeten <a href="https://github.com/virtuanalytica/virtualv_llm/blob/main/infra/model_serve_configs/mom-live.sh">MoM-opstelling</a> gebruikt twee V100 32 GB kaarten voor Qwen3.8-27B Q4-aggregators. Vier RTX 4000 Ada 20 GB kaarten leveren Devstral-, Qwen3.5- en Gemma4-concepten. De proxy vraagt de concepten parallel op; de aggregator schrijft het uiteindelijke antwoord. Extra replica's verhogen vooral de capaciteit voor meerdere vragen, niet de snelheid van één gegenereerd antwoord.</p>
@@ -102,7 +102,7 @@
 <ol>
   <li>Repareer de niet-eindige sensor- en tijdwaarden; meet koude p95/p99-vertraging en risicokalibratie op eigen gevallen.</li>
   <li>Meet een Flash-Next GGUF-aggregator met de vier Ada-concepten tegen de bestaande Q4-mixture op dezelfde nieuwe, afgeschermde taken.</li>
-  <li>Test CLM apart op getypeerde beslissingen en de extra GPU-kosten. Een snel upstream resultaat geldt niet automatisch op deze host.</li>
+  <li>Test CLM op onafhankelijk gelabelde risicoscènes zodra JEV weer werkt. De eerste lokale proef toont snelle herhalingen maar te trage nieuwe toestanden voor een actieve reflex.</li>
   <li>Maak voor TP2 onderscheid tussen <strong>27B QUASAR</strong> en <strong>Flash-Next</strong>; promoveer pas na geldige kwaliteitscanary, specialistentoets, 256-token-snelheidsmeting en GPU-board-energie per antwoord.</li>
 </ol>
 <p>De volledige onderbouwing, inclusief codepaden, meetbeperkingen en de beoogde GPU-indeling, staat in de <a href="https://github.com/virtuanalytica/toddler/blob/main/docs/design/CURRENT_BRAIN_20261009.md">technische audit</a>.</p>

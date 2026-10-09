@@ -12,6 +12,7 @@ connected modules; deliberate planning only runs when the reflex says it is safe
 from __future__ import annotations
 
 from dataclasses import dataclass
+import math
 from typing import Protocol, Sequence
 
 REFLEX_BUDGET_MS = 20.0   # decide stop/slow/continue within this budget, or stop
@@ -66,6 +67,9 @@ DEFAULT_QUESTIONS: tuple[PhysicalQuestion, ...] = (
 
 def hard_limit_check(s: Sensors, lim: HardLimits) -> tuple[str, ...]:
     reasons = []
+    if not all(math.isfinite(v) for v in (s.force_n, s.speed_m_s, s.person_distance_m,
+                                           lim.max_force_n, lim.max_speed_m_s, lim.min_person_distance_m)):
+        return ("invalid sensor or hard limit",)
     if s.force_n > lim.max_force_n:
         reasons.append(f"force {s.force_n:.0f} N > {lim.max_force_n:.0f} N")
     if s.speed_m_s > lim.max_speed_m_s:
@@ -84,7 +88,7 @@ def reflex(sensors: Sensors, answers: Sequence[Answer] | None, elapsed_ms: float
     hard = hard_limit_check(sensors, limits)
     if hard:
         return Reflex("stop", hard)
-    if answers is None or elapsed_ms > REFLEX_BUDGET_MS:
+    if answers is None or not math.isfinite(elapsed_ms) or elapsed_ms < 0 or elapsed_ms > REFLEX_BUDGET_MS:
         return Reflex("stop", ("no timely physical-rule answer",))
     by_id = {a.qid: a for a in answers}
     slow: list[str] = []
@@ -92,7 +96,8 @@ def reflex(sensors: Sensors, answers: Sequence[Answer] | None, elapsed_ms: float
         a = by_id.get(q.qid)
         if a is None:
             return Reflex("stop", (f"missing answer: {q.qid}",))
-        if a.uncertainty < 0 or not 0.0 <= a.probability <= 1.0:
+        if (not math.isfinite(a.uncertainty) or not math.isfinite(a.probability)
+                or a.uncertainty < 0 or not 0.0 <= a.probability <= 1.0):
             return Reflex("stop", (f"invalid answer: {q.qid}",))
         p = min(1.0, a.probability + a.uncertainty)
         if p > q.stop_if_above:
