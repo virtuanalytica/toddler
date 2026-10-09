@@ -105,3 +105,7 @@ set. An independent evaluator freezes the cohort and uses two fresh private
 30-seed sets for a matched nine-task ancestor trial. See
 [the G4 private protocol](learn/G4_ORACLE_TRIAL.md); neither the public route
 selection nor the present cognitive template check is a promotion score.
+The first five-child private trial improved the aggregate score but passed
+only one of two required sets; [its audit result](learn/G4_ORACLE_RESULT_20261009.md)
+keeps G4 unpromoted. The [separate cognitive pilot](learn/G4_COGNITIVE_HOLDOUT.md)
+scored 22/54 on new private questions and is diagnostic only.

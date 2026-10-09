@@ -35,6 +35,29 @@ requires two unchanged-weight, independent trials against both the strongest
 ancestor and a matched control. A PR merge records a contribution; a passing
 independent audit records a survivor.
 
+## G4 vervolg (9 oktober 2026)
+
+De Teacher maakt nu elke nacht vijf oudergebonden oracle-kinderen. De eerste
+bevroren cohortproef verhoogde de geheime negen-taak-IQM van circa 0,946
+(G3) naar 1,042, zonder behoudsregressies, maar alleen de tweede van twee
+afgeschermde sets haalde de vooraf vastgelegde p-grens. **G4 blijft kandidaat.**
+Zie het [volledige auditverdict](learn/G4_ORACLE_RESULT_20261009.md).
+
+1. Bevries een nieuwe receptuur op openbare ontwikkelkaarten. Een eerste
+   onderzoeksproef met G3-sp als start voor t6001 gaf 50/50 en mean 1,0240,
+   tegenover 1,0148 voor diens G3-ouder. Dit is nog geen G4-kind of blinde score.
+2. Registreer vóór een nieuwe geheime toets een volledig nieuwe cohort- en
+   analyseopzet, inclusief een expliciete aanpak voor opeenvolgende pogingen.
+   Gebruik geen enkele seed of individuele rij uit de twee voltooide sets om
+   gewichten, routegrens of statistische toets te kiezen.
+3. Verbeter de cognitieve Teacher op openbare, antwoordgeverifieerde nieuwe
+   vraagvormen. De aparte [54-vragenpilot](learn/G4_COGNITIVE_HOLDOUT.md)
+   haalde 22/54; het oude publieke cijfer 0,9681 overschatte transfer.
+   Gebruik die pilotbank niet voor training. Laat een onafhankelijke eigenaar
+   een grotere nieuwe bank per gebied valideren vóór een cognitieve poort.
+4. Meet na een geslaagde navigatiepoort ook volledige episodetijd en
+   systeemenergie. De huidige 0,060 ms is alleen een CPU-policy-microproef.
+
 ## Quotients
 
 - IQ: task competence on held-out seeds (aggregate IQM).
