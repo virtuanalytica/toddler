@@ -25,6 +25,9 @@ De private trial-bestanden hebben SHA-256
 `f5f60f457542c6609c0a8775f935b7099fd8f442e6078e18c39a215c81f42b52`
 en `5a3acfb0ecfb55bc265a82953b21cb5e023fc2fad6a74103c51bdf4923e68f40`.
 Hun individuele rijen blijven buiten Git tot de onthuldatum.
+Teacher en evaluator draaien momenteel onder hetzelfde Unix-account. De
+scheiding is dus een vastgelegd proces- en gegevenspad, geen harde
+besturingssysteemisolatie; de Trainer-code leest de geheime bestanden niet.
 
 De set-ID's zijn `20261009T162828Z-b2d8d2` en
 `20261009T162828Z-497329`. Hun seedcommitments zijn respectievelijk
