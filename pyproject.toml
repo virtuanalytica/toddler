@@ -4,9 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "toddler"
-license = "LicenseRef-Proprietary"
-license-files = ["LICENSE"]
-classifiers = ["Private :: Do Not Upload"]
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE"]
 version = "0.1.0"
 description = "Toddler: governed learning agent (virtualpc + Alexander integration)"
 requires-python = ">=3.11"

@@ -1,9 +1,12 @@
 # G3-recombined: overlevingspoort en import
 
-**Status op 9 oktober 2026:** G3-recombined voldoet op twee onafhankelijke,
-vooraf vastgelegde geheime seedsets aan de statistische promotiepoort. G2
-blijft de officiële generatie totdat een menselijke reviewer het bevroren
-[reviewpakket](G3_RECOMBINED_REVIEW.json) tekent en de kandidaat is geïmporteerd.
+**Huidige status:** G3-recombined is op 9 oktober 2026 na een afzonderlijk
+ondertekende menselijke review officieel als `survived` geïmporteerd; zie het
+[promotieverslag](G3_PROMOTION_20261009.md). Het onderstaande importprotocol
+beschrijft de voorafgaande poort en blijft bruikbaar voor hercontrole. De
+bevroren kandidaat voldeed op twee onafhankelijke, vooraf vastgelegde geheime
+seedsets aan de statistische promotiepoort. Het oorspronkelijke
+[reviewpakket](G3_RECOMBINED_REVIEW.json) blijft ongewijzigd.
 De eerdere G3-sp, G3-trunk en G3-scratch blijven uitgestorven zijtakken. Hun
 gewichten zijn alleen als bevroren bronexperts in de nieuwe taakrouter gebruikt.
 
@@ -33,10 +36,10 @@ geopend of gepubliceerd.
 PYTHONPATH=. python3 scripts/import_g3_successor.py check
 ```
 
-Op de huidige host geeft deze controle `ready_for_review: true`,
-`already_imported: false` en review-SHA-256
+Vóór de import gaf deze controle `ready_for_review: true` en
+`already_imported: false`. Na de import geeft hij `already_imported: true`.
+De review-SHA-256 blijft
 `99b98ac8238654fc9cb3621eee1592602d1fc91575b5c6e479ce5b9dd2a62755`.
-Dat is **geen** menselijke goedkeuring.
 
 Een reviewer die de scores, beperkingen en 5,03× opslagkosten accepteert,
 legt een afzonderlijk `approval.json` vast met exact deze sleutels:
@@ -73,7 +76,8 @@ blijft bevroren; de ondertekende goedkeuring blijft bij de beheerder.
 
 ## Dashboard
 
-`scripts/build_dashboard_data.py` toont G3 vóór import als `wacht op review`.
+`scripts/build_dashboard_data.py` toont G3 vóór import als `wacht op review`
+en na de ondertekende import als `overleefd`.
 De G3-taakpunten zijn alleen geaggregeerde geheime scores; er worden geen
 per-kind-taakscores verzonnen. De kaart vergelijkt G3 met G2 **binnen dezelfde
 seedset**. De openbare G2-punten in de historische grafiek zijn geen eerlijke

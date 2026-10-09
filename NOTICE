@@ -1,0 +1,23 @@
+Toddler
+Copyright 2026 VirtualV Holding B.V.
+
+The original Toddler source code, project documentation, benchmark summaries,
+and generated development reports in this repository are made available under
+the Apache License, Version 2.0, in LICENSE. Individual contributions may carry
+additional copyright notices from their authors.
+
+Exception: data/corpus/concepts/*.json contains Wikipedia article extracts
+licensed under Creative Commons Attribution-ShareAlike 4.0 International
+(CC BY-SA 4.0). Each JSON file names the article URL, revision, license and
+extract hash. Retain that attribution and comply with CC BY-SA 4.0 for the
+extracts; the Apache license does not replace it.
+
+This repository does not distribute the trained Toddler weight files kept in
+external generation registries, private training data, private evaluation
+seeds, or third-party model weights. Their inclusion in a PR requires a
+separate provenance and redistribution-rights review. A model name in a
+contribution manifest identifies what was used and does not license that model.
+
+Third-party Python dependencies remain under their respective licenses.
+The names and marks VirtualV, Virtuanalytica and Toddler are not licensed as
+trademarks by the Apache License.

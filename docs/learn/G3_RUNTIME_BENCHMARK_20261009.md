@@ -1,5 +1,8 @@
 # G3-recombined: runtime review, 9 October 2026
 
+**Later status:** G3-recombined [survived a separate signed lineage review](G3_PROMOTION_20261009.md).
+The decision below describes the state when this runtime probe was recorded.
+
 **Decision:** G2 remains the official generation. The G3-recombined candidate
 passed two pre-registered secret-seed comparisons and is eligible for lineage
 review; the review packet is still unsigned. This change makes its frozen

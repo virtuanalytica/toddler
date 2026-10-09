@@ -13,21 +13,27 @@ What is trained, in which order, and when a step counts as done. Each step is on
 
 ## Next generation status (9 October 2026)
 
-G2 remains the official generation. A frozen G3-recombined task-expert
-candidate passed its pre-registered comparison against G2 and a random route
-on two independent secret seed sets. It is **eligible for review**, not
-promoted; its [review packet](learn/G3_RECOMBINED_REVIEW.json) has no reviewer
-or signature. The [CPU serving probe](learn/G3_RUNTIME_BENCHMARK_20261009.md)
-verified source weights, measured near-G2 forward latency and about five
-times G2's saved weight size. UnlockPickup remained unsolved. A new training
-trial may not tune against either completed secret seed set.
+**G3-recombined is the official surviving generation.** Its five frozen
+task-expert children passed the pre-registered comparison against G2 and a
+random route on two independent secret seed sets. The separate human SSH
+signature was verified and the five exact candidate weights were imported
+into the hash-chained lineage; see the [promotion record](learn/G3_PROMOTION_20261009.md).
+The source [review packet](learn/G3_RECOMBINED_REVIEW.json) remains immutable
+and says `pending_human_review` because the approval was signed separately.
+The [CPU serving probe](learn/G3_RUNTIME_BENCHMARK_20261009.md) measured
+near-G2 forward latency and about five times G2's saved weight size.
+UnlockPickup remained unsolved. A new training trial may not tune against
+either completed secret seed set.
 
-The [G3 survivor import procedure](learn/G3_SURVIVOR_IMPORT.md) now verifies
-both frozen trials and all candidate/source weights before any official
-lineage write. It requires a human SSH-signed review bound to the exact review
-packet. The dashboard shows the candidate as a pending side branch and pairs
-each private G3 score with G2 on the same seeds; it never silently turns a
-pending candidate into a survivor.
+G3 is the last promotion with a human originator signature (Deve Luse;
+signature identity `knight2`). Later candidates can be developed on independent
+machines and submitted by PR with complete model, data, interaction and trial
+provenance; see [distributed trials](learn/DISTRIBUTED_TRIALS.md). The
+[ancestor gate](../toddler/learn/ancestor_gate.py) re-evaluates every surviving
+ancestor on matched hidden seeds, enforces retention of mastered tasks and
+requires two unchanged-weight, independent trials against both the strongest
+ancestor and a matched control. A PR merge records a contribution; a passing
+independent audit records a survivor.
 
 ## Quotients
 

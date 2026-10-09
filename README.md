@@ -23,7 +23,7 @@ The ClaudeClaw agent definition (`agents/toddler/`) lives on a local, unpublishe
 | `toddler/learn/pbt.py` | Population-based training: members keep a TrainState, exploit copies weights + optimiser of the best, explore multiplies lr / ent_coef by 0.8 or 1.2; pre-registered test on DoorKey-5x5 is NULL (p 0.091, PR #21) | 11, 14 |
 | `toddler/quotients.py` | IQ / EQ / FQ quotients (operational metrics named by analogy, not human IQ/EQ): 100 + 15 z against a frozen reference generation with a task/seed/anchor fingerprint, bootstrap CI on IQ; FQ = physical quotient; Toddler scored on IQ+EQ+FQ, Genie on IQ only | 2, 3, 18 |
 | `toddler/learn/benchmark.py` | Generation benchmarks per hardware configuration: quality on CPU (hardware-independent, checked against the training record), efficiency (latency, throughput, GPU energy) only where the governor allows it now; skipped configurations reported with reason. Chain: `scripts/build_generations.py` (weights to `$TODDLER_GENERATIONS_ROOT`, outside git) then `scripts/benchmark_generations.py` | 6, 11 |
-| `toddler/learn/routing.py` | Frozen task-expert successors: complete source networks per task, hash-checked generation loading and a public-state CPU cost probe; G3-recombined is review-eligible, not the official generation | 6, 11, 14 |
+| `toddler/learn/routing.py` | Frozen task-expert successors: complete source networks per task, hash-checked generation loading and a public-state CPU cost probe; G3-recombined survived the signed lineage review | 6, 11, 14 |
 | `toddler/provenance.py` | Source and consent register: no synthetic data, consent for data about people | 1, 22 |
 | `toddler/specialize.py` | Roles, company guardrails, Jev questions, experts and mixture-of-models routing; safety is monotonic (add, never remove or duplicate) | 13, 20 |
 | `toddler/audit.py` | Hash-chained, immutable audit trail with JSONL persistence, secret redaction, prune anchor and scoped views | 2, 25 |
@@ -78,13 +78,11 @@ Without a chat: `python3 -m toddler.learn.play episode G1/t1001 doorkey5 --seed 
 
 The [G3-recombined runtime review](docs/learn/G3_RUNTIME_BENCHMARK_20261009.md)
 records the two secret-seed confirmations separately from an operational CPU
-probe. The official lineage remains G2 until the review packet is signed;
-the probe verifies frozen source weights and measures latency and storage,
-without opening secret seeds or judging answer quality.
-The [survivor import procedure](docs/learn/G3_SURVIVOR_IMPORT.md) verifies
-both frozen trials, shows the review-eligible candidate separately on the
-dashboard, and requires a trusted human signature before importing it into
-the official lineage.
+probe. The probe verifies frozen source weights and measures latency and
+storage, without opening secret seeds or judging answer quality. The
+[signed survivor decision](docs/learn/G3_PROMOTION_20261009.md) records the
+five imported children, verified lineage, remaining limitations and
+[development report](docs/learn/reports/G3-recombined_ontwikkelverslag.pdf).
 
 ## Software-agent benchmark integration
 
@@ -105,6 +103,21 @@ after that pack closed and is absent from its role tables.
 - The capability `ATLAS` in `toddler/structure.py` lists regions that have no code yet (`perception.*`, `actuation`). `toddler/codegraph.py` (mapping step B) emits module-graph edges from the real repository: static imports between atlas regions, sizes in lines, empty regions kept at zero; `scripts/module_graph.py` measures committed revisions into `docs/design/module_graph.json`. Execution-path tracing with stop criteria (mapping row 7) is still planned.
 - See issue #1 for the open review items.
 
+## Distributed development
+
+Anyone can propose a stronger Toddler through a fork and pull request. See
+[CONTRIBUTING.md](CONTRIBUTING.md) for the required reproducible recipe, model
+and interaction disclosure, contributor trials, and the independent hidden
+ancestor audit. The G3 promotion was the final originator-signed pivot by
+Deve Luse; later promotions use preregistered audit trials and lineage
+verification. A merged trial PR does not itself create a survivor. Contributors
+with repository merge access may merge their own passing PRs; everyone else
+uses maintainer review.
+
 ## Licence
 
-Proprietary: copyright VirtualV Holding B.V., all rights reserved (see `LICENSE`). Use only under a written agreement. The Wikipedia extracts in `data/corpus/` stay under CC BY-SA 4.0 (attribution per file).
+Original source code, documentation and generated reports in this repository
+are Apache-2.0; see [LICENSE](LICENSE) and [NOTICE](NOTICE). Wikipedia extracts
+in `data/corpus/` remain CC BY-SA 4.0 with attribution in each file. External
+trained weights, private datasets and third-party models are not distributed
+or relicensed by this repository.
