@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Van brein naar AI — Toddler</title>
+<meta name="description" content="Een toegankelijke uitleg van zenuwcellen, leren, voorspellen en belonen — en de theoretische verbanden met neurale netwerken, taalmodellen en AI-agenten.">
+<style>
+  :root {
+    --bg: #fffaf2; --card: #fff; --ink: #2b2a33; --muted: #625f6e;
+    --line: #e9e1d5; --sky: #25668c; --leaf: #197a70; --sun: #b66d00;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #1d1b24; --card: #292632; --ink: #f3efe6; --muted: #c2bdca;
+      --line: #474250; --sky: #8fc6e9; --leaf: #78d2c3; --sun: #ffc36e; }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+    font: 18px/1.65 "Segoe UI", system-ui, sans-serif; }
+  main { max-width: 940px; margin: auto; padding: 24px 18px 70px; }
+  a { color: var(--sky); }
+  a:focus-visible { outline: 3px solid var(--sun); outline-offset: 3px; }
+  nav { display: flex; flex-wrap: wrap; gap: 9px; }
+  nav a { display: inline-block; border: 2px solid var(--line); border-radius: 999px;
+    padding: 5px 15px; text-decoration: none; font-weight: 700; color: var(--ink); }
+  nav a[aria-current="page"] { border-color: var(--sky); color: var(--sky); }
+  header { padding: 35px 0 10px; }
+  .eyebrow { color: var(--leaf); font-weight: 800; letter-spacing: .06em; text-transform: uppercase; font-size: .82rem; }
+  h1 { font-size: clamp(2.15rem, 5vw, 3.6rem); line-height: 1.14; margin: 10px 0 14px; }
+  h2 { font-size: 1.65rem; line-height: 1.25; margin: 48px 0 12px; }
+  h3 { font-size: 1.12rem; margin: 0 0 6px; }
+  p { margin: 0 0 17px; }
+  .lead { max-width: 730px; font-size: 1.17rem; color: var(--muted); }
+  .note { color: var(--muted); font-size: .95rem; }
+  .intro { border-left: 5px solid var(--leaf); padding: 8px 0 8px 18px; margin: 20px 0 30px; }
+  .intro p { margin: 0; }
+  .loop { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; margin: 22px 0 10px; }
+  .step { border: 2px solid var(--line); background: var(--card); border-radius: 16px; padding: 15px 11px; min-height: 124px; }
+  .step strong { display: block; line-height: 1.25; }
+  .step small { display: block; margin-top: 6px; color: var(--muted); line-height: 1.4; }
+  .step b { color: var(--leaf); font-size: 1.25rem; }
+  @media (max-width: 680px) { .loop { grid-template-columns: 1fr; } .step { min-height: auto; } }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+  .card { background: var(--card); border: 2px solid var(--line); border-radius: 18px; padding: 19px; }
+  .card p:last-child { margin-bottom: 0; }
+  .tablewrap { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; min-width: 620px; }
+  th, td { text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); padding: 11px; }
+  th { background: var(--card); }
+  .boundary { background: var(--card); border: 2px solid var(--sun); border-radius: 18px; padding: 20px; margin-top: 26px; }
+  .boundary p:last-child { margin-bottom: 0; }
+  details { border: 2px solid var(--line); border-radius: 14px; background: var(--card); padding: 11px 16px; margin: 10px 0; }
+  summary { cursor: pointer; font-weight: 700; }
+  details p { margin: 9px 0 0; }
+  footer { border-top: 1px solid var(--line); margin-top: 48px; padding-top: 22px; font-size: .94rem; }
+  footer li { padding-bottom: 7px; }
+</style>
+</head>
+<body>
+<main>
+<nav aria-label="Toddler-pagina's">
+  <a href="/toddler/">Uitleg &amp; dashboard</a>
+  <a href="/toddler/neurowetenschap.html" aria-current="page">Brein &amp; AI</a>
+  <a href="/teacher/">Teacher</a>
+</nav>
+
+<header>
+  <div class="eyebrow">Een gids voor nieuwsgierige mensen</div>
+  <h1>Van brein naar AI</h1>
+  <p class="lead">Een brein leert van ervaring. Een neuraal netwerk leert ook, maar op een andere manier. Hoe komen we van zenuwcellen bij taalmodellen en agenten terecht? Deze pagina volgt de ideeën stap voor stap.</p>
+</header>
+
+<div class="intro">
+  <p><strong>De belangrijkste grens:</strong> kunstmatige neurale netwerken zijn wiskundige modellen die deels door de biologie zijn geïnspireerd. Een LLM is geen digitaal brein, en een agent is geen zelfstandig organisme. De overeenkomsten helpen ons vragen stellen; ze bewijzen geen biologische gelijkheid.</p>
+</div>
+
+<h2 id="leerkring">Eén leerkring, verschillende machines</h2>
+<p>Bij leren komt informatie binnen, een systeem maakt een verwachting of keuze, en de uitkomst kan later tot bijstelling leiden. Wat precies verandert, verschilt sterk tussen een mens, een getraind model en een agent die een model gebruikt.</p>
+<div class="loop" role="list" aria-label="Vijf stappen van een leerkring">
+  <div class="step" role="listitem"><b>1 →</b><strong>Waarnemen</strong><small>Een beeld, geluid, tekst of speltoestand komt binnen.</small></div>
+  <div class="step" role="listitem"><b>2 →</b><strong>Patroon vinden</strong><small>Verbanden met eerdere ervaringen worden benut.</small></div>
+  <div class="step" role="listitem"><b>3 →</b><strong>Verwachten of kiezen</strong><small>Wat volgt waarschijnlijk? Wat doen we nu?</small></div>
+  <div class="step" role="listitem"><b>4 →</b><strong>Uitkomst controleren</strong><small>De verwachting of handeling wordt getoetst.</small></div>
+  <div class="step" role="listitem"><b>5 ↺</b><strong>Bijstellen</strong><small>Alleen wanneer er echt een leerproces plaatsvindt.</small></div>
+</div>
+<p class="note">Bij een gewone chat veranderen de gewichten van een LLM meestal niet. Het gesprek kan wel tijdelijk extra context geven. Pas een aparte training past de gewichten aan.</p>
+
+<h2 id="verbindingen">1. Zenuwcellen en kunstmatige netwerken</h2>
+<div class="grid">
+  <div class="card"><h3>In het brein</h3><p>Zenuwcellen communiceren via elektrische activiteit en chemische verbindingen. Die verbindingen kunnen door ervaring veranderen. In een klassiek experiment bleef de overdracht in een deel van de hippocampus sterker na herhaalde stimulatie. Dat verschijnsel heet <em>langetermijnpotentiëring</em>. <a href="#bron-bliss">[1]</a></p></div>
+  <div class="card"><h3>In de computer</h3><p>Een kunstmatig netwerk rekent met getallen en verstelbare gewichten. Tijdens training vergelijkt het een uitkomst met een doel en past het gewichten aan. <em>Backpropagation</em> berekent hoe een fout door een netwerk terugwerkt. Het is een efficiënt algoritme, geen bewezen beschrijving van hoe alle hersenen leren. <a href="#bron-rumelhart">[2]</a></p></div>
+</div>
+<p>De bruikbare overeenkomst is dat veranderbare verbindingen gedrag kunnen beïnvloeden. Een biologische synaps is veel rijker dan één getal; een kunstmatige eenheid is veel eenvoudiger dan een levende zenuwcel.</p>
+
+<h2 id="voorspellen">2. Voorspellen: van beeld naar volgend woord</h2>
+<p>Een invloedrijke theorie over zien stelt dat hogere hersengebieden verwachtingen doorgeven en lagere gebieden het verschil tussen verwachting en waarneming terugmelden. Dit is een <em>model</em> voor bepaalde verschijnselen in de visuele schors, geen volledige theorie van het brein. <a href="#bron-rao">[3]</a></p>
+<p>Een taalmodel oefent meestal op een andere voorspelvraag: <em>welk stukje tekst komt hierna?</em> In “De kat drinkt uit de …” zijn sommige vervolgen waarschijnlijker dan andere. Door op veel tekst te trainen leert het model relaties tussen woorden, zinnen en onderwerpen. Een vloeiend antwoord garandeert nog niet dat het antwoord waar is. <a href="#bron-brown">[4]</a></p>
+<p>Beide systemen gebruiken voorspelling als nuttig idee. Het brein voorspelt daarmee niet letterlijk steeds het volgende teksttoken; het LLM ziet bij teksttraining geen wereld zoals een mens die ervaart.</p>
+
+<h2 id="aandacht">3. Waarom heet een transformer “attention”?</h2>
+<p>In een transformer bepaalt <em>attention</em> welke posities in de ingevoerde reeks voor een berekening meetellen. Bij “Sam gaf Alex zijn boek” kan het systeem eerdere woorden meewegen om “zijn” te verwerken. De oorspronkelijke transformer gebruikte dit mechanisme als kern van een taalverwerkingsmodel. <a href="#bron-transformer">[5]</a></p>
+<div class="boundary">
+  <h3>Een naam is nog geen hersenmechanisme</h3>
+  <p>“Attention” in software is een berekende weging tussen gegevens. Menselijke aandacht omvat waarneming, doelen, lichaam en omgeving. Dat het woord hetzelfde is, betekent niet dat een transformer aandacht ervaart of dezelfde hersencircuits gebruikt.</p>
+</div>
+
+<h2 id="beloning">4. Beloning helpt kiezen</h2>
+<p>Bij bepaalde proeven met dieren verandert de activiteit van dopaminecellen wanneer een beloning anders uitpakt dan verwacht. Dat lijkt wiskundig op een <em>voorspellingsfout voor beloning</em>: verrassend beter, zoals verwacht of verrassend slechter. Dopamine is daarmee niet simpelweg een “geluksstof”. <a href="#bron-schultz">[6]</a></p>
+<p>Een lerende softwareagent kan een taak proberen, punten of feedback ontvangen en zijn beleid tijdens training aanpassen. Toddler doet dat in afgebakende spelomgevingen met een meetbaar beleid. Een LLM dat prettig antwoordt, is daarmee nog niet automatisch een agent die door elke chat opnieuw leert; instructieafstemming is een afzonderlijke trainingsstap. <a href="#bron-instruct">[7]</a></p>
+
+<h2 id="agent">5. Van taalmodel naar agent</h2>
+<p>Een LLM kan een antwoord formuleren. Een <strong>agent</strong> is de software eromheen die een doel bewaakt, een hulpmiddel gebruikt, het resultaat leest en zo nodig een volgende stap kiest. Onderzoek naar ReAct laat zien hoe taal en handelingen in één lus kunnen worden afgewisseld. Dat is een ontwerp voor computersystemen, geen bewijs dat ze menselijk denken bezitten. <a href="#bron-react">[8]</a></p>
+<div class="tablewrap">
+  <table>
+    <thead><tr><th>Systeem</th><th>Wat gebeurt er tijdens gebruik?</th><th>Wanneer verandert het geleerde beleid?</th></tr></thead>
+    <tbody>
+      <tr><td>Brein</td><td>Neurale activiteit, lichaam en omgeving beïnvloeden elkaar.</td><td>Op meerdere biologische tijdschalen; afhankelijk van ervaring en toestand.</td></tr>
+      <tr><td>Getraind LLM</td><td>Het genereert tekst uit prompt en context.</td><td>Bij aparte training; een nieuw gesprek verandert de modelgewichten doorgaans niet.</td></tr>
+      <tr><td>Agent met LLM</td><td>Het gebruikt bijvoorbeeld zoekwerk, code of een spelinterface en leest de uitkomst.</td><td>De lus kan plannen of geheugen bijwerken; gewichten veranderen alleen met een expliciet leerproces.</td></tr>
+      <tr><td>Toddler G3</td><td>Een vaste route kiest per taak een bestaande expert.</td><td>De officiële G3-toets combineerde bevroren gewichten; er was geen nieuwe trainingsstap.</td></tr>
+    </tbody>
+  </table>
+</div>
+<p class="note">Lees op het <a href="/toddler/#dashboard">Toddler-dashboard</a> wat G3 werkelijk haalde en wat nog niet is opgelost. Een eventuele volgende generatie moet op nieuwe, afgeschermde proeven beter blijken dan haar voorouders.</p>
+
+<h2 id="vragen">Drie vragen die vaak terugkomen</h2>
+<details><summary>“Kan een LLM iets weten als het alleen het volgende woord leerde voorspellen?”</summary><p>Het model kan bruikbare verbanden uit tekst leren en daarmee vragen oplossen. Voorspeltraining alleen geeft geen garantie op juiste feiten of begrip zoals bij een mens. Daarom blijven broncontrole en nieuwe toetsen nodig.</p></details>
+<details><summary>“Leert de agent automatisch van elke fout?”</summary><p>Niet vanzelf. Een agent kan een fout in de lopende taak herstellen of een notitie opslaan. Duurzaam ander modelgedrag vraagt om een bewust ontworpen leerstap en een aparte toets.</p></details>
+<details><summary>“Is Toddler een simulatie van een kinderbrein?”</summary><p>Nee. De naam verwijst naar stapsgewijs leren. Toddler gebruikt spelomgevingen, neurale beleidsmodellen, taakroutering en evaluatie; het is geen neurobiologisch model van een kind.</p></details>
+
+<footer>
+  <h2 id="bronnen">Bronnen om verder te lezen</h2>
+  <p>Bronnen 1, 3 en 6 gaan over biologische waarneming en leren; de andere beschrijven computeralgoritmen. De bruggen hierboven zijn uitleg en hypothese, geen claim dat beide systemen hetzelfde werken.</p>
+  <ol>
+    <li id="bron-bliss"><a href="https://pubmed.ncbi.nlm.nih.gov/4727084/">Bliss &amp; Lømo (1973)</a> — langetermijnpotentiëring in de hippocampus.</li>
+    <li id="bron-rumelhart"><a href="https://doi.org/10.1038/323533a0">Rumelhart, Hinton &amp; Williams (1986)</a> — leren met backpropagation.</li>
+    <li id="bron-rao"><a href="https://pubmed.ncbi.nlm.nih.gov/10195184/">Rao &amp; Ballard (1999)</a> — voorspellende codering als model voor de visuele schors.</li>
+    <li id="bron-brown"><a href="https://arxiv.org/abs/2005.14165">Brown et al. (2020)</a> — autoregressieve taalmodellen en voorbeelden in context.</li>
+    <li id="bron-transformer"><a href="https://arxiv.org/abs/1706.03762">Vaswani et al. (2017)</a> — de transformerarchitectuur.</li>
+    <li id="bron-schultz"><a href="https://pubmed.ncbi.nlm.nih.gov/9054347/">Schultz, Dayan &amp; Montague (1997)</a> — dopamine en voorspellingsfouten voor beloning.</li>
+    <li id="bron-instruct"><a href="https://arxiv.org/abs/2203.02155">Ouyang et al. (2022)</a> — taalmodellen afstemmen met menselijke feedback.</li>
+    <li id="bron-react"><a href="https://arxiv.org/abs/2210.03629">Yao et al. (2022)</a> — taalmodellen die redenering en acties afwisselen.</li>
+  </ol>
+  <p class="note">Deze pagina is een publieksuitleg, bijgewerkt op 9 oktober 2026. <a href="https://github.com/virtuanalytica/toddler">Broncode en bijdragen</a>.</p>
+</footer>
+</main>
+</body>
+</html>
