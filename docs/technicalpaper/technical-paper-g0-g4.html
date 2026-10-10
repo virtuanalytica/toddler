@@ -1,0 +1,484 @@
+<!DOCTYPE html><html lang="nl"><head><meta charset="utf-8"><title>Toddler · technische paper G0–G4</title><style>
+@page {
+  size: A4;
+  margin: 18mm 17mm 18mm 17mm;
+  background: #f7f9f7;
+  @top-left { content: "VIRTUANALYTICA  /  TODDLER"; color: #53747c; font: 8pt "DejaVu Sans"; letter-spacing: 1pt; }
+  @bottom-left { content: "Technical paper · G0–G4 · 11 oktober 2026"; color: #53747c; font: 8pt "DejaVu Sans"; }
+  @bottom-right { content: counter(page); color: #53747c; font: 9pt "DejaVu Sans"; }
+}
+@page:first { @top-left { content: ""; } @bottom-left { content: ""; } @bottom-right { content: ""; } }
+* { box-sizing: border-box; }
+body { font: 9.4pt/1.51 "DejaVu Sans", sans-serif; color: #173244; }
+.hero { min-height: 255mm; padding: 4mm 0; position: relative; }
+.hero .brand img { width: 100%; max-height: 32mm; margin: 0 0 36mm; }
+.hero h1 { font: bold 34pt/1.1 "DejaVu Sans", sans-serif; color: #112b3d; letter-spacing: -1pt; border-left: 7pt solid #2da78f; padding-left: 12pt; margin-bottom: 18mm; }
+.hero p { color: #486878; font-size: 11pt; line-height: 1.6; }
+.hero .mark img { width: 70%; max-height: 100mm; margin: 25mm auto 0; }
+h2 { break-before: page; break-after: avoid; color: #102d40; font: bold 18pt/1.2 "DejaVu Sans", sans-serif; border-bottom: 2pt solid #69c6b1; padding-bottom: 7pt; margin: 0 0 13pt; }
+h3 { color: #176277; font-size: 12pt; break-after: avoid; }
+p { margin: 0 0 9pt; orphans: 3; widows: 3; }
+strong { color: #112b3d; }
+code { font: 8pt/1.35 "DejaVu Sans Mono", monospace; background: #e8f1ee; padding: 1pt 2pt; overflow-wrap: anywhere; }
+pre { background: #122e3c; color: #edf7f3; padding: 12pt; font-size: 7.6pt; line-height: 1.35; white-space: pre-wrap; overflow-wrap: anywhere; break-inside: avoid; }
+pre code { color: inherit; background: none; padding: 0; }
+table { border-collapse: collapse; width: 100%; margin: 12pt 0 16pt; font-size: 7.4pt; }
+th { background: #153e4f; color: #fff; padding: 6pt; text-align: left; }
+td { border-bottom: .5pt solid #c8d9d4; padding: 5pt 6pt; vertical-align: top; overflow-wrap: anywhere; }
+tr:nth-child(even) td { background: #eaf2ef; }
+tr { break-inside: avoid; }
+ul, ol { padding-left: 18pt; }
+li { margin-bottom: 4pt; }
+a { color: #087784; text-decoration: none; overflow-wrap: anywhere; }
+main img { display: block; max-width: 100%; max-height: 130mm; object-fit: contain; margin: 13pt auto 18pt; }
+blockquote { border-left: 4pt solid #c99b4b; padding: 10pt; background: #eff3e9; }
+@media screen { body { width: 210mm; margin: auto; padding: 18mm; background: #f7f9f7; box-shadow: 0 0 18px #cbd7d2; } }
+</style></head><body><section class="hero"><div class="brand"><img alt="Virtuanalytica logo" src="../businessplan/assets/virtuanalytica-logo.svg" /></div>
+<h1>Toddler: architectuur, leren en bewijs tot G4</h1>
+<p><strong>Technische paper · versie 0.1 · 11 oktober 2026</strong><br />
+<strong>Scope:</strong> codebase <code>virtuanalytica/toddler</code>, externe Teacher- en Knitweb-componenten, officiële RL-generaties en kennisgraaf.<br />
+<strong>Status:</strong> implementeerde functies en gemeten resultaten zijn gescheiden van prototypes en onderzoeksvoorstellen.</p>
+<div class="mark"><img alt="Toddler-merkbeeld" src="../businessplan/assets/toddler-mark.svg" /></div>
+</section><main><h2>Abstract</h2>
+<p>Toddler is een bestuurbare leeragent met harde STOP-regels, een beslisfunctie waarin beloning, kosten en risico worden gewogen, versiebeheerde policies, bron- en auditregistratie en een onafhankelijke promotiepoort. De RL-lijn begon met een CartPole-controleproef, breidde in G1 uit naar vier taken, in G2 naar negen taken, verving mislukte monolithische G3-varianten door een bevroren taakexpert-router en promoveerde op 11 oktober 2026 een oudergebonden G4-search-cohort voor navigatie. Dit bewijst geen algemeen intellect, software-ambacht of fysieke autonomie. De cognitieve G4-kop, JEV/CLM-reflex en mixture of models zijn afzonderlijke subsystemen met aparte meetgrenzen.</p>
+<p>De paper beschrijft modules, train- en evaluatiedata, hashes, lineage, private toetsisolatie, de 10.000-adressen-capabilityatlas, LightRAG/GitNexus en een ontwikkelaarsroute om de publieke delen te reproduceren. Geheime toetsseeds en gewichten staan buiten Git; een clone kan het protocol en codepad reproduceren, maar niet de officiële private uitkomst herhalen zonder de onafhankelijke evaluator.</p>
+<h2>1. Claimgrenzen en systeemdoel</h2>
+<p>De beleidsfunctie van <code>toddler/objective.py</code> kiest een actie onder harde STOP-beperkingen. Het ontwerp gebruikt de vorm <code>U(a) = E[reward] + w_profit·E[profit] − w_energy·J − w_compute·€ − w_risk·P(failure)·severity</code>. Beloningsschalen en gewichten zijn geen bewezen optimale parameters. <code>toddler/stop.py</code> voert veto's uit vóór deze vergelijking. Een taakantwoord is niet “voltooid” alleen omdat de policy dat zegt; een verifier of klant moet het bevestigen.</p>
+<p>Het project heeft drie strikt verschillende prestatievragen:</p>
+<ol>
+<li><strong>Navigatiepolicy:</strong> slaagt een agent op nieuwe MiniGrid- en Gymnasium-seeds, met behoud van voorouders?</li>
+<li><strong>Cognitieve of LLM-laag:</strong> verbetert hij taal, rekenen of modelroutering op onafhankelijke items, bij meetbare latency en energie?</li>
+<li><strong>Werkagent:</strong> levert Toddler + Teacher + specialist beter geaccepteerd werk dan de bestaande werkwijze, tegen lagere controlelast of kosten?</li>
+</ol>
+<p>Alleen de eerste vraag heeft een officiële G4-promotie. Een openbaar ontwikkelresultaat mag niet naar de andere twee vragen worden vertaald. Ook de 10.000 capability-adressen zijn opslaglocaties voor leerstof, geen verworven bekwaamheden.</p>
+<h2>2. Runtime-engineeringdiagram</h2>
+<p><img alt="Architectuur van input, veto, router, uitvoering en verificatie" src="assets/brain-stack.svg" /></p>
+<table>
+<thead>
+<tr>
+<th>Laag</th>
+<th>Concrete code</th>
+<th>Werkelijke rol en grens</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Invoer en herkomst</td>
+<td><code>toddler/provenance.py</code>, <code>config.py</code></td>
+<td>Bron- en consentregels; <code>toddler-config/v1</code></td>
+</tr>
+<tr>
+<td>Hard veto</td>
+<td><code>toddler/stop.py</code>, <code>fastpath.py</code></td>
+<td>STOP vóór optimalisatie; fysieke actuatorroute is toekomstwerk</td>
+</tr>
+<tr>
+<td>Kosten en doel</td>
+<td><code>objective.py</code>, <code>resources.py</code>, <code>business.py</code></td>
+<td>Beslisgewichten, hostinventaris en resource-governor; geen gerealiseerde bedrijfswinst</td>
+</tr>
+<tr>
+<td>RL-policy</td>
+<td><code>learn/multitask.py</code>, <code>learn/routing.py</code></td>
+<td>G1/G2 gedeelde trunk met taakspecifieke koppen; G3/G4 bevroren taakexpert-bank</td>
+</tr>
+<tr>
+<td>Taal en reflex</td>
+<td><code>model_mixture_search.py</code>, <code>clm.py</code>, <code>jev.py</code>, <code>reflex_shadow.py</code></td>
+<td>Modelkeuze en schaduwvergelijking; geen CLM-actuatorpad</td>
+</tr>
+<tr>
+<td>Gedistribueerd</td>
+<td><code>relay.py</code>, <code>_knitweb.py</code>, <code>knowledge/publish.py</code></td>
+<td>Lokale/peer-keuze, sampled verification, ongetekende synaptic bundle</td>
+</tr>
+<tr>
+<td>Evaluatie/audit</td>
+<td><code>evaluation.py</code>, <code>work_pilot.py</code>, <code>audit.py</code></td>
+<td>Onafhankelijke scores, gepaarde werkpilots en hashketen</td>
+</tr>
+</tbody>
+</table>
+<p>Een leraar mag een nieuwe kandidaat bouwen, maar wijzigt de officiële policy pas na een bevroren onafhankelijke toets en geverifieerde lineage. Het operationele chatmodel via VirtualV/OMP kan RL-tools uitleggen, maar is niet hetzelfde netwerk als de MiniGrid-policy. Qwen 3.8 TP2 en andere GPU-modellen horen bij een aparte mixture-of-model-runtime. De verbindingsvlakken zijn toolcalls, routeringsbeleid en auditvelden; een navigatiescore zegt niets over hun antwoordkwaliteit.</p>
+<h2>3. Generatiekaart en status</h2>
+<p><img alt="Tijdlijn van G0 tot G4 en mislukte zijtakken" src="assets/generation-lineage.svg" /></p>
+<table>
+<thead>
+<tr>
+<th>Fase</th>
+<th>Implementatie</th>
+<th>Reproduceerbare uitkomst</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>gen-0</code> / <code>gen-1</code></td>
+<td>CartPole PPO; generatie 1 kloneert beste oudergedrag en vervolgt PPO</td>
+<td>gen-0 IQM 0,535; gen-1 IQM 0,310; p=0,7897; P(winst)=0,36</td>
+<td><code>gen-1</code> niet gepromoveerd</td>
+</tr>
+<tr>
+<td>G1</td>
+<td>5 <code>MultiTaskNet</code>-kinderen, vier taken, 150k stappen/taak</td>
+<td>referentie-IQ raw 1,0575; ontwikkelresultaat</td>
+<td>bevroren referentie</td>
+</tr>
+<tr>
+<td>G2</td>
+<td>G1-overdracht versus scratch; vijf extra taken</td>
+<td>nieuwe-taken private IQM 0,5426 (inherit) versus 0,7571 (scratch); <code>unlockpickup</code> 0</td>
+<td>officiële ouderlijn voor G3</td>
+</tr>
+<tr>
+<td>G3-sp / trunk / scratch</td>
+<td>drie erfenisvarianten</td>
+<td>geen variant passeerde voorouderpoort; <code>unlockpickup</code> 0</td>
+<td>uitgestorven zijtakken, experts bewaard</td>
+</tr>
+<tr>
+<td>G3-recombined</td>
+<td>bevroren router over volledige bronnetwerken</td>
+<td>0,9458 / 0,9468 versus gematchte G2 0,8115 / 0,8120 op twee geheime sets</td>
+<td><code>survived</code>, getekende import</td>
+</tr>
+<tr>
+<td>G4-oracle</td>
+<td>oudergebonden <code>unlockpickup</code>-expert</td>
+<td>eerste geheime set p=0,05804 faalde, tweede p=0,03746 slaagde</td>
+<td>geen promotie</td>
+</tr>
+<tr>
+<td>G4-search</td>
+<td>vijf bevroren kinderen, nieuwe publieke 50+50 splits, twee private 30-seedsets</td>
+<td>officiële status <code>promoted</code>, lineage geverifieerd</td>
+<td>opvolger voor navigatie</td>
+</tr>
+</tbody>
+</table>
+<p>De vroege <code>gen-0/1</code> CartPole-proef en de later benoemde G1 zijn verschillende experimentfamilies. Hun IQ-quotienten gebruiken verschillende bevroren referentiefingerprints. Een cijfer uit de ene familie is niet direct vergelijkbaar met een score op negen G4-taken.</p>
+<h2>4. G0/G1: actor-critic en gedeelde representatie</h2>
+<p><code>scripts/build_generations.py</code> bouwt <code>gen-0</code> als vijf PPO-policies met elk 150.000 omgevingsstappen op CartPole. De beste per-run score kiest een leraar; <code>gen-1</code> gebruikt 10.000 behavior-cloningstappen en 140.000 PPO-stappen per kind. De oude methode had <code>scale_rewards=False</code>. De afgesloten vergelijking gaf geen promotie. Het <code>gen-0</code>-referentiebestand heeft een fingerprint over taak, eval-seeds, random-anker en solve-drempel; <code>Registry.freeze_reference</code> weigert een stilzwijgende andere referentie.</p>
+<p>G1 is een andere, interleaved multi-task run: vijf kinderen, vier taken (<code>cartpole</code>, <code>acrobot</code>, <code>empty5</code>, <code>doorkey5</code>), elk 150.000 stappen per taak in blokken van 15.000, geschaalde rewards, <code>sample</code>-evaluatie. <code>MultiTaskNet</code> heeft een gedeelde trunk, per taak een inputadapter en per taak aparte policy- en value-heads. Zo is er gedeeltelijke transfer mogelijk zonder verschillende actieruimten tot één uniforme uitvoer te dwingen. De rapportage geeft een trainingstijd van 375,7 s op de toen gemeten host; dit is geen gegarandeerde reproduceertijd.</p>
+<p>Elke run bewaart een <code>weights.pt</code> met netwerk-<code>spec</code> en <code>state_dict</code>, plus <code>meta.json</code> met ouders, seed, taak, score, versies, hardware en SHA-256 van de gewichten. Checkpoints zijn bedoeld voor hervatting en audit. De hashdetectie beschermt tegen beschadiging en onbedoelde edits; <code>meta.json</code> is zelf niet ondertekend, dus een kwaadwillende beheerder wordt hiermee niet uitgesloten.</p>
+<h2>5. G2: overdracht versus opnieuw beginnen</h2>
+<p>G2 voegt <code>doorkey8</code>, <code>unlock</code>, <code>unlockpickup</code>, <code>keycorridor3</code> en <code>lavacross9</code> toe. De vier oude taken behouden 150.000 stappen; de vijf nieuwe elk 1.000.000. Training gebeurt in blokken van 25.000 stappen, evaluatie met sampled acties. Een G1-netwerk wordt geërfd of een even grote G2-scratch-variant wordt nieuw getraind. Beide worden op dezelfde gepubliceerde ontwikkel- en afzonderlijke verborgen seedfamilies beoordeeld.</p>
+<p>De geërfde G2 deed het op de vijf nieuwe taken slechter dan scratch in de private cijfers: IQM 0,5426 versus 0,7571. Dit is een echte negatieve uitkomst van deze overdrachtstrategie. <code>unlockpickup</code> bleef voor beide op 0,0. De G2-gegevens bewijzen daarmee niet dat meer erfenis altijd beter is; ze motiveerden een router die per taak een geschikt bevroren expert kan kiezen, met behoud van oude vaardigheden.</p>
+<p>De taakconfiguratie staat in <code>toddler/learn/tasks.py</code>: publieke evaluatieseeds 10.000–10.029, geheime band 100.000–999.999 en trainingsseeds vanaf 1.000.000. <code>train_seed</code> trekt alleen uit de trainingsband. <code>normalise</code> rekent <code>(return − random_anchor)/(solve_threshold − random_anchor)</code>; de random-ankers worden deterministisch per taak en seeds berekend. Waarden boven 1 kunnen voorkomen, omdat de policy de vooraf gekozen solve-drempel overtreft.</p>
+<h2>6. G3: mislukte erfenisvarianten en succesvolle recombinatie</h2>
+<p>G3-sp, G3-trunk en G3-scratch werden met dezelfde negen taken vergeleken. Hun eigen promotievelden in <code>generation_g3_report.json</code> waren negatief: G3-sp had p≈0,155 en P(winst)=0,72; G3-trunk p≈0,274 en P(winst)=0,64. Geen variant voldeed aan de vooraf gekozen voorouderpoort. De afzonderlijke bronpolicies bleven waardevol als experts, maar niet als complete opvolger.</p>
+<p><code>G3-recombined</code> kiest daarom per taak <strong>een volledig netwerk</strong>, geen losse head op een incompatibele gedeelde trunk. Voor de vier oorspronkelijke taken blijft de exacte G2-expert van elk kind. Voor de vijf nieuwe taken kiest een bevroren algoritme een andere bronexpert alleen bij minstens 0,05 hoger publiek taakgemiddelde. Routes, 25 brongewichthashes, random-routercontrole en het private seedcommitment werden vóór beoordeling vastgelegd. Beide onafhankelijke geheime sets van 30 seeds gebruikten dezelfde bevroren kandidaten.</p>
+<table>
+<thead>
+<tr>
+<th>Toets</th>
+<th style="text-align: right;">G3-recombined</th>
+<th style="text-align: right;">Gematchte G2</th>
+<th style="text-align: right;">p tegen G2</th>
+<th style="text-align: right;">p tegen random-router</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Geheim 1</td>
+<td style="text-align: right;">0,9458</td>
+<td style="text-align: right;">0,8115</td>
+<td style="text-align: right;">0,00397</td>
+<td style="text-align: right;">0,01587</td>
+</tr>
+<tr>
+<td>Geheim 2</td>
+<td style="text-align: right;">0,9468</td>
+<td style="text-align: right;">0,8120</td>
+<td style="text-align: right;">0,00397</td>
+<td style="text-align: right;">0,02778</td>
+</tr>
+</tbody>
+</table>
+<p>De offline runtimeproef controleerde alle 25 bronhashes en mat bij DoorKey-8 op één CPU-thread 0,0580 ms per toestand tegen 0,0560 ms voor G2; de gewichten waren circa 5,03× groter. CPU-energie is niet gemeten. <code>unlockpickup</code> bleef op 0 in beide private sets. De getekende import op 9 oktober 2026 legde <code>survived</code> in de lineage vast. Het oorspronkelijke reviewbestand bleef bevroren; de menselijke toestemming was een afzonderlijk, hashgebonden SSH-bewijsstuk.</p>
+<h2>7. G4: training, selectie en private promotie</h2>
+<p>Teacher bouwde vijf aan G3-ouders gekoppelde kinderen. De zoekruimte bevatte G2-overdracht, voortzetting van G3 met verschillende budgetten, nieuwe netwerken met breedte 32 of 128, later eigen PPO-beloning en voortzetting van een gehashte vorige specialist. Een simulator-oracle toonde <code>unlockpickup</code> op <strong>trainingskaarten</strong> met toegang tot de omgevingstoestand; de student imiteerde alleen vanuit egocentrische observaties. De parent-policy en oude taakroutes werden niet in-place overschreven. De eerste kandidaat had een sterke openbare single-child-proef (45/50 op nieuwe ontwikkelkaarten), maar de eerste vijfkinderen-private trial passeerde slechts één van twee vereiste sets en werd dus geweigerd.</p>
+<p>De latere G4-search gebruikte een vooraf vastgelegd publiek selectieprotocol met verse, niet-overlappende 50 ontwikkel- en 50 controlekaarten. De publieke poort eiste vijf verbeterde kinderen, of vier verbeterde kinderen plus één <strong>ongewijzigde, aantoonbaar beheerste</strong> G3-ouder. Daarna werd precies één familie gereserveerd. Per private set kregen alle vijf kinderen en hun ouders dezelfde 30 seeds. De evaluator controleerde bevroren gewichten en scores, nam per seed het gemiddelde over vijf kinderen en negen taken en gebruikte een eenzijdige exacte gepaarde tekentoets. Beide onafhankelijke sets moesten p&lt;0,01, kans op verbetering ≥0,75, positieve gemiddelde gepaarde winst en behoud van oudere vaardigheden halen. Een mislukking verbruikt die familie; opnieuw proberen vraagt een nieuwe vooraf geregistreerde familie en nieuwe verborgen seeds.</p>
+<p>De lokale officiële status voor cohort <code>20261010T200500Z-4b2263</code> is <code>promoted</code>: vijf kinderen en <code>ledger_verified=true</code>, met protocol-SHA-256 <code>8ceab3ae60187ed77f4ac1fe3c7548eb29cf87d80e7a8f55ede1e8d2446ba671</code>. Het publieke statusbestand geeft geen ruwe geheime seeds of per-item-scores. De status ondersteunt alleen de geteste navigatie-opvolging. Hij rechtvaardigt geen claim over G4-cognitie, softwareagents, CLM-veiligheid of een G5.</p>
+<h2>8. Cognitie, Montessori en de Teacher</h2>
+<p><code>toddler/g4_curriculum.py</code> definieert twaalf kennisterreinen: basisrekenen, Engels, Nederlands, Kantonees, geschiedenis, aardrijkskunde, trivia, cultuur, manieren, puzzels, IQ-redeneren en EQ-sociale situaties. Daarnaast zijn er zes Montessori-geïnspireerde werkvormen. De generator levert publieke, deels handgeschreven en deels synthetische ontwikkelitems. In de aparte Teacher-codebase traint <code>teacher.g4_nightly</code> een TF-IDF-gebaseerde antwoordrangschikker naast de navigatiepolicy. De publiek gerapporteerde templates overlappen met training; hun score mag daarom alleen worden gebruikt om de pipeline te debuggen.</p>
+<p>De onafhankelijke cognitieve diagnose in <code>docs/learn/G4_COGNITIVE_HOLDOUT.md</code> geeft 22 juiste antwoorden op 54 items: 0,4074 exact juist, drie items per achttien categorieën. Dit is een kleine foutzoekproef, geen betrouwbaar gemiddelde voor algemene taal, onderwijs of cultureel begrip. Voor Cantonese beoordeling zijn taalvaardige menselijke beoordelaars en een apart schrift-/spraakprotocol nodig. Montessori is hier een taakontwerp, geen klinisch of pedagogisch effectbewijs. De unlock-en-pickup-taak behoort tot de navigatielijn; de cognitieve hoofden beheersen die taak niet vanzelf.</p>
+<p><strong>Teacher-loop:</strong> bevries bron en taakverdeling → ontwikkel kandidaat op publieke trainingsfamilie → noteer dataset- en gewichthashes → laat onafhankelijke evaluator nieuwe private items openen → vergelijk gepaard met ouder en nul-/scratchbaseline → beslis promotie → registreer fouten als nieuwe publieke leerdoelen zonder geheime promptinhoud te lekken. Nachtelijk trainen op dezelfde publieke prompts geeft geen onafhankelijke kwaliteitstoename. De Teacher kan lessen kiezen, maar mag de privétoets of diens scorecode niet aanpassen.</p>
+<h2>9. JEV, CLM en mixture of models</h2>
+<p>De reflexroute scheidt een deterministische STOP-veto van probabilistische schattingen. <code>toddler/jev.py</code> valideert een TypeSafe-respons; <code>toddler/fastpath.py</code> gebruikt vier risicovragen en laat een te late of ontbrekende schatting stoppen. De deadline voor het fysieke reflexpad is 20 ms. Dat is een productgrens, geen gemeten end-to-end hardwaregarantie. Sensor, netwerk, model en actuator moeten afzonderlijk binnen het budget worden getoetst voordat een fysieke toepassing denkbaar is.</p>
+<p><code>toddler/clm.py</code> en <code>toddler/reflex_shadow.py</code> bieden een CLM-schaduwpad. In <code>docs/G4_CLM_SHADOW.md</code> staat een lokale Qwen3-8B-encoderproef: koude start circa 400 ms, verse toestanden mediaan 98 ms, herhaalde gecachte toestand mediaan 5,1 ms; een gepaarde JEV-backend was toen niet beschikbaar. De 5,1 ms is een cacheherhaling, geen bewijs dat nieuwe zintuiglijke toestanden of de gehele reflex binnen 20 ms vallen. De CLM-uitkomst heeft daarom geen actuatorbevoegdheid. Het gedateerde hersenauditdocument uit 9 oktober beschrijft een oudere implementatiestand; raadpleeg code en de latere CLM-proef voor de huidige grens.</p>
+<p>De taalruntime kan Qwen3.8 Flash TP2, kleinere lokale modellen en specialisten routeren. Dat model is een externe LLM-service, niet de RL-policy en niet de CLM-reflex. <code>toddler/model_mixture_search.py</code> is een routeer- en onderzoekslaag. De private specialist-composite en anti-contaminatiebatterij worden beheerd in <code>virtualv_llm</code>; modelscore, token/s en GPU-board-Wh per antwoord zijn aparte kolommen. Een oracle-router op reeds bewaarde itemantwoorden geeft slechts een bovengrens; hij kan niet blind op toekomstige items kiezen. Een kandidaatmix moet de beste losse modelbaseline en een willekeurige router op een nieuwe toets verslaan voordat hij als betere basis wordt aangeduid.</p>
+<h2>10. Datamodel en bewijsgrenzen</h2>
+<p><img alt="Datamodel voor generatie, artefact, toets en werkacceptatie" src="assets/evidence-model.svg" /></p>
+<table>
+<thead>
+<tr>
+<th>Entiteit</th>
+<th>Minimale velden en sleutel</th>
+<th>Invariant</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ToddlerRecord</code></td>
+<td><code>generation</code>, <code>toddler_id</code>, <code>task</code>, <code>config</code>, <code>steps</code>, <code>parents</code>, <code>eval_scores</code>, <code>hardware</code>, <code>device_switches</code>, <code>weights_sha256</code>, <code>created_at</code>, <code>business</code>, <code>software</code>, <code>extra</code></td>
+<td><code>Registry.load</code> vergelijkt <code>weights.pt</code> met de opgeslagen hash; metadocument is zelf niet cryptografisch ondertekend</td>
+</tr>
+<tr>
+<td>Private trial</td>
+<td>cohort-ID, protocol-SHA, kandidaat- en ouderhashes, private setcommitments, evaluator, ruwe score buiten Git, verdict</td>
+<td>Kandidaten en regels staan vast vóór private ontsluiting; beide onafhankelijke sets moeten slagen</td>
+</tr>
+<tr>
+<td><code>WorkResult</code></td>
+<td>experiment-, set- en task-ID, bron, arm, worker-/verifier-ID, artefact-SHA, accepted, incident, reviewtijd, elapsed, eurokosten, GPU-board-Wh, systeem-kWh</td>
+<td>Bron is <code>sealed_private</code> of <code>customer_pilot</code>; worker ≠ verifier; exact dezelfde taak-ID's voor beide armen</td>
+</tr>
+<tr>
+<td>Capability</td>
+<td>stabiel atlas-ID, domein, topic, bronnen, licentie, codeverbindingen, reviewstatus</td>
+<td>Een adres of link impliceert geen beheersing; didactische en licentiereview blijven afzonderlijk</td>
+</tr>
+<tr>
+<td>Werk- en betaalgebeurtenis</td>
+<td>eigenaar, agent-ID, opdracht, acceptatie, brutowaarde, commissie, PSP-referentie</td>
+<td>Alleen een geaccepteerde opdracht kan een commissie dragen; deze betaalentiteit is nog ontwerp, geen geïmplementeerde PSP-koppeling</td>
+</tr>
+</tbody>
+</table>
+<p><code>score_work_pilot.py</code> accepteert JSONL met exact de <code>WorkResult</code>-velden. Een task heeft per vergelijking precies één <code>incumbent</code>- en één <code>toddler_teacher</code>- of <code>toddler_teacher_agent</code>-rij. Een SHA-256 verwijst naar het artefact; de taakprompt en klantcode blijven buiten het rapport. De scorer verwerpt ontwikkeldata en vermengde experiments. De 95%-bootstrap over gepaarde acceptatieverschillen gebruikt 5.000 resamples en vaste seed. De huidige poort eist minstens 100 gepaarde taken, een ondergrens groter dan −0,05, nul kritieke incidenten, hoogstens 80% van de menselijke reviewminuten per geaccepteerde taak en niet hogere directe kosten per geaccepteerde taak. Dit is een <strong>non-inferiority plus efficiency</strong>-poort, niet een bewijs van hoger slagingspercentage. Voor een claim dat kwaliteit superieur is, moet een aparte positieve effectdrempel vooraf worden vastgelegd.</p>
+<p>De scorer controleert dat worker en verifier verschillende IDs hebben, maar kan niet aantonen dat zij werkelijk onafhankelijk zijn. Operators, opslagrechten en een extern auditspoor moeten die scheiding afdwingen. GPU-board-Wh is energie van GPU-kaarten; systeem-kWh is een andere meting. Null betekent niet nul verbruik.</p>
+<h2>11. Kennisgraaf: atlas, LightRAG, GitNexus en t-SNE</h2>
+<p>De atlas in <code>knowledge/atlas.json</code> reserveert 10.000 stabiele capability-adressen: tien domeinen met elk honderd topics en tien slots per topic. Er zijn tien geschreven <code>lesson.md</code>-concepten, niet 10.000 PhD-lessen en geen gemeten mastery. <code>knowledge/graph/codegraph_connections.json</code> verwijst naar een broncodegraaf met 3.510 nodes, 7.942 edges en tien domeinlinks. <code>toddler/knowledge/weave.py</code> verbindt concepten, 25 expliciete Wee-mappingrijen en de codegraaf; ontbrekende relaties laten het weven falen. De uitvoer is een lokale GitNexus-JSON en LightRAG-import-JSONL. Een SQLite-vectorpad vraagt een expliciete lokale builder. <code>toddler/knowledge/publish.py</code> kan een deterministische synaptic bundle samenstellen; zonder handtekening blijft de extensie <code>.synaptic.unsigned</code>.</p>
+<p><code>knowledge/graph/lesson_tsne.json</code> bevat een illustratieve t-SNE-projectie van tien documenten met perplexity 3,0 en trustworthiness 0,7133. De tweedimensionale afstand is <strong>geen</strong> hiërarchie, causaliteitsbewijs of bewijs voor curriculum-overdracht. Gebruik t-SNE als browsekaart, bron- en grafrelaties als semantische verbinding en afgeschermde taakprestaties als competentiemeting. LightRAG mag retrieval verbeteren, maar het model moet bron, licentie, datum en relevantie van elk opgehaald fragment tonen. Een private toetsset mag niet in deze index verschijnen.</p>
+<p>Een volwaardige capability-map zou een syllabus, primaire theorie en papers, demonstraties, oefenopgaven, praktisch expertwerk, succescriteria, fouttaxonomie, revisiedatum, licenties, toegankelijkheid en eval-ID's bevatten. Voor 10.000 mappen is een object-store met deduplicatie en licentieregels zinvoller dan alles in Git. De huidige atlas reserveert IDs; opslagcapaciteit en inhoud moeten per domein worden begroot. De Teacher kan de atlas raadplegen en een les voorstellen, maar mag een lege map niet als gekende vaardigheid gebruiken.</p>
+<h2>12. Knitweb, fields en gedistribueerde uitvoering</h2>
+<p>Knitweb levert in de afzonderlijke lokale codebase zeven primitieve bouwstenen, waaronder P2P-transport, content-addressed opslag, deterministische CBOR en proof-of-useful-work-controle. <code>toddler/relay.py</code> vergelijkt lokaal werk met een peer op prijs, energie en verificatie. De beslisregel weigert de peer als fraude economisch winstgevend blijft en laat een steekproef van resultaten herberekenen. Een lokale simulatie rapporteerde 1.000 blokken en een fouttolerantie rond 1% bij 368 steekproeven; dit zijn parameters van die proef, geen netwerkbrede SLA. Externe ruwe persoonsgegevens zijn standaard geen peer-payload.</p>
+<p>Een field is een versiebeheerde combinatie van ontologie, bronnen, code, tools, rechten, taken en verificatie. ChemField heeft een concreet prototype in <code>game/molgang-knitweb/src/molgang/chemfield.py</code>; FinField heeft <code>finfield-feed</code>/<code>finfield-web</code> als aanpalende projecten. IntelligenceField is momenteel een architectuurvoorstel, geen afzonderlijk bewezen product. Software-, game- en fysieke fields moeten elk een eigen verifier en risicoprofiel krijgen. PAR/PLS kunnen later bijdragen aan waarnemingsbounties en leerprikkels; het basisscenario rekent geen inkomsten uit tokens of fysieke agents.</p>
+<p><strong>Voorgesteld protocol, nog niet geïmplementeerd als universele field-API:</strong></p>
+<pre><code class="language-text">TaskEnvelope { owner_id, field_id, capability_id, input_digest,
+               data_policy, budget_eur, deadline, tool_scopes }
+Execution   { agent_id, model_routes[], tool_events[], output_digest,
+               cpu_s, gpu_board_wh?, system_kwh?, direct_cost_eur }
+Verdict     { verifier_id, acceptance_rule_version, accepted,
+              defects[], evidence_digests[], reviewed_at }
+Settlement  { legal_owner_id, psp_reference, gross_eur,
+              platform_fee_eur, owner_net_eur, dispute_state }
+</code></pre>
+<p>Elke <code>input_digest</code> wordt aangevuld met een versleutelde, bevoegde verwijzing naar de inhoud; de hash alleen is geen geheimhoudingsmiddel. De uitvoerder ontvangt alleen de scopes die de eigenaar gaf. De verifier mag geen werknemer-identiteit delen met de uitvoerende agent. Een PSP houdt de gereguleerde geldstroom buiten de agentruntime; per-agent boekhoudsubrekeningen zijn niet automatisch zelfstandige bankrekeningen.</p>
+<h2>13. Trainingsprotocol en anti-contaminatie</h2>
+<ol>
+<li><strong>Vooraf registreren.</strong> Leg repo-revisie, taakset, referentiefingerprint, promotiegrens, model/quant, decodeerinstellingen, rekenhardware en energie-eenheden vast. Een public benchmark mag alleen diagnose zijn als de trainings- of promptketen hem kan zien.</li>
+<li><strong>Data scheiden.</strong> Scheid train, publieke ontwikkeling, publieke controle en private finale test per seedfamilie, probleemfamilie, repository en tijdvenster. Houd geheime prompts en ground truth buiten de repo en buiten Teacher- en agentaccounts.</li>
+<li><strong>Kandidaat bouwen.</strong> Train met gelogde seeds en codeversies; bewaar bronhash, parenthash, inhoudslicenties en modelprovider. Bewaar mislukte kandidaten in de lineage zodat selectiebias zichtbaar blijft.</li>
+<li><strong>Publieke selectie.</strong> Kies kandidaat en hyperparameters uitsluitend met ontwikkel-/controleresultaten. Corrigeer voor herhaald zoeken; de private set is een eenmalige poort voor één bevroren familie.</li>
+<li><strong>Private evaluatie.</strong> Een afzonderlijke evaluator laadt hashes opnieuw, gebruikt identieke items en instellingen voor ouder en kandidaat, valideert per-item output en bewaart ruwe resultaten buiten ontwikkelbereik.</li>
+<li><strong>Besluit.</strong> Publiceer n, effect, betrouwbaarheidsinterval/p-waarde, incidenten, kosten en praktische grens. Een mislukking promoveert niet. Maak een nieuwe private familie voor een nieuwe kandidaat.</li>
+<li><strong>Drift.</strong> Na promotie volgen prospectieve klanttaken, foutmeldingen en rollbacktest. De volgende trainingsronde gebruikt alleen data met passende rechten en zonder deelname aan de nieuwe finale toets.</li>
+</ol>
+<p>Voor softwarewerk is de taakunit een werkelijk afgebakende bug of change met geteste acceptatie, niet een los taalantwoord. Een promptverbeterer die op dezelfde vragen wordt getraind en beoordeeld heeft geen validatie. Voor modelrouting hoort de oracle-bovengrens naast altijd-het-beste-model en een willekeurige router; alle drie gebruiken exact dezelfde items. Voor CLM/JEV wordt latency per nieuw, niet-gecached sensorframe gerapporteerd. Afwezigheid van een fout op 100 taken bewijst geen foutkans van nul; de keuze voor n en de veiligheidsgrens moet het toepassingsrisico volgen.</p>
+<h2>14. Ontwikkelaars: installatie en reproduceerbare controle</h2>
+<p>De publieke delen zijn te reproduceren op Python 3.11+ met de codebase en de aangegeven extra's. GPU, Teacher en Knitweb zijn optioneel voor de basistests. Werk vanuit een eigen clone; onderstaande paden zijn voorbeelden en dienen buiten de repo te worden vervangen door eigen paden.</p>
+<pre><code class="language-bash">git clone https://github.com/virtuanalytica/toddler.git
+cd toddler
+python3 -m venv .venv
+. .venv/bin/activate
+python3 -m pip install -e '.[dev,learn,grid,report]'
+python3 -m pytest -q
+python3 scripts/capability_atlas.py validate
+python3 scripts/capability_lookup.py continual_learning/experience_replay/implement__simulated_task
+</code></pre>
+<p>De publiek reproduceerbare generatiecode staat in <code>scripts/build_generations.py</code>, <code>scripts/benchmark_generations.py</code>, <code>toddler/learn/</code> en <code>docs/learn/</code>. Een volledige trainingsrun schrijft nieuwe gewichten en duurt langer dan een documentbuild; voer hem bewust uit in een eigen <code>TODDLER_GENERATIONS_ROOT</code> en vergelijk de nieuwe resultaten met de bevroren rapporten. Een nieuwe run met een ander package, driver of seedvolgorde is een replicatiepoging, niet hetzelfde geautoriseerde private verdict. De publieke code mag de officiële private set niet downloaden.</p>
+<pre><code class="language-bash">export TODDLER_GENERATIONS_ROOT=&quot;$PWD/.local-generations&quot;
+python3 scripts/build_generations.py --help
+python3 scripts/benchmark_generations.py --help
+python3 scripts/capability_lightrag.py export --output /tmp/toddler-capabilities.jsonl
+python3 scripts/forecast_toddler_business.py
+python3 scripts/build_whitepaper.py
+python3 scripts/build_business_plan.py
+python3 scripts/build_technical_paper.py
+</code></pre>
+<p>Voor Teacher wordt de aparte Teacher-repository geïnstalleerd en <code>TODDLER_SRC</code> naar de eigen Toddler-clone gezet. <code>python3 -m teacher.g4_nightly --help</code> toont de uitvoeropties; een cognitieve ontwikkelrun kan met <code>--cognitive-only --out /eigen/pad</code> worden gestart. Controleer vooraf CPU/GPU-budget en beschikbare ruimte. Voor Knitweb wordt de package apart geïnstalleerd of <code>TODDLER_KNITWEB_SRC</code> naar een geverifieerde checkout gezet. De GitNexus-brongraaf is een externe invoer; de gedocumenteerde snapshot kan worden geïnspecteerd, maar een actuele weef-run vraagt dezelfde brondata of een nieuw gemapt graf. LightRAG-ingest vraagt optionele lokale embeddings en is geen verplichte basisinstallatie.</p>
+<p><strong>In gebruik nemen:</strong> maak een versiebeheerde <code>toddler-config/v1</code>, registreer toegestane bronnen en eigenaar, zet STOP- en budgetregels, maak een testagent zonder externe betaalmachtiging, voer afgeschermde acceptatietaken uit, bekijk audit/hashketen en rollbackpad, en geef pas daarna een begrensde werkrol. Een agent met fysieke actoren of betaalbevoegdheid vereist een aanvullende veiligheids-, juridische en operatorproef. Een clone bevat geen commerciële PSP-credentials en kan geen bankrekening op naam van een agent openen.</p>
+<h2>15. Repositoriumaudit en eerstvolgende technische mijlpalen</h2>
+<table>
+<thead>
+<tr>
+<th>Prioriteit</th>
+<th>Geconstateerde lacune</th>
+<th>Afsluitcriterium</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P0</td>
+<td>Private evaluator draait nog niet aantoonbaar onder gescheiden account/rechten</td>
+<td>Gescheiden sleutelbeheer, append-only trial-ledger, onafhankelijke operator en hersteltest</td>
+</tr>
+<tr>
+<td>P0</td>
+<td>Geen prospectieve 100-taaksoftwarepilot voor alle drie armen</td>
+<td>Nieuwe klant- of sealed-private set, vooraf geregistreerd, met artefacten en reviewer-onafhankelijkheid</td>
+</tr>
+<tr>
+<td>P0</td>
+<td><code>WorkResult</code> heeft score, maar geen operationele PSP-/boekhoudkoppeling</td>
+<td>Eigenaarcontract, vergunninghoudende PSP, dubbel-entry subledger, reconciliatie en betwisting getest</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>10.000 capability-adressen, slechts tien conceptlessen en nul mastery</td>
+<td>Per domein gelicentieerde leerpaden, expertpraktijk, onafhankelijke beoordeling en voortgangsvelden</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>GitNexus/LightRAG-bronverwijzing leunt op lokale externe grafen</td>
+<td>Versiebeheerd importmanifest, licenties, portable builder en provenance per edge</td>
+</tr>
+<tr>
+<td>P1</td>
+<td><code>CURRENT_BRAIN_20261009</code> is gedateerd vóór latere CLM-proef</td>
+<td>Actuele ontwerpnotitie met separaat CLM-, JEV-, MoM- en G4-verdict</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>Geen uniforme field-envelope en verifierimplementatie</td>
+<td>Versieerbaar schema, ChemField- en SoftwareField-adapters, contracttests</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>Dashboard toont veel onderzoek, maar geen prospectieve klantkwaliteit/financiële cohortdata</td>
+<td>Maandcohort met acceptatie, incidenten, eigenaarwaarde en volledige kost per betaalde agent</td>
+</tr>
+</tbody>
+</table>
+<p>De prioriteiten zijn engineeringvolgorde, geen publicatieclaim. De eerste commerciële poort is de softwaredebugger met een betaalde designpartner. Een hogere G-generatie zonder onafhankelijke werkacceptatie lost die ontbrekende productvalidatie niet op.</p>
+<h2>Appendix A. Statistische momentopname</h2>
+<table>
+<thead>
+<tr>
+<th>Meetpunt</th>
+<th style="text-align: right;">n / noemer</th>
+<th style="text-align: right;">Waarde</th>
+<th>Interpretatie</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CartPole gen-0 → gen-1</td>
+<td style="text-align: right;">bevroren generatieproef</td>
+<td style="text-align: right;">IQM 0,535 → 0,310; p=0,7897</td>
+<td>Geen promotie</td>
+</tr>
+<tr>
+<td>G2 nieuwe taken, inherited vs scratch</td>
+<td style="text-align: right;">vijf taken</td>
+<td style="text-align: right;">IQM 0,5426 vs 0,7571</td>
+<td>Negatieve transfer op dit protocol</td>
+</tr>
+<tr>
+<td>G3-recombined vs G2 set 1</td>
+<td style="text-align: right;">vijf kinderen × 30 seeds × 9 taken</td>
+<td style="text-align: right;">IQM 0,9458 vs 0,8115; p=0,00397</td>
+<td>Private navigatiewinst</td>
+</tr>
+<tr>
+<td>G3-recombined vs G2 set 2</td>
+<td style="text-align: right;">vijf kinderen × 30 seeds × 9 taken</td>
+<td style="text-align: right;">IQM 0,9468 vs 0,8120; p=0,00397</td>
+<td>Onafhankelijke herhaling</td>
+</tr>
+<tr>
+<td>G3 DoorKey-8 runtime</td>
+<td style="text-align: right;">één CPU-thread, gemelde proef</td>
+<td style="text-align: right;">0,0580 vs 0,0560 ms/toestand; ~5,03× opslag</td>
+<td>Latency vrijwel gelijk; opslag hoger</td>
+</tr>
+<tr>
+<td>G4-search</td>
+<td style="text-align: right;">twee private sets × 30 seeds, vijf kinderen</td>
+<td style="text-align: right;">officiële <code>promoted</code>, ledger geverifieerd</td>
+<td>Navigatie-opvolger; ruwe scores privé</td>
+</tr>
+<tr>
+<td>G4 cognitief</td>
+<td style="text-align: right;">54 items</td>
+<td style="text-align: right;">22/54 = 0,4074</td>
+<td>Diagnose, geen kwalificatie</td>
+</tr>
+<tr>
+<td>CLM nieuw/cached</td>
+<td style="text-align: right;">lokaal schaduwexperiment</td>
+<td style="text-align: right;">mediaan 98 ms / 5,1 ms</td>
+<td>Alleen cache onder 20 ms; nieuw te traag</td>
+</tr>
+<tr>
+<td>Atlasinhoud</td>
+<td style="text-align: right;">10.000 adressen</td>
+<td style="text-align: right;">10 conceptlessen; 0 mastery</td>
+<td>Capaciteit ≠ expertise</td>
+</tr>
+<tr>
+<td>Werkagenten</td>
+<td style="text-align: right;">vereiste ≥100 gepaarde taken</td>
+<td style="text-align: right;">0 voltooide prospectieve klantpoorten</td>
+<td>Softwarevoordeel onbewezen</td>
+</tr>
+</tbody>
+</table>
+<p>Een p-waarde is geen kans dat de hypothese waar is; IQM-cijfers zijn protocolafhankelijk. De 30 private seeds per set zijn experimentele eenheden voor een vooraf vastgelegde gepaarde toets; taak- en kindgemiddelden mogen niet achteraf als onafhankelijke extra n worden geteld. De cognitieve 22/54 is een exacte samplefractie zonder correctie voor itemselectie. Energie per antwoord ontbreekt voor deze RL-generatiereeks, en mag niet uit runtime alleen worden afgeleid.</p>
+<h2>Appendix B. Reproductie- en bronregister</h2>
+<table>
+<thead>
+<tr>
+<th>Bewijs / implementatie</th>
+<th>Pad of systeem</th>
+<th>Reproduceerbaarheid</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Publieke generatiecode en taakdefinities</td>
+<td><code>toddler/learn/</code>, <code>scripts/build_generations.py</code></td>
+<td>Publieke run met eigen seeds mogelijk</td>
+</tr>
+<tr>
+<td>Bevroren G0–G3 rapporten</td>
+<td><code>docs/learn/generations_report.json</code>, <code>docs/learn/generation_g3_report.json</code>, G3 review</td>
+<td>Publieke cijfers en protocol controleerbaar</td>
+</tr>
+<tr>
+<td>G4 private protocol en status</td>
+<td><code>docs/learn/G4_MATCHED_PRIVATE_GATE_20261010.md</code>, <code>docs/learn/G4_AUTO_AUDIT.md</code>, lokaal evaluatorstatusbestand</td>
+<td>Status publiek gedocumenteerd; ruwe private items afgescheiden</td>
+</tr>
+<tr>
+<td>G4 cognitieve diagnose</td>
+<td><code>docs/learn/G4_COGNITIVE_HOLDOUT.md</code></td>
+<td>Aggregaat zichtbaar; geen hergebruik als trainset</td>
+</tr>
+<tr>
+<td>CLM-schaduwmeting</td>
+<td><code>docs/G4_CLM_SHADOW.md</code></td>
+<td>Lokale hardwaremeting, geen fysiek bewijs</td>
+</tr>
+<tr>
+<td>Kennisatlas en graf</td>
+<td><code>knowledge/atlas.json</code>, <code>knowledge/graph/</code>, <code>toddler/knowledge/</code></td>
+<td>Ontwerp en huidige inhoud verifieerbaar</td>
+</tr>
+<tr>
+<td>Werkpilotscorer</td>
+<td><code>toddler/work_pilot.py</code>, <code>scripts/score_work_pilot.py</code></td>
+<td>Scorer reproduceerbaar; echte pilotdata ontbreken</td>
+</tr>
+<tr>
+<td>Knitweb en fields</td>
+<td>afzonderlijke Knitweb, molgang, FinField repositories</td>
+<td>Integraties apart versioneren</td>
+</tr>
+</tbody>
+</table>
+<h2>Appendix C. Definities en beperkingen</h2>
+<p><strong>IQM</strong> is het gemiddelde van de middelste helft van geordende scores. <strong>P(winst)</strong> is de geschatte kans dat een willekeurig kind beter scoort dan een willekeurige ouder volgens de ingestelde vergelijking. <strong>Promotie</strong> is een protocoluitkomst voor één taakverdeling; het is geen garantie op nieuwe domeinen. <strong>Expert</strong> in een MoE- of routercontext is een modelcomponent, terwijl een <strong>expert practitioner</strong> aantoonbaar bekwaam werk in een beroep levert. <strong>Kennisgraaf</strong> is een relatie tussen bronnen, code en concepten; hij is geen neuraal geheugen. <strong>Agentrekening</strong> is in het productontwerp een financieel subledger onder een juridisch eigenaar, tenzij een bank na KYC daadwerkelijk een aparte rekening voor die eigenaar heeft ingericht.</p>
+<p>Alle bedragen in het ondernemingsplan zijn scenariowaarden van 11 oktober 2026. Geen appendixcijfer mag worden gebruikt om claims over medische veiligheid, autonoom advies, fysieke robotzorg of publiekrechtelijke bevoegdheid te ondersteunen. Deze paper is een nauwkeurige technische standopname en een reproduceerbaar onderzoeksplan, geen certificaat.</p></main></body></html>

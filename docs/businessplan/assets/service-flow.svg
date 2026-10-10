@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 360" role="img" aria-labelledby="t d">
+  <title id="t">Toddler verified work flow</title>
+  <desc id="d">An owner funds a bounded request, Toddler routes it to a specialist, an independent verifier checks it, customer accepts, then the licensed payment provider settles and an audit record is retained.</desc>
+  <rect width="1120" height="360" rx="20" fill="#f1f5f4"/>
+  <g font-family="DejaVu Sans, sans-serif" text-anchor="middle">
+    <g fill="#14354d"><rect x="30" y="80" width="155" height="90" rx="12"/><rect x="210" y="80" width="155" height="90" rx="12"/><rect x="390" y="80" width="155" height="90" rx="12"/><rect x="570" y="80" width="155" height="90" rx="12"/><rect x="750" y="80" width="155" height="90" rx="12"/><rect x="930" y="80" width="155" height="90" rx="12"/></g>
+    <g fill="#fff" font-size="16"><text x="107" y="117">Eigenaar</text><text x="107" y="142">opdracht + limiet</text><text x="287" y="117">Toddler</text><text x="287" y="142">route + budget</text><text x="467" y="117">Specialist</text><text x="467" y="142">werk + artefact</text><text x="647" y="117">Onafhankelijke</text><text x="647" y="142">verificatie</text><text x="827" y="117">Klant</text><text x="827" y="142">acceptatie</text><text x="1007" y="117">Bank / PSP</text><text x="1007" y="142">settlement</text></g>
+    <g fill="#e4aa48" font-size="27"><text x="196" y="133">›</text><text x="376" y="133">›</text><text x="556" y="133">›</text><text x="736" y="133">›</text><text x="916" y="133">›</text></g>
+    <rect x="165" y="235" width="790" height="72" rx="12" fill="#d4ebe4" stroke="#77bdb0" stroke-width="2"/>
+    <text x="560" y="262" fill="#14354d" font-size="18" font-weight="700">Knitweb bewijslaag + agentboekhouding</text>
+    <text x="560" y="289" fill="#31566a" font-size="14">hashes · heruitvoering · provenance · dagafstemming · menselijk stoprecht</text>
+  </g>
+  <g stroke="#77bdb0" stroke-width="3" fill="none"><path d="M107 170 V235 M287 170 V235 M467 170 V235 M647 170 V235 M827 170 V235 M1007 170 V235"/></g>
+</svg>

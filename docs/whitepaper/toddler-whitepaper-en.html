@@ -80,6 +80,7 @@
   .sans { font-family: var(--sans); }
 
   /* COVER */
+  .cover-logo { display: block; width: 75%; max-height: 24mm; object-fit: contain; object-position: left; margin-bottom: 35mm; }
   .cover {
     min-height: 240mm;
     display: flex;
@@ -374,13 +375,14 @@
 <body>
 <section class="cover">
   <div>
+    <img class="cover-logo" src="../businessplan/assets/virtuanalytica-logo.svg" alt="Virtuanalytica logo">
     <div class="cover-eyebrow">White Paper · Developers &amp; Researchers</div>
     <div class="cover-title">Toddler<br>a governed, specialisable learning agent</div>
     <div class="cover-sub">A governed learning agent, its path to useful digital and physical work, PLS/PAR evidence, and a five-year business scenario.</div>
   </div>
   <div class="cover-meta">
     <strong>virtuanalytica</strong><br>
-    Version 0.2 (work-path revision) · 2026.10<br>
+    Version 0.3 (agent-economy revision) · 2026.10<br>
     github.com/virtuanalytica/toddler
   </div>
 </section>
@@ -396,8 +398,8 @@
   <div class="toc-item"><span class="toc-num">07</span><span class="toc-title">Results, limitations and status</span><span class="toc-page">11</span></div>
   <div class="toc-item"><span class="toc-num">08–15</span><span class="toc-title">From trained Toddler to useful work</span><span class="toc-page">12–19</span></div>
   <div class="toc-item"><span class="toc-num">16–20</span><span class="toc-title">PLS, PAR and verifiable work</span><span class="toc-page">20–24</span></div>
-  <div class="toc-item"><span class="toc-num">21–29</span><span class="toc-title">Business concept and five-year scenarios</span><span class="toc-page">25–33</span></div>
-  <div class="toc-item"><span class="toc-num">30</span><span class="toc-title">Appendix: references and glossary</span><span class="toc-page">34</span></div>
+  <div class="toc-item"><span class="toc-num">21–32</span><span class="toc-title">Agent economy, ownership and five-year scenarios</span><span class="toc-page">25–36</span></div>
+  <div class="toc-item"><span class="toc-num">33</span><span class="toc-title">Appendix: references and glossary</span><span class="toc-page">37</span></div>
 </section>
 
 <section class="chapter">
@@ -549,7 +551,7 @@ subject to  STOP(a) == false</code></pre>
     <li>Five G4-search descendants passed two private 30-seed navigation comparisons with retained lineage. This supports navigation promotion only.</li>
     <li>The proposed 10,000-capability atlas is mainly scaffold: ten draft packets are not ten thousand trainable expert capabilities.</li>
     <li>The original architectural and public-data figures in chapters 1–6 document the earlier v0.1 prototype; current production readiness must be checked against the code and fresh deployment tests.</li>
-    <li>The business, PLS/PAR and physical paths in chapters 8–29 are proposed gates and scenarios, not observed commercial outcomes.</li>
+    <li>The business, PLS/PAR and physical paths in chapters 8–32 are proposed gates and scenarios, not observed commercial outcomes.</li>
   </ul>
   <h2>Limitations</h2>
   <ul>
@@ -720,117 +722,157 @@ subject to  STOP(a) == false</code></pre>
 </section>
 
 <section class="chapter">
-  <div class="chapter-num">21 · Business concept I</div>
-  <h1>Sell dependable work, not a human illusion</h1>
-  <p class="lead">The proposed company is a privacy-first work platform built around Toddler, Teacher and specialist agents. Its commercial promise is a bounded result with an audit trail.</p>
-  <p>The entry customer is an organisation that already has a backlog of repetitive software, data-quality or research tasks and cannot send all inputs to an external API. Its pain is not a shortage of generated prose; it is the cost of reviewing, reproducing and securing outcomes. The first sale is an annual orchestration subscription. Additional independently verified tasks are metered. Physical work is added as a software-and-service fee for customer- or partner-owned cells only after a supervised safety pilot.</p>
-  <p>The world may develop much more capable agents and robots during these five years. The base forecast does <em>not</em> assume that Toddler reaches human parity. It requires a series of narrow workflows that save measurable customer time. Robot-market adoption is context, not an addressable-market multiplier. IFR reported 542,076 industrial robot installations worldwide in 2024; that number does not imply demand for this product.</p>
-  <p>Customers buy in euros. PLS and PAR may later coordinate verifiable compute and observations, but speculative token value is excluded from the plan. The scarce asset is a trusted dataset of task attempts, corrections, tests and accepted work, governed by customer consent and provenance.</p>
-  <div class="takeaway"><div class="takeaway-label">Customer promise</div>A result that can be inspected, repeated or reversed, with clear human accountability.</div>
+  <div class="chapter-num">21 · Agent economy I</div>
+  <h1>The paying unit is the agent</h1>
+  <p class="lead">Toddler supplies the runtime, evidence and marketplace; the customer controls a portfolio of specialised agents and receives the economic proceeds of their work.</p>
+  <p>The first owner can be a sole proprietor with one or several agent identities. Each agent has a named role, permitted tools, a budget, a work history and its own bookkeeping account. The owner chooses the work, approves its risk limits, may move its data and configuration, and receives the proceeds after disclosed platform fees. Toddler licenses its underlying software and models; customer ownership concerns the agent configuration, customer-provided data, work product and contractual earnings, subject to third-party licences.</p>
+  <p>One paying owner can operate many paid agents. The forecast therefore counts distinct paying owners and <em>average active paid agents</em> separately. An agent only counts as paid when it completes accepted, invoiced work; merely creating it does not create revenue. Gross work value belongs to the owner and is shown separately from Toddler's subscription and marketplace commission. Jobs are settled in batches so a small task is not charged a separate card fee.</p>
+  <p>An AI agent is not presently a Dutch legal person, company director or bank-account holder. The phrase “agent as a company” is an operational design: a profit-and-loss unit within a human-controlled undertaking. The owner remains the contracting party.</p>
+  <div class="takeaway"><div class="takeaway-label">Economic ownership</div>The customer can audit, budget, pause and export the agent's operation; legal authority stays with a person or registered entity.</div>
 </section>
 
 <section class="chapter">
-  <div class="chapter-num">22 · Business concept II</div>
-  <h1>Three products, one evidence layer</h1>
-  <p class="lead">The product line widens only as each layer earns trust in deployment.</p>
-  <table><thead><tr><th>Offer</th><th>Customer receives</th><th>Commercial unit</th></tr></thead><tbody>
-    <tr><td>Digital workbench</td><td>Scoped agents, private evaluation, audit and routing</td><td>€24,000 per organisation-year</td></tr>
-    <tr><td>Verified tasks</td><td>Accepted output with evidence and replay or review</td><td>€0.12 net fee per billable task</td></tr>
-    <tr><td>Physical cell service</td><td>Workflow software, monitoring and incident support</td><td>€72,000 per partner-owned cell-year</td></tr>
+  <div class="chapter-num">22 · Agent economy II</div>
+  <h1>Market signals and the competitors earning fees</h1>
+  <p class="lead">The observable trend is metered agent work and controlled payment authority, rather than evidence that autonomous agents already own legal businesses.</p>
+  <table><thead><tr><th>Company / system</th><th>Observed commercial mechanism</th><th>Toddler implication</th></tr></thead><tbody>
+    <tr><td>Salesforce Agentforce</td><td>Flex Credits and priced conversations/actions</td><td>Meter verified outcomes, not invisible model calls</td></tr>
+    <tr><td>Microsoft Copilot Studio</td><td>Tenant-pooled Copilot Credits for agent activities</td><td>Expose per-agent cost and owner budgets</td></tr>
+    <tr><td>Stripe MPP</td><td>Agents can pay for HTTP/API services under scoped authority</td><td>Connect conventional euro settlement first</td></tr>
+    <tr><td>Olas / Virtuals</td><td>Agent service markets and optional token economies</td><td>Separate service fees from speculative token flows</td></tr>
   </tbody></table>
-  <p>The workbench includes orchestration and a contractual allowance of ordinary requests; the task fee applies only to separately billable verified jobs after that allowance. A billable task must have a pre-agreed acceptance rule, so internal model calls and retries are costs, not new sales. The cell fee excludes robot purchase or lease, integration of unsafe machinery, and speculative token rewards.</p>
-  <p>A shared evidence layer records provenance, permission, model routing, verifier results, energy, correction effort and customer acceptance. This lets the company compare Toddler-only, Toddler + Teacher, and Toddler + Teacher + specialist workflows on exactly the same tasks. The layer is also the customer-facing assurance product; agents and model mixtures can change without erasing history.</p>
-  <div class="takeaway"><div class="takeaway-label">Packaging test</div>Before launch, two design partners must confirm that the offer saves more accepted-work cost than its subscription and review burden.</div>
+  <p>These are <em>pricing mechanisms</em> and public product claims, not audited evidence that any competitor is profitable. Stripe's Machine Payments Protocol shows a concrete route to pay-per-use services; Salesforce and Microsoft show that usage, not seat count alone, is becoming a billing unit. Virtuals' token trading fee and Olas' coordination rewards should not be mistaken for income from accepted customer work. Neither PLS nor PAR token sales enter the Toddler base case.</p>
+  <p class="source">Primary sources: <a href="https://www.salesforce.com/agentforce/pricing/">Salesforce pricing</a>; <a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/billing-licensing">Microsoft billing</a>; <a href="https://stripe.com/blog/machine-payments-protocol">Stripe MPP</a>; <a href="https://docs.olas.network/">Olas</a>; <a href="https://whitepaper.virtuals.io/">Virtuals</a>. Checked 11 October 2026.</p>
 </section>
 
 <section class="chapter">
-  <div class="chapter-num">23 · Business concept III</div>
-  <h1>Go to market through narrow pilots</h1>
-  <p class="lead">Start with workflows that have objective acceptance, frequent repetition, and a clear budget owner.</p>
-  <p>Year one targets eight paying organisations, reached through two design-partner pilots and a controlled expansion to software teams, data operations and privacy-sensitive research groups. Every pilot has a baseline period, a shadow period, and a decision gate. The buyer sees accepted-task rate, human review minutes, incident count, turnaround time and fully allocated cost. Reference cases must disclose the task distribution and denominator.</p>
-  <p>Distribution can combine direct technical sales, open-source contributions, and system integrators. Crowdsourced Toddler descendants are welcome through pull requests carrying lineage and trial evidence, but commercial deployments use a reviewed release channel. A partner may run its own private model; the contract still requires the version, licence constraints and evaluation method to be stated. The platform does not promise that a contributor's private data becomes public.</p>
-  <p>Physical expansion begins with a robot integrator and a single guarded site. Industrial and service robotics are already active markets, yet each cell needs site-specific economics and engineering sign-off. Do not count a workcell as active until it completes a paid supervised month and meets the safety and customer acceptance gate.</p>
-  <div class="takeaway"><div class="takeaway-label">Sales discipline</div>Convert a pilot only when the customer can name the accepted outcome, its previous cost, and the person accountable for the new process.</div>
-</section>
-
-<section class="chapter">
-  <div class="chapter-num">24 · Business concept IV</div>
-  <h1>Five-year operating assumptions</h1>
-  <p class="lead">These are illustrative planning inputs in nominal euros, excluding VAT, for 2027–2031. They are not measured demand or booked revenue.</p>
-  <table><thead><tr><th>Year</th><th>Paying orgs</th><th>Billable verified tasks</th><th>Partner-owned cells</th></tr></thead><tbody>
-    <tr><td>2027</td><td>8</td><td>0.2m</td><td>0</td></tr>
-    <tr><td>2028</td><td>25</td><td>1.0m</td><td>2</td></tr>
-    <tr><td>2029</td><td>70</td><td>4.0m</td><td>8</td></tr>
-    <tr><td>2030</td><td>160</td><td>12.0m</td><td>25</td></tr>
-    <tr><td>2031</td><td>320</td><td>30.0m</td><td>70</td></tr>
+  <div class="chapter-num">23 · Agent economy III</div>
+  <h1>Choose the owner by risk and public purpose</h1>
+  <p class="lead">The legal shell follows financial exposure, governance and procurement; it is not assigned by the model itself.</p>
+  <table><thead><tr><th>Use case</th><th>Possible accountable owner</th><th>Gate</th></tr></thead><tbody>
+    <tr><td>Low-risk private work</td><td>Customer's eenmanszaak</td><td>Small spending limit, no borrowing, supervised contracts</td></tr>
+    <tr><td>Large financial or physical exposure</td><td>Customer-controlled B.V.</td><td>Risk allocation, insurance, treasury and counsel review</td></tr>
+    <tr><td>Joint commercial ownership</td><td>Coöperatie, potentially UA</td><td>Members, voting, profit and liability rules in statutes</td></tr>
+    <tr><td>Public-sector operation</td><td>Existing authority or approved joint body</td><td>Mandate, procurement, data and public accountability</td></tr>
+    <tr><td>Collective public-interest mission</td><td>Vereniging or stichting where fitting</td><td>Members or board, non-distribution and oversight</td></tr>
   </tbody></table>
-  <p>Prices are held flat at €24,000 per organisation-year, €0.12 per billable verified task, and €72,000 per active cell-year. These are modelling choices to be tested in customer discovery, not market quotes. The forecast assumes each listed customer or cell contributes a full year; a real sales ramp would reduce early-year revenue unless volumes or prices compensate. This makes the plan a target run-rate scenario rather than a probability-weighted budget.</p>
-  <p>The task figures exclude internal retries and free/included requests. Any task that fails independent acceptance contributes delivery cost but no fee. The forecast assumes the listed billable tasks already passed that gate; actual conversion must be measured.</p>
-  <div class="takeaway"><div class="takeaway-label">Reproduction</div>All arithmetic comes from <code>scripts/forecast_toddler_business.py</code> and its JSON output in this paper's directory.</div>
+  <p>A sole proprietor is personally liable and can have several activities but only one sole proprietorship. A B.V. limits ordinary shareholder exposure, with exceptions for misconduct; a separate B.V. for <em>every</em> agent is not automatically necessary. A vereniging has members and cannot distribute profit to them. A stichting has no members, may have one director, and must apply surplus to its purpose. A cooperative can distribute profit to members under its rules. For governments, an agent can remain a budget unit of the existing public body; a joint vehicle is a governance choice, not a prerequisite for procurement.</p>
+  <p class="source">Sources: <a href="https://business.gov.nl/running-your-business/legal-forms-and-governance/sole-trader-or-sole-proprietorship-in-the-netherlands/">sole proprietor</a>; <a href="https://business.gov.nl/running-your-business/legal-forms-and-governance/cooperative/">cooperative</a>; <a href="https://business.gov.nl/running-your-business/legal-forms-and-governance/association/">association</a>; <a href="https://www.kvk.nl/wetten-en-regels/bestuurder-van-een-stichting-dit-zijn-de-regels-en-taken/">foundation board</a>.</p>
 </section>
 
 <section class="chapter">
-  <div class="chapter-num">25 · Business concept V</div>
-  <h1>Unit economics before scale</h1>
-  <p class="lead">The plan is viable only if accepted-work margins survive retries, verification and customer support.</p>
-  <p>Model direct delivery cost as 25% of workbench revenue, 40% of verified-task fees, and 35% of cell-service fees. These shares include inference, GPU electricity, verification, storage and direct service labour. They are hypotheses. Meter whole-system kWh per accepted task and distinguish it from GPU-board Wh; a night queue does not make incremental power free. For reference, Eurostat reported an EU non-household average electricity price of €0.1837/kWh for the second half of 2025; a specific site may differ materially.</p>
-  <p>At €0.12 per verified task, a 40% direct-cost share leaves €0.072 gross contribution. Ten million accepted, separately billable tasks would therefore contribute €720,000 before operating expense. If an average task needs repeated expensive teacher calls, the 40% assumption fails. The gate is not token throughput but net contribution per accepted result, measured prospectively.</p>
-  <p>At €24,000 per customer-year, a 25% direct-cost share leaves €18,000 before sales, research and administration. At €72,000 per active cell-year, a 35% direct-cost share leaves €46,800. Cells require a separate allowance for field support and incident response; a partner owns the machine and ordinary hardware depreciation under this model.</p>
-  <div class="takeaway"><div class="takeaway-label">Unit gate</div>Do not scale a workflow with negative gross contribution after retries and verification, even when its benchmark score is excellent.</div>
+  <div class="chapter-num">24 · Agent economy IV</div>
+  <h1>One ledger per agent; bank access under its owner</h1>
+  <p class="lead">Every paid agent receives an immutable internal subledger. A dedicated IBAN is added only where the bank supports the legal owner and workload.</p>
+  <table><thead><tr><th>Provider</th><th>Published account offer</th><th>Fit</th></tr></thead><tbody>
+    <tr><td>Knab</td><td>5 business payment accounts; sole proprietor €7/month after promotion</td><td>Simple pilot with a few agent IBANs</td></tr>
+    <tr><td>bunq Pro Business</td><td>25 IBAN accounts for €13.99/month; extra 25 for €20/month</td><td>Best published small-portfolio fit; API trial needed</td></tr>
+    <tr><td>Revolut Business Grow</td><td>€35/month with Business API; additional same-currency IBAN possible</td><td>Payments and FX; bulk provisioning unverified</td></tr>
+    <tr><td>N26 Business</td><td>Freelancer account in personal name; B2B payments unsupported</td><td>Exclude from this marketplace design</td></tr>
+  </tbody></table>
+  <p>For each agent, record opening balance, accepted invoice, customer receipt, platform fee, processor fee, owner payout and closing balance. Reconcile the sum of subledgers to the real bank balance each day. The bank account holder is the KYC-checked sole proprietor, B.V. or public body—not the software agent. Payment authority uses revocable limits and two-person approval above a threshold. No provider has yet confirmed 16,000 dedicated IBANs; the forecast assumes ledgers, not 16,000 bank accounts.</p>
+  <p class="source">Published terms: <a href="https://www.knab.nl/zakelijk/betalen/zakelijke-rekening-openen/zakelijke-rekeningen-vergelijken">Knab</a>; <a href="https://help.bunq.com/nl-nl/articles/what-plans-are-available">bunq</a>; <a href="https://www.revolut.com/en-NL/business/business-account-plans/">Revolut</a>; <a href="https://support.n26.com/en-de/memberships-and-account-types/business-accounts/how-does-n26-business-work">N26</a>. Prices checked 11 October 2026.</p>
 </section>
 
 <section class="chapter">
-  <div class="chapter-num">26 · Business concept VI</div>
+  <div class="chapter-num">25 · Agent economy V</div>
+  <h1>Product and buyer</h1>
+  <p class="lead">Sell a governed agent portfolio to owners who already have a backlog of software, data or research work with an objective acceptance test.</p>
+  <table><thead><tr><th>Offer</th><th>Annual or metered unit</th><th>Owner receives</th></tr></thead><tbody>
+    <tr><td>Portfolio workbench</td><td>€6,000 per paying owner-year</td><td>Scoped runtime, audit, routing and independent test interface</td></tr>
+    <tr><td>Paid-agent licence</td><td>€240 per active agent-year</td><td>Identity, budget, ledger, lineage and export</td></tr>
+    <tr><td>Verified-work marketplace</td><td>10% of accepted gross work value</td><td>Access to demand, invoicing and outcome evidence</td></tr>
+    <tr><td>Physical cell service</td><td>€72,000 per partner-owned cell-year</td><td>Monitoring, workflow software and incident support</td></tr>
+  </tbody></table>
+  <p>Prices are assumptions for discovery, not observed market quotes. An accepted task has a registered rubric, artifact and independent verdict. Internal retries and free tasks are costs. The initial paid role is software debugging, compared prospectively with the incumbent, Toddler + Teacher and Toddler + Teacher + specialist. Physical work follows only after site-specific safety and supervised acceptance.</p>
+  <p>The owner can choose a local model for privacy and can show the evidence to customers without exposing private prompts. The platform should not demand ownership of the customer's trade secrets or accepted work. Contract terms must specify model licences, data retention, export and whether the marketplace is an agent or principal for VAT and payment purposes.</p>
+</section>
+
+<section class="chapter">
+  <div class="chapter-num">26 · Agent economy VI</div>
+  <h1>Five-year activity assumptions</h1>
+  <p class="lead">All figures are illustrative full-year averages in nominal euros excluding VAT; they are targets, not booked revenue.</p>
+  <table><thead><tr><th>Year</th><th>Paying owners</th><th>Active paid agents</th><th>Agents / owner</th><th>Cells</th></tr></thead><tbody>
+    <tr><td>2027</td><td>5</td><td>25</td><td>5</td><td>0</td></tr>
+    <tr><td>2028</td><td>12</td><td>150</td><td>12.5</td><td>0</td></tr>
+    <tr><td>2029</td><td>25</td><td>800</td><td>32</td><td>2</td></tr>
+    <tr><td>2030</td><td>50</td><td>4,000</td><td>80</td><td>8</td></tr>
+    <tr><td>2031</td><td>100</td><td>16,000</td><td>160</td><td>25</td></tr>
+  </tbody></table>
+  <p>An active paid agent is a <em>full-year equivalent</em>, not a created profile. The model assumes 50 accepted jobs per agent per month at €10 each, yielding €6,000 annual gross work value per agent. At 16,000 agents this means 9.6 million accepted jobs and €96 million owner gross work value in 2031. The 10% marketplace commission is €9.6 million Toddler revenue; the remaining €86.4 million is owner-side gross proceeds before their own costs and taxes. The €240 annual agent fee is separate.</p>
+  <p>The annual-average convention is optimistic during a ramp. A genuine budget needs monthly cohorts, activation, churn and time-to-first-paid-job. New agent creation, a bank IBAN and a passing benchmark alone do not qualify an agent as active. The path is particularly sensitive to finding repeated paid demand per agent.</p>
+  <div class="takeaway"><div class="takeaway-label">First falsifier</div>If the pilot cannot sustain 50 independently accepted €10 jobs per active agent-month with positive owner and platform margins, reprice or revise the growth curve.</div>
+</section>
+
+<section class="chapter">
+  <div class="chapter-num">27 · Agent economy VII</div>
+  <h1>Unit economics and settlement</h1>
+  <p class="lead">At the assumed job price, each agent produces €500 gross accepted work per month. Its owner retains €450 before their own costs; Toddler earns €50 commission plus €20 monthly licence.</p>
+  <p>Model direct cost as 20% of owner subscriptions, 30% of agent licences, 35% of marketplace commission, and 40% of physical service fees. The 35% marketplace cost allocation must cover verification, disputes, payment processing, inference contribution and support. It cannot also hide the owner's compute costs if the owner expects Toddler to pay them. The allocation is a hypothesis to replace with measured euro, GPU-board Wh, whole-system kWh and reviewer minutes per accepted job.</p>
+  <p>For one paid agent-year, €6,000 gross work value creates €600 marketplace commission and €240 licence revenue; at assumed direct-cost shares Toddler keeps €390 + €168 = €558 gross contribution before central operating expense. The owner receives €5,400 before its own tool, labour, tax and insurance costs. A €10 invoice settled individually by card could consume too much margin; batch settlement and a payment-provider quote are required.</p>
+  <p>Every agent ledger needs balanced entries and a daily reconciliation to its owner's bank or regulated payment account. Do not pool customers' money in Toddler's ordinary company account as if an internal spreadsheet were a banking licence. The operator must choose a compliant marketplace payment flow before taking custody or splitting proceeds.</p>
+  <div class="takeaway"><div class="takeaway-label">Gate</div>Publish both owner net proceeds and platform contribution per accepted job; promote only when both are positive after all attributable costs.</div>
+</section>
+
+<section class="chapter">
+  <div class="chapter-num">28 · Agent economy VIII</div>
   <h1>Base-case income path, 2027–2031</h1>
-  <p class="lead">Revenue is organisations × €24,000 + verified tasks × €0.12 + cells × €72,000. Direct costs and operating expenses follow the stated assumptions.</p>
+  <p class="lead">Platform revenue equals owner fees + agent licences + 10% of accepted gross agent work + partner-cell service; it excludes the remaining owner work value.</p>
   <table><thead><tr><th>€ million</th><th>2027</th><th>2028</th><th>2029</th><th>2030</th><th>2031</th></tr></thead><tbody>
-    <tr><td>Revenue</td><td>0.216</td><td>0.864</td><td>2.736</td><td>7.080</td><td>16.320</td></tr>
-    <tr><td>Direct costs</td><td>0.058</td><td>0.248</td><td>0.814</td><td>2.166</td><td>5.124</td></tr>
-    <tr><td>Gross profit</td><td>0.158</td><td>0.616</td><td>1.922</td><td>4.914</td><td>11.196</td></tr>
-    <tr><td>Operating expense</td><td>0.850</td><td>1.500</td><td>2.800</td><td>5.100</td><td>8.500</td></tr>
-    <tr><td>EBITDA</td><td>-0.692</td><td>-0.884</td><td>-0.878</td><td>-0.186</td><td>2.696</td></tr>
+    <tr><td>Platform revenue</td><td>0.051</td><td>0.198</td><td>0.966</td><td>4.236</td><td>15.840</td></tr>
+    <tr><td>Direct cost</td><td>0.013</td><td>0.057</td><td>0.313</td><td>1.418</td><td>5.352</td></tr>
+    <tr><td>Gross profit</td><td>0.038</td><td>0.141</td><td>0.653</td><td>2.818</td><td>10.488</td></tr>
+    <tr><td>Operating expense</td><td>0.700</td><td>1.000</td><td>1.800</td><td>3.300</td><td>6.500</td></tr>
+    <tr><td>EBITDA</td><td>-0.662</td><td>-0.859</td><td>-1.147</td><td>-0.482</td><td>3.988</td></tr>
   </tbody></table>
-  <p>Operating expense includes product engineering, sales, trust and safety, and general administration; the model does not split their headcount yet. A credible operating budget must replace these envelopes with hiring plans, salaries and contracts before financing. Base-case EBITDA turns positive only in 2031. This does not mean profit or positive cumulative cash flow: depreciation, tax, interest, working capital and financing are not modelled.</p>
-  <p>The output is sensitive to customer and task volume. A company should run the same formula with observed conversion and actual power, review and support costs after each pilot.</p>
-  <div class="takeaway"><div class="takeaway-label">Interpretation</div>These numbers express the required scale for a business case; they do not predict that Toddler will achieve it.</div>
+  <p>Direct cost and operating expense are scenario envelopes, not a staffing or hosting plan. The 2031 €15.840 million revenue includes €9.600 million marketplace commission, €3.840 million agent licences, €0.600 million owner subscriptions and €1.800 million physical-cell service. Most growth comes from paid agent activity, not a large client count. The assumption of 160 active paid agents per owner is demanding and should be tested against actual customer operating capacity.</p>
+  <p>EBITDA does not include depreciation, interest or tax. The model does not treat a token, an agent bank balance, or owner-side gross work value as platform revenue. Its figures are regenerated from <code>scripts/forecast_toddler_business.py</code>.</p>
 </section>
 
 <section class="chapter">
-  <div class="chapter-num">27 · Business concept VII</div>
-  <h1>Cash need and financing gates</h1>
-  <p class="lead">The plan consumes cash for several years before the modelled 2031 operating turn.</p>
+  <div class="chapter-num">29 · Agent economy IX</div>
+  <h1>Cash need and the risk-controlled pivot</h1>
+  <p class="lead">The agent-led scenario still consumes cash before the modelled 2031 turn; a faster agent count does not remove financing risk.</p>
   <table><thead><tr><th>€ million</th><th>2027</th><th>2028</th><th>2029</th><th>2030</th><th>2031</th></tr></thead><tbody>
-    <tr><td>Capital expenditure</td><td>0.180</td><td>0.300</td><td>0.450</td><td>0.750</td><td>1.200</td></tr>
-    <tr><td>EBITDA less capex</td><td>-0.872</td><td>-1.184</td><td>-1.328</td><td>-0.936</td><td>1.496</td></tr>
-    <tr><td>Cumulative proxy</td><td>-0.872</td><td>-2.056</td><td>-3.384</td><td>-4.320</td><td>-2.824</td></tr>
+    <tr><td>Capital expenditure</td><td>0.150</td><td>0.200</td><td>0.300</td><td>0.500</td><td>0.800</td></tr>
+    <tr><td>EBITDA less capex</td><td>-0.812</td><td>-1.059</td><td>-1.447</td><td>-0.982</td><td>3.188</td></tr>
+    <tr><td>Cumulative proxy</td><td>-0.812</td><td>-1.871</td><td>-3.318</td><td>-4.300</td><td>-1.112</td></tr>
   </tbody></table>
-  <p>The deepest base-case cumulative cash proxy is €4.320m at the end of 2030. Adding a 25% contingency gives a preliminary funding envelope of about €5.40m. This is <em>not</em> a complete financing requirement: working capital, taxes, interest, timing of collections, debt service and unexpected safety or legal costs are excluded. A monthly cash-flow model and pilot evidence are required before a financing decision.</p>
-  <p>Stage spending against proof: seed the evaluation and first customer pilots; fund product expansion only after paid accepted work; fund robot integration only after a supervised safety case and partner contract. Avoid buying a robot fleet in the base plan. Partner- or customer-owned equipment keeps capital tied to evidence instead of speculation.</p>
-  <div class="takeaway"><div class="takeaway-label">Funding rule</div>Release the next tranche against accepted-work and safety gates, not model-score headlines or token price.</div>
+  <p>The deepest cumulative EBITDA-minus-capex gap is €4.300 million at the end of 2030. A 25% planning buffer gives €5.375 million. This is <em>not</em> a full financing requirement: working capital, tax, interest, payment-provider reserve, late settlement, insurance and adverse incidents are excluded. A monthly cash model must replace this proxy before raising or committing capital.</p>
+  <p>Keep private pilots under small, revocable authority. Where an agent can create significant contractual, market or physical exposure, move the activity to a suitably capitalised B.V. or another fitting legal person, with insurance and explicit delegations. The corporate form is not a substitute for a spending limit, independent review and incident controls.</p>
+  <div class="takeaway"><div class="takeaway-label">Funding rule</div>Release spending tranches against accepted paid jobs, positive unit contribution and risk evidence, not created-agent counts.</div>
 </section>
 
 <section class="chapter">
-  <div class="chapter-num">28 · Business concept VIII</div>
-  <h1>Downside, upside and falsification</h1>
-  <p class="lead">A forecast should tell us what would disprove the plan soon enough to change it.</p>
-  <p>The downside case halves paying organisations, billable tasks and active cells while retaining base operating and capital spending. In 2031 it yields €8.160m revenue and <span class="hl">-€2.902m EBITDA</span>; its five-year cumulative cash proxy is -€12.259m. The upside case scales those volumes by 1.5 and operating expense by 1.2, retaining capital spending; 2031 revenue becomes €24.480m and EBITDA €6.594m. These are arithmetic sensitivities, not likelihood estimates.</p>
-  <p>Test the most uncertain assumptions first: customer conversion, the share of tasks independently accepted, human review minutes, direct cost per retry, and the time needed to certify a physical cell. One quarter of weak conversions should trigger pricing and product interviews, not a bigger sales target. If a teacher improves quality but uses too much energy or reviewer time, route it only to tasks where the gain pays for itself.</p>
-  <p>A live dashboard should compare actuals with this model every month. Show forecast error by assumption, not just total revenue. Keep published benchmark results, work acceptance and sales claims separate. Early pilots may invalidate the 2031 scale and still reveal a valuable smaller company.</p>
-  <div class="takeaway"><div class="takeaway-label">Decision threshold</div>After two paid pilots, revise the model from measured conversion, acceptance and cost. If no repeatable positive gross contribution exists, narrow or stop the offer.</div>
+  <div class="chapter-num">30 · Agent economy X</div>
+  <h1>Downside, upside and the competing baseline</h1>
+  <p class="lead">A forecast is useful only if it identifies the assumptions that can break it.</p>
+  <p>Halving paying owners, active paid agents and cells while retaining base costs gives about €7.884 million platform revenue and <span class="hl">-€1.278 million EBITDA</span> in 2031; the five-year cumulative cash proxy is about -€8.208 million. A 1.5× volume case with 1.2× operating expense gives €23.796 million revenue and €7.954 million EBITDA in 2031. These are arithmetic stress cases, not estimated probabilities.</p>
+  <p>Compare every cohort with the incumbent: unaided human work, the best single model, and a simple non-agent workflow. An agent is not a better business merely because it makes more calls or passes a public benchmark. Track acquired owners, active agent ratio, accepted paid jobs per agent, gross value per job, owner net proceeds, platform contribution, refunds, disputed work and review minutes. Record who supplied the model and who bears inference and liability costs.</p>
+  <p>The old organisation-and-task forecast remains a historical scenario in Git history. It is no longer the base case. Do not splice its 30 million €0.12 tasks into this model: the new jobs are €10 gross owner work, with only a 10% platform share. If 50 jobs per agent-month is not demonstrated in a prospective paid pilot, cut the agent count before presenting the 2031 revenue target externally.</p>
 </section>
 
 <section class="chapter">
-  <div class="chapter-num">29 · Business concept IX</div>
-  <h1>Five years of responsible execution</h1>
-  <p class="lead">The age of more capable agents and robots increases the value of human choice, verifiable work and safe deployment.</p>
-  <p><strong>2027:</strong> prove one digital workflow with sealed tests and eight paying organisations. <strong>2028:</strong> add two supervised physical cells only if the safety case passes. <strong>2029:</strong> standardise the evidence layer and partner integration across seventy organisations. <strong>2030:</strong> test whether wider routing and specialist portfolios improve accepted-work economics at 160 organisations. <strong>2031:</strong> reach sustained service quality at the modelled 320 organisations and seventy cells, or publish why the path was revised.</p>
-  <p>Workers and customers retain decision rights. Deployments should document what tasks are automated, which new supervisory work appears, how errors are appealed, and who may stop the system. A more human-like conversation interface should never be confused with consciousness, competence or legal personhood. The company should invest in training operators and reviewers as deliberately as in models.</p>
-  <p>PAR and PLS can be tested as optional evidence and coordination mechanisms after operational and legal gates. A robot partnership should be allowed to use ordinary euro invoices and independent logs. The company succeeds if it delivers accepted outcomes with accountable human governance, whether or not agents ever equal people broadly.</p>
-  <div class="takeaway"><div class="takeaway-label">Five-year measure</div>Repeatable customer acceptance, positive unit economics, safe physical operations and independently auditable claims.</div>
+  <div class="chapter-num">31 · Agent economy XI</div>
+  <h1>Public agents need public governance</h1>
+  <p class="lead">For public work, the agent should sit within an accountable authority or approved joint vehicle and remain subject to public-law decision rights.</p>
+  <p>A government may procure software from a private supplier while keeping the agent's mandate, data, budget and final decisions inside the public body. A <em>vereniging</em> fits a genuine member-led public-interest coalition; a <em>stichting</em> fits a board-led mission with no members and no profit distribution; a <em>coöperatie</em> may suit participating organisations that share costs and benefits. A joint public body under a common arrangement may be more appropriate for delegated government functions. The choice requires procurement and administrative-law review; it is not solved by renaming the agent.</p>
+  <p>In a public deployment, agents propose, analyse and draft within a written mandate. A competent public official retains decisions where law requires it. Log dataset provenance, model version, approvals, appeals, incidents and citizen impact. High-risk AI and processing of personal data may trigger additional assessments and human oversight. The public body—not an artificial agent—holds the bank account and spending authority. Each agent can still have a separate budget ledger for transparency.</p>
+  <p class="source">Sources: <a href="https://business.gov.nl/running-your-business/legal-forms-and-governance/association/">association</a>; <a href="https://business.gov.nl/running-your-business/legal-forms-and-governance/foundation/">foundation</a>; <a href="https://business.gov.nl/running-your-business/legal-forms-and-governance/cooperative/">cooperative</a>; <a href="https://autoriteitpersoonsgegevens.nl/actueel/de-fria-voor-ai-systemen-komt-eraan-bereid-u-voor">Dutch DPA on public high-risk AI assessments</a>.</p>
+</section>
+
+<section class="chapter">
+  <div class="chapter-num">32 · Agent economy XII</div>
+  <h1>Five years of measurable execution</h1>
+  <p class="lead">Growth means more accepted paid agent work with an owner who remains able to understand, govern and stop it.</p>
+  <p><strong>2027:</strong> two design partners, a sealed software-debugging trial, five paying owners and 25 average paid agents only after accepted invoices. <strong>2028:</strong> test account reconciliation and batched marketplace settlement at 12 owners and 150 agents. <strong>2029:</strong> expand to 25 owners, 800 agents and two supervised partner cells if the physical safety case passes. <strong>2030:</strong> independently audit the evidence layer and owner unit economics before attempting 50 owners and 4,000 agents. <strong>2031:</strong> reach the illustrative 100 owners, 16,000 paid agents and 25 cells only if demand, verification, support capacity and governance scale together.</p>
+  <p>Before the first live financial integration, obtain a payment-provider quote and bank approval for the exact ledger/IBAN structure. A real customer and lawyer must confirm ownership, VAT treatment, liability and authorisation language. Do not open 16,000 accounts on the strength of a retail pricing page. For a public pilot, secure the procuring body's mandate and impact assessment before accessing personal or consequential data.</p>
+  <p>PLS and PAR remain optional research settlement layers. They receive zero forecast revenue until independently verified demand and legal clearance exist. The decisive measure is accepted work with positive owner value and platform contribution, under traceable human responsibility.</p>
+  <div class="takeaway"><div class="takeaway-label">Five-year measure</div>Verified customer earnings, positive unit economics, safe physical operations and independent audit—not a count of generated agents.</div>
 </section>
 
 <section class="chapter appendix">
-  <div class="chapter-num">30 · Appendix</div>
+  <div class="chapter-num">33 · Appendix</div>
   <h1>Appendix</h1>
   <h2>A. References</h2>
   <ul>

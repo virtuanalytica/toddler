@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 260" role="img" aria-labelledby="t d">
+  <title id="t">Virtuanalytica logo concept</title>
+  <desc id="d">A precise V formed by two converging data paths and a central evidence point, followed by the Virtuanalytica wordmark.</desc>
+  <rect width="1080" height="260" rx="26" fill="#102338"/>
+  <path d="M50 55 L124 205 L198 55" fill="none" stroke="#78ddc7" stroke-width="25" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M85 55 L124 135 L163 55" fill="none" stroke="#f2c675" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  <g fill="#f2c675"><circle cx="50" cy="55" r="12"/><circle cx="124" cy="205" r="12"/><circle cx="198" cy="55" r="12"/></g>
+  <text x="245" y="143" fill="#f7f7f0" font-family="DejaVu Sans, sans-serif" font-size="72" font-weight="700" letter-spacing="-3">virtuanalytica</text>
+  <text x="249" y="183" fill="#78ddc7" font-family="DejaVu Sans, sans-serif" font-size="20" letter-spacing="3">INTELLIGENCE WITH EVIDENCE</text>
+</svg>

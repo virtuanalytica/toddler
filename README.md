@@ -113,9 +113,16 @@ dated status paragraph predates the G4-search confirmation.
 The [capability atlas](knowledge/README.md) provides 10,000 stable learning
 addresses and a first ten-lesson adaptive-learning path. Unreviewed slots do
 not imply that Toddler has mastered those capabilities.
-The [revised 34-page white paper](docs/whitepaper/toddler-whitepaper-en.pdf)
-adds an eight-page path from Toddler training to useful work, five pages on
-PLS/PAR evidence, and nine pages on a five-year business scenario. The
+The [37-page white paper](docs/whitepaper/toddler-whitepaper-en.pdf)
+adds the path from Toddler training to useful work, PLS/PAR evidence and an
+owner-led five-year agent-economy scenario. The companion
+[business plan](docs/businessplan/business-plan-2027-2031.pdf) includes the
+Virtuanalytica logo, market/competitor scan, diagrams, operating and marketing
+plans, and a monthly 2027 liquidity scenario. The
+[technical paper](docs/technicalpaper/technical-paper-g0-g4.pdf) describes
+G0–G4 lineage, data and training protocols, knowledge graph, source layout and
+developer reproduction steps. The [repo gap audit](docs/roadmap/REPO_GAP_AUDIT_20261011.md)
+lists the missing evidence and engineering work. The
 [execution roadmap](docs/roadmap/FIVE_YEAR_EXECUTION_2027_2031.md) starts with
 a sealed software-debugger pilot. Its [work-pilot scorer](scripts/score_work_pilot.py)
 compares the incumbent, Toddler + Teacher, and Toddler + Teacher + specialist
