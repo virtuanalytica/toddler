@@ -75,6 +75,12 @@ profielen, bronnen, seedbereiken, gewichthashes en selectie in het manifest.
 De [eerste volledige zoekronde](learn/G4_SEARCH_20261010.md) koos voor vier
 van vijf kinderen een nieuwe route; t6001 bleef bij G3. De private
 voorbereiding heeft dit cohort geweigerd zonder geheime kaarten te maken.
+Een [tweede openbare ronde](learn/G4_SELF_REWARD_20261010.md) voegde PPO op
+eigen beloning en doorleren vanaf de vorige kandidaat toe. Ook toen verbeterden
+vier van vijf; de hergebruikte openbare controlekaarten tellen niet als een
+nieuwe replicatie. De private voorbereiding is opnieuw gestopt vóór creatie
+van seeds. De volgende generatie moet een moeilijker, nog niet verzadigd
+curriculum en een vooraf bevroren nieuwe toets krijgen.
 
 Deze loop mag onbeperkt doorontwikkelen binnen het nachtbudget, maar haar
 openbare scores zijn geen promotiebewijs. Herhaald proberen op dezelfde
