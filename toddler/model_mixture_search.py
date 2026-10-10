@@ -47,7 +47,7 @@ def validate(report: dict) -> tuple[list[str], list[dict], dict[str, float]]:
     total = sum(weights.values())
     weights = {task: float(weights[task] / total) for task in tasks}
     seen = set()
-    common_items: dict[str, tuple[str, int]] = {}
+    common_items: dict[str, tuple[str, ...]] = {}
     for row in models:
         if not isinstance(row, dict):
             raise ValueError("each model needs a measurement record")
@@ -70,7 +70,16 @@ def validate(report: dict) -> tuple[list[str], list[dict], dict[str, float]]:
             if not isinstance(item.get("n"), int) or item["n"] < 30:
                 raise ValueError(f"{name}/{task} needs at least 30 public development items")
             _hash(item.get("item_ids_sha256", ""), f"{name}/{task} item_ids_sha256")
-            identity = (item["item_ids_sha256"], item["n"])
+            item_ids = item.get("item_ids")
+            if (not isinstance(item_ids, list) or len(item_ids) != item["n"]
+                    or any(not isinstance(value, str) or not value for value in item_ids)
+                    or len(set(item_ids)) != len(item_ids)):
+                raise ValueError(f"{name}/{task} needs unique ordered public item IDs")
+            identity = tuple(item_ids)
+            ordered_hash = hashlib.sha256(json.dumps(item_ids, ensure_ascii=False,
+                                                      separators=(",", ":")).encode()).hexdigest()
+            if ordered_hash != item["item_ids_sha256"]:
+                raise ValueError(f"{name}/{task} item IDs differ from their ordered hash")
             if task in common_items and identity != common_items[task]:
                 raise ValueError(f"{name}/{task} uses different prompts than another model")
             common_items[task] = identity
@@ -134,15 +143,25 @@ def search(report: dict, *, max_models: int = 3, vram_budget_gb: float = 80,
     best_solo = (max(eligible_solos, key=lambda row: (row["quality"], -row["mean_latency_s"],
                                                    -row["gpu_board_wh_per_answer"]))
                  if eligible_solos else None)
-    random_quality = sum(row["quality"] for row in solos) / len(solos)
-    random_latency = sum(row["mean_latency_s"] for row in solos) / len(solos)
-    random_energy = sum(row["gpu_board_wh_per_answer"] for row in solos) / len(solos)
-    oracle = 0.0
-    for task in tasks:
-        n = rows[names[0]]["tasks"][task]["n"]
-        oracle += weights[task] * sum(
-            max(rows[name]["tasks"][task]["item_scores"][index] for name in names)
-            for index in range(n)) / n
+    def average(metric):
+        return round(sum(row[metric] for row in eligible_solos) / len(eligible_solos), 6) if eligible_solos else None
+
+    def oracle_for(members):
+        ceiling = 0.0
+        for task in tasks:
+            n = rows[names[0]]["tasks"][task]["n"]
+            ceiling += weights[task] * sum(
+                max(rows[name]["tasks"][task]["item_scores"][index] for name in members)
+                for index in range(n)) / n
+        return ceiling
+
+    unconstrained_oracle = oracle_for(names)
+    oracle = None
+    for size in range(1, max_models + 1):
+        for members in itertools.combinations(names, size):
+            if sum(rows[name]["resident_vram_gb"] for name in members) <= vram_budget_gb:
+                value = oracle_for(members)
+                oracle = max(oracle, value) if oracle is not None else value
     top: list[dict] = []
     feasible = 0
     lowest_energy_above_solo = None
@@ -174,13 +193,16 @@ def search(report: dict, *, max_models: int = 3, vram_budget_gb: float = 80,
             "source_item_bank_sha256": report["item_bank_sha256"],
             "protocol": report["benchmark_policy"], "models_measured": len(models),
             "routes_considered_upper_bound": count, "feasible_routes": feasible,
-            "best_single": best_solo, "random_router_expected_quality": round(random_quality, 6),
-            "oracle_router_ceiling": round(oracle, 6),
+            "best_single": best_solo, "random_router_expected_quality": average("quality"),
+            "random_router_population": [row["models"][0] for row in eligible_solos],
+            "oracle_router_ceiling": round(oracle, 6) if oracle is not None else None,
+            "oracle_router_ceiling_unconstrained": round(unconstrained_oracle, 6),
+            "oracle_ceiling_scope": "at most max_models and resident VRAM budget; optimistic about latency and energy",
             "oracle_gain_over_best_single": round(oracle - best_solo["quality"], 6)
-            if best_solo else None,
-            "random_router_expected": {"quality": round(random_quality, 6),
-                                       "mean_latency_s": round(random_latency, 6),
-                                       "gpu_board_wh_per_answer": round(random_energy, 6)},
+            if best_solo and oracle is not None else None,
+            "random_router_expected": {"quality": average("quality"),
+                                       "mean_latency_s": average("mean_latency_s"),
+                                       "gpu_board_wh_per_answer": average("gpu_board_wh_per_answer")},
             "lowest_energy_at_least_best_single_quality": lowest_energy_above_solo,
             "candidates": top, "energy_scope": "gpu_board",
             "warning": "Public development selection only; use fresh sealed items and measured end-to-end runtime before promotion."}
