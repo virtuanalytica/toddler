@@ -45,9 +45,10 @@ def audit(manifest_path: Path, family_root: Path, registry_root: Path) -> dict:
     """Prepare, run or resume, assess, and import only a replicated winner."""
     manifest, _ = G4.validate_cohort(manifest_path, registry_root)
     cohort_id = manifest["created_utc"]
-    if not all(row["selected_specialist"] for row in manifest["navigation"]["children"]):
+    gate = G4.public_gate(manifest_path, manifest)
+    if not gate["eligible"]:
         return {"status": "public_gate_failed", "cohort": cohort_id,
-                "selected_children": sum(row["selected_specialist"] for row in manifest["navigation"]["children"]),
+                "reason": gate["reason"], "selected_children": gate.get("selected_children"),
                 "private_seeds_created": False}
 
     family_root.mkdir(mode=0o700, parents=True, exist_ok=True)

@@ -6,23 +6,50 @@ import pytest
 from scripts import g4_auto_audit as audit
 
 
-def _manifest(tmp_path, selected=5):
+def _manifest(tmp_path, selected=5, stamp="20261010T223001Z-new"):
     path = tmp_path / "cohort" / "manifest.json"
     path.parent.mkdir()
-    path.write_text(json.dumps({"created_utc": "20261010T001936Z-886c2e",
-                                "navigation": {"children": [
-                                    {"selected_specialist": i < selected} for i in range(5)]}}))
+    path.write_text(json.dumps({"created_utc": stamp,
+                                "navigation": {"development_seeds": [65000, 65049],
+                                               "public_check_seeds": [90000, 90049],
+                                               "children": [
+                                                   {"id": f"t600{i + 1}", "selected_specialist": i < selected,
+                                                    "search": {"development": {"parent_successes": 50,
+                                                                                "parent_mean": 1.02},
+                                                               "public_check": {"parent_successes": 50,
+                                                                                "parent_mean": 1.02}}}
+                                                   for i in range(5)]}}))
     return path
 
 
 def test_public_failure_never_prepares_private_seeds(tmp_path, monkeypatch):
-    path = _manifest(tmp_path, selected=4)
+    path = _manifest(tmp_path, selected=3)
     monkeypatch.setattr(audit.G4, "validate_cohort", lambda manifest, root: (json.loads(path.read_text()), {}))
     monkeypatch.setattr(audit.G4, "prepare", lambda *args: pytest.fail("private seeds used"))
     result = audit.audit(path, tmp_path / "private", tmp_path / "registry")
     assert result["status"] == "public_gate_failed"
     assert result["private_seeds_created"] is False
     assert not (tmp_path / "private").exists()
+
+
+def test_four_improvements_need_a_mastered_unchanged_parent(tmp_path):
+    path = _manifest(tmp_path, selected=4)
+    manifest = json.loads(path.read_text())
+    assert audit.G4.public_gate(path, manifest) == {
+        "eligible": True, "selected_children": 4, "mastered_fallback": ["t6005"]}
+    manifest["navigation"]["children"][4]["search"]["public_check"]["parent_successes"] = 49
+    assert audit.G4.public_gate(path, manifest)["eligible"] is False
+
+
+def test_repeated_public_split_and_old_cohort_cannot_spend_private_family(tmp_path):
+    path = _manifest(tmp_path, selected=4)
+    manifest = json.loads(path.read_text())
+    old = dict(manifest, created_utc="20261010T001936Z-old")
+    assert audit.G4.public_gate(path, old)["eligible"] is False
+    earlier = tmp_path / "earlier" / "manifest.json"
+    earlier.parent.mkdir()
+    earlier.write_text(json.dumps(old))
+    assert "reused" in audit.G4.public_gate(path, manifest)["reason"]
 
 
 def test_passed_gate_runs_once_then_resumes_same_protocol(tmp_path, monkeypatch):
