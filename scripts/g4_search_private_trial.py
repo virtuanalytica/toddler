@@ -12,6 +12,7 @@ import argparse
 import hashlib
 import io
 import json
+import math
 import os
 import shutil
 import tempfile
@@ -34,7 +35,20 @@ TASKS = ("cartpole", "acrobot", "empty5", "doorkey5", "doorkey8", "unlock",
          "unlockpickup", "keycorridor3", "lavacross9")
 CHILDREN = tuple(f"t600{i}" for i in range(1, 6))
 PARENTS = tuple(f"G3-recombined/t500{i}" for i in range(1, 6))
-SELECTION_RULE = "best dev mean; use only if dev and independent public check exceed G3 by >= 0.005"
+SELECTION_RULE = ("best development recipe; trained update must beat G3 and unchanged prior "
+                  "on development and fixed public check by >= 0.005; otherwise retain eligible prior or G3")
+BASE_PROFILES = {
+    "g2-transfer-h64-128x12": "oracle_imitation",
+    "g3-continue-h64-128x12": "oracle_imitation",
+    "g3-continue-h64-256x16": "oracle_imitation",
+    "scratch-h32-128x12": "oracle_imitation",
+    "scratch-h128-128x12": "oracle_imitation",
+    "g3-self-ppo-4096": "self_reward_ppo",
+    "g3-continue-h64-128x12-then-self-ppo-4096": "oracle_then_self_reward",
+}
+PRIOR_PROFILES = {"previous-unchanged": "unchanged_hash_verified_prior",
+                  "previous-continue-128x12": "oracle_imitation",
+                  "previous-self-ppo-4096": "self_reward_ppo"}
 CONFIRMATORY_ALPHA = 0.01
 # This one-family decision was frozen before the next nightly public split.
 # Earlier G4-search cohorts repeatedly used the 2026-10-10 public maps.
@@ -60,19 +74,156 @@ def _load_child(path: Path):
 
 
 def winner_training(row: dict) -> dict:
+    """Validate provenance of the actually routed profile, including rollback."""
+    selected = row["search"].get("selected_profile")
+    if selected == "G3-parent":
+        return {"method": "inherited_G3_parent"}
     profiles = [profile for profile in row["search"]["profiles"]
-                if profile["profile"] == row["search"]["winner"]]
+                if profile["profile"] == selected]
     if len(profiles) != 1:
-        raise ValueError("missing or duplicated winning training profile")
+        raise ValueError("missing or duplicated selected training profile")
     training = profiles[0].get("training") or profiles[0].get("oracle_imitation")
     if not isinstance(training, dict):
-        raise ValueError("winning profile lacks training provenance")
-    if training.get("method") == "self_reward_ppo":
-        if training.get("steps") != 4096 or training.get("uses_teacher_grid") is not False:
+        raise ValueError("selected profile lacks training provenance")
+    expected_method = (BASE_PROFILES | PRIOR_PROFILES).get(selected)
+    if training.get("method") != expected_method:
+        raise ValueError("selected profile method differs from the frozen search contract")
+
+    def valid_ppo(evidence: dict) -> bool:
+        return (evidence.get("method") == "self_reward_ppo" and evidence.get("steps") == 4096
+                and evidence.get("uses_teacher_grid") is False)
+
+    def valid_oracle(evidence: dict) -> bool:
+        return (evidence.get("method") == "oracle_imitation" and evidence.get("oracle_steps", 0) >= 1
+                and evidence.get("teacher_privileged_grid") is True)
+
+    method = training.get("method")
+    if selected == "previous-unchanged":
+        if method != "unchanged_hash_verified_prior" or training.get("steps") != 0:
+            raise ValueError("retained prior lacks unchanged-weight provenance")
+    elif method == "self_reward_ppo":
+        if not valid_ppo(training):
             raise ValueError("self-reward profile lacks the fixed CPU training contract")
-    elif training.get("oracle_steps", 0) < 1 or training.get("teacher_privileged_grid") is not True:
+    elif method == "oracle_then_self_reward":
+        if (not isinstance(training.get("imitation"), dict)
+                or not isinstance(training.get("own_interaction"), dict)
+                or not valid_oracle(training["imitation"])
+                or not valid_ppo(training["own_interaction"])
+                or training.get("disjoint_training_seeds") is not True):
+            raise ValueError("combined profile lacks imitation and own-reward provenance")
+    elif not valid_oracle(training):
         raise ValueError("oracle profile lacks demonstration provenance")
     return training
+
+
+def verify_search_selection(search: dict, selected_specialist: bool) -> str:
+    """Recompute the predeclared public rollback from unrounded evidence."""
+    if search.get("selection_rule") != SELECTION_RULE:
+        raise ValueError("cohort used a different route selection rule")
+    profiles = search.get("profiles")
+    if not isinstance(profiles, list) or not profiles:
+        raise ValueError("search lacks candidate profiles")
+    if len({row.get("profile") for row in profiles}) != len(profiles):
+        raise ValueError("search has duplicate profile names")
+    if any(not isinstance(row.get("development_mean_raw"), (int, float))
+           or not math.isfinite(row["development_mean_raw"])
+           or round(row["development_mean_raw"], 5) != row.get("development_mean")
+           or not isinstance(row.get("hidden"), int) for row in profiles):
+        raise ValueError("search lacks raw development evidence")
+    best = max(profiles, key=lambda row: (row["development_mean_raw"], -row["hidden"], row["profile"]))
+    if best["profile"] != search.get("winner"):
+        raise ValueError("search did not select its recorded development winner")
+    evidence = search.get("selection_evidence", {})
+    required = ("winner_development_mean", "winner_public_check_mean",
+                "parent_development_mean", "parent_public_check_mean")
+    if any(not isinstance(evidence.get(name), (int, float)) or not math.isfinite(evidence[name])
+           for name in required):
+        raise ValueError("search lacks raw public selection evidence")
+    winner_dev, winner_check = evidence["winner_development_mean"], evidence["winner_public_check_mean"]
+    parent_dev, parent_check = evidence["parent_development_mean"], evidence["parent_public_check_mean"]
+    prior_dev, prior_check = evidence.get("previous_development_mean"), evidence.get("previous_public_check_mean")
+    expected_profiles = set(BASE_PROFILES) | (set(PRIOR_PROFILES) if prior_dev is not None else set())
+    if {row["profile"] for row in profiles} != expected_profiles:
+        raise ValueError("search changed the frozen profile set")
+    for profile in profiles:
+        if profile.get("training", {}).get("method") != (BASE_PROFILES | PRIOR_PROFILES)[profile["profile"]]:
+            raise ValueError("search profile method differs from the frozen contract")
+    if (best["development_mean_raw"] != winner_dev
+            or (prior_dev is None) != (prior_check is None)
+            or (prior_dev is not None and
+                (not all(isinstance(value, (int, float)) and math.isfinite(value)
+                         for value in (prior_dev, prior_check))
+                 or not any(row["profile"] == "previous-unchanged"
+                            and row["development_mean_raw"] == prior_dev for row in profiles)))):
+        raise ValueError("search winner or prior baseline differs from raw evidence")
+    prior_display = search.get("previous_baseline")
+    if ((prior_dev is None and prior_display is not None)
+            or (prior_dev is not None and
+                (not isinstance(prior_display, dict)
+                 or prior_display.get("development_mean") != round(prior_dev, 5)
+                 or prior_display.get("public_check_mean") != round(prior_check, 5)))):
+        raise ValueError("displayed prior baseline differs from raw evidence")
+    gain = 0.005
+    beats_parent = winner_dev >= parent_dev + gain and winner_check >= parent_check + gain
+    beats_prior = (prior_dev is None or
+                   (winner_dev >= prior_dev + gain and winner_check >= prior_check + gain))
+    prior_eligible = (prior_dev is not None and prior_dev >= parent_dev + gain
+                      and prior_check >= parent_check + gain)
+    choice = ("previous" if best["profile"] == "previous-unchanged" and beats_parent else
+              "parent" if best["profile"] == "previous-unchanged" else
+              "challenger" if beats_parent and beats_prior else
+              "previous" if prior_eligible else "parent")
+    expected_profile = (best["profile"] if choice == "challenger" else
+                        "previous-unchanged" if choice == "previous" else "G3-parent")
+    chosen_dev = winner_dev if choice == "challenger" else prior_dev if choice == "previous" else parent_dev
+    chosen_check = (winner_check if choice == "challenger" else
+                    prior_check if choice == "previous" else parent_check)
+    development, check = search.get("development", {}), search.get("public_check", {})
+    if (search.get("selected_profile") != expected_profile
+            or selected_specialist != (choice != "parent")
+            or round(chosen_dev, 5) != development.get("candidate_mean")
+            or round(chosen_check, 5) != check.get("candidate_mean")
+            or round(parent_dev, 5) != development.get("parent_mean")
+            or round(parent_check, 5) != check.get("parent_mean")
+            or round(winner_check, 5) != search.get("winner_public_check_mean")):
+        raise ValueError("public route selection contradicts the recorded scores")
+    return expected_profile
+
+
+def prior_source(manifest_path: Path, row: dict):
+    """Independently load the hash-bound previous expert, if one was compared."""
+    source_sha = row.get("previous_candidate_sha256")
+    has_prior = row["search"].get("previous_baseline") is not None
+    if not has_prior:
+        if source_sha is not None:
+            raise ValueError("prior source hash exists without a prior baseline")
+        return None
+    if (not isinstance(source_sha, str) or len(source_sha) != 64
+            or any(char not in "0123456789abcdef" for char in source_sha)):
+        raise ValueError("prior baseline lacks a source weight hash")
+    for previous in sorted(manifest_path.parent.parent.glob("*/manifest.json"), reverse=True):
+        if previous.parent.name >= manifest_path.parent.name:
+            continue
+        earlier = json.loads(previous.read_text())
+        if earlier.get("status") != "completed_candidate":
+            continue
+        sources = [candidate for candidate in earlier.get("navigation", {}).get("children", [])
+                   if candidate.get("id") == row["id"] and candidate.get("sha256") == source_sha
+                   and candidate.get("selected_specialist") is True]
+        if not sources:
+            continue
+        source = sources[0]
+        path = (previous.parent / "navigation" / f"{row['id']}.pt").resolve()
+        if (Path(source["artifact"]).resolve() != path or not path.is_file()
+                or digest(path) != source_sha
+                or source.get("g3_parent") != row["g3_parent"]
+                or source.get("g3_parent_sha256") != row["g3_parent_sha256"]):
+            raise ValueError("prior source artifact or parent lineage differs")
+        net = _load_child(path)
+        if net.route != source.get("route") or net.route.get("unlockpickup") != "g4_pickup":
+            raise ValueError("prior source route differs from its manifest")
+        return net.experts["g4_pickup"]
+    raise ValueError("prior baseline source was not found in archived cohorts")
 
 
 def validate_cohort(manifest_path: Path, root: Path) -> tuple[dict, dict[str, object]]:
@@ -106,25 +257,11 @@ def validate_cohort(manifest_path: Path, root: Path) -> tuple[dict, dict[str, ob
         if row.get("selection_rule") != SELECTION_RULE or not isinstance(row.get("selected_specialist"), bool):
             raise ValueError("cohort used a different route selection rule")
         search = row.get("search", {})
-        if (search.get("selection_rule") != SELECTION_RULE or search.get("selected_specialist") != row["selected_specialist"]
-                or not isinstance(search.get("profiles"), list) or not search.get("winner")):
+        if search.get("selected_specialist") != row["selected_specialist"]:
             raise ValueError("missing or mismatched architecture search provenance")
-        winners = [profile for profile in search["profiles"] if profile.get("profile") == search["winner"]]
-        if len(winners) != 1 or any("development_mean" not in profile for profile in search["profiles"]):
-            raise ValueError("search winner is absent or duplicated")
-        best = max(search["profiles"], key=lambda profile: (profile["development_mean"],
-                                                             -profile["hidden"], profile["profile"]))
-        if best["profile"] != search["winner"]:
-            raise ValueError("search did not select its recorded development winner")
-        dev, check = search.get("development", {}), search.get("public_check", {})
-        try:
-            expected_selection = (dev["candidate_mean"] >= dev["parent_mean"] + 0.005
-                                  and check["candidate_mean"] >= check["parent_mean"] + 0.005)
-        except (KeyError, TypeError) as exc:
-            raise ValueError("search lacks public development or check scores") from exc
-        if expected_selection != row["selected_specialist"]:
-            raise ValueError("route selection contradicts the recorded public scores")
+        selected_profile = verify_search_selection(search, row["selected_specialist"])
         winner_training(row)
+        previous_expert = prior_source(manifest_path, row)
         expected_pickup = "g4_pickup" if row["selected_specialist"] else parent.route["unlockpickup"]
         if (set(child.route) != set(TASKS) or child.route["unlockpickup"] != expected_pickup
                 or {task: expert for task, expert in child.route.items() if task != "unlockpickup"}
@@ -133,6 +270,12 @@ def validate_cohort(manifest_path: Path, root: Path) -> tuple[dict, dict[str, ob
         expected_experts = set(parent.experts) | ({"g4_pickup"} if row["selected_specialist"] else set())
         if set(child.experts) != expected_experts:
             raise ValueError("G4 altered its expert bank")
+        if selected_profile == "previous-unchanged":
+            if previous_expert is None:
+                raise ValueError("retained prior has no archived source")
+            old, new = previous_expert.state_dict(), child.experts["g4_pickup"].state_dict()
+            if old.keys() != new.keys() or any(not torch.equal(old[key], new[key]) for key in old):
+                raise ValueError("retained prior expert differs from archived source")
         for name in parent.experts:
             old, new = parent.experts[name].state_dict(), child.experts[name].state_dict()
             if old.keys() != new.keys() or any(not torch.equal(old[key], new[key]) for key in old):

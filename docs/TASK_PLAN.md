@@ -110,6 +110,16 @@ voor de beste imitatievariant. Het profiel mag alleen op de nieuwe openbare
 ontwikkeling en controle worden gekozen; de bestaande twee onafhankelijke
 private proeven en de vooroudercontrole blijven verplicht. G3 blijft officieel.
 
+Een volgende [vierkindproef met PPO op al geleerde, gehashte specialisten](https://github.com/virtuanalytica/teacher/blob/main/docs/G4_PRIOR_SELFREWARD_PILOT_20261010.md)
+liet één kind op twee openbare blokken verbeteren, maar andere kinderen vielen
+terug of gaven tegenstrijdige signalen. Daarom test Teacher in de volgende
+zoekronde ook de **ongewijzigde** eerdere specialist als vaste referentie.
+Een nieuwe training mag die alleen vervangen bij minstens 0,005 winst op beide
+nieuwe openbare blokken; anders valt de route terug op die specialist of de
+officiële G3-ouder. Het Toddler-evaluatorscript controleert die keuze opnieuw
+uit ongeronde scores, de ouderhash en de bewaarde gewichten vóór het private
+familieslot wordt gebruikt.
+
 ## Quotients
 
 - IQ: task competence on held-out seeds (aggregate IQM).

@@ -88,7 +88,8 @@ def test_failed_confirmation_cannot_import_generation(tmp_path, monkeypatch):
 
 
 def test_self_reward_winner_requires_real_training_provenance():
-    row = {"search": {"winner": "g3-self-ppo-4096", "profiles": [{
+    row = {"search": {"winner": "g3-self-ppo-4096",
+                      "selected_profile": "g3-self-ppo-4096", "profiles": [{
         "profile": "g3-self-ppo-4096",
         "training": {"method": "self_reward_ppo", "steps": 4096,
                      "uses_teacher_grid": False},
@@ -97,3 +98,50 @@ def test_self_reward_winner_requires_real_training_provenance():
     row["search"]["profiles"][0]["training"]["uses_teacher_grid"] = True
     with pytest.raises(ValueError, match="fixed CPU training contract"):
         G4S.winner_training(row)
+
+
+def test_combined_profile_and_retained_prior_require_distinct_provenance():
+    combined = {"method": "oracle_then_self_reward", "disjoint_training_seeds": True,
+                "imitation": {"method": "oracle_imitation", "oracle_steps": 100,
+                              "teacher_privileged_grid": True},
+                "own_interaction": {"method": "self_reward_ppo", "steps": 4096,
+                                    "uses_teacher_grid": False}}
+    row = {"search": {"selected_profile": "g3-continue-h64-128x12-then-self-ppo-4096",
+                      "profiles": [{"profile": "g3-continue-h64-128x12-then-self-ppo-4096", "training": combined}]}}
+    assert G4S.winner_training(row)["method"] == "oracle_then_self_reward"
+    combined["disjoint_training_seeds"] = False
+    with pytest.raises(ValueError, match="combined profile"):
+        G4S.winner_training(row)
+    row["search"]["selected_profile"] = "previous-unchanged"
+    row["search"]["profiles"] = [{"profile": "previous-unchanged",
+                                   "training": {"method": "unchanged_hash_verified_prior", "steps": 0}}]
+    assert G4S.winner_training(row)["steps"] == 0
+
+
+def test_public_selection_recomputes_prior_rollback_from_raw_scores():
+    profiles = [{"profile": name, "hidden": 64,
+                 "development_mean_raw": 0.1, "development_mean": 0.1,
+                 "training": {"method": method}}
+                for name, method in (G4S.BASE_PROFILES | G4S.PRIOR_PROFILES).items()]
+    for profile in profiles:
+        if profile["profile"] == "previous-unchanged":
+            profile["development_mean_raw"] = profile["development_mean"] = 1.00111
+        if profile["profile"] == "previous-self-ppo-4096":
+            profile["development_mean_raw"] = profile["development_mean"] = 1.01243
+    search = {"selection_rule": G4S.SELECTION_RULE, "profiles": profiles,
+              "winner": "previous-self-ppo-4096", "selected_profile": "previous-unchanged",
+              "selected_specialist": True, "winner_public_check_mean": 0.96736,
+              "selection_evidence": {"winner_development_mean": 1.01243,
+                                     "winner_public_check_mean": 0.96736,
+                                     "parent_development_mean": 0.0,
+                                     "parent_public_check_mean": 0.0,
+                                     "previous_development_mean": 1.00111,
+                                     "previous_public_check_mean": 1.01146},
+              "previous_baseline": {"development_mean": 1.00111,
+                                    "public_check_mean": 1.01146},
+              "development": {"candidate_mean": 1.00111, "parent_mean": 0.0},
+              "public_check": {"candidate_mean": 1.01146, "parent_mean": 0.0}}
+    assert G4S.verify_search_selection(search, True) == "previous-unchanged"
+    search["selected_profile"] = "previous-self-ppo-4096"
+    with pytest.raises(ValueError, match="route selection"):
+        G4S.verify_search_selection(search, True)
