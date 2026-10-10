@@ -21,6 +21,7 @@ from pathlib import Path
 
 import numpy as np
 import torch
+from scipy.stats import binomtest
 
 from toddler.learn import generations as G, scoring, secret_seeds as SS, tasks as T
 from toddler.learn.ancestor_gate import Trial, assess_lineage_replication, surviving_ancestors
@@ -202,7 +203,7 @@ def prepare(manifest_path: Path, out: Path, root: Path, reveal_days: int = 7) ->
                           "policy": "one confirmatory G4-search audit; no repeated private peeks"})
     out.mkdir(mode=0o700, parents=True, exist_ok=False)
     commitments = [SS.new_set(30, date.today() + timedelta(days=reveal_days)) for _ in range(2)]
-    protocol = {"schema": "toddler-g4-search-private-trial/v1", "generation": "G4-search",
+    protocol = {"schema": "toddler-g4-search-private-trial/v2", "generation": "G4-search",
                 "manifest": str(manifest_path.resolve()), "manifest_sha256": digest(manifest_path),
                 "evaluator_sha256": digest(Path(__file__)),
                 "public_gate": gate,
@@ -213,6 +214,7 @@ def prepare(manifest_path: Path, out: Path, root: Path, reveal_days: int = 7) ->
                 "promotion_gate": {"child_count": 5, "sets": 2, "seeds_per_set": 30,
                                    "mastery": 0.9, "max_regression": 0.1,
                                    "p_less_than": CONFIRMATORY_ALPHA, "prob_improvement_at_least": 0.75,
+                                   "test": "one-sided exact paired sign test on 30 matched seed means across five fixed children and nine tasks",
                                    "sequential_policy": "one prospective confirmatory G4-search audit; later attempts need a new preregistered family and larger cohort"}}
     _write_private(out / "protocol.json", protocol)
     return {"protocol": str(out / "protocol.json"), "protocol_sha256": digest(out / "protocol.json"),
@@ -228,19 +230,55 @@ def _trial(raw: dict) -> Trial:
                   for gen, tasks in raw["ancestors"].items()})
 
 
-def confirmatory_pass(decision) -> bool:
-    """One prospectively frozen G4-search attempt, stricter than the old trial."""
-    return bool(decision.promote and all(
-        row.passed and row.promotion_vs_ancestor.p_value < CONFIRMATORY_ALPHA
-        and row.promotion_vs_control.p_value < CONFIRMATORY_ALPHA
-        for row in decision.trials))
+def _validated_seed_means(raw: dict) -> dict[str, np.ndarray]:
+    """Recompute public-free trial aggregates from the private seed matrices."""
+    expected = {"candidate": raw["candidate"], "control": raw["control"], **raw["ancestors"]}
+    if raw.get("seed_count") != 30 or set(raw.get("per_seed", {})) != set(expected):
+        raise ValueError("private trial lacks the frozen thirty-seed matrices")
+    means = {}
+    for arm, tasks in expected.items():
+        matrices = raw["per_seed"][arm]
+        if set(matrices) != set(tasks):
+            raise ValueError(f"{arm} seed matrices differ from aggregate tasks")
+        cols = []
+        for task in TASKS:
+            if task not in tasks:
+                cols.append(np.zeros(30))
+                continue
+            matrix = np.asarray(matrices[task], dtype=float)
+            if matrix.shape != (len(CHILDREN), 30) or not np.isfinite(matrix).all():
+                raise ValueError(f"{arm}/{task} needs five finite thirty-seed rows")
+            if not np.allclose(matrix.mean(axis=1), tasks[task], rtol=0, atol=1e-10):
+                raise ValueError(f"{arm}/{task} aggregate differs from private seed rows")
+            cols.append(matrix.mean(axis=0))
+        means[arm] = np.mean(np.stack(cols), axis=0)
+    return means
+
+
+def paired_seed_evidence(candidate: np.ndarray, reference: np.ndarray) -> dict:
+    """Test fixed-cohort improvement across matched, unseen environments."""
+    if candidate.shape != (30,) or reference.shape != (30,):
+        raise ValueError("paired test needs thirty matched seed means per arm")
+    if not np.isfinite(candidate).all() or not np.isfinite(reference).all():
+        raise ValueError("paired seed scores must be finite")
+    difference = candidate - reference
+    wins = int(np.count_nonzero(difference > 1e-12))
+    losses = int(np.count_nonzero(difference < -1e-12))
+    ties = 30 - wins - losses
+    p_value = float(binomtest(wins, wins + losses, 0.5, alternative="greater").pvalue) if wins + losses else 1.0
+    improvement_probability = (wins + 0.5 * ties) / 30
+    gain = float(np.mean(difference))
+    return {"passed": bool(p_value < CONFIRMATORY_ALPHA and improvement_probability >= 0.75 and gain > 0),
+            "p_value": p_value, "prob_improvement": improvement_probability,
+            "mean_paired_gain": gain, "wins": wins, "losses": losses, "ties": ties,
+            "candidate_mean": float(np.mean(candidate)), "reference_mean": float(np.mean(reference))}
 
 
 def run(protocol_path: Path, index: int, root: Path) -> dict:
     if index not in (0, 1):
         raise ValueError("trial index must be 0 or 1")
     protocol = json.loads(protocol_path.read_text())
-    if (protocol["schema"] != "toddler-g4-search-private-trial/v1" or tuple(protocol["tasks"]) != TASKS
+    if (protocol["schema"] != "toddler-g4-search-private-trial/v2" or tuple(protocol["tasks"]) != TASKS
             or tuple(protocol["children"]) != CHILDREN or tuple(protocol["parents"]) != PARENTS
             or protocol["eval_mode"] != "sample"):
         raise ValueError("frozen protocol does not match the evaluator")
@@ -263,10 +301,17 @@ def run(protocol_path: Path, index: int, root: Path) -> dict:
     registry = G.Registry(root)
     rows = {arm: {task: [] for task in TASKS} for arm in ("candidate", "control", "G2", "G3-recombined")}
     rows["G1"] = {task: [] for task in TASKS[:4]}
+    per_seed = {arm: {task: [] for task in tasks} for arm, tasks in rows.items()}
 
     def score(net, task):
         raw = scoring.evaluate(TaskView(net, task), task, seeds, mode="sample")
-        return float(np.mean([T.normalise(task, value, anchors[task]) for value in raw]))
+        return [float(T.normalise(task, value, anchors[task])) for value in raw]
+
+    def append(arm, task, values):
+        if len(values) != len(seeds):
+            raise ValueError("evaluation returned an incomplete seed vector")
+        rows[arm][task].append(float(np.mean(values)))
+        per_seed[arm][task].append(values)
 
     for child_index, child_id in enumerate(CHILDREN, start=1):
         parent, _ = registry.load("G3-recombined", f"t500{child_index}")
@@ -275,18 +320,19 @@ def run(protocol_path: Path, index: int, root: Path) -> dict:
         g1, _ = registry.load(*g1_ref.split("/", 1))
         for task in TASKS:
             parent_score = score(parent, task)
-            rows["control"][task].append(parent_score)
-            rows["G3-recombined"][task].append(parent_score)
-            rows["candidate"][task].append(
+            append("control", task, parent_score)
+            append("G3-recombined", task, parent_score)
+            append("candidate", task,
                 score(children[child_id], task)
                 if task == "unlockpickup" and children[child_id].route[task] == "g4_pickup"
                 else parent_score)
-            rows["G2"][task].append(score(g2, task))
+            append("G2", task, score(g2, task))
             if task in rows["G1"]:
-                rows["G1"][task].append(score(g1, task))
+                append("G1", task, score(g1, task))
     trial = {"seed_set_id": commitment.set_id, "frozen_plan_sha256": digest(protocol_path),
              "child_ids": CHILDREN, "candidate_weights": protocol["candidate_weights"],
-             "candidate": rows.pop("candidate"), "control": rows.pop("control"), "ancestors": rows}
+             "candidate": rows.pop("candidate"), "control": rows.pop("control"), "ancestors": rows,
+             "per_seed": per_seed, "seed_count": len(seeds)}
     _write_private(out, trial)
     return {"trial": str(out), "sha256": digest(out), "seed_set_id": commitment.set_id,
             "children": len(CHILDREN), "tasks": len(TASKS)}
@@ -294,10 +340,12 @@ def run(protocol_path: Path, index: int, root: Path) -> dict:
 
 def assess(protocol_path: Path, root: Path) -> dict:
     protocol = json.loads(protocol_path.read_text())
-    if protocol.get("evaluator_sha256") != digest(Path(__file__)):
+    if (protocol.get("schema") != "toddler-g4-search-private-trial/v2"
+            or protocol.get("evaluator_sha256") != digest(Path(__file__))):
         raise ValueError("evaluator code changed after protocol freeze")
     paths = [protocol_path.parent / f"trial-{i}.json" for i in (1, 2)]
-    trials = tuple(_trial(json.loads(path.read_text())) for path in paths)
+    raw_trials = [json.loads(path.read_text()) for path in paths]
+    trials = tuple(_trial(raw) for raw in raw_trials)
     if [trial.seed_set_id for trial in trials] != [row["set_id"] for row in protocol["seed_commitments"]]:
         raise ValueError("trials do not match committed seed sets")
     if any(trial.frozen_plan_sha256 != digest(protocol_path)
@@ -310,17 +358,23 @@ def assess(protocol_path: Path, root: Path) -> dict:
     if ledger.verify() != (True, None):
         raise ValueError("official lineage chain is invalid")
     decision = assess_lineage_replication(ledger, PARENTS, trials)
-    result = {"promote": confirmatory_pass(decision),
+    trial_rows = []
+    for trial, raw, retention in zip(trials, raw_trials, decision.trials):
+        means = _validated_seed_means(raw)
+        ancestor = paired_seed_evidence(means["candidate"], means[retention.strongest_ancestor])
+        control = paired_seed_evidence(means["candidate"], means["control"])
+        passed = bool(not retention.regressions and ancestor["passed"] and control["passed"])
+        trial_rows.append({"seed_set_id": trial.seed_set_id, "passed": passed,
+                           "strongest_ancestor": retention.strongest_ancestor,
+                           "vs_ancestor": ancestor, "vs_control": control,
+                           "retention_floors": retention.retention_floors,
+                           "regressions": retention.regressions})
+    result = {"promote": all(row["passed"] for row in trial_rows),
               "alpha": CONFIRMATORY_ALPHA, "required_ancestors": decision.required_ancestors,
               "protocol_sha256": digest(protocol_path),
               "trial_sha256": [digest(path) for path in paths],
-              "trials": [{"seed_set_id": trial.seed_set_id, "passed": row.passed,
-                          "strongest_ancestor": row.strongest_ancestor,
-                          "vs_ancestor": asdict(row.promotion_vs_ancestor),
-                          "vs_control": asdict(row.promotion_vs_control),
-                          "retention_floors": row.retention_floors,
-                          "regressions": row.regressions}
-                         for trial, row in zip(trials, decision.trials)]}
+              "test": "one-sided exact paired sign test over thirty seed means",
+              "trials": trial_rows}
     return result
 
 
