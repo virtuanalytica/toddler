@@ -102,8 +102,13 @@ Een aparte [publieke self-reward-proef na imitatie](learn/TODDLER_PLASTICITY_RES
 vond bij twee van vier kinderen duidelijke winst, bij één vrijwel geen
 verandering en bij één terugval. Dit onderbouwt een volgende openbare
 architectuurvergelijking met een terugval-fallback en daarna een nieuwe,
-afgeschermde bevestiging; het verandert
-de huidige G4-selectie en haar private protocol niet.
+afgeschermde bevestiging. Teacher zoekt vanaf de volgende nacht ook een
+afzonderlijk profiel met 128 imitatie-episodes gevolgd door 4.096 PPO-stappen
+op eigen beloning. Een [canary op nieuwe openbare kaarten](https://github.com/virtuanalytica/teacher/blob/main/docs/G4_COMBINED_PROFILE_PILOT_20261010.md)
+liet voor t6002 geen winst van dat profiel zien: 0,56099 tegenover 0,91759
+voor de beste imitatievariant. Het profiel mag alleen op de nieuwe openbare
+ontwikkeling en controle worden gekozen; de bestaande twee onafhankelijke
+private proeven en de vooroudercontrole blijven verplicht. G3 blijft officieel.
 
 ## Quotients
 

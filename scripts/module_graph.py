@@ -10,6 +10,7 @@ never touched and every number comes from committed code.
 
 import io
 import json
+import re
 import subprocess
 import sys
 import tarfile
@@ -23,8 +24,12 @@ REPO = Path(__file__).resolve().parents[1]
 
 
 def measure(rev: str) -> dict:
-    sha = subprocess.run(["git", "-C", str(REPO), "rev-parse", "--short", rev], capture_output=True,
-                         text=True, check=True).stdout.strip()
+    # A historical report may pin a unique seven-character commit prefix. Git's
+    # default abbreviation length grows as the repository grows; keep the
+    # verified prefix so a fresh measurement compares the same revision ID.
+    resolved = subprocess.run(["git", "-C", str(REPO), "rev-parse", "--verify", f"{rev}^{{commit}}"],
+                              capture_output=True, text=True, check=True).stdout.strip()
+    sha = rev if re.fullmatch(r"[0-9a-f]{7,40}", rev) else resolved[:12]
     rev = sha                                    # store the commit, not a moving name like HEAD
     paths = [p for p in ("toddler", "jevserver")
              if subprocess.run(["git", "-C", str(REPO), "cat-file", "-e", f"{rev}:{p}"], capture_output=True).returncode == 0]
