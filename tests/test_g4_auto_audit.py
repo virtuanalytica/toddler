@@ -108,3 +108,34 @@ def test_stale_run_is_not_accepted(tmp_path):
     (older / "manifest.json").write_text(json.dumps({"status": "completed_candidate",
                                                      "created_utc": "20200101T000000Z-old"}))
     assert audit.latest_completed_manifest(tmp_path) is None
+
+
+def test_reserved_family_precedes_newer_cohort_and_checks_hash(tmp_path, monkeypatch):
+    old = _manifest(tmp_path)
+    family = tmp_path / "private"
+    attempt = family / "audit-old"
+    attempt.mkdir(parents=True)
+    (attempt / "protocol.json").write_text(json.dumps({
+        "manifest": str(old), "manifest_sha256": "old-sha"}))
+    (family / "family-attempt.json").write_text(json.dumps({
+        "out": str(attempt), "manifest_sha256": "old-sha"}))
+    monkeypatch.setattr(audit.G4, "digest", lambda path: "old-sha")
+    assert audit.reserved_manifest(family) == old
+    newer = tmp_path / "runs" / "20261011T003000Z-new" / "manifest.json"
+    newer.parent.mkdir(parents=True)
+    newer.write_text(json.dumps({"status": "completed_candidate",
+                                 "created_utc": "20261011T003000Z-new"}))
+    monkeypatch.setattr(audit, "latest_completed_manifest", lambda runs: newer)
+    assert audit.choose_manifest(None, newer.parent.parent, family) == old
+    monkeypatch.setattr(audit.G4, "digest", lambda path: "changed")
+    with pytest.raises(RuntimeError, match="frozen manifest"):
+        audit.reserved_manifest(family)
+
+
+def test_reserved_family_missing_protocol_fails_closed(tmp_path):
+    family = tmp_path / "private"
+    family.mkdir()
+    (family / "family-attempt.json").write_text(json.dumps({
+        "out": str(family / "audit-old"), "manifest_sha256": "old-sha"}))
+    with pytest.raises(RuntimeError, match="without protocol"):
+        audit.reserved_manifest(family)
