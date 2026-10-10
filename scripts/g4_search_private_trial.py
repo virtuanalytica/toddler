@@ -16,7 +16,7 @@ import os
 import shutil
 import tempfile
 from dataclasses import asdict
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 import numpy as np
@@ -35,6 +35,9 @@ CHILDREN = tuple(f"t600{i}" for i in range(1, 6))
 PARENTS = tuple(f"G3-recombined/t500{i}" for i in range(1, 6))
 SELECTION_RULE = "best dev mean; use only if dev and independent public check exceed G3 by >= 0.005"
 CONFIRMATORY_ALPHA = 0.01
+# This one-family decision was frozen before the next nightly public split.
+# Earlier G4-search cohorts repeatedly used the 2026-10-10 public maps.
+PUBLIC_GATE_NOT_BEFORE = datetime(2026, 10, 10, 20, 0, tzinfo=timezone.utc)
 
 
 def digest(path: Path) -> str:
@@ -137,12 +140,54 @@ def validate_cohort(manifest_path: Path, root: Path) -> tuple[dict, dict[str, ob
     return manifest, loaded
 
 
+def public_gate(manifest_path: Path, manifest: dict) -> dict:
+    """Require a fresh prospective split and preserve one mastered G3 parent."""
+    try:
+        created = datetime.strptime(manifest["created_utc"].split("-", 1)[0],
+                                    "%Y%m%dT%H%M%SZ").replace(tzinfo=timezone.utc)
+        nav = manifest["navigation"]
+        ranges = tuple(tuple(nav[key]) for key in ("development_seeds", "public_check_seeds"))
+        counts = tuple(high - low + 1 for low, high in ranges)
+        if (created < PUBLIC_GATE_NOT_BEFORE or counts != (50, 50)
+                or not (0 <= ranges[0][0] <= ranges[0][1] < ranges[1][0] <= ranges[1][1] < 100_000)):
+            return {"eligible": False, "reason": "needs a new, disjoint 50+50 public split after preregistration"}
+        for previous in manifest_path.parent.parent.glob("*/manifest.json"):
+            if previous.resolve() == manifest_path.resolve():
+                continue
+            try:
+                older = json.loads(previous.read_text())
+                if (older.get("created_utc", "") < manifest["created_utc"]
+                        and tuple(older.get("navigation", {}).get("development_seeds", ())) == ranges[0]
+                        and tuple(older.get("navigation", {}).get("public_check_seeds", ())) == ranges[1]):
+                    return {"eligible": False, "reason": "public split was reused by an earlier cohort"}
+            except (OSError, ValueError):
+                continue
+        children = nav["children"]
+        selected = sum(row["selected_specialist"] for row in children)
+        if selected == 5:
+            return {"eligible": True, "selected_children": 5, "mastered_fallback": []}
+        if selected != 4:
+            return {"eligible": False, "reason": "fewer than four children improved on both public sets",
+                    "selected_children": selected}
+        fallback = next(row for row in children if not row["selected_specialist"])
+        search = fallback["search"]
+        if any(search[key]["parent_successes"] != count or search[key]["parent_mean"] < 1.0
+               for key, count in zip(("development", "public_check"), counts)):
+            return {"eligible": False, "reason": "unchanged G3 parent has not mastered both public sets",
+                    "selected_children": selected}
+        return {"eligible": True, "selected_children": selected,
+                "mastered_fallback": [fallback["id"]]}
+    except (KeyError, TypeError, ValueError) as exc:
+        return {"eligible": False, "reason": f"invalid public gate evidence: {type(exc).__name__}"}
+
+
 def prepare(manifest_path: Path, out: Path, root: Path, reveal_days: int = 7) -> dict:
     if reveal_days < 1:
         raise ValueError("reveal window must be at least one day")
     manifest, _ = validate_cohort(manifest_path, root)
-    if not all(row["selected_specialist"] for row in manifest["navigation"]["children"]):
-        raise ValueError("all five children need a public improvement before spending the sole private audit")
+    gate = public_gate(manifest_path, manifest)
+    if not gate["eligible"]:
+        raise ValueError(f"public gate failed before private seeds: {gate['reason']}")
     ledger = Ledger(root)
     if ledger.verify() != (True, None):
         raise ValueError("official lineage chain is invalid")
@@ -160,6 +205,7 @@ def prepare(manifest_path: Path, out: Path, root: Path, reveal_days: int = 7) ->
     protocol = {"schema": "toddler-g4-search-private-trial/v1", "generation": "G4-search",
                 "manifest": str(manifest_path.resolve()), "manifest_sha256": digest(manifest_path),
                 "evaluator_sha256": digest(Path(__file__)),
+                "public_gate": gate,
                 "children": CHILDREN, "parents": PARENTS, "tasks": TASKS,
                 "candidate_weights": {row["id"]: row["sha256"] for row in manifest["navigation"]["children"]},
                 "ancestor_generations": ancestors, "control": "matched frozen G3 parent",
