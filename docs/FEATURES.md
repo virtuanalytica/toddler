@@ -2,6 +2,7 @@
 
 Status legend: **delivered** = on `main` (v0.1.0, pushed 2026-10-03); **ready for review** = implemented and tested locally, committed only after review; **backlog** = specified, not built.
 Reference document: [`docs/whitepaper/toddler-whitepaper-en.pdf`](whitepaper/toddler-whitepaper-en.pdf).
+The 34-page revision adds the [five-year execution roadmap](roadmap/FIVE_YEAR_EXECUTION_2027_2031.md) and a paired work-pilot scorer. The new financial figures are planning assumptions, not observed sales.
 
 ## External benchmark and agent roadmap (9 October 2026)
 
@@ -35,13 +36,15 @@ ClaudeClaw** makes better software. That claim requires a fresh independent
 holdout and at least 73 paired tasks per software role. The public
 [Toddler page](../site/toddler/index.html) uses the same measured/planned split.
 
-The current RL generation is **G3-recombined**, a frozen task-expert router
+The previous RL generation **G3-recombined** is a frozen task-expert router
 distinct from the planned LLM model router above. It passed two secret-seed
 gates and a [signed lineage review](learn/G3_PROMOTION_20261009.md). Its
 [runtime cost probe](learn/G3_RUNTIME_BENCHMARK_20261009.md) verified all
 source weights and measured CPU latency and storage; CPU energy is not
-attributable on the shared host. UnlockPickup still needs a new training
-approach and fresh secret seeds.
+attributable on the shared host. As of 11 October, the later **G4-search**
+cohort has five official children and a `promoted` private-audit status after
+two independent 30-seed navigation comparisons and verified lineage. This
+does not establish cognitive or software-agent competence.
 
 ## Delivered (v0.1.0)
 
@@ -68,7 +71,7 @@ approach and fresh secret seeds.
 | Knowledge base: 36 AI/NN concepts fetched with hash and licence | `toddler/knowledge/concepts.py`, `corpus.py` | test_knowledge (hashes, structure) |
 | Woven graph (concepts + 25 study steps + code); LightRAG DB when `TODDLER_GITNEXUS_BUILDER` is set | `toddler/knowledge/weave.py` | test_knowledge (all 25 rows linked, edited corpus detected) |
 | knitweb synaptic bundle of the woven graph; unsigned output is `*.synaptic.unsigned`, OriginTrail publication deferred until signed | `toddler/knowledge/publish.py` | test_knowledge (round trip, signed/unsigned) |
-| Whitepaper (12 pages) | `docs/whitepaper/` | build verification |
+| Whitepaper (34-page revision) | `docs/whitepaper/` | PDF render and page map verified |
 | Jev client (TypeSafe System One contract, strict parsing, no retries in the reflex) | `toddler/jev.py` | test_jev |
 | Credential lifecycle: identities per provider, OpenBao vault, official key APIs, rotation | `toddler/credentials/` | test_credentials (held back: needs explicit operator approval to push) |
 

@@ -1,6 +1,6 @@
 # Toddler: leervermogen en blijvende aanpassing
 
-**Status (10 oktober 2026): onderzoeksontwerp, geen G5-implementatie of promotiebewijs.** De officiële lineage eindigt bij G3-recombined. G4-search heeft nog geen overlevende. Een G5-proef mag pas een G4 als ouder claimen nadat de onafhankelijke G4-confirmatie en lineage-import zijn geslaagd.
+**Update 11 oktober 2026:** de officiële private auditstatus voor `G4-search` is inmiddels `promoted`: vijf kinderen, twee onafhankelijke 30-seed navigatietoetsen en geverifieerde lineage. Dit maakt G4-search een geldige ouder voor een vooraf geregistreerde G5-navigatieproef. De cognitieve, software- en fysieke vaardigheden zijn hiermee niet gepromoveerd. De rest van dit document is het onderzoeksontwerp van 10 oktober; er is nog geen G5-implementatie of promotiebewijs.
 
 ## Wat we willen verbeteren
 
@@ -34,6 +34,6 @@ Dit is een engineeringinterpretatie van complementaire leermechanismen: snelle o
 - Cognitieve vraag-antwoordtaken, navigatie en LLM-antwoorden krijgen aparte meeteenheden. Een hogere `unlockpickup`-score bewijst geen betere taal, EQ, CLM-reflex of MoM-router. CLM blijft een schaduwpad totdat de actieve deadline en onafhankelijk gelabelde veiligheidstoets zijn gehaald.
 - Voor echte online aanpassing krijgt de runtime een omkeerbare kandidaatlaag: log de context en de interventie, vergelijk met de bevroren policy, en kan direct terugvallen. Alleen een nachtelijk gevalideerde checkpoint kan onderdeel van een nieuwe officiële generatie worden.
 
-**Eerste praktische proef:** de vier replay-/expert-varianten uit stap 2 op nieuwe publieke MiniGrid-taakvolgordes, met dezelfde vijf oudergebonden kinderen en vaste budgetten. Dat levert een toetsbaar antwoord op of geheugen en modulariteit Toddler sneller laten leren zonder G3-vaardigheden te verliezen. G5-training en -promotie blijven afhankelijk van een overlevende G4.
+**Eerste praktische proef:** de vier replay-/expert-varianten uit stap 2 op nieuwe publieke MiniGrid-taakvolgordes, met dezelfde vijf oudergebonden kinderen en vaste budgetten. Dat levert een toetsbaar antwoord op of geheugen en modulariteit Toddler sneller laten leren zonder bestaande vaardigheden te verliezen. G4-search mag nu als bevroren ouder dienen; G5-training en -promotie vergen nog een eigen preregistratie en onafhankelijke toets.
 
 **Tussenmeting op openbare kaarten, 10 oktober.** Teacher testte afzonderlijk 4.096 stappen PPO met eigen beloning vanaf vier reeds geïmiteerde `unlockpickup`-specialisten, op dezelfde 30 publieke seeds vóór en na training. De gemiddelde verandering was +0,04734, +0,00440, −0,01644 en +0,03044 voor t6002–t6005. De [volledige proefopzet, gewichthashes en beperkingen](https://github.com/virtuanalytica/teacher/blob/main/docs/G4_SELFREWARD_AFTER_IMITATION_20261010.md) staan in Teacher. Dit is een eerste aanwijzing dat een geleerde specialist soms met eigen ervaring kan verfijnen; de terugval bij t6004 vereist een omkeerbare kandidaatroute en nieuwe, onafhankelijke publieke ontwikkel- en controlesplits. Het is geen promotie- of levenslanglerenbewijs en wijzigt de bevroren G4-nachtproef niet.
