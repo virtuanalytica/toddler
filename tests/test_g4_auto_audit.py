@@ -49,7 +49,36 @@ def test_repeated_public_split_and_old_cohort_cannot_spend_private_family(tmp_pa
     earlier = tmp_path / "earlier" / "manifest.json"
     earlier.parent.mkdir()
     earlier.write_text(json.dumps(old))
-    assert "reused" in audit.G4.public_gate(path, manifest)["reason"]
+    assert "overlap" in audit.G4.public_gate(path, manifest)["reason"]
+
+
+def test_partial_and_cross_split_reuse_are_refused_before_private_seeds(tmp_path, monkeypatch):
+    path = _manifest(tmp_path)
+    earlier = tmp_path / "earlier" / "manifest.json"
+    earlier.parent.mkdir()
+    old = json.loads(path.read_text())
+    old["navigation"]["development_seeds"] = [64990, 65010]
+    old["navigation"]["public_check_seeds"] = [89980, 89999]
+    earlier.write_text(json.dumps(old))
+    monkeypatch.setattr(audit.G4, "validate_cohort", lambda manifest, root: (json.loads(path.read_text()), {}))
+    monkeypatch.setattr(audit.G4, "prepare", lambda *args: pytest.fail("private seeds used"))
+    result = audit.audit(path, tmp_path / "private", tmp_path / "registry")
+    assert result["status"] == "public_gate_failed"
+    assert "overlap" in result["reason"]
+    assert not (tmp_path / "private").exists()
+
+    old["navigation"]["development_seeds"] = [90010, 90020]
+    old["navigation"]["public_check_seeds"] = [70000, 70010]
+    earlier.write_text(json.dumps(old))
+    assert "overlap" in audit.G4.public_gate(path, json.loads(path.read_text()))["reason"]
+
+
+def test_unreadable_prior_provenance_fails_closed(tmp_path):
+    path = _manifest(tmp_path)
+    earlier = tmp_path / "earlier" / "manifest.json"
+    earlier.parent.mkdir()
+    earlier.write_text("{incomplete")
+    assert "cannot verify" in audit.G4.public_gate(path, json.loads(path.read_text()))["reason"]
 
 
 def test_passed_gate_runs_once_then_resumes_same_protocol(tmp_path, monkeypatch):

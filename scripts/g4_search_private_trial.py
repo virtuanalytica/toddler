@@ -143,11 +143,21 @@ def validate_cohort(manifest_path: Path, root: Path) -> tuple[dict, dict[str, ob
 
 def public_gate(manifest_path: Path, manifest: dict) -> dict:
     """Require a fresh prospective split and preserve one mastered G3 parent."""
+    def ranges_from(navigation: dict) -> tuple[tuple[int, int], tuple[int, int]]:
+        ranges = tuple(tuple(navigation[key]) for key in ("development_seeds", "public_check_seeds"))
+        if (len(ranges) != 2 or any(len(pair) != 2 or
+                any(type(value) is not int for value in pair) for pair in ranges)):
+            raise ValueError("invalid public seed range")
+        return ranges
+
+    def overlaps(first: tuple[int, int], second: tuple[int, int]) -> bool:
+        return max(first[0], second[0]) <= min(first[1], second[1])
+
     try:
         created = datetime.strptime(manifest["created_utc"].split("-", 1)[0],
                                     "%Y%m%dT%H%M%SZ").replace(tzinfo=timezone.utc)
         nav = manifest["navigation"]
-        ranges = tuple(tuple(nav[key]) for key in ("development_seeds", "public_check_seeds"))
+        ranges = ranges_from(nav)
         counts = tuple(high - low + 1 for low, high in ranges)
         if (created < PUBLIC_GATE_NOT_BEFORE or counts != (50, 50)
                 or not (0 <= ranges[0][0] <= ranges[0][1] < ranges[1][0] <= ranges[1][1] < 100_000)):
@@ -157,12 +167,11 @@ def public_gate(manifest_path: Path, manifest: dict) -> dict:
                 continue
             try:
                 older = json.loads(previous.read_text())
-                if (older.get("created_utc", "") < manifest["created_utc"]
-                        and tuple(older.get("navigation", {}).get("development_seeds", ())) == ranges[0]
-                        and tuple(older.get("navigation", {}).get("public_check_seeds", ())) == ranges[1]):
-                    return {"eligible": False, "reason": "public split was reused by an earlier cohort"}
-            except (OSError, ValueError):
-                continue
+                old_ranges = ranges_from(older["navigation"])
+            except (OSError, ValueError, KeyError, TypeError):
+                return {"eligible": False, "reason": "cannot verify an earlier cohort's public seed provenance"}
+            if any(overlaps(current, prior) for current in ranges for prior in old_ranges):
+                return {"eligible": False, "reason": "public seeds overlap another cohort"}
         children = nav["children"]
         selected = sum(row["selected_specialist"] for row in children)
         if selected == 5:
