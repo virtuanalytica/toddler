@@ -2,11 +2,11 @@
   <div>
     <div class="cover-eyebrow">White Paper · Developers &amp; Researchers</div>
     <div class="cover-title">Toddler<br>a governed, specialisable learning agent</div>
-    <div class="cover-sub">Design, objective functions, a brain-network-inspired evaluation method, and the extension points for building company roles on one safe base.</div>
+    <div class="cover-sub">A governed learning agent, its path to useful digital and physical work, PLS/PAR evidence, and a five-year business scenario.</div>
   </div>
   <div class="cover-meta">
     <strong>virtuanalytica</strong><br>
-    Version 0.1 (review draft) · 2026.10<br>
+    Version 0.2 (work-path revision) · 2026.10<br>
     github.com/virtuanalytica/toddler
   </div>
 </section>
@@ -20,7 +20,10 @@
   <div class="toc-item"><span class="toc-num">05</span><span class="toc-title">Specialisation, guardrails and audit</span><span class="toc-page">09</span></div>
   <div class="toc-item"><span class="toc-num">06</span><span class="toc-title">P2P compute, credentials and the physical roadmap</span><span class="toc-page">10</span></div>
   <div class="toc-item"><span class="toc-num">07</span><span class="toc-title">Results, limitations and status</span><span class="toc-page">11</span></div>
-  <div class="toc-item"><span class="toc-num">08</span><span class="toc-title">Appendix: references and glossary</span><span class="toc-page">12</span></div>
+  <div class="toc-item"><span class="toc-num">08–15</span><span class="toc-title">From trained Toddler to useful work</span><span class="toc-page">12–19</span></div>
+  <div class="toc-item"><span class="toc-num">16–20</span><span class="toc-title">PLS, PAR and verifiable work</span><span class="toc-page">20–24</span></div>
+  <div class="toc-item"><span class="toc-num">21–29</span><span class="toc-title">Business concept and five-year scenarios</span><span class="toc-page">25–33</span></div>
+  <div class="toc-item"><span class="toc-num">30</span><span class="toc-title">Appendix: references and glossary</span><span class="toc-page">34</span></div>
 </section>
 
 <section class="chapter">
@@ -32,7 +35,7 @@
     <li>Decisions maximise one utility (task reward, weekly profit, energy and compute cost, expected risk) <em>subject to</em> hard STOP rules, so no reward can buy a forbidden action.</li>
     <li>Every logic step of a neonatal brain-network study (Wee et al., 2017), 25 in total, is linked to a Toddler function, and all 25 resolve to code in a woven knowledge graph with zero coverage gaps.</li>
     <li>The evaluation stack reproduces the study's analysis pipeline on public data: consensus clustering with a degree-preserving null model (z = 7.6, p = 0.001 on Zachary's karate club) and nested 10×10 cross-validation (accuracy 0.912, sensitivity 0.944, specificity 0.858 on the Wisconsin breast-cancer data).</li>
-    <li>Status: seven core modules are on <code>main</code>; specialisation, audit, configuration, GUI, Jev client, knowledge base and resource governor are in open review pull requests; the credential module is written and tested locally and is not in the repository until the operator approves it.</li>
+    <li>Status update, 11 October 2026: five <code>G4-search</code> children survived two private 30-seed navigation trials and a verified lineage import. The cognitive curriculum, general agent work and physical deployment have separate evidence gates; this result proves none of those broader claims.</li>
   </ul>
   <h2>Questions this paper answers</h2>
   <p>How should an agent weigh learning signal, business value and energy without letting any of them override safety? What can the structure of an infant's brain network teach about evaluating an agent early in its life? How can one base be specialised per company role while staying auditable?</p>
@@ -167,12 +170,12 @@ subject to  STOP(a) == false</code></pre>
 <section class="chapter">
   <div class="chapter-num">07 · Status</div>
   <h1>Results, limitations and status</h1>
-  <h2>What is delivered</h2>
+  <h2>Evidence at this revision</h2>
   <ul>
-    <li>On <code>main</code>: objective, STOP rules, structure, evaluation, relay, fast path and provenance, tested on real public data or explicit small inputs; CI runs the suite on every pull request.</li>
-    <li>In review (#2-#5, #7, #8): specialisation, audit trail, configuration and GUI, Jev client, knowledge base, resource governor and the v0.1 review fixes.</li>
-    <li>Knowledge base: 36 AI/NN concepts from 1796 to 2023 fetched with hash and licence; a woven graph linking concepts, the 25 study steps and code; its test asserts that every step resolves to code (pull request #5).</li>
-    <li>Configurator GUI with client-side validation mirrored and enforced in Python; tested end to end in a headless browser.</li>
+    <li>Five G4-search descendants passed two private 30-seed navigation comparisons with retained lineage. This supports navigation promotion only.</li>
+    <li>The proposed 10,000-capability atlas is mainly scaffold: ten draft packets are not ten thousand trainable expert capabilities.</li>
+    <li>The original architectural and public-data figures in chapters 1–6 document the earlier v0.1 prototype; current production readiness must be checked against the code and fresh deployment tests.</li>
+    <li>The business, PLS/PAR and physical paths in chapters 8–29 are proposed gates and scenarios, not observed commercial outcomes.</li>
   </ul>
   <h2>Limitations</h2>
   <ul>
@@ -187,8 +190,8 @@ subject to  STOP(a) == false</code></pre>
   </div>
 </section>
 
-<section class="chapter">
-  <div class="chapter-num">08 · Appendix</div>
+<section class="chapter appendix">
+  <div class="chapter-num">30 · Appendix</div>
   <h1>Appendix</h1>
   <h2>A. References</h2>
   <ul>
@@ -198,11 +201,21 @@ subject to  STOP(a) == false</code></pre>
     <li>Peng, H., Long, F., &amp; Ding, C. (2005). Feature selection based on mutual information (mRMR). <em>IEEE TPAMI</em>.</li>
     <li>Guyon, I., et al. (2002). Gene selection for cancer classification using support vector machines (SVM-RFE). <em>Machine Learning</em>.</li>
     <li>Zachary, W. W. (1977). An information flow model for conflict and fission in small groups. <em>J. Anthropological Research</em>.</li>
+    <li>NIST, <em>AI Risk Management Framework</em>, <a href="https://www.nist.gov/itl/ai-risk-management-framework">nist.gov/itl/ai-risk-management-framework</a>.</li>
+    <li>Ahn et al. (2022), <em>Do As I Can, Not As I Say: Grounding Language in Robotic Affordances</em> (SayCan), <a href="https://arxiv.org/abs/2204.01691">arxiv.org/abs/2204.01691</a>; Brohan et al. (2023), <em>RT-2</em>, <a href="https://arxiv.org/abs/2307.15818">arxiv.org/abs/2307.15818</a>.</li>
+    <li>International Federation of Robotics, <em>World Robotics 2025, Industrial Robots: Executive Summary</em>, <a href="https://ifr.org/img/worldrobotics/Executive_Summary_WR_2025_Industrial_Robots.pdf">ifr.org</a>.</li>
+    <li>Eurostat (2026), non-household electricity prices in the EU, H2 2025, <a href="https://ec.europa.eu/eurostat/web/products-eurostat-news/w/ddn-20260508-2">ec.europa.eu/eurostat</a>.</li>
+    <li>European Union, Regulation (EU) 2023/1114 (MiCA), <a href="https://eur-lex.europa.eu/eli/reg/2023/1114/oj/eng">eur-lex.europa.eu</a>. Legal status of a specific token needs qualified review.</li>
+    <li>Pulse local repository, 11 October 2026: <code>docs/mica/WHITE_PAPER_PLS_DRAFT.md</code>, <code>WHITE_PAPER_PAR_DRAFT.md</code>, <code>docs/PROOF_OF_USEFUL_WORK.md</code>, and <code>src/knitweb/token/{mint,par}.py</code>. Drafts are not a public offer.</li>
+    <li>Toddler, <code>scripts/forecast_toddler_business.py</code> and <code>docs/whitepaper/forecast_2027_2031.json</code>, illustrative scenario generated 11 October 2026.</li>
   </ul>
   <h2>B. Glossary</h2>
   <p><strong>Clustering coefficient</strong> - the share of a node's neighbours that are connected to each other (0 to 1).</p>
   <p><strong>Consensus clustering</strong> - repeating a non-deterministic clustering many times and clustering the co-assignment matrix.</p>
   <p><strong>Jev</strong> - a model that answers many typed questions in parallel and returns probabilities with uncertainty; used as a feature generator, never as the sole authority.</p>
   <p><strong>Pulse</strong> - knitweb's trustless relay to compute and node-to-node resource sharing.</p>
+  <p><strong>PLS</strong> - Pulse pay token proposed for independently verified useful computation.</p>
+  <p><strong>PAR</strong> - Pulse augmented-reality observation coin proposed for confirmed field observations linked to a bounty.</p>
+  <p><strong>Cash proxy</strong> - EBITDA minus capex in this paper; it excludes several real cash-flow items and is not free cash flow.</p>
   <p><strong>STOP rule</strong> - a hard constraint that vetoes an action before utility is compared.</p>
 </section>
