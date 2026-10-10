@@ -36,6 +36,7 @@ MODULE_REGION: dict[str, str] = {
     "jevserver": "fastpath.jev",
     "toddler.g4_curriculum": "planner",
     "toddler.g4_student": "planner",
+    "toddler.model_mixture_search": "planner",
     "toddler.learn": "planner",                # the learning brain: policies, PPO, generations
     "toddler.knowledge.publish": "p2p.knitweb",
     "toddler.knowledge": "memory.graph",
