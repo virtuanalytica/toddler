@@ -82,6 +82,13 @@ nieuwe replicatie. De private voorbereiding is opnieuw gestopt vóór creatie
 van seeds. De volgende generatie moet een moeilijker, nog niet verzadigd
 curriculum en een vooraf bevroren nieuwe toets krijgen.
 
+De [LLM-modelmix-zoeker](learn/LLM_MIXTURE_SEARCH.md) loopt als aparte
+onderzoeksbaan. Hij gebruikt uitsluitend nieuwe openbare anti-contaminatie-
+ontwikkelmetingen en wacht momenteel op een geldige virtualv_llm-export;
+private compositetabellen en historische full-suite-resultaten zijn geen
+trainings- of selectiedata. Tot die export bestaat, verandert de live
+Toddler-modelroute niet.
+
 Deze loop mag onbeperkt doorontwikkelen binnen het nachtbudget, maar haar
 openbare scores zijn geen promotiebewijs. Herhaald proberen op dezelfde
 toets zou vroeg of laat een vals positief opleveren. De vorige mislukte

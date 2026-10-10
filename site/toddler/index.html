@@ -301,7 +301,12 @@ Niet-eindige sensordata worden nog niet expliciet afgewezen; zie de
 vooraf geregistreerde vergelijking op nieuwe, afgeschermde toetsdata nodig.</p>
 
 <h2 id="agentmix">10. Van taakexperts naar een agentmix</h2>
-<p>De volgende stap is een router die per vraag een geschikt lokaal model kiest, bijvoorbeeld voor code, data of een specialistisch onderwerp. Eerst berekenen we uit bewaarde antwoorden hoeveel een perfecte router maximaal zou kunnen winnen. Daarna vergelijken we een eenvoudige vaste keuze, een willekeurige route en de echte router op dezelfde afgeschermde vragen. Snelheid en GPU-board-energie per antwoord tellen mee naast kwaliteit.</p>
+<p>Er is nu onderzoekssoftware die per taak lokale modellen kan combineren en de kwaliteit,
+antwoordtijd, t/s, GPU-board-energie en VRAM afweegt. Zij weigert historische publieke full-suite-
+scores en private toetsresultaten als selectiedata. De vereiste nieuwe openbare anti-contaminatie-
+ontwikkelmetingen zijn nog niet beschikbaar, dus er is nog geen gekozen LLM-mix. Zodra die metingen
+er zijn, vergelijken we de kandidaat op verse afgeschermde vragen met het beste losse model en een
+willekeurige route. <a href="https://github.com/virtuanalytica/toddler/blob/main/docs/learn/LLM_MIXTURE_SEARCH.md">Lees het zoekprotocol</a>.</p>
 <div class="grid">
   <div class="card sun"><div class="emoji">🧭</div><h3>Modelkeuze</h3><p>Qwen3.8 Flash-Next, GLM-5.3-Flash REAP50 en 1Cat TP2 1.5.0 zijn op de kleine software/data-pilot gemeten. In de aparte volledige TP2-proef verdween met 1Cat 1.5.1 de eerdere herhaallus bij alle negen openbare controles; de specialistenscore steeg van 0,2333 naar 0,4417. De gebruikte private items zijn later via een eerdere publieke PR-revisie blootgesteld; voor nieuwe blinde tests komen er andere items. Er is nog geen reden om de Toddler-router te promoveren.</p></div>
   <div class="card leaf"><div class="emoji">🛠️</div><h3>Specialisten</h3><p>Coder, reviewer, architect, debugger en vier datarollen krijgen ieder een eigen slagingspercentage. Gameontwikkeling en spelbegrip blijven afzonderlijke specialistische onderzoeksrichtingen totdat hun agenten daadwerkelijk zijn getoetst.</p></div>
