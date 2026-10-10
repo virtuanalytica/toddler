@@ -46,6 +46,7 @@ MODULE_REGION: dict[str, str] = {
     "toddler._knitweb": "p2p.knitweb",
     "toddler.relay": "p2p.pulse_relay",
     "toddler.evaluation": "oversight.judge",
+    "toddler.work_pilot": "oversight.judge",     # independent, paired work-outcome scoring
     "toddler.quotients": "oversight.judge",
     "toddler.structure": "oversight.judge",
     "toddler.codegraph": "oversight.judge",     # this module: measurement, like structure
