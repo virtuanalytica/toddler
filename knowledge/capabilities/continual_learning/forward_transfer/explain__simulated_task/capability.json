@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/forward_transfer/explain__simulated_task",
+  "domain": "continual_learning",
+  "topic": "forward_transfer",
+  "practice": "explain",
+  "setting": "simulated_task",
+  "target": "explain forward transfer in simulated task",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

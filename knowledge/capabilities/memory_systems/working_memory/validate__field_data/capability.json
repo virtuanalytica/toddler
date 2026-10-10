@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "memory_systems/working_memory/validate__field_data",
+  "domain": "memory_systems",
+  "topic": "working_memory",
+  "practice": "validate",
+  "setting": "field_data",
+  "target": "validate working memory in field data",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

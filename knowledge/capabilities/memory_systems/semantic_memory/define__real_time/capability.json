@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "memory_systems/semantic_memory/define__real_time",
+  "domain": "memory_systems",
+  "topic": "semantic_memory",
+  "practice": "define",
+  "setting": "real_time",
+  "target": "define semantic memory in real time",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

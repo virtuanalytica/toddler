@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/progressive_networks/validate__task_sequence",
+  "domain": "continual_learning",
+  "topic": "progressive_networks",
+  "practice": "validate",
+  "setting": "task_sequence",
+  "target": "validate progressive networks in task sequence",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

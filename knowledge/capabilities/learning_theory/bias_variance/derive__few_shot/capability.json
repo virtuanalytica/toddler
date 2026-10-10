@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "learning_theory/bias_variance/derive__few_shot",
+  "domain": "learning_theory",
+  "topic": "bias_variance",
+  "practice": "derive",
+  "setting": "few_shot",
+  "target": "derive bias variance in few shot",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

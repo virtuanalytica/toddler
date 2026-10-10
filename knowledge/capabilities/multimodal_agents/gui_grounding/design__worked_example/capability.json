@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "multimodal_agents/gui_grounding/design__worked_example",
+  "domain": "multimodal_agents",
+  "topic": "gui_grounding",
+  "practice": "design",
+  "setting": "worked_example",
+  "target": "design gui grounding in worked example",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

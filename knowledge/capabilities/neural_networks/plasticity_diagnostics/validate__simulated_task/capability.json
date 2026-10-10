@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/plasticity_diagnostics/validate__simulated_task",
+  "domain": "neural_networks",
+  "topic": "plasticity_diagnostics",
+  "practice": "validate",
+  "setting": "simulated_task",
+  "target": "validate plasticity diagnostics in simulated task",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

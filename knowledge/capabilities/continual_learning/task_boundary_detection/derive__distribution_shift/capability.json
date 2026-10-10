@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/task_boundary_detection/derive__distribution_shift",
+  "domain": "continual_learning",
+  "topic": "task_boundary_detection",
+  "practice": "derive",
+  "setting": "distribution_shift",
+  "target": "derive task boundary detection in distribution shift",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

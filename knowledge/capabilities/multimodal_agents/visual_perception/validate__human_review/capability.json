@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "multimodal_agents/visual_perception/validate__human_review",
+  "domain": "multimodal_agents",
+  "topic": "visual_perception",
+  "practice": "validate",
+  "setting": "human_review",
+  "target": "validate visual perception in human review",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

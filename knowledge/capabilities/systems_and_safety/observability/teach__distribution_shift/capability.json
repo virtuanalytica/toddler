@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "systems_and_safety/observability/teach__distribution_shift",
+  "domain": "systems_and_safety",
+  "topic": "observability",
+  "practice": "teach",
+  "setting": "distribution_shift",
+  "target": "teach observability in distribution shift",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

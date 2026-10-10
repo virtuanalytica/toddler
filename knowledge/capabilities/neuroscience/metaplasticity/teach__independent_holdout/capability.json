@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/metaplasticity/teach__independent_holdout",
+  "domain": "neuroscience",
+  "topic": "metaplasticity",
+  "practice": "teach",
+  "setting": "independent_holdout",
+  "target": "teach metaplasticity in independent holdout",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

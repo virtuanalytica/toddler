@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/predictive_processing/derive__few_shot",
+  "domain": "neuroscience",
+  "topic": "predictive_processing",
+  "practice": "derive",
+  "setting": "few_shot",
+  "target": "derive predictive processing in few shot",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

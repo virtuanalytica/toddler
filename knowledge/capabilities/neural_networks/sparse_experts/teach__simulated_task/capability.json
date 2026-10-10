@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/sparse_experts/teach__simulated_task",
+  "domain": "neural_networks",
+  "topic": "sparse_experts",
+  "practice": "teach",
+  "setting": "simulated_task",
+  "target": "teach sparse experts in simulated task",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

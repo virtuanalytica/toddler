@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "systems_and_safety/fail_safe_control/derive__task_sequence",
+  "domain": "systems_and_safety",
+  "topic": "fail_safe_control",
+  "practice": "derive",
+  "setting": "task_sequence",
+  "target": "derive fail safe control in task sequence",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

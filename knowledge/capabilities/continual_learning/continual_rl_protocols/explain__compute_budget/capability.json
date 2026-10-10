@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/continual_rl_protocols/explain__compute_budget",
+  "domain": "continual_learning",
+  "topic": "continual_rl_protocols",
+  "practice": "explain",
+  "setting": "compute_budget",
+  "target": "explain continual rl protocols in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

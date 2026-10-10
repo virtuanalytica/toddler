@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reasoning_and_language/tool_use/design__real_time",
+  "domain": "reasoning_and_language",
+  "topic": "tool_use",
+  "practice": "design",
+  "setting": "real_time",
+  "target": "design tool use in real time",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/ewc/define__independent_holdout",
+  "domain": "continual_learning",
+  "topic": "ewc",
+  "practice": "define",
+  "setting": "independent_holdout",
+  "target": "define ewc in independent holdout",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

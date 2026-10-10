@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/synaptic_plasticity/validate__few_shot",
+  "domain": "neuroscience",
+  "topic": "synaptic_plasticity",
+  "practice": "validate",
+  "setting": "few_shot",
+  "target": "validate synaptic plasticity in few shot",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reinforcement_learning/model_based_rl/compare__real_time",
+  "domain": "reinforcement_learning",
+  "topic": "model_based_rl",
+  "practice": "compare",
+  "setting": "real_time",
+  "target": "compare model based rl in real time",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

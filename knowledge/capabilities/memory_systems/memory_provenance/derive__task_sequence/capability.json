@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "memory_systems/memory_provenance/derive__task_sequence",
+  "domain": "memory_systems",
+  "topic": "memory_provenance",
+  "practice": "derive",
+  "setting": "task_sequence",
+  "target": "derive memory provenance in task sequence",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "multimodal_agents/robotic_control/reproduce__real_time",
+  "domain": "multimodal_agents",
+  "topic": "robotic_control",
+  "practice": "reproduce",
+  "setting": "real_time",
+  "target": "reproduce robotic control in real time",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

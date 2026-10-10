@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reasoning_and_language/program_synthesis/teach__worked_example",
+  "domain": "reasoning_and_language",
+  "topic": "program_synthesis",
+  "practice": "teach",
+  "setting": "worked_example",
+  "target": "teach program synthesis in worked example",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

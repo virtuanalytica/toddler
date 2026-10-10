@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/sparse_experts/derive__simulated_task",
+  "domain": "neural_networks",
+  "topic": "sparse_experts",
+  "practice": "derive",
+  "setting": "simulated_task",
+  "target": "derive sparse experts in simulated task",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

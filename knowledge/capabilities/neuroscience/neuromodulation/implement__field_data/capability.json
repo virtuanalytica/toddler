@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/neuromodulation/implement__field_data",
+  "domain": "neuroscience",
+  "topic": "neuromodulation",
+  "practice": "implement",
+  "setting": "field_data",
+  "target": "implement neuromodulation in field data",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

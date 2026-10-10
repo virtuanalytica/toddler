@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/experience_replay/derive__real_time",
+  "domain": "continual_learning",
+  "topic": "experience_replay",
+  "practice": "derive",
+  "setting": "real_time",
+  "target": "derive experience replay in real time",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

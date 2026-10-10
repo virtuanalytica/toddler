@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "evaluation_and_causality/sample_size/explain__task_sequence",
+  "domain": "evaluation_and_causality",
+  "topic": "sample_size",
+  "practice": "explain",
+  "setting": "task_sequence",
+  "target": "explain sample size in task sequence",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

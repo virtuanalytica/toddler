@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/neural_evidence_limits/diagnose__worked_example",
+  "domain": "neuroscience",
+  "topic": "neural_evidence_limits",
+  "practice": "diagnose",
+  "setting": "worked_example",
+  "target": "diagnose neural evidence limits in worked example",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

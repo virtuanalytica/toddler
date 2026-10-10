@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reasoning_and_language/self_correction/implement__human_review",
+  "domain": "reasoning_and_language",
+  "topic": "self_correction",
+  "practice": "implement",
+  "setting": "human_review",
+  "target": "implement self correction in human review",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

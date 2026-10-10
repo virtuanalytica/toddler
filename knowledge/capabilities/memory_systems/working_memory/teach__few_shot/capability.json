@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "memory_systems/working_memory/teach__few_shot",
+  "domain": "memory_systems",
+  "topic": "working_memory",
+  "practice": "teach",
+  "setting": "few_shot",
+  "target": "teach working memory in few shot",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

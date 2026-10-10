@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "evaluation_and_causality/lineage_auditing/define__worked_example",
+  "domain": "evaluation_and_causality",
+  "topic": "lineage_auditing",
+  "practice": "define",
+  "setting": "worked_example",
+  "target": "define lineage auditing in worked example",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

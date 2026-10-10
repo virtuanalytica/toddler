@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/recurrent_networks/compare__real_time",
+  "domain": "neural_networks",
+  "topic": "recurrent_networks",
+  "practice": "compare",
+  "setting": "real_time",
+  "target": "compare recurrent networks in real time",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

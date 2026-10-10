@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/continual_backprop/design__worked_example",
+  "domain": "continual_learning",
+  "topic": "continual_backprop",
+  "practice": "design",
+  "setting": "worked_example",
+  "target": "design continual backprop in worked example",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

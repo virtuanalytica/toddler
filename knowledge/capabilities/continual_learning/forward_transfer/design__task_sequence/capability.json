@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/forward_transfer/design__task_sequence",
+  "domain": "continual_learning",
+  "topic": "forward_transfer",
+  "practice": "design",
+  "setting": "task_sequence",
+  "target": "design forward transfer in task sequence",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reasoning_and_language/tool_use/explain__independent_holdout",
+  "domain": "reasoning_and_language",
+  "topic": "tool_use",
+  "practice": "explain",
+  "setting": "independent_holdout",
+  "target": "explain tool use in independent holdout",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

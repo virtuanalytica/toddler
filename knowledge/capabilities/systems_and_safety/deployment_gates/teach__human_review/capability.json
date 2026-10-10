@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "systems_and_safety/deployment_gates/teach__human_review",
+  "domain": "systems_and_safety",
+  "topic": "deployment_gates",
+  "practice": "teach",
+  "setting": "human_review",
+  "target": "teach deployment gates in human review",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

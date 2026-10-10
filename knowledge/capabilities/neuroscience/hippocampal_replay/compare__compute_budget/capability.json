@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/hippocampal_replay/compare__compute_budget",
+  "domain": "neuroscience",
+  "topic": "hippocampal_replay",
+  "practice": "compare",
+  "setting": "compute_budget",
+  "target": "compare hippocampal replay in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

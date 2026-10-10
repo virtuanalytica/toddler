@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/continual_rl_protocols/derive__human_review",
+  "domain": "continual_learning",
+  "topic": "continual_rl_protocols",
+  "practice": "derive",
+  "setting": "human_review",
+  "target": "derive continual rl protocols in human review",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

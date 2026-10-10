@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/neuromodulation/compare__distribution_shift",
+  "domain": "neuroscience",
+  "topic": "neuromodulation",
+  "practice": "compare",
+  "setting": "distribution_shift",
+  "target": "compare neuromodulation in distribution shift",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

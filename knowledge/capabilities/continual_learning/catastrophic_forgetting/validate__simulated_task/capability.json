@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/catastrophic_forgetting/validate__simulated_task",
+  "domain": "continual_learning",
+  "topic": "catastrophic_forgetting",
+  "practice": "validate",
+  "setting": "simulated_task",
+  "target": "validate catastrophic forgetting in simulated task",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

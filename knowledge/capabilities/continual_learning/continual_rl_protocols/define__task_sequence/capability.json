@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/continual_rl_protocols/define__task_sequence",
+  "domain": "continual_learning",
+  "topic": "continual_rl_protocols",
+  "practice": "define",
+  "setting": "task_sequence",
+  "target": "define continual rl protocols in task sequence",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

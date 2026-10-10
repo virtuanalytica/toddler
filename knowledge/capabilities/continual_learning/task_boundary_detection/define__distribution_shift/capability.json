@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/task_boundary_detection/define__distribution_shift",
+  "domain": "continual_learning",
+  "topic": "task_boundary_detection",
+  "practice": "define",
+  "setting": "distribution_shift",
+  "target": "define task boundary detection in distribution shift",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "learning_theory/bias_variance/explain__real_time",
+  "domain": "learning_theory",
+  "topic": "bias_variance",
+  "practice": "explain",
+  "setting": "real_time",
+  "target": "explain bias variance in real time",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "multimodal_agents/human_feedback/compare__simulated_task",
+  "domain": "multimodal_agents",
+  "topic": "human_feedback",
+  "practice": "compare",
+  "setting": "simulated_task",
+  "target": "compare human feedback in simulated task",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

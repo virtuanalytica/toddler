@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/convolutions/derive__worked_example",
+  "domain": "neural_networks",
+  "topic": "convolutions",
+  "practice": "derive",
+  "setting": "worked_example",
+  "target": "derive convolutions in worked example",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

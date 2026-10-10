@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reinforcement_learning/reward_design/compare__few_shot",
+  "domain": "reinforcement_learning",
+  "topic": "reward_design",
+  "practice": "compare",
+  "setting": "few_shot",
+  "target": "compare reward design in few shot",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

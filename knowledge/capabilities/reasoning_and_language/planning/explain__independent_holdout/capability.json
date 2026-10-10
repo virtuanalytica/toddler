@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reasoning_and_language/planning/explain__independent_holdout",
+  "domain": "reasoning_and_language",
+  "topic": "planning",
+  "practice": "explain",
+  "setting": "independent_holdout",
+  "target": "explain planning in independent holdout",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

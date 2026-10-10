@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "multimodal_agents/robotic_control/define__task_sequence",
+  "domain": "multimodal_agents",
+  "topic": "robotic_control",
+  "practice": "define",
+  "setting": "task_sequence",
+  "target": "define robotic control in task sequence",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reasoning_and_language/self_correction/compare__independent_holdout",
+  "domain": "reasoning_and_language",
+  "topic": "self_correction",
+  "practice": "compare",
+  "setting": "independent_holdout",
+  "target": "compare self correction in independent holdout",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

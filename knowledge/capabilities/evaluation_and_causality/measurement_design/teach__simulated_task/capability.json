@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "evaluation_and_causality/measurement_design/teach__simulated_task",
+  "domain": "evaluation_and_causality",
+  "topic": "measurement_design",
+  "practice": "teach",
+  "setting": "simulated_task",
+  "target": "teach measurement design in simulated task",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

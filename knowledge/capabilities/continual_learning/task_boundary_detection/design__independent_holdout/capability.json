@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/task_boundary_detection/design__independent_holdout",
+  "domain": "continual_learning",
+  "topic": "task_boundary_detection",
+  "practice": "design",
+  "setting": "independent_holdout",
+  "target": "design task boundary detection in independent holdout",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

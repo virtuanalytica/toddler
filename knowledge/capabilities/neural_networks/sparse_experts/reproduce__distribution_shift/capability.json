@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/sparse_experts/reproduce__distribution_shift",
+  "domain": "neural_networks",
+  "topic": "sparse_experts",
+  "practice": "reproduce",
+  "setting": "distribution_shift",
+  "target": "reproduce sparse experts in distribution shift",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

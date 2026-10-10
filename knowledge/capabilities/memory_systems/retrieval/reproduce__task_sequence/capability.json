@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "memory_systems/retrieval/reproduce__task_sequence",
+  "domain": "memory_systems",
+  "topic": "retrieval",
+  "practice": "reproduce",
+  "setting": "task_sequence",
+  "target": "reproduce retrieval in task sequence",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

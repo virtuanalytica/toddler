@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "multimodal_agents/action_selection/implement__real_time",
+  "domain": "multimodal_agents",
+  "topic": "action_selection",
+  "practice": "implement",
+  "setting": "real_time",
+  "target": "implement action selection in real time",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

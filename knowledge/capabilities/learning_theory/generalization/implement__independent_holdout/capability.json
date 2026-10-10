@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "learning_theory/generalization/implement__independent_holdout",
+  "domain": "learning_theory",
+  "topic": "generalization",
+  "practice": "implement",
+  "setting": "independent_holdout",
+  "target": "implement generalization in independent holdout",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

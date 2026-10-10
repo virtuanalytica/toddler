@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/forward_transfer/explain__human_review",
+  "domain": "continual_learning",
+  "topic": "forward_transfer",
+  "practice": "explain",
+  "setting": "human_review",
+  "target": "explain forward transfer in human review",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

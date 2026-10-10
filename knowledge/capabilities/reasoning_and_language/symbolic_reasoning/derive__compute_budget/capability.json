@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reasoning_and_language/symbolic_reasoning/derive__compute_budget",
+  "domain": "reasoning_and_language",
+  "topic": "symbolic_reasoning",
+  "practice": "derive",
+  "setting": "compute_budget",
+  "target": "derive symbolic reasoning in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

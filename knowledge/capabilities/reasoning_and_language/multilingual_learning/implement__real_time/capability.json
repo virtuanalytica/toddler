@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reasoning_and_language/multilingual_learning/implement__real_time",
+  "domain": "reasoning_and_language",
+  "topic": "multilingual_learning",
+  "practice": "implement",
+  "setting": "real_time",
+  "target": "implement multilingual learning in real time",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

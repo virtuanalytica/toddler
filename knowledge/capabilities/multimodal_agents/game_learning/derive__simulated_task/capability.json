@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "multimodal_agents/game_learning/derive__simulated_task",
+  "domain": "multimodal_agents",
+  "topic": "game_learning",
+  "practice": "derive",
+  "setting": "simulated_task",
+  "target": "derive game learning in simulated task",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

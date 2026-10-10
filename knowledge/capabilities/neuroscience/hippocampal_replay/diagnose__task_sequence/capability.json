@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/hippocampal_replay/diagnose__task_sequence",
+  "domain": "neuroscience",
+  "topic": "hippocampal_replay",
+  "practice": "diagnose",
+  "setting": "task_sequence",
+  "target": "diagnose hippocampal replay in task sequence",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

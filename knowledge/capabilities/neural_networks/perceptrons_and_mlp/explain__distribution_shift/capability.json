@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/perceptrons_and_mlp/explain__distribution_shift",
+  "domain": "neural_networks",
+  "topic": "perceptrons_and_mlp",
+  "practice": "explain",
+  "setting": "distribution_shift",
+  "target": "explain perceptrons and mlp in distribution shift",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

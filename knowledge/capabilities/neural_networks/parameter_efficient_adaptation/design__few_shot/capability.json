@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/parameter_efficient_adaptation/design__few_shot",
+  "domain": "neural_networks",
+  "topic": "parameter_efficient_adaptation",
+  "practice": "design",
+  "setting": "few_shot",
+  "target": "design parameter efficient adaptation in few shot",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "multimodal_agents/action_selection/define__few_shot",
+  "domain": "multimodal_agents",
+  "topic": "action_selection",
+  "practice": "define",
+  "setting": "few_shot",
+  "target": "define action selection in few shot",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

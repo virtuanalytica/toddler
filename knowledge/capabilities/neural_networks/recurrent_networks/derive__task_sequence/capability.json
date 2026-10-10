@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/recurrent_networks/derive__task_sequence",
+  "domain": "neural_networks",
+  "topic": "recurrent_networks",
+  "practice": "derive",
+  "setting": "task_sequence",
+  "target": "derive recurrent networks in task sequence",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

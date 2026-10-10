@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/sensorimotor_learning/reproduce__independent_holdout",
+  "domain": "neuroscience",
+  "topic": "sensorimotor_learning",
+  "practice": "reproduce",
+  "setting": "independent_holdout",
+  "target": "reproduce sensorimotor learning in independent holdout",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

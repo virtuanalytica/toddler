@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "memory_systems/forgetting_policies/implement__distribution_shift",
+  "domain": "memory_systems",
+  "topic": "forgetting_policies",
+  "practice": "implement",
+  "setting": "distribution_shift",
+  "target": "implement forgetting policies in distribution shift",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

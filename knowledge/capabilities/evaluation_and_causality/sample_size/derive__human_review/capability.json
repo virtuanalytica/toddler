@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "evaluation_and_causality/sample_size/derive__human_review",
+  "domain": "evaluation_and_causality",
+  "topic": "sample_size",
+  "practice": "derive",
+  "setting": "human_review",
+  "target": "derive sample size in human review",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

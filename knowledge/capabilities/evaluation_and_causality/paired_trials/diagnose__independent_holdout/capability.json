@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "evaluation_and_causality/paired_trials/diagnose__independent_holdout",
+  "domain": "evaluation_and_causality",
+  "topic": "paired_trials",
+  "practice": "diagnose",
+  "setting": "independent_holdout",
+  "target": "diagnose paired trials in independent holdout",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

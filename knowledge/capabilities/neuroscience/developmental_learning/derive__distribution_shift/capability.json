@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/developmental_learning/derive__distribution_shift",
+  "domain": "neuroscience",
+  "topic": "developmental_learning",
+  "practice": "derive",
+  "setting": "distribution_shift",
+  "target": "derive developmental learning in distribution shift",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

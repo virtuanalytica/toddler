@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reinforcement_learning/model_based_rl/validate__compute_budget",
+  "domain": "reinforcement_learning",
+  "topic": "model_based_rl",
+  "practice": "validate",
+  "setting": "compute_budget",
+  "target": "validate model based rl in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

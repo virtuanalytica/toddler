@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/catastrophic_forgetting/derive__distribution_shift",
+  "domain": "continual_learning",
+  "topic": "catastrophic_forgetting",
+  "practice": "derive",
+  "setting": "distribution_shift",
+  "target": "derive catastrophic forgetting in distribution shift",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

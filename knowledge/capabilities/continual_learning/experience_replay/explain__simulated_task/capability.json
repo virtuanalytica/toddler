@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/experience_replay/explain__simulated_task",
+  "domain": "continual_learning",
+  "topic": "experience_replay",
+  "practice": "explain",
+  "setting": "simulated_task",
+  "target": "explain experience replay in simulated task",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

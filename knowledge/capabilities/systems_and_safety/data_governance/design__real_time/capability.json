@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "systems_and_safety/data_governance/design__real_time",
+  "domain": "systems_and_safety",
+  "topic": "data_governance",
+  "practice": "design",
+  "setting": "real_time",
+  "target": "design data governance in real time",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

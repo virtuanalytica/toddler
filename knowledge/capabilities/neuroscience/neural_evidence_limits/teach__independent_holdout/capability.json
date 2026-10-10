@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/neural_evidence_limits/teach__independent_holdout",
+  "domain": "neuroscience",
+  "topic": "neural_evidence_limits",
+  "practice": "teach",
+  "setting": "independent_holdout",
+  "target": "teach neural evidence limits in independent holdout",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

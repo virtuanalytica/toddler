@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "multimodal_agents/speech_perception/teach__simulated_task",
+  "domain": "multimodal_agents",
+  "topic": "speech_perception",
+  "practice": "teach",
+  "setting": "simulated_task",
+  "target": "teach speech perception in simulated task",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "learning_theory/representation_learning/implement__field_data",
+  "domain": "learning_theory",
+  "topic": "representation_learning",
+  "practice": "implement",
+  "setting": "field_data",
+  "target": "implement representation learning in field data",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

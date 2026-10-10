@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reasoning_and_language/planning/derive__compute_budget",
+  "domain": "reasoning_and_language",
+  "topic": "planning",
+  "practice": "derive",
+  "setting": "compute_budget",
+  "target": "derive planning in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

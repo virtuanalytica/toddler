@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "memory_systems/working_memory/design__real_time",
+  "domain": "memory_systems",
+  "topic": "working_memory",
+  "practice": "design",
+  "setting": "real_time",
+  "target": "design working memory in real time",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

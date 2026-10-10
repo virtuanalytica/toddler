@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/adapter_isolation/define__compute_budget",
+  "domain": "continual_learning",
+  "topic": "adapter_isolation",
+  "practice": "define",
+  "setting": "compute_budget",
+  "target": "define adapter isolation in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

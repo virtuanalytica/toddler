@@ -1,0 +1,8 @@
+{
+  "schema": "toddler-capability-atlas/v1",
+  "slots": 10000,
+  "domains": 10,
+  "topics": 100,
+  "index_sha256": "37e0dc181663cafea84b1b33f11d14c9e956f173fcd017462cc6fd53ad990c2f",
+  "mastery_claims": 0
+}

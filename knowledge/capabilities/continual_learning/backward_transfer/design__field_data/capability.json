@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/backward_transfer/design__field_data",
+  "domain": "continual_learning",
+  "topic": "backward_transfer",
+  "practice": "design",
+  "setting": "field_data",
+  "target": "design backward transfer in field data",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

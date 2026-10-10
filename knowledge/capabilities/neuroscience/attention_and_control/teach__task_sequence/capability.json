@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/attention_and_control/teach__task_sequence",
+  "domain": "neuroscience",
+  "topic": "attention_and_control",
+  "practice": "teach",
+  "setting": "task_sequence",
+  "target": "teach attention and control in task sequence",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

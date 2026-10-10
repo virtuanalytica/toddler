@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "learning_theory/transfer_learning/explain__task_sequence",
+  "domain": "learning_theory",
+  "topic": "transfer_learning",
+  "practice": "explain",
+  "setting": "task_sequence",
+  "target": "explain transfer learning in task sequence",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

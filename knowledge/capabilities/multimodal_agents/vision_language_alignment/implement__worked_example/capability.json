@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "multimodal_agents/vision_language_alignment/implement__worked_example",
+  "domain": "multimodal_agents",
+  "topic": "vision_language_alignment",
+  "practice": "implement",
+  "setting": "worked_example",
+  "target": "implement vision language alignment in worked example",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

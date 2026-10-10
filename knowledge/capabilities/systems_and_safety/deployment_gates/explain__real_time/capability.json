@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "systems_and_safety/deployment_gates/explain__real_time",
+  "domain": "systems_and_safety",
+  "topic": "deployment_gates",
+  "practice": "explain",
+  "setting": "real_time",
+  "target": "explain deployment gates in real time",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

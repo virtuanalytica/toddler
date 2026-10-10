@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/neuromodulation/derive__worked_example",
+  "domain": "neuroscience",
+  "topic": "neuromodulation",
+  "practice": "derive",
+  "setting": "worked_example",
+  "target": "derive neuromodulation in worked example",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

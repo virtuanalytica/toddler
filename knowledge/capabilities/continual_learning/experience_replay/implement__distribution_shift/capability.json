@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/experience_replay/implement__distribution_shift",
+  "domain": "continual_learning",
+  "topic": "experience_replay",
+  "practice": "implement",
+  "setting": "distribution_shift",
+  "target": "implement experience replay in distribution shift",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

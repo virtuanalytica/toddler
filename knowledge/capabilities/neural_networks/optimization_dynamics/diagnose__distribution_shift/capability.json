@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/optimization_dynamics/diagnose__distribution_shift",
+  "domain": "neural_networks",
+  "topic": "optimization_dynamics",
+  "practice": "diagnose",
+  "setting": "distribution_shift",
+  "target": "diagnose optimization dynamics in distribution shift",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

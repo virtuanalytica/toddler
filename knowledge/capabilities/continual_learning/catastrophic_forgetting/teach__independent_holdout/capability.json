@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/catastrophic_forgetting/teach__independent_holdout",
+  "domain": "continual_learning",
+  "topic": "catastrophic_forgetting",
+  "practice": "teach",
+  "setting": "independent_holdout",
+  "target": "teach catastrophic forgetting in independent holdout",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

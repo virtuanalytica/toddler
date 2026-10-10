@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/model_compression/design__human_review",
+  "domain": "neural_networks",
+  "topic": "model_compression",
+  "practice": "design",
+  "setting": "human_review",
+  "target": "design model compression in human review",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

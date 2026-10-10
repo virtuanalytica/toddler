@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "multimodal_agents/action_selection/reproduce__few_shot",
+  "domain": "multimodal_agents",
+  "topic": "action_selection",
+  "practice": "reproduce",
+  "setting": "few_shot",
+  "target": "reproduce action selection in few shot",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

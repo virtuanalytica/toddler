@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "systems_and_safety/distributed_trials/define__independent_holdout",
+  "domain": "systems_and_safety",
+  "topic": "distributed_trials",
+  "practice": "define",
+  "setting": "independent_holdout",
+  "target": "define distributed trials in independent holdout",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

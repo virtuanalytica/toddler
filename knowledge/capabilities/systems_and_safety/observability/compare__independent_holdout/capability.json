@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "systems_and_safety/observability/compare__independent_holdout",
+  "domain": "systems_and_safety",
+  "topic": "observability",
+  "practice": "compare",
+  "setting": "independent_holdout",
+  "target": "compare observability in independent holdout",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reinforcement_learning/model_based_rl/design__task_sequence",
+  "domain": "reinforcement_learning",
+  "topic": "model_based_rl",
+  "practice": "design",
+  "setting": "task_sequence",
+  "target": "design model based rl in task sequence",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

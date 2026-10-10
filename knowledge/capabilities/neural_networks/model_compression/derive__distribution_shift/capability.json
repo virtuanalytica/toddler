@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/model_compression/derive__distribution_shift",
+  "domain": "neural_networks",
+  "topic": "model_compression",
+  "practice": "derive",
+  "setting": "distribution_shift",
+  "target": "derive model compression in distribution shift",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

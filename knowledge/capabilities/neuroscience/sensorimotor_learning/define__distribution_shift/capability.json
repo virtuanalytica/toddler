@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/sensorimotor_learning/define__distribution_shift",
+  "domain": "neuroscience",
+  "topic": "sensorimotor_learning",
+  "practice": "define",
+  "setting": "distribution_shift",
+  "target": "define sensorimotor learning in distribution shift",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

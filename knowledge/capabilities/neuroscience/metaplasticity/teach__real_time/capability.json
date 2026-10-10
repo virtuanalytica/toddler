@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/metaplasticity/teach__real_time",
+  "domain": "neuroscience",
+  "topic": "metaplasticity",
+  "practice": "teach",
+  "setting": "real_time",
+  "target": "teach metaplasticity in real time",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

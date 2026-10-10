@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/convolutions/diagnose__simulated_task",
+  "domain": "neural_networks",
+  "topic": "convolutions",
+  "practice": "diagnose",
+  "setting": "simulated_task",
+  "target": "diagnose convolutions in simulated task",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

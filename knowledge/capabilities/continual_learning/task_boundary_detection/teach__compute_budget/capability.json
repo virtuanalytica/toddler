@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/task_boundary_detection/teach__compute_budget",
+  "domain": "continual_learning",
+  "topic": "task_boundary_detection",
+  "practice": "teach",
+  "setting": "compute_budget",
+  "target": "teach task boundary detection in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

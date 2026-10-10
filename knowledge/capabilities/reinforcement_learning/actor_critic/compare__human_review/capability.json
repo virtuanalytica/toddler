@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reinforcement_learning/actor_critic/compare__human_review",
+  "domain": "reinforcement_learning",
+  "topic": "actor_critic",
+  "practice": "compare",
+  "setting": "human_review",
+  "target": "compare actor critic in human review",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

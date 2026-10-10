@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "multimodal_agents/multi_agent_coordination/validate__compute_budget",
+  "domain": "multimodal_agents",
+  "topic": "multi_agent_coordination",
+  "practice": "validate",
+  "setting": "compute_budget",
+  "target": "validate multi agent coordination in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

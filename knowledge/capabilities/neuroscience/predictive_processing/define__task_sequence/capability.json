@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/predictive_processing/define__task_sequence",
+  "domain": "neuroscience",
+  "topic": "predictive_processing",
+  "practice": "define",
+  "setting": "task_sequence",
+  "target": "define predictive processing in task sequence",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

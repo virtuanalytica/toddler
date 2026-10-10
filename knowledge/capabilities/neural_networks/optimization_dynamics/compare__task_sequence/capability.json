@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/optimization_dynamics/compare__task_sequence",
+  "domain": "neural_networks",
+  "topic": "optimization_dynamics",
+  "practice": "compare",
+  "setting": "task_sequence",
+  "target": "compare optimization dynamics in task sequence",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "evaluation_and_causality/energy_accounting/validate__human_review",
+  "domain": "evaluation_and_causality",
+  "topic": "energy_accounting",
+  "practice": "validate",
+  "setting": "human_review",
+  "target": "validate energy accounting in human review",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

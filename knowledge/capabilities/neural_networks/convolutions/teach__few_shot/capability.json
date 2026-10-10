@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/convolutions/teach__few_shot",
+  "domain": "neural_networks",
+  "topic": "convolutions",
+  "practice": "teach",
+  "setting": "few_shot",
+  "target": "teach convolutions in few shot",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

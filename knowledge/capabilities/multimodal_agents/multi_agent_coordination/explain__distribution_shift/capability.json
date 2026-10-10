@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "multimodal_agents/multi_agent_coordination/explain__distribution_shift",
+  "domain": "multimodal_agents",
+  "topic": "multi_agent_coordination",
+  "practice": "explain",
+  "setting": "distribution_shift",
+  "target": "explain multi agent coordination in distribution shift",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reinforcement_learning/exploration/compare__compute_budget",
+  "domain": "reinforcement_learning",
+  "topic": "exploration",
+  "practice": "compare",
+  "setting": "compute_budget",
+  "target": "compare exploration in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

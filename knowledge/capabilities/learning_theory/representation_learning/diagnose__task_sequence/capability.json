@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "learning_theory/representation_learning/diagnose__task_sequence",
+  "domain": "learning_theory",
+  "topic": "representation_learning",
+  "practice": "diagnose",
+  "setting": "task_sequence",
+  "target": "diagnose representation learning in task sequence",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

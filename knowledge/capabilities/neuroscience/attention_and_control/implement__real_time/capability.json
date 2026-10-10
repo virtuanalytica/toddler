@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/attention_and_control/implement__real_time",
+  "domain": "neuroscience",
+  "topic": "attention_and_control",
+  "practice": "implement",
+  "setting": "real_time",
+  "target": "implement attention and control in real time",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

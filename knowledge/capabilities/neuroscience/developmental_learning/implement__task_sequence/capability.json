@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/developmental_learning/implement__task_sequence",
+  "domain": "neuroscience",
+  "topic": "developmental_learning",
+  "practice": "implement",
+  "setting": "task_sequence",
+  "target": "implement developmental learning in task sequence",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

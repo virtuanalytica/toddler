@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/sparse_experts/define__few_shot",
+  "domain": "neural_networks",
+  "topic": "sparse_experts",
+  "practice": "define",
+  "setting": "few_shot",
+  "target": "define sparse experts in few shot",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

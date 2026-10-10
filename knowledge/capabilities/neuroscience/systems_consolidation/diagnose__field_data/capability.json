@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/systems_consolidation/diagnose__field_data",
+  "domain": "neuroscience",
+  "topic": "systems_consolidation",
+  "practice": "diagnose",
+  "setting": "field_data",
+  "target": "diagnose systems consolidation in field data",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reinforcement_learning/imitation_learning/derive__human_review",
+  "domain": "reinforcement_learning",
+  "topic": "imitation_learning",
+  "practice": "derive",
+  "setting": "human_review",
+  "target": "derive imitation learning in human review",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

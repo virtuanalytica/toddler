@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/continual_backprop/define__real_time",
+  "domain": "continual_learning",
+  "topic": "continual_backprop",
+  "practice": "define",
+  "setting": "real_time",
+  "target": "define continual backprop in real time",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/hippocampal_replay/compare__independent_holdout",
+  "domain": "neuroscience",
+  "topic": "hippocampal_replay",
+  "practice": "compare",
+  "setting": "independent_holdout",
+  "target": "compare hippocampal replay in independent holdout",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

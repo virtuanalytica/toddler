@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "learning_theory/generalization/design__distribution_shift",
+  "domain": "learning_theory",
+  "topic": "generalization",
+  "practice": "design",
+  "setting": "distribution_shift",
+  "target": "design generalization in distribution shift",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "learning_theory/bias_variance/reproduce__independent_holdout",
+  "domain": "learning_theory",
+  "topic": "bias_variance",
+  "practice": "reproduce",
+  "setting": "independent_holdout",
+  "target": "reproduce bias variance in independent holdout",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reinforcement_learning/policy_gradients/reproduce__few_shot",
+  "domain": "reinforcement_learning",
+  "topic": "policy_gradients",
+  "practice": "reproduce",
+  "setting": "few_shot",
+  "target": "reproduce policy gradients in few shot",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

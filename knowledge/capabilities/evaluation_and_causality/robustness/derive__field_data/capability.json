@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "evaluation_and_causality/robustness/derive__field_data",
+  "domain": "evaluation_and_causality",
+  "topic": "robustness",
+  "practice": "derive",
+  "setting": "field_data",
+  "target": "derive robustness in field data",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

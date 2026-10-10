@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "multimodal_agents/human_feedback/compare__task_sequence",
+  "domain": "multimodal_agents",
+  "topic": "human_feedback",
+  "practice": "compare",
+  "setting": "task_sequence",
+  "target": "compare human feedback in task sequence",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

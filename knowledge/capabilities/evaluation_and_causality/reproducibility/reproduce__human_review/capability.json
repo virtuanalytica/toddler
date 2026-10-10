@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "evaluation_and_causality/reproducibility/reproduce__human_review",
+  "domain": "evaluation_and_causality",
+  "topic": "reproducibility",
+  "practice": "reproduce",
+  "setting": "human_review",
+  "target": "reproduce reproducibility in human review",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

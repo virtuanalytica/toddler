@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "systems_and_safety/sandboxed_learning/derive__distribution_shift",
+  "domain": "systems_and_safety",
+  "topic": "sandboxed_learning",
+  "practice": "derive",
+  "setting": "distribution_shift",
+  "target": "derive sandboxed learning in distribution shift",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

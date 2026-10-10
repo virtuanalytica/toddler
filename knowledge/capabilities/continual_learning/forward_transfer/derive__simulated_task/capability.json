@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/forward_transfer/derive__simulated_task",
+  "domain": "continual_learning",
+  "topic": "forward_transfer",
+  "practice": "derive",
+  "setting": "simulated_task",
+  "target": "derive forward transfer in simulated task",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/plasticity_diagnostics/explain__compute_budget",
+  "domain": "neural_networks",
+  "topic": "plasticity_diagnostics",
+  "practice": "explain",
+  "setting": "compute_budget",
+  "target": "explain plasticity diagnostics in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

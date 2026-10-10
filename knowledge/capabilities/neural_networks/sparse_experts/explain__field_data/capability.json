@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/sparse_experts/explain__field_data",
+  "domain": "neural_networks",
+  "topic": "sparse_experts",
+  "practice": "explain",
+  "setting": "field_data",
+  "target": "explain sparse experts in field data",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

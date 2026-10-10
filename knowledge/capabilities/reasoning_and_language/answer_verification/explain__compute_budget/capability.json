@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reasoning_and_language/answer_verification/explain__compute_budget",
+  "domain": "reasoning_and_language",
+  "topic": "answer_verification",
+  "practice": "explain",
+  "setting": "compute_budget",
+  "target": "explain answer verification in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

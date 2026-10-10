@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "memory_systems/memory_provenance/teach__compute_budget",
+  "domain": "memory_systems",
+  "topic": "memory_provenance",
+  "practice": "teach",
+  "setting": "compute_budget",
+  "target": "teach memory provenance in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

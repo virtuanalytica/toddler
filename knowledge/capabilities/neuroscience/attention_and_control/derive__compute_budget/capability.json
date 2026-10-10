@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/attention_and_control/derive__compute_budget",
+  "domain": "neuroscience",
+  "topic": "attention_and_control",
+  "practice": "derive",
+  "setting": "compute_budget",
+  "target": "derive attention and control in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

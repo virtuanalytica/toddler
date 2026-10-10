@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/sparse_experts/compare__worked_example",
+  "domain": "neural_networks",
+  "topic": "sparse_experts",
+  "practice": "compare",
+  "setting": "worked_example",
+  "target": "compare sparse experts in worked example",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

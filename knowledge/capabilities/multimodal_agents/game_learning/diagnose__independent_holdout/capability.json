@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "multimodal_agents/game_learning/diagnose__independent_holdout",
+  "domain": "multimodal_agents",
+  "topic": "game_learning",
+  "practice": "diagnose",
+  "setting": "independent_holdout",
+  "target": "diagnose game learning in independent holdout",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

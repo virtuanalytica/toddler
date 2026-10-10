@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reinforcement_learning/hierarchical_rl/validate__compute_budget",
+  "domain": "reinforcement_learning",
+  "topic": "hierarchical_rl",
+  "practice": "validate",
+  "setting": "compute_budget",
+  "target": "validate hierarchical rl in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

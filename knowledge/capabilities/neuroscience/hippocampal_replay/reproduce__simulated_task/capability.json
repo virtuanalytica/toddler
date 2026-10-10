@@ -1,0 +1,22 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/hippocampal_replay/reproduce__simulated_task",
+  "domain": "neuroscience",
+  "topic": "hippocampal_replay",
+  "practice": "reproduce",
+  "setting": "simulated_task",
+  "target": "reproduce hippocampal replay in simulated task",
+  "status": "lesson_draft",
+  "evidence": {
+    "primary_sources": [
+      "https://sites.socsci.uci.edu/~lpearl/courses/readings/McClellandEtAl1995.pdf",
+      "https://www.nature.com/articles/s41467-018-06213-1"
+    ],
+    "learning_material": [
+      "lesson.md"
+    ],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

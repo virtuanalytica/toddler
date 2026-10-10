@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reinforcement_learning/policy_gradients/reproduce__worked_example",
+  "domain": "reinforcement_learning",
+  "topic": "policy_gradients",
+  "practice": "reproduce",
+  "setting": "worked_example",
+  "target": "reproduce policy gradients in worked example",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

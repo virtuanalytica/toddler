@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "evaluation_and_causality/measurement_design/teach__field_data",
+  "domain": "evaluation_and_causality",
+  "topic": "measurement_design",
+  "practice": "teach",
+  "setting": "field_data",
+  "target": "teach measurement design in field data",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

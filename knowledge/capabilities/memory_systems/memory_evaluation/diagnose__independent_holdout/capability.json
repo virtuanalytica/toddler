@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "memory_systems/memory_evaluation/diagnose__independent_holdout",
+  "domain": "memory_systems",
+  "topic": "memory_evaluation",
+  "practice": "diagnose",
+  "setting": "independent_holdout",
+  "target": "diagnose memory evaluation in independent holdout",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "memory_systems/forgetting_policies/implement__human_review",
+  "domain": "memory_systems",
+  "topic": "forgetting_policies",
+  "practice": "implement",
+  "setting": "human_review",
+  "target": "implement forgetting policies in human review",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

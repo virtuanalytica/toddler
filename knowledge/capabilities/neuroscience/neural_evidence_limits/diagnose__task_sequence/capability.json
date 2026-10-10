@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/neural_evidence_limits/diagnose__task_sequence",
+  "domain": "neuroscience",
+  "topic": "neural_evidence_limits",
+  "practice": "diagnose",
+  "setting": "task_sequence",
+  "target": "diagnose neural evidence limits in task sequence",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

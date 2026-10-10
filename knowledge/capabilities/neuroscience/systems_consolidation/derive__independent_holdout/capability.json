@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/systems_consolidation/derive__independent_holdout",
+  "domain": "neuroscience",
+  "topic": "systems_consolidation",
+  "practice": "derive",
+  "setting": "independent_holdout",
+  "target": "derive systems consolidation in independent holdout",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

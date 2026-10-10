@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/experience_replay/diagnose__task_sequence",
+  "domain": "continual_learning",
+  "topic": "experience_replay",
+  "practice": "diagnose",
+  "setting": "task_sequence",
+  "target": "diagnose experience replay in task sequence",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

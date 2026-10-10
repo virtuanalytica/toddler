@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "memory_systems/consolidation/compare__real_time",
+  "domain": "memory_systems",
+  "topic": "consolidation",
+  "practice": "compare",
+  "setting": "real_time",
+  "target": "compare consolidation in real time",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

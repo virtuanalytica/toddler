@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "evaluation_and_causality/anti_contamination/diagnose__compute_budget",
+  "domain": "evaluation_and_causality",
+  "topic": "anti_contamination",
+  "practice": "diagnose",
+  "setting": "compute_budget",
+  "target": "diagnose anti contamination in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

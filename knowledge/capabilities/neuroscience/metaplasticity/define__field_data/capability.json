@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/metaplasticity/define__field_data",
+  "domain": "neuroscience",
+  "topic": "metaplasticity",
+  "practice": "define",
+  "setting": "field_data",
+  "target": "define metaplasticity in field data",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

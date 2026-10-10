@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reinforcement_learning/model_based_rl/diagnose__independent_holdout",
+  "domain": "reinforcement_learning",
+  "topic": "model_based_rl",
+  "practice": "diagnose",
+  "setting": "independent_holdout",
+  "target": "diagnose model based rl in independent holdout",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "learning_theory/optimization/teach__few_shot",
+  "domain": "learning_theory",
+  "topic": "optimization",
+  "practice": "teach",
+  "setting": "few_shot",
+  "target": "teach optimization in few shot",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

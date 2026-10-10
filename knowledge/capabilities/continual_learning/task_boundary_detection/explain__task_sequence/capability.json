@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/task_boundary_detection/explain__task_sequence",
+  "domain": "continual_learning",
+  "topic": "task_boundary_detection",
+  "practice": "explain",
+  "setting": "task_sequence",
+  "target": "explain task boundary detection in task sequence",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

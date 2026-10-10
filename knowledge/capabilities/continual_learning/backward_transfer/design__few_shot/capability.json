@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/backward_transfer/design__few_shot",
+  "domain": "continual_learning",
+  "topic": "backward_transfer",
+  "practice": "design",
+  "setting": "few_shot",
+  "target": "design backward transfer in few shot",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

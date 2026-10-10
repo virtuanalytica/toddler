@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "learning_theory/uncertainty_calibration/diagnose__field_data",
+  "domain": "learning_theory",
+  "topic": "uncertainty_calibration",
+  "practice": "diagnose",
+  "setting": "field_data",
+  "target": "diagnose uncertainty calibration in field data",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

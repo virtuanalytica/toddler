@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "multimodal_agents/robotic_control/validate__real_time",
+  "domain": "multimodal_agents",
+  "topic": "robotic_control",
+  "practice": "validate",
+  "setting": "real_time",
+  "target": "validate robotic control in real time",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

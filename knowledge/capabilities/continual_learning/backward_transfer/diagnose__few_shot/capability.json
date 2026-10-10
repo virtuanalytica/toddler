@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/backward_transfer/diagnose__few_shot",
+  "domain": "continual_learning",
+  "topic": "backward_transfer",
+  "practice": "diagnose",
+  "setting": "few_shot",
+  "target": "diagnose backward transfer in few shot",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

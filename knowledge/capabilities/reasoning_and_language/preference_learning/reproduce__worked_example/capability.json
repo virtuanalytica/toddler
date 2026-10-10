@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reasoning_and_language/preference_learning/reproduce__worked_example",
+  "domain": "reasoning_and_language",
+  "topic": "preference_learning",
+  "practice": "reproduce",
+  "setting": "worked_example",
+  "target": "reproduce preference learning in worked example",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

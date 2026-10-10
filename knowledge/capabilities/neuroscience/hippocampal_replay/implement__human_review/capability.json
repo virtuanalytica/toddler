@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/hippocampal_replay/implement__human_review",
+  "domain": "neuroscience",
+  "topic": "hippocampal_replay",
+  "practice": "implement",
+  "setting": "human_review",
+  "target": "implement hippocampal replay in human review",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

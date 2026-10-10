@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/attention_and_transformers/explain__distribution_shift",
+  "domain": "neural_networks",
+  "topic": "attention_and_transformers",
+  "practice": "explain",
+  "setting": "distribution_shift",
+  "target": "explain attention and transformers in distribution shift",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/systems_consolidation/design__simulated_task",
+  "domain": "neuroscience",
+  "topic": "systems_consolidation",
+  "practice": "design",
+  "setting": "simulated_task",
+  "target": "design systems consolidation in simulated task",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "learning_theory/generalization/explain__worked_example",
+  "domain": "learning_theory",
+  "topic": "generalization",
+  "practice": "explain",
+  "setting": "worked_example",
+  "target": "explain generalization in worked example",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/model_compression/define__field_data",
+  "domain": "neural_networks",
+  "topic": "model_compression",
+  "practice": "define",
+  "setting": "field_data",
+  "target": "define model compression in field data",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

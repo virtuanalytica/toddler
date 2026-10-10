@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "memory_systems/memory_provenance/compare__human_review",
+  "domain": "memory_systems",
+  "topic": "memory_provenance",
+  "practice": "compare",
+  "setting": "human_review",
+  "target": "compare memory provenance in human review",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

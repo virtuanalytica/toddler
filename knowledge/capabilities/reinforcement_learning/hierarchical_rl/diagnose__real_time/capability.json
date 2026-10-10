@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reinforcement_learning/hierarchical_rl/diagnose__real_time",
+  "domain": "reinforcement_learning",
+  "topic": "hierarchical_rl",
+  "practice": "diagnose",
+  "setting": "real_time",
+  "target": "diagnose hierarchical rl in real time",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

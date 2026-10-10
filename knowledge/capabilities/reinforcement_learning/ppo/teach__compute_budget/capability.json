@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reinforcement_learning/ppo/teach__compute_budget",
+  "domain": "reinforcement_learning",
+  "topic": "ppo",
+  "practice": "teach",
+  "setting": "compute_budget",
+  "target": "teach ppo in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reasoning_and_language/self_correction/implement__task_sequence",
+  "domain": "reasoning_and_language",
+  "topic": "self_correction",
+  "practice": "implement",
+  "setting": "task_sequence",
+  "target": "implement self correction in task sequence",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

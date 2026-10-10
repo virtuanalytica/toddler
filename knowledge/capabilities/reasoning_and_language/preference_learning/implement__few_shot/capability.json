@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reasoning_and_language/preference_learning/implement__few_shot",
+  "domain": "reasoning_and_language",
+  "topic": "preference_learning",
+  "practice": "implement",
+  "setting": "few_shot",
+  "target": "implement preference learning in few shot",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

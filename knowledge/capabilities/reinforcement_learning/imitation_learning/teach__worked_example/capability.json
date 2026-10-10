@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reinforcement_learning/imitation_learning/teach__worked_example",
+  "domain": "reinforcement_learning",
+  "topic": "imitation_learning",
+  "practice": "teach",
+  "setting": "worked_example",
+  "target": "teach imitation learning in worked example",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

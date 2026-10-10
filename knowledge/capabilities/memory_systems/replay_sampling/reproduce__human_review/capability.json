@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "memory_systems/replay_sampling/reproduce__human_review",
+  "domain": "memory_systems",
+  "topic": "replay_sampling",
+  "practice": "reproduce",
+  "setting": "human_review",
+  "target": "reproduce replay sampling in human review",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

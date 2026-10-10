@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "learning_theory/bias_variance/explain__simulated_task",
+  "domain": "learning_theory",
+  "topic": "bias_variance",
+  "practice": "explain",
+  "setting": "simulated_task",
+  "target": "explain bias variance in simulated task",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

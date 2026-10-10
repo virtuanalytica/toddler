@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "multimodal_agents/action_selection/design__field_data",
+  "domain": "multimodal_agents",
+  "topic": "action_selection",
+  "practice": "design",
+  "setting": "field_data",
+  "target": "design action selection in field data",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

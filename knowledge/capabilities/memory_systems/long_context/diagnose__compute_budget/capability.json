@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "memory_systems/long_context/diagnose__compute_budget",
+  "domain": "memory_systems",
+  "topic": "long_context",
+  "practice": "diagnose",
+  "setting": "compute_budget",
+  "target": "diagnose long context in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

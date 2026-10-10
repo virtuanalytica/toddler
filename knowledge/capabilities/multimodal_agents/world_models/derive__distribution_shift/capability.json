@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "multimodal_agents/world_models/derive__distribution_shift",
+  "domain": "multimodal_agents",
+  "topic": "world_models",
+  "practice": "derive",
+  "setting": "distribution_shift",
+  "target": "derive world models in distribution shift",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

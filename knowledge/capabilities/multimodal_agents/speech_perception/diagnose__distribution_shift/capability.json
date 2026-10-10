@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "multimodal_agents/speech_perception/diagnose__distribution_shift",
+  "domain": "multimodal_agents",
+  "topic": "speech_perception",
+  "practice": "diagnose",
+  "setting": "distribution_shift",
+  "target": "diagnose speech perception in distribution shift",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

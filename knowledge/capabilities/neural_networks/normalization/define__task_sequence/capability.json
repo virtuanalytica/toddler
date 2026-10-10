@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/normalization/define__task_sequence",
+  "domain": "neural_networks",
+  "topic": "normalization",
+  "practice": "define",
+  "setting": "task_sequence",
+  "target": "define normalization in task sequence",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

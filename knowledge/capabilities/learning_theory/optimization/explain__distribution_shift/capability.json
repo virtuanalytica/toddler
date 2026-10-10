@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "learning_theory/optimization/explain__distribution_shift",
+  "domain": "learning_theory",
+  "topic": "optimization",
+  "practice": "explain",
+  "setting": "distribution_shift",
+  "target": "explain optimization in distribution shift",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

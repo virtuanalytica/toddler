@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/metaplasticity/define__simulated_task",
+  "domain": "neuroscience",
+  "topic": "metaplasticity",
+  "practice": "define",
+  "setting": "simulated_task",
+  "target": "define metaplasticity in simulated task",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

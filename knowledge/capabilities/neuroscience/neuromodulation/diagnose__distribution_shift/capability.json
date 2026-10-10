@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/neuromodulation/diagnose__distribution_shift",
+  "domain": "neuroscience",
+  "topic": "neuromodulation",
+  "practice": "diagnose",
+  "setting": "distribution_shift",
+  "target": "diagnose neuromodulation in distribution shift",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

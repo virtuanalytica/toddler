@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/normalization/derive__field_data",
+  "domain": "neural_networks",
+  "topic": "normalization",
+  "practice": "derive",
+  "setting": "field_data",
+  "target": "derive normalization in field data",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

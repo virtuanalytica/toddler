@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/sensorimotor_learning/validate__task_sequence",
+  "domain": "neuroscience",
+  "topic": "sensorimotor_learning",
+  "practice": "validate",
+  "setting": "task_sequence",
+  "target": "validate sensorimotor learning in task sequence",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

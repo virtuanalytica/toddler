@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "evaluation_and_causality/lineage_auditing/implement__compute_budget",
+  "domain": "evaluation_and_causality",
+  "topic": "lineage_auditing",
+  "practice": "implement",
+  "setting": "compute_budget",
+  "target": "implement lineage auditing in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/model_compression/reproduce__worked_example",
+  "domain": "neural_networks",
+  "topic": "model_compression",
+  "practice": "reproduce",
+  "setting": "worked_example",
+  "target": "reproduce model compression in worked example",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

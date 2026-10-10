@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reinforcement_learning/model_based_rl/implement__real_time",
+  "domain": "reinforcement_learning",
+  "topic": "model_based_rl",
+  "practice": "implement",
+  "setting": "real_time",
+  "target": "implement model based rl in real time",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

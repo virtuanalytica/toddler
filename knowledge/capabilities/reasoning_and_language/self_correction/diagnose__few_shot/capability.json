@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reasoning_and_language/self_correction/diagnose__few_shot",
+  "domain": "reasoning_and_language",
+  "topic": "self_correction",
+  "practice": "diagnose",
+  "setting": "few_shot",
+  "target": "diagnose self correction in few shot",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

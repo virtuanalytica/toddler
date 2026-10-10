@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/neuromodulation/reproduce__distribution_shift",
+  "domain": "neuroscience",
+  "topic": "neuromodulation",
+  "practice": "reproduce",
+  "setting": "distribution_shift",
+  "target": "reproduce neuromodulation in distribution shift",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

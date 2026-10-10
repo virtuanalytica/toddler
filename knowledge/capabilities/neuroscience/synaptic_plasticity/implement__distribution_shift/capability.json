@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/synaptic_plasticity/implement__distribution_shift",
+  "domain": "neuroscience",
+  "topic": "synaptic_plasticity",
+  "practice": "implement",
+  "setting": "distribution_shift",
+  "target": "implement synaptic plasticity in distribution shift",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/backward_transfer/compare__task_sequence",
+  "domain": "continual_learning",
+  "topic": "backward_transfer",
+  "practice": "compare",
+  "setting": "task_sequence",
+  "target": "compare backward transfer in task sequence",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

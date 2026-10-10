@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/experience_replay/design__simulated_task",
+  "domain": "continual_learning",
+  "topic": "experience_replay",
+  "practice": "design",
+  "setting": "simulated_task",
+  "target": "design experience replay in simulated task",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

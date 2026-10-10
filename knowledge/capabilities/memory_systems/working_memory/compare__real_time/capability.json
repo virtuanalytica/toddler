@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "memory_systems/working_memory/compare__real_time",
+  "domain": "memory_systems",
+  "topic": "working_memory",
+  "practice": "compare",
+  "setting": "real_time",
+  "target": "compare working memory in real time",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

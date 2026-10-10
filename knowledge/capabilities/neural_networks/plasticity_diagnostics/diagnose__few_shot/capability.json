@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/plasticity_diagnostics/diagnose__few_shot",
+  "domain": "neural_networks",
+  "topic": "plasticity_diagnostics",
+  "practice": "diagnose",
+  "setting": "few_shot",
+  "target": "diagnose plasticity diagnostics in few shot",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

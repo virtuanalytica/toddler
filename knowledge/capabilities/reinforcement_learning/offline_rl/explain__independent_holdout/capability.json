@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reinforcement_learning/offline_rl/explain__independent_holdout",
+  "domain": "reinforcement_learning",
+  "topic": "offline_rl",
+  "practice": "explain",
+  "setting": "independent_holdout",
+  "target": "explain offline rl in independent holdout",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

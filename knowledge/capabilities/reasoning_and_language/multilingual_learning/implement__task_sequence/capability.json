@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reasoning_and_language/multilingual_learning/implement__task_sequence",
+  "domain": "reasoning_and_language",
+  "topic": "multilingual_learning",
+  "practice": "implement",
+  "setting": "task_sequence",
+  "target": "implement multilingual learning in task sequence",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

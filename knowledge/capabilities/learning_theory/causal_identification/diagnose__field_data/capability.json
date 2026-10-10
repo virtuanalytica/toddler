@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "learning_theory/causal_identification/diagnose__field_data",
+  "domain": "learning_theory",
+  "topic": "causal_identification",
+  "practice": "diagnose",
+  "setting": "field_data",
+  "target": "diagnose causal identification in field data",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

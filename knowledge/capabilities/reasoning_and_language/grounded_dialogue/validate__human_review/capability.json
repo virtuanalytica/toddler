@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reasoning_and_language/grounded_dialogue/validate__human_review",
+  "domain": "reasoning_and_language",
+  "topic": "grounded_dialogue",
+  "practice": "validate",
+  "setting": "human_review",
+  "target": "validate grounded dialogue in human review",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

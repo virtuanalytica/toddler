@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "learning_theory/curriculum_learning/diagnose__independent_holdout",
+  "domain": "learning_theory",
+  "topic": "curriculum_learning",
+  "practice": "diagnose",
+  "setting": "independent_holdout",
+  "target": "diagnose curriculum learning in independent holdout",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

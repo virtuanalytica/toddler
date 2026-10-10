@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reasoning_and_language/planning/define__worked_example",
+  "domain": "reasoning_and_language",
+  "topic": "planning",
+  "practice": "define",
+  "setting": "worked_example",
+  "target": "define planning in worked example",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

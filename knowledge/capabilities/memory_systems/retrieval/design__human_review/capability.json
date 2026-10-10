@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "memory_systems/retrieval/design__human_review",
+  "domain": "memory_systems",
+  "topic": "retrieval",
+  "practice": "design",
+  "setting": "human_review",
+  "target": "design retrieval in human review",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

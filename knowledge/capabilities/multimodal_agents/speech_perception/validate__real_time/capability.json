@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "multimodal_agents/speech_perception/validate__real_time",
+  "domain": "multimodal_agents",
+  "topic": "speech_perception",
+  "practice": "validate",
+  "setting": "real_time",
+  "target": "validate speech perception in real time",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

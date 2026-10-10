@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "evaluation_and_causality/lineage_auditing/define__human_review",
+  "domain": "evaluation_and_causality",
+  "topic": "lineage_auditing",
+  "practice": "define",
+  "setting": "human_review",
+  "target": "define lineage auditing in human review",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

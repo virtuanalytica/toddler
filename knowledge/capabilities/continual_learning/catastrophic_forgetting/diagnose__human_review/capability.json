@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/catastrophic_forgetting/diagnose__human_review",
+  "domain": "continual_learning",
+  "topic": "catastrophic_forgetting",
+  "practice": "diagnose",
+  "setting": "human_review",
+  "target": "diagnose catastrophic forgetting in human review",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

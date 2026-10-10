@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "evaluation_and_causality/energy_accounting/explain__independent_holdout",
+  "domain": "evaluation_and_causality",
+  "topic": "energy_accounting",
+  "practice": "explain",
+  "setting": "independent_holdout",
+  "target": "explain energy accounting in independent holdout",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

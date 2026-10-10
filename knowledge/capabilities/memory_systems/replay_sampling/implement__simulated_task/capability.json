@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "memory_systems/replay_sampling/implement__simulated_task",
+  "domain": "memory_systems",
+  "topic": "replay_sampling",
+  "practice": "implement",
+  "setting": "simulated_task",
+  "target": "implement replay sampling in simulated task",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

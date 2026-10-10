@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "memory_systems/retrieval/validate__simulated_task",
+  "domain": "memory_systems",
+  "topic": "retrieval",
+  "practice": "validate",
+  "setting": "simulated_task",
+  "target": "validate retrieval in simulated task",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/forward_transfer/implement__worked_example",
+  "domain": "continual_learning",
+  "topic": "forward_transfer",
+  "practice": "implement",
+  "setting": "worked_example",
+  "target": "implement forward transfer in worked example",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

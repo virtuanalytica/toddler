@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/synaptic_plasticity/validate__field_data",
+  "domain": "neuroscience",
+  "topic": "synaptic_plasticity",
+  "practice": "validate",
+  "setting": "field_data",
+  "target": "validate synaptic plasticity in field data",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "learning_theory/causal_identification/compare__real_time",
+  "domain": "learning_theory",
+  "topic": "causal_identification",
+  "practice": "compare",
+  "setting": "real_time",
+  "target": "compare causal identification in real time",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

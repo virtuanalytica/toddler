@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reasoning_and_language/numeracy/compare__few_shot",
+  "domain": "reasoning_and_language",
+  "topic": "numeracy",
+  "practice": "compare",
+  "setting": "few_shot",
+  "target": "compare numeracy in few shot",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

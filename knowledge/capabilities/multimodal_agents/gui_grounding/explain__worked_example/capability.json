@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "multimodal_agents/gui_grounding/explain__worked_example",
+  "domain": "multimodal_agents",
+  "topic": "gui_grounding",
+  "practice": "explain",
+  "setting": "worked_example",
+  "target": "explain gui grounding in worked example",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

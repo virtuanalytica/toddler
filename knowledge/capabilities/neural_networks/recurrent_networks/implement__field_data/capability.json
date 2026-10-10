@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/recurrent_networks/implement__field_data",
+  "domain": "neural_networks",
+  "topic": "recurrent_networks",
+  "practice": "implement",
+  "setting": "field_data",
+  "target": "implement recurrent networks in field data",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

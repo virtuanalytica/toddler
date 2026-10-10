@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/perceptrons_and_mlp/explain__field_data",
+  "domain": "neural_networks",
+  "topic": "perceptrons_and_mlp",
+  "practice": "explain",
+  "setting": "field_data",
+  "target": "explain perceptrons and mlp in field data",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

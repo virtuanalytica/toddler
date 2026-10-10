@@ -1,0 +1,21 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/continual_backprop/implement__simulated_task",
+  "domain": "continual_learning",
+  "topic": "continual_backprop",
+  "practice": "implement",
+  "setting": "simulated_task",
+  "target": "implement continual backprop in simulated task",
+  "status": "lesson_draft",
+  "evidence": {
+    "primary_sources": [
+      "https://www.nature.com/articles/s41586-024-07711-7"
+    ],
+    "learning_material": [
+      "lesson.md"
+    ],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

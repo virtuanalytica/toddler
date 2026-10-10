@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "memory_systems/consolidation/reproduce__worked_example",
+  "domain": "memory_systems",
+  "topic": "consolidation",
+  "practice": "reproduce",
+  "setting": "worked_example",
+  "target": "reproduce consolidation in worked example",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

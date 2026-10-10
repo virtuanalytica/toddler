@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "systems_and_safety/sandboxed_learning/compare__few_shot",
+  "domain": "systems_and_safety",
+  "topic": "sandboxed_learning",
+  "practice": "compare",
+  "setting": "few_shot",
+  "target": "compare sandboxed learning in few shot",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

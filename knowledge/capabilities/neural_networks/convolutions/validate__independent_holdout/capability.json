@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/convolutions/validate__independent_holdout",
+  "domain": "neural_networks",
+  "topic": "convolutions",
+  "practice": "validate",
+  "setting": "independent_holdout",
+  "target": "validate convolutions in independent holdout",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

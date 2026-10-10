@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reinforcement_learning/policy_gradients/diagnose__distribution_shift",
+  "domain": "reinforcement_learning",
+  "topic": "policy_gradients",
+  "practice": "diagnose",
+  "setting": "distribution_shift",
+  "target": "diagnose policy gradients in distribution shift",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

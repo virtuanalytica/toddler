@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/neural_evidence_limits/design__simulated_task",
+  "domain": "neuroscience",
+  "topic": "neural_evidence_limits",
+  "practice": "design",
+  "setting": "simulated_task",
+  "target": "design neural evidence limits in simulated task",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/metaplasticity/reproduce__few_shot",
+  "domain": "neuroscience",
+  "topic": "metaplasticity",
+  "practice": "reproduce",
+  "setting": "few_shot",
+  "target": "reproduce metaplasticity in few shot",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

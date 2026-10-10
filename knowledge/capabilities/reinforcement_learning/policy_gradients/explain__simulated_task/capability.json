@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reinforcement_learning/policy_gradients/explain__simulated_task",
+  "domain": "reinforcement_learning",
+  "topic": "policy_gradients",
+  "practice": "explain",
+  "setting": "simulated_task",
+  "target": "explain policy gradients in simulated task",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

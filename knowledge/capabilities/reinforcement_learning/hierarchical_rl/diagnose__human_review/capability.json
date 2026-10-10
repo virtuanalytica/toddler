@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reinforcement_learning/hierarchical_rl/diagnose__human_review",
+  "domain": "reinforcement_learning",
+  "topic": "hierarchical_rl",
+  "practice": "diagnose",
+  "setting": "human_review",
+  "target": "diagnose hierarchical rl in human review",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/continual_backprop/explain__independent_holdout",
+  "domain": "continual_learning",
+  "topic": "continual_backprop",
+  "practice": "explain",
+  "setting": "independent_holdout",
+  "target": "explain continual backprop in independent holdout",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

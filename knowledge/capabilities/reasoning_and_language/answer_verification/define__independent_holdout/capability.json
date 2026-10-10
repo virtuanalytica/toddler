@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reasoning_and_language/answer_verification/define__independent_holdout",
+  "domain": "reasoning_and_language",
+  "topic": "answer_verification",
+  "practice": "define",
+  "setting": "independent_holdout",
+  "target": "define answer verification in independent holdout",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

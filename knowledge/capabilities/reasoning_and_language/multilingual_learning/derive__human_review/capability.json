@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reasoning_and_language/multilingual_learning/derive__human_review",
+  "domain": "reasoning_and_language",
+  "topic": "multilingual_learning",
+  "practice": "derive",
+  "setting": "human_review",
+  "target": "derive multilingual learning in human review",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

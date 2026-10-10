@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reinforcement_learning/ppo/compare__real_time",
+  "domain": "reinforcement_learning",
+  "topic": "ppo",
+  "practice": "compare",
+  "setting": "real_time",
+  "target": "compare ppo in real time",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "systems_and_safety/gpu_scheduling/derive__independent_holdout",
+  "domain": "systems_and_safety",
+  "topic": "gpu_scheduling",
+  "practice": "derive",
+  "setting": "independent_holdout",
+  "target": "derive gpu scheduling in independent holdout",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/predictive_processing/diagnose__compute_budget",
+  "domain": "neuroscience",
+  "topic": "predictive_processing",
+  "practice": "diagnose",
+  "setting": "compute_budget",
+  "target": "diagnose predictive processing in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

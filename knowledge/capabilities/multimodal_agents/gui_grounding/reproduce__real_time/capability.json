@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "multimodal_agents/gui_grounding/reproduce__real_time",
+  "domain": "multimodal_agents",
+  "topic": "gui_grounding",
+  "practice": "reproduce",
+  "setting": "real_time",
+  "target": "reproduce gui grounding in real time",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

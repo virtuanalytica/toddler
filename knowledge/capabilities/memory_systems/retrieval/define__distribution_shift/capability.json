@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "memory_systems/retrieval/define__distribution_shift",
+  "domain": "memory_systems",
+  "topic": "retrieval",
+  "practice": "define",
+  "setting": "distribution_shift",
+  "target": "define retrieval in distribution shift",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

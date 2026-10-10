@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/parameter_efficient_adaptation/derive__field_data",
+  "domain": "neural_networks",
+  "topic": "parameter_efficient_adaptation",
+  "practice": "derive",
+  "setting": "field_data",
+  "target": "derive parameter efficient adaptation in field data",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reinforcement_learning/offline_rl/derive__human_review",
+  "domain": "reinforcement_learning",
+  "topic": "offline_rl",
+  "practice": "derive",
+  "setting": "human_review",
+  "target": "derive offline rl in human review",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

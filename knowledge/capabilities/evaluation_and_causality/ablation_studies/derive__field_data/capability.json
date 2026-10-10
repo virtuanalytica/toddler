@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "evaluation_and_causality/ablation_studies/derive__field_data",
+  "domain": "evaluation_and_causality",
+  "topic": "ablation_studies",
+  "practice": "derive",
+  "setting": "field_data",
+  "target": "derive ablation studies in field data",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

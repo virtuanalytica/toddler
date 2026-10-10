@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "learning_theory/bias_variance/design__field_data",
+  "domain": "learning_theory",
+  "topic": "bias_variance",
+  "practice": "design",
+  "setting": "field_data",
+  "target": "design bias variance in field data",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "learning_theory/active_learning/derive__real_time",
+  "domain": "learning_theory",
+  "topic": "active_learning",
+  "practice": "derive",
+  "setting": "real_time",
+  "target": "derive active learning in real time",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "memory_systems/episodic_memory/define__worked_example",
+  "domain": "memory_systems",
+  "topic": "episodic_memory",
+  "practice": "define",
+  "setting": "worked_example",
+  "target": "define episodic memory in worked example",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

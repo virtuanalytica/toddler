@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reasoning_and_language/multilingual_learning/implement__worked_example",
+  "domain": "reasoning_and_language",
+  "topic": "multilingual_learning",
+  "practice": "implement",
+  "setting": "worked_example",
+  "target": "implement multilingual learning in worked example",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

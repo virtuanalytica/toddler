@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reinforcement_learning/reward_design/validate__distribution_shift",
+  "domain": "reinforcement_learning",
+  "topic": "reward_design",
+  "practice": "validate",
+  "setting": "distribution_shift",
+  "target": "validate reward design in distribution shift",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

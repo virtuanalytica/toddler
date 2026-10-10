@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "memory_systems/memory_evaluation/design__simulated_task",
+  "domain": "memory_systems",
+  "topic": "memory_evaluation",
+  "practice": "design",
+  "setting": "simulated_task",
+  "target": "design memory evaluation in simulated task",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

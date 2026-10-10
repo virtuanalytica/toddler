@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "memory_systems/replay_sampling/implement__field_data",
+  "domain": "memory_systems",
+  "topic": "replay_sampling",
+  "practice": "implement",
+  "setting": "field_data",
+  "target": "implement replay sampling in field data",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

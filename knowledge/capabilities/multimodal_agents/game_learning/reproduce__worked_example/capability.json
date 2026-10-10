@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "multimodal_agents/game_learning/reproduce__worked_example",
+  "domain": "multimodal_agents",
+  "topic": "game_learning",
+  "practice": "reproduce",
+  "setting": "worked_example",
+  "target": "reproduce game learning in worked example",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

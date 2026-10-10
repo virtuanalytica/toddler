@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "evaluation_and_causality/paired_trials/explain__distribution_shift",
+  "domain": "evaluation_and_causality",
+  "topic": "paired_trials",
+  "practice": "explain",
+  "setting": "distribution_shift",
+  "target": "explain paired trials in distribution shift",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

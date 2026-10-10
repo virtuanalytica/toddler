@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "memory_systems/consolidation/design__few_shot",
+  "domain": "memory_systems",
+  "topic": "consolidation",
+  "practice": "design",
+  "setting": "few_shot",
+  "target": "design consolidation in few shot",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

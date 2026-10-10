@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "learning_theory/uncertainty_calibration/diagnose__human_review",
+  "domain": "learning_theory",
+  "topic": "uncertainty_calibration",
+  "practice": "diagnose",
+  "setting": "human_review",
+  "target": "diagnose uncertainty calibration in human review",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

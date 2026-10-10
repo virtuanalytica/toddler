@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/attention_and_control/validate__worked_example",
+  "domain": "neuroscience",
+  "topic": "attention_and_control",
+  "practice": "validate",
+  "setting": "worked_example",
+  "target": "validate attention and control in worked example",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

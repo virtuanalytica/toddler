@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/hippocampal_replay/reproduce__real_time",
+  "domain": "neuroscience",
+  "topic": "hippocampal_replay",
+  "practice": "reproduce",
+  "setting": "real_time",
+  "target": "reproduce hippocampal replay in real time",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

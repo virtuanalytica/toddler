@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/sensorimotor_learning/implement__compute_budget",
+  "domain": "neuroscience",
+  "topic": "sensorimotor_learning",
+  "practice": "implement",
+  "setting": "compute_budget",
+  "target": "implement sensorimotor learning in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/model_compression/derive__independent_holdout",
+  "domain": "neural_networks",
+  "topic": "model_compression",
+  "practice": "derive",
+  "setting": "independent_holdout",
+  "target": "derive model compression in independent holdout",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

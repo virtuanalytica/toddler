@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/task_boundary_detection/derive__worked_example",
+  "domain": "continual_learning",
+  "topic": "task_boundary_detection",
+  "practice": "derive",
+  "setting": "worked_example",
+  "target": "derive task boundary detection in worked example",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

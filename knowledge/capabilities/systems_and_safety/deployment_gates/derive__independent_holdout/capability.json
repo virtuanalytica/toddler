@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "systems_and_safety/deployment_gates/derive__independent_holdout",
+  "domain": "systems_and_safety",
+  "topic": "deployment_gates",
+  "practice": "derive",
+  "setting": "independent_holdout",
+  "target": "derive deployment gates in independent holdout",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/hippocampal_replay/derive__distribution_shift",
+  "domain": "neuroscience",
+  "topic": "hippocampal_replay",
+  "practice": "derive",
+  "setting": "distribution_shift",
+  "target": "derive hippocampal replay in distribution shift",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reinforcement_learning/ppo/diagnose__simulated_task",
+  "domain": "reinforcement_learning",
+  "topic": "ppo",
+  "practice": "diagnose",
+  "setting": "simulated_task",
+  "target": "diagnose ppo in simulated task",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

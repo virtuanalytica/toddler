@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "memory_systems/working_memory/validate__compute_budget",
+  "domain": "memory_systems",
+  "topic": "working_memory",
+  "practice": "validate",
+  "setting": "compute_budget",
+  "target": "validate working memory in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

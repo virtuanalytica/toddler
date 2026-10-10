@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/adapter_isolation/teach__field_data",
+  "domain": "continual_learning",
+  "topic": "adapter_isolation",
+  "practice": "teach",
+  "setting": "field_data",
+  "target": "teach adapter isolation in field data",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

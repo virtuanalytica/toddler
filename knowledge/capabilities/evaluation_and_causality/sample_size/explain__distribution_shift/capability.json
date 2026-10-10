@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "evaluation_and_causality/sample_size/explain__distribution_shift",
+  "domain": "evaluation_and_causality",
+  "topic": "sample_size",
+  "practice": "explain",
+  "setting": "distribution_shift",
+  "target": "explain sample size in distribution shift",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

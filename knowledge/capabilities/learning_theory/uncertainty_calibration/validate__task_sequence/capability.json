@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "learning_theory/uncertainty_calibration/validate__task_sequence",
+  "domain": "learning_theory",
+  "topic": "uncertainty_calibration",
+  "practice": "validate",
+  "setting": "task_sequence",
+  "target": "validate uncertainty calibration in task sequence",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

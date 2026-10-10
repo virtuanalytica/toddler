@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/ewc/implement__field_data",
+  "domain": "continual_learning",
+  "topic": "ewc",
+  "practice": "implement",
+  "setting": "field_data",
+  "target": "implement ewc in field data",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/continual_rl_protocols/derive__worked_example",
+  "domain": "continual_learning",
+  "topic": "continual_rl_protocols",
+  "practice": "derive",
+  "setting": "worked_example",
+  "target": "derive continual rl protocols in worked example",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

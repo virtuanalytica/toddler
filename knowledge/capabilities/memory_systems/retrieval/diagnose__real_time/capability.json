@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "memory_systems/retrieval/diagnose__real_time",
+  "domain": "memory_systems",
+  "topic": "retrieval",
+  "practice": "diagnose",
+  "setting": "real_time",
+  "target": "diagnose retrieval in real time",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

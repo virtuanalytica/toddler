@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reasoning_and_language/preference_learning/diagnose__field_data",
+  "domain": "reasoning_and_language",
+  "topic": "preference_learning",
+  "practice": "diagnose",
+  "setting": "field_data",
+  "target": "diagnose preference learning in field data",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

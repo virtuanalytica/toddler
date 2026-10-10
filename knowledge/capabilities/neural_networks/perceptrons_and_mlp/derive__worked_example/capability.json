@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/perceptrons_and_mlp/derive__worked_example",
+  "domain": "neural_networks",
+  "topic": "perceptrons_and_mlp",
+  "practice": "derive",
+  "setting": "worked_example",
+  "target": "derive perceptrons and mlp in worked example",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

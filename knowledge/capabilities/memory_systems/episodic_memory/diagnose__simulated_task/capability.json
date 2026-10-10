@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "memory_systems/episodic_memory/diagnose__simulated_task",
+  "domain": "memory_systems",
+  "topic": "episodic_memory",
+  "practice": "diagnose",
+  "setting": "simulated_task",
+  "target": "diagnose episodic memory in simulated task",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

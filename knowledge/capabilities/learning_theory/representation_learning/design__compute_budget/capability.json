@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "learning_theory/representation_learning/design__compute_budget",
+  "domain": "learning_theory",
+  "topic": "representation_learning",
+  "practice": "design",
+  "setting": "compute_budget",
+  "target": "design representation learning in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

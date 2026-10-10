@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reinforcement_learning/policy_gradients/diagnose__field_data",
+  "domain": "reinforcement_learning",
+  "topic": "policy_gradients",
+  "practice": "diagnose",
+  "setting": "field_data",
+  "target": "diagnose policy gradients in field data",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

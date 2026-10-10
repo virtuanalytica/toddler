@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/synaptic_plasticity/compare__real_time",
+  "domain": "neuroscience",
+  "topic": "synaptic_plasticity",
+  "practice": "compare",
+  "setting": "real_time",
+  "target": "compare synaptic plasticity in real time",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

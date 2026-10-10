@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/model_compression/derive__simulated_task",
+  "domain": "neural_networks",
+  "topic": "model_compression",
+  "practice": "derive",
+  "setting": "simulated_task",
+  "target": "derive model compression in simulated task",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

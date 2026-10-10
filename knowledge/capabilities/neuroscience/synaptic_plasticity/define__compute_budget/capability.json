@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/synaptic_plasticity/define__compute_budget",
+  "domain": "neuroscience",
+  "topic": "synaptic_plasticity",
+  "practice": "define",
+  "setting": "compute_budget",
+  "target": "define synaptic plasticity in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

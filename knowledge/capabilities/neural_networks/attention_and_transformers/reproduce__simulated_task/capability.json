@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/attention_and_transformers/reproduce__simulated_task",
+  "domain": "neural_networks",
+  "topic": "attention_and_transformers",
+  "practice": "reproduce",
+  "setting": "simulated_task",
+  "target": "reproduce attention and transformers in simulated task",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

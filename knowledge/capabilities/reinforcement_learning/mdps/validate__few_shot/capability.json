@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reinforcement_learning/mdps/validate__few_shot",
+  "domain": "reinforcement_learning",
+  "topic": "mdps",
+  "practice": "validate",
+  "setting": "few_shot",
+  "target": "validate mdps in few shot",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

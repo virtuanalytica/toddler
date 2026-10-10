@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reasoning_and_language/tool_use/compare__human_review",
+  "domain": "reasoning_and_language",
+  "topic": "tool_use",
+  "practice": "compare",
+  "setting": "human_review",
+  "target": "compare tool use in human review",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

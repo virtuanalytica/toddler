@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/model_compression/explain__few_shot",
+  "domain": "neural_networks",
+  "topic": "model_compression",
+  "practice": "explain",
+  "setting": "few_shot",
+  "target": "explain model compression in few shot",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

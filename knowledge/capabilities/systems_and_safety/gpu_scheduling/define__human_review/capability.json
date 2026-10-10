@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "systems_and_safety/gpu_scheduling/define__human_review",
+  "domain": "systems_and_safety",
+  "topic": "gpu_scheduling",
+  "practice": "define",
+  "setting": "human_review",
+  "target": "define gpu scheduling in human review",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

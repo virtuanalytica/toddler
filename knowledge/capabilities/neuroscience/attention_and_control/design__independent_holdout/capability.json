@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/attention_and_control/design__independent_holdout",
+  "domain": "neuroscience",
+  "topic": "attention_and_control",
+  "practice": "design",
+  "setting": "independent_holdout",
+  "target": "design attention and control in independent holdout",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

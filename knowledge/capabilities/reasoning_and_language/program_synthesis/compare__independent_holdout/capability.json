@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reasoning_and_language/program_synthesis/compare__independent_holdout",
+  "domain": "reasoning_and_language",
+  "topic": "program_synthesis",
+  "practice": "compare",
+  "setting": "independent_holdout",
+  "target": "compare program synthesis in independent holdout",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

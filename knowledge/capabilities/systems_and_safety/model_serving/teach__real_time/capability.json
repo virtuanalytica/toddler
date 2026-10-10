@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "systems_and_safety/model_serving/teach__real_time",
+  "domain": "systems_and_safety",
+  "topic": "model_serving",
+  "practice": "teach",
+  "setting": "real_time",
+  "target": "teach model serving in real time",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "systems_and_safety/gpu_scheduling/compare__task_sequence",
+  "domain": "systems_and_safety",
+  "topic": "gpu_scheduling",
+  "practice": "compare",
+  "setting": "task_sequence",
+  "target": "compare gpu scheduling in task sequence",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

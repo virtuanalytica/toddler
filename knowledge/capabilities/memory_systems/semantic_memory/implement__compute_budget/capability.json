@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "memory_systems/semantic_memory/implement__compute_budget",
+  "domain": "memory_systems",
+  "topic": "semantic_memory",
+  "practice": "implement",
+  "setting": "compute_budget",
+  "target": "implement semantic memory in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

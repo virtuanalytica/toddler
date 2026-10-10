@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/developmental_learning/reproduce__simulated_task",
+  "domain": "neuroscience",
+  "topic": "developmental_learning",
+  "practice": "reproduce",
+  "setting": "simulated_task",
+  "target": "reproduce developmental learning in simulated task",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

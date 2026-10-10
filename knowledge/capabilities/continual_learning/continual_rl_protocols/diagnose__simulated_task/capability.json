@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/continual_rl_protocols/diagnose__simulated_task",
+  "domain": "continual_learning",
+  "topic": "continual_rl_protocols",
+  "practice": "diagnose",
+  "setting": "simulated_task",
+  "target": "diagnose continual rl protocols in simulated task",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

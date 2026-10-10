@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/plasticity_diagnostics/teach__distribution_shift",
+  "domain": "neural_networks",
+  "topic": "plasticity_diagnostics",
+  "practice": "teach",
+  "setting": "distribution_shift",
+  "target": "teach plasticity diagnostics in distribution shift",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

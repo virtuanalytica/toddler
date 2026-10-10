@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "evaluation_and_causality/anti_contamination/validate__field_data",
+  "domain": "evaluation_and_causality",
+  "topic": "anti_contamination",
+  "practice": "validate",
+  "setting": "field_data",
+  "target": "validate anti contamination in field data",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

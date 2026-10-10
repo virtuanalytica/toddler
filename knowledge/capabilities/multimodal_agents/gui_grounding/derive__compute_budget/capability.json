@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "multimodal_agents/gui_grounding/derive__compute_budget",
+  "domain": "multimodal_agents",
+  "topic": "gui_grounding",
+  "practice": "derive",
+  "setting": "compute_budget",
+  "target": "derive gui grounding in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}
