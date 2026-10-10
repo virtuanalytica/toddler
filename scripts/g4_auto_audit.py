@@ -41,6 +41,30 @@ def latest_completed_manifest(runs: Path, *, max_age_hours: float = 6) -> Path |
     return path if 0 <= age_hours <= max_age_hours else None
 
 
+def reserved_manifest(family_root: Path) -> Path | None:
+    """Finish the frozen family even after a newer Teacher cohort appears."""
+    lock_path = family_root / "family-attempt.json"
+    if not lock_path.exists():
+        return None
+    lock = json.loads(lock_path.read_text())
+    protocol_path = Path(lock["out"]) / "protocol.json"
+    if not protocol_path.is_file():
+        raise RuntimeError("family reservation exists without protocol; recover reservation before retry")
+    protocol = json.loads(protocol_path.read_text())
+    manifest_path = Path(protocol["manifest"])
+    if (protocol_path.parent.resolve() != Path(lock["out"]).resolve()
+            or protocol_path.parent.parent.resolve() != family_root.resolve()
+            or not manifest_path.is_file()
+            or protocol["manifest_sha256"] != lock["manifest_sha256"]
+            or G4.digest(manifest_path) != lock["manifest_sha256"]):
+        raise RuntimeError("reserved family no longer matches its frozen manifest")
+    return manifest_path
+
+
+def choose_manifest(explicit: Path | None, runs: Path, family_root: Path) -> Path | None:
+    return explicit or reserved_manifest(family_root) or latest_completed_manifest(runs)
+
+
 def audit(manifest_path: Path, family_root: Path, registry_root: Path) -> dict:
     """Prepare, run or resume, assess, and import only a replicated winner."""
     manifest, _ = G4.validate_cohort(manifest_path, registry_root)
@@ -103,7 +127,16 @@ def main() -> int:
     parser.add_argument("--audits", type=Path, default=DEFAULT_AUDITS)
     parser.add_argument("--registry", type=Path, default=G4.ROOT)
     args = parser.parse_args()
-    manifest = args.manifest or latest_completed_manifest(args.runs)
+    try:
+        manifest = choose_manifest(args.manifest, args.runs, args.audits)
+    except Exception as exc:
+        result = {"status": "failed", "cohort": "reserved-family",
+                  "reason": f"{type(exc).__name__}: {exc}",
+                  "recovery": "repair the frozen reservation and protocol; do not create replacement private seeds"}
+        status_path = write_status(args.audits, "reserved-family", result)
+        print(json.dumps({"status": "failed", "cohort": "reserved-family",
+                          "status_path": str(status_path)}, ensure_ascii=False))
+        return 1
     if manifest is None:
         print(json.dumps({"status": "no_recent_completed_cohort",
                           "recovery": "inspect the latest Teacher run and rerun with --manifest after repairing it"}))
