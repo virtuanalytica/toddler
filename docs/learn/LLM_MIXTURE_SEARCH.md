@@ -42,10 +42,15 @@ VRAM-, latency- en GPU-board-energielimieten halen.
 
 De nachtservice verwacht deze export op
 `/media/knight2/EDS2/projects/virtualv_llm/reports/toddler_mom_public_dev.json`.
-Dat bestand bestaat nog niet. Totdat virtualv_llm een nieuw, vergelijkbaar
-openbaar ontwikkelrapport levert, registreert Teacher
-`waiting_for_public_development_export`; hij verzint geen ranglijst op basis
-van de afgesloten private tabellen. Een kandidaatmix moet daarna nog op verse,
-onzichtbare anti-contaminatie- en specialisttaken worden vergeleken met het
-beste losse model en een willekeurige router, inclusief volledige latency en
-energie per vraag.
+Sinds 10 oktober is daar een eerste, auditeerbare openbare ontwikkel-export
+voor drie bevroren lokale GGUF's. De 90 procedurele items bevatten 30 vragen
+per taak; de ruwe modelantwoorden en GPU-board-meting staan in virtualv_llm.
+Het beste losse model haalt 0,6444, de beste vaste taakroute eveneens 0,6444,
+en het optimistische per-item-orakel 0,6889. Teacher registreerde de export
+in een rookproef als `research_candidate_only`; G3 en de live router bleven
+ongewijzigd. Deze pack is ontwikkeldata die tijdens canary en routeonderzoek
+is bekeken. Een kandidaatmix moet op verse, onzichtbare anti-contaminatie- en
+specialisttaken worden vergeleken met het beste losse model en een willekeurige
+router, inclusief volledige latency en energie per vraag. Als de bron ontbreekt
+of ongeldig wordt, registreert Teacher weer
+`waiting_for_public_development_export` of een expliciete fout.
