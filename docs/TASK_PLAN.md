@@ -58,6 +58,32 @@ Zie het [volledige auditverdict](learn/G4_ORACLE_RESULT_20261009.md).
 4. Meet na een geslaagde navigatiepoort ook volledige episodetijd en
    systeemenergie. De huidige 0,060 ms is alleen een CPU-policy-microproef.
 
+## Doorlopende generatiezoektocht (10 oktober 2026)
+
+De nachtelijke Teacher is nu een begrensde onderzoeksloop. Voor elk van de
+vijf oudergebonden kinderen probeert hij overdracht uit G2, verder leren
+vanuit de actieve G3-expert met twee demonstratiebudgetten en twee nieuwe
+netwerkbreedtes (32 en 128). Een gekozen specialist van de vorige nacht kan
+als extra startpunt meedoen. Hiermee zoekt hij zowel netwerkarchitectuur als
+een betere taakgebonden mix van bestaande en nieuwe experts. Iedere ronde
+wordt gemeten op openbare ontwikkelkaarten en een afzonderlijke openbare
+controle. Alleen de beste kandidaat die op beide minstens 0,005 boven de
+gematchte G3-ouder ligt, vervangt diens `unlockpickup`-route in een **kandidaat**.
+Alle andere G3-routes en hun gewichten blijven intact. De Teacher bewaart
+profielen, bronnen, seedbereiken, gewichthashes en selectie in het manifest.
+De [eerste volledige zoekronde](learn/G4_SEARCH_20261010.md) koos voor vier
+van vijf kinderen een nieuwe route; t6001 bleef bij G3. De private
+voorbereiding heeft dit cohort geweigerd zonder geheime kaarten te maken.
+
+Deze loop mag onbeperkt doorontwikkelen binnen het nachtbudget, maar haar
+openbare scores zijn geen promotiebewijs. Herhaald proberen op dezelfde
+toets zou vroeg of laat een vals positief opleveren. De vorige mislukte
+G4-proef blijft meetellen als poging; vóór de volgende private toets moet een
+nieuwe evaluator de nieuwe routekeuze kunnen valideren en vooraf een
+haalbare correctie voor de opeenvolgende toetsen vastleggen. Een grotere
+kindcohort kan nodig zijn zodra een strengere p-grens met vijf kinderen
+onhaalbaar wordt. Zonder zo'n toets blijft G3 de officiële overlevende.
+
 ## Quotients
 
 - IQ: task competence on held-out seeds (aggregate IQM).
