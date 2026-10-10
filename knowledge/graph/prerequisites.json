@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-prerequisites/v1",
+  "status": "editorial_draft",
+  "edge_meaning": "from is a recommended prerequisite for to",
+  "edges": [
+    {"from": "neuroscience/synaptic_plasticity/explain__worked_example", "to": "continual_learning/ewc/derive__worked_example", "reason": "weight importance and consolidation"},
+    {"from": "neuroscience/hippocampal_replay/reproduce__simulated_task", "to": "continual_learning/experience_replay/implement__simulated_task", "reason": "replay as an engineering hypothesis"},
+    {"from": "continual_learning/catastrophic_forgetting/diagnose__task_sequence", "to": "continual_learning/experience_replay/implement__simulated_task", "reason": "the failure mode must be measured first"},
+    {"from": "continual_learning/catastrophic_forgetting/diagnose__task_sequence", "to": "continual_learning/progressive_networks/implement__compute_budget", "reason": "old-task retention baseline"},
+    {"from": "neural_networks/plasticity_diagnostics/diagnose__task_sequence", "to": "continual_learning/continual_backprop/implement__simulated_task", "reason": "measure plasticity before changing units"},
+    {"from": "continual_learning/experience_replay/implement__simulated_task", "to": "evaluation_and_causality/paired_trials/design__independent_holdout", "reason": "a candidate intervention needs a paired trial"},
+    {"from": "continual_learning/ewc/derive__worked_example", "to": "evaluation_and_causality/paired_trials/design__independent_holdout", "reason": "a regularized candidate needs a paired trial"},
+    {"from": "continual_learning/progressive_networks/implement__compute_budget", "to": "evaluation_and_causality/paired_trials/design__independent_holdout", "reason": "resource costs enter the trial"},
+    {"from": "continual_learning/continual_backprop/implement__simulated_task", "to": "evaluation_and_causality/paired_trials/design__independent_holdout", "reason": "resetting requires independent confirmation"},
+    {"from": "evaluation_and_causality/paired_trials/design__independent_holdout", "to": "systems_and_safety/deployment_gates/validate__real_time", "reason": "promotion evidence precedes deployment"}
+  ]
+}

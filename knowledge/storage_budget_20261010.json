@@ -1,0 +1,59 @@
+{
+  "schema": "toddler-capability-storage-estimate/v1",
+  "basis": {
+    "slots": 10000,
+    "topics": 100,
+    "units": "decimal GB/TB",
+    "working_headroom": 0.2,
+    "ssd_reserve_gb_each": 200
+  },
+  "scenarios": {
+    "lean": {
+      "topic_bundle_gb": 2,
+      "unique_skill_mb": 20,
+      "index_gb": 20,
+      "logical_per_slot_gb": 2.022,
+      "logical_total_tb": 20.22,
+      "physical_amortized_per_slot_mb": 42.0,
+      "primary_tb": 0.42,
+      "with_working_headroom_tb": 0.525,
+      "two_copies_tb": 0.84
+    },
+    "balanced": {
+      "topic_bundle_gb": 8,
+      "unique_skill_mb": 100,
+      "index_gb": 50,
+      "logical_per_slot_gb": 8.105,
+      "logical_total_tb": 81.05,
+      "physical_amortized_per_slot_mb": 185.0,
+      "primary_tb": 1.85,
+      "with_working_headroom_tb": 2.312,
+      "two_copies_tb": 3.7
+    },
+    "rich": {
+      "topic_bundle_gb": 20,
+      "unique_skill_mb": 500,
+      "index_gb": 200,
+      "logical_per_slot_gb": 20.52,
+      "logical_total_tb": 205.2,
+      "physical_amortized_per_slot_mb": 720.0,
+      "primary_tb": 7.2,
+      "with_working_headroom_tb": 9.0,
+      "two_copies_tb": 14.4
+    }
+  },
+  "disks": {
+    "/media/knight2/eds1": {
+      "free_gb": 178.0,
+      "usable_after_200gb_reserve_gb": 0
+    },
+    "/media/knight2/EDS2": {
+      "free_gb": 62.7,
+      "usable_after_200gb_reserve_gb": 0
+    },
+    "/media/knight2/claude-data": {
+      "free_gb": 1852.0,
+      "usable_after_200gb_reserve_gb": 1652.0
+    }
+  }
+}
