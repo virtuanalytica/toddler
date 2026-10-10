@@ -62,8 +62,9 @@ Zie het [volledige auditverdict](learn/G4_ORACLE_RESULT_20261009.md).
 
 De nachtelijke Teacher is nu een begrensde onderzoeksloop. Voor elk van de
 vijf oudergebonden kinderen probeert hij overdracht uit G2, verder leren
-vanuit de actieve G3-expert met twee demonstratiebudgetten en twee nieuwe
-netwerkbreedtes (32 en 128). Een gekozen specialist van de vorige nacht kan
+vanuit de actieve G3-expert met twee demonstratiebudgetten, twee nieuwe
+netwerkbreedtes (32 en 128) en PPO-vervolgtraining op eigen simulatorbeloning.
+Een gekozen specialist van de vorige nacht kan
 als extra startpunt meedoen. Hiermee zoekt hij zowel netwerkarchitectuur als
 een betere taakgebonden mix van bestaande en nieuwe experts. Iedere ronde
 wordt gemeten op openbare ontwikkelkaarten en een afzonderlijke openbare
