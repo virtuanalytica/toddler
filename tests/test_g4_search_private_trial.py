@@ -34,3 +34,15 @@ def test_failed_confirmation_cannot_import_generation(tmp_path, monkeypatch):
     with pytest.raises(ValueError, match="did not pass"):
         G4S.promote(tmp_path / "protocol.json", tmp_path)
     assert not (tmp_path / "G4-search").exists()
+
+
+def test_self_reward_winner_requires_real_training_provenance():
+    row = {"search": {"winner": "g3-self-ppo-4096", "profiles": [{
+        "profile": "g3-self-ppo-4096",
+        "training": {"method": "self_reward_ppo", "steps": 4096,
+                     "uses_teacher_grid": False},
+    }]}}
+    assert G4S.winner_training(row)["steps"] == 4096
+    row["search"]["profiles"][0]["training"]["uses_teacher_grid"] = True
+    with pytest.raises(ValueError, match="fixed CPU training contract"):
+        G4S.winner_training(row)

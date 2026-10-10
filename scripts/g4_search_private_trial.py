@@ -55,6 +55,22 @@ def _load_child(path: Path):
     return net.eval()
 
 
+def winner_training(row: dict) -> dict:
+    profiles = [profile for profile in row["search"]["profiles"]
+                if profile["profile"] == row["search"]["winner"]]
+    if len(profiles) != 1:
+        raise ValueError("missing or duplicated winning training profile")
+    training = profiles[0].get("training") or profiles[0].get("oracle_imitation")
+    if not isinstance(training, dict):
+        raise ValueError("winning profile lacks training provenance")
+    if training.get("method") == "self_reward_ppo":
+        if training.get("steps") != 4096 or training.get("uses_teacher_grid") is not False:
+            raise ValueError("self-reward profile lacks the fixed CPU training contract")
+    elif training.get("oracle_steps", 0) < 1 or training.get("teacher_privileged_grid") is not True:
+        raise ValueError("oracle profile lacks demonstration provenance")
+    return training
+
+
 def validate_cohort(manifest_path: Path, root: Path) -> tuple[dict, dict[str, object]]:
     """Verify all five children and byte-identical inherited expert parameters."""
     manifest = json.loads(manifest_path.read_text())
@@ -104,6 +120,7 @@ def validate_cohort(manifest_path: Path, root: Path) -> tuple[dict, dict[str, ob
             raise ValueError("search lacks public development or check scores") from exc
         if expected_selection != row["selected_specialist"]:
             raise ValueError("route selection contradicts the recorded public scores")
+        winner_training(row)
         expected_pickup = "g4_pickup" if row["selected_specialist"] else parent.route["unlockpickup"]
         if (set(child.route) != set(TASKS) or child.route["unlockpickup"] != expected_pickup
                 or {task: expert for task, expert in child.route.items() if task != "unlockpickup"}
@@ -287,8 +304,7 @@ def promote(protocol_path: Path, root: Path) -> dict:
                      "eval_mode": "sample", "per_task": per_task,
                      "score_basis": "private trial; aggregate only until seed reveal",
                      "protocol_sha256": digest(protocol_path)},
-                    next(profile["oracle_imitation"]["oracle_steps"] for profile in row["search"]["profiles"]
-                         if profile["profile"] == row["search"]["winner"]),
+                    winner_training(row).get("steps", winner_training(row).get("oracle_steps")),
                     [row["g3_parent"], row["g2_source"]],
                     [per_task[task] for task in TASKS], G.hardware_fingerprint(),
                     software=G.software_versions())
@@ -326,10 +342,8 @@ def promote(protocol_path: Path, root: Path) -> dict:
                           "training_first_seed": row["training_first_seed"],
                           "selection_rule": row["selection_rule"], "search_winner": winner,
                           "previous_candidate_sha256": row.get("previous_candidate_sha256")},
-                    budget={"method": "bounded-oracle-architecture-search",
-                            "oracle_steps": next(profile["oracle_imitation"]["oracle_steps"]
-                                                 for profile in row["search"]["profiles"]
-                                                 if profile["profile"] == winner)},
+                    budget={"method": winner_training(row).get("method", "oracle_imitation"),
+                            "training_steps": winner_training(row).get("steps", winner_training(row).get("oracle_steps"))},
                     hardware=record.hardware, software=record.software)
     verdict = ledger.verdict(generation)
     if verdict:
