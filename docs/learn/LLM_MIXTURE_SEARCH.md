@@ -21,11 +21,13 @@ wordt geweigerd. GPU-board-Wh is niet het hele systeemverbruik.
 
 Per `models[]`-rij verwacht de export `model`, `weights_sha256`,
 `access: local`, `energy_scope: gpu_board`, `resident_vram_gb` en voor elke
-taak een record met `n`, `quality` (0–1), `latency_s`, `decode_tps` en
+taak een record met `n`, `item_ids_sha256`, `quality` (0–1), `latency_s`, `decode_tps` en
 `gpu_board_wh_per_answer`. De hele export draagt `tasks`, optioneel
 `task_weights`, `promotion_eligible: false` en
 `training_overlap_check: passed`. Deze metadata zijn een controleerbare
 aanleverafspraak, geen zelfstandig bewijs dat de overlapcontrole juist was.
+Per taak moeten alle modellen exact dezelfde item-ID-hash en hetzelfde aantal
+vragen hebben; anders is zelfs een openbare modelvergelijking niet gepaard.
 
 De nachtservice verwacht deze export op
 `/media/knight2/EDS2/projects/virtualv_llm/reports/toddler_mom_public_dev.json`.

@@ -10,8 +10,10 @@ from toddler.model_mixture_search import search
 def report():
     def measured(a, b):
         return {"code": {"quality": a, "latency_s": 2, "gpu_board_wh_per_answer": .01,
+                         "item_ids_sha256": "1" * 64,
                          "decode_tps": 40, "n": 40},
                 "reasoning": {"quality": b, "latency_s": 2, "gpu_board_wh_per_answer": .01,
+                              "item_ids_sha256": "2" * 64,
                               "decode_tps": 40, "n": 40}}
 
     return {"schema": "toddler-mom-public-dev/v1", "split": "public_development",
@@ -60,6 +62,10 @@ def test_missing_energy_or_incompatible_sample_count_is_refused():
     bad = copy.deepcopy(report())
     del bad["models"][1]["tasks"]["code"]["gpu_board_wh_per_answer"]
     with pytest.raises(ValueError, match="gpu_board_wh_per_answer"):
+        search(bad)
+    bad = copy.deepcopy(report())
+    bad["models"][1]["tasks"]["code"]["item_ids_sha256"] = "3" * 64
+    with pytest.raises(ValueError, match="different prompts"):
         search(bad)
 
 

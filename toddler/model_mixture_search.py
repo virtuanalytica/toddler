@@ -47,7 +47,10 @@ def validate(report: dict) -> tuple[list[str], list[dict], dict[str, float]]:
     total = sum(weights.values())
     weights = {task: float(weights[task] / total) for task in tasks}
     seen = set()
+    common_items: dict[str, tuple[str, int]] = {}
     for row in models:
+        if not isinstance(row, dict):
+            raise ValueError("each model needs a measurement record")
         name = row.get("model")
         if not isinstance(name, str) or not name or name in seen:
             raise ValueError("model IDs must be nonempty and unique")
@@ -66,6 +69,11 @@ def validate(report: dict) -> tuple[list[str], list[dict], dict[str, float]]:
                 raise ValueError(f"{name}/{task} needs a measurement record")
             if not isinstance(item.get("n"), int) or item["n"] < 30:
                 raise ValueError(f"{name}/{task} needs at least 30 public development items")
+            _hash(item.get("item_ids_sha256", ""), f"{name}/{task} item_ids_sha256")
+            identity = (item["item_ids_sha256"], item["n"])
+            if task in common_items and identity != common_items[task]:
+                raise ValueError(f"{name}/{task} uses different prompts than another model")
+            common_items[task] = identity
             for field in ("quality", "latency_s", "gpu_board_wh_per_answer", "decode_tps"):
                 value = item.get(field)
                 if not isinstance(value, (int, float)) or not math.isfinite(value):
