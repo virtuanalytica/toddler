@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "evaluation_and_causality/measurement_design/define__distribution_shift",
+  "domain": "evaluation_and_causality",
+  "topic": "measurement_design",
+  "practice": "define",
+  "setting": "distribution_shift",
+  "target": "define measurement design in distribution shift",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

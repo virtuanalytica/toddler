@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reinforcement_learning/hierarchical_rl/derive__few_shot",
+  "domain": "reinforcement_learning",
+  "topic": "hierarchical_rl",
+  "practice": "derive",
+  "setting": "few_shot",
+  "target": "derive hierarchical rl in few shot",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

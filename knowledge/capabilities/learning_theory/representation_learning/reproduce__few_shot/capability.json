@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "learning_theory/representation_learning/reproduce__few_shot",
+  "domain": "learning_theory",
+  "topic": "representation_learning",
+  "practice": "reproduce",
+  "setting": "few_shot",
+  "target": "reproduce representation learning in few shot",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

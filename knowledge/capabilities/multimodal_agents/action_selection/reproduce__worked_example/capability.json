@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "multimodal_agents/action_selection/reproduce__worked_example",
+  "domain": "multimodal_agents",
+  "topic": "action_selection",
+  "practice": "reproduce",
+  "setting": "worked_example",
+  "target": "reproduce action selection in worked example",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

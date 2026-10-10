@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reasoning_and_language/multilingual_learning/define__few_shot",
+  "domain": "reasoning_and_language",
+  "topic": "multilingual_learning",
+  "practice": "define",
+  "setting": "few_shot",
+  "target": "define multilingual learning in few shot",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

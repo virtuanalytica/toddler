@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "learning_theory/curriculum_learning/derive__simulated_task",
+  "domain": "learning_theory",
+  "topic": "curriculum_learning",
+  "practice": "derive",
+  "setting": "simulated_task",
+  "target": "derive curriculum learning in simulated task",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

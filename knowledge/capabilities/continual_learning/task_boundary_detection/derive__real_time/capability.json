@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/task_boundary_detection/derive__real_time",
+  "domain": "continual_learning",
+  "topic": "task_boundary_detection",
+  "practice": "derive",
+  "setting": "real_time",
+  "target": "derive task boundary detection in real time",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

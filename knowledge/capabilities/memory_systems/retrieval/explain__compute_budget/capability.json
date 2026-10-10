@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "memory_systems/retrieval/explain__compute_budget",
+  "domain": "memory_systems",
+  "topic": "retrieval",
+  "practice": "explain",
+  "setting": "compute_budget",
+  "target": "explain retrieval in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

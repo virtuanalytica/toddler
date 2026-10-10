@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "multimodal_agents/visual_perception/design__compute_budget",
+  "domain": "multimodal_agents",
+  "topic": "visual_perception",
+  "practice": "design",
+  "setting": "compute_budget",
+  "target": "design visual perception in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

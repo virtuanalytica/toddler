@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/attention_and_transformers/explain__worked_example",
+  "domain": "neural_networks",
+  "topic": "attention_and_transformers",
+  "practice": "explain",
+  "setting": "worked_example",
+  "target": "explain attention and transformers in worked example",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

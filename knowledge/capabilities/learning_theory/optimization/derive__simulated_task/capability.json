@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "learning_theory/optimization/derive__simulated_task",
+  "domain": "learning_theory",
+  "topic": "optimization",
+  "practice": "derive",
+  "setting": "simulated_task",
+  "target": "derive optimization in simulated task",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "evaluation_and_causality/energy_accounting/design__task_sequence",
+  "domain": "evaluation_and_causality",
+  "topic": "energy_accounting",
+  "practice": "design",
+  "setting": "task_sequence",
+  "target": "design energy accounting in task sequence",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

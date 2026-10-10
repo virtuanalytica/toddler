@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "multimodal_agents/multi_agent_coordination/implement__independent_holdout",
+  "domain": "multimodal_agents",
+  "topic": "multi_agent_coordination",
+  "practice": "implement",
+  "setting": "independent_holdout",
+  "target": "implement multi agent coordination in independent holdout",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "evaluation_and_causality/calibration/diagnose__simulated_task",
+  "domain": "evaluation_and_causality",
+  "topic": "calibration",
+  "practice": "diagnose",
+  "setting": "simulated_task",
+  "target": "diagnose calibration in simulated task",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

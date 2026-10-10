@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/task_boundary_detection/explain__field_data",
+  "domain": "continual_learning",
+  "topic": "task_boundary_detection",
+  "practice": "explain",
+  "setting": "field_data",
+  "target": "explain task boundary detection in field data",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

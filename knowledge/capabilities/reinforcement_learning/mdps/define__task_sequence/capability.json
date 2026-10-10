@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reinforcement_learning/mdps/define__task_sequence",
+  "domain": "reinforcement_learning",
+  "topic": "mdps",
+  "practice": "define",
+  "setting": "task_sequence",
+  "target": "define mdps in task sequence",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

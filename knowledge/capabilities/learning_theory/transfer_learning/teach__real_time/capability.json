@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "learning_theory/transfer_learning/teach__real_time",
+  "domain": "learning_theory",
+  "topic": "transfer_learning",
+  "practice": "teach",
+  "setting": "real_time",
+  "target": "teach transfer learning in real time",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

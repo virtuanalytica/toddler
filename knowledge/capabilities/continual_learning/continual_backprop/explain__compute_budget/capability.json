@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/continual_backprop/explain__compute_budget",
+  "domain": "continual_learning",
+  "topic": "continual_backprop",
+  "practice": "explain",
+  "setting": "compute_budget",
+  "target": "explain continual backprop in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

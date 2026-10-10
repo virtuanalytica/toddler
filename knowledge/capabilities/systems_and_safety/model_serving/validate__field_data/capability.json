@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "systems_and_safety/model_serving/validate__field_data",
+  "domain": "systems_and_safety",
+  "topic": "model_serving",
+  "practice": "validate",
+  "setting": "field_data",
+  "target": "validate model serving in field data",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

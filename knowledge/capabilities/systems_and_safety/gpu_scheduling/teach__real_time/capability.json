@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "systems_and_safety/gpu_scheduling/teach__real_time",
+  "domain": "systems_and_safety",
+  "topic": "gpu_scheduling",
+  "practice": "teach",
+  "setting": "real_time",
+  "target": "teach gpu scheduling in real time",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

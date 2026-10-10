@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "multimodal_agents/multi_agent_coordination/define__task_sequence",
+  "domain": "multimodal_agents",
+  "topic": "multi_agent_coordination",
+  "practice": "define",
+  "setting": "task_sequence",
+  "target": "define multi agent coordination in task sequence",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "multimodal_agents/world_models/design__human_review",
+  "domain": "multimodal_agents",
+  "topic": "world_models",
+  "practice": "design",
+  "setting": "human_review",
+  "target": "design world models in human review",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

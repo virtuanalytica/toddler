@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/continual_rl_protocols/compare__distribution_shift",
+  "domain": "continual_learning",
+  "topic": "continual_rl_protocols",
+  "practice": "compare",
+  "setting": "distribution_shift",
+  "target": "compare continual rl protocols in distribution shift",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

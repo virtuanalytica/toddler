@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reasoning_and_language/preference_learning/validate__distribution_shift",
+  "domain": "reasoning_and_language",
+  "topic": "preference_learning",
+  "practice": "validate",
+  "setting": "distribution_shift",
+  "target": "validate preference learning in distribution shift",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

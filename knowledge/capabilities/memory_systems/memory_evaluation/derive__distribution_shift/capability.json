@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "memory_systems/memory_evaluation/derive__distribution_shift",
+  "domain": "memory_systems",
+  "topic": "memory_evaluation",
+  "practice": "derive",
+  "setting": "distribution_shift",
+  "target": "derive memory evaluation in distribution shift",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

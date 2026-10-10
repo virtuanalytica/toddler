@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "learning_theory/uncertainty_calibration/explain__independent_holdout",
+  "domain": "learning_theory",
+  "topic": "uncertainty_calibration",
+  "practice": "explain",
+  "setting": "independent_holdout",
+  "target": "explain uncertainty calibration in independent holdout",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

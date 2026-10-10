@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/catastrophic_forgetting/reproduce__field_data",
+  "domain": "continual_learning",
+  "topic": "catastrophic_forgetting",
+  "practice": "reproduce",
+  "setting": "field_data",
+  "target": "reproduce catastrophic forgetting in field data",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

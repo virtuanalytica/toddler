@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/metaplasticity/teach__compute_budget",
+  "domain": "neuroscience",
+  "topic": "metaplasticity",
+  "practice": "teach",
+  "setting": "compute_budget",
+  "target": "teach metaplasticity in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

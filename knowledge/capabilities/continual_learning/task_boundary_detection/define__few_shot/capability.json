@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/task_boundary_detection/define__few_shot",
+  "domain": "continual_learning",
+  "topic": "task_boundary_detection",
+  "practice": "define",
+  "setting": "few_shot",
+  "target": "define task boundary detection in few shot",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

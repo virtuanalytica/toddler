@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reinforcement_learning/actor_critic/teach__field_data",
+  "domain": "reinforcement_learning",
+  "topic": "actor_critic",
+  "practice": "teach",
+  "setting": "field_data",
+  "target": "teach actor critic in field data",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

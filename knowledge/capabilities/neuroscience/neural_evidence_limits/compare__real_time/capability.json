@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/neural_evidence_limits/compare__real_time",
+  "domain": "neuroscience",
+  "topic": "neural_evidence_limits",
+  "practice": "compare",
+  "setting": "real_time",
+  "target": "compare neural evidence limits in real time",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

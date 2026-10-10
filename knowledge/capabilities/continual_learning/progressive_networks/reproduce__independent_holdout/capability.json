@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/progressive_networks/reproduce__independent_holdout",
+  "domain": "continual_learning",
+  "topic": "progressive_networks",
+  "practice": "reproduce",
+  "setting": "independent_holdout",
+  "target": "reproduce progressive networks in independent holdout",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/sensorimotor_learning/design__real_time",
+  "domain": "neuroscience",
+  "topic": "sensorimotor_learning",
+  "practice": "design",
+  "setting": "real_time",
+  "target": "design sensorimotor learning in real time",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

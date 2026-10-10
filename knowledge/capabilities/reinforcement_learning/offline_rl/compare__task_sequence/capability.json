@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reinforcement_learning/offline_rl/compare__task_sequence",
+  "domain": "reinforcement_learning",
+  "topic": "offline_rl",
+  "practice": "compare",
+  "setting": "task_sequence",
+  "target": "compare offline rl in task sequence",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

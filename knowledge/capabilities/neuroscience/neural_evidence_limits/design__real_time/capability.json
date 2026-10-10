@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/neural_evidence_limits/design__real_time",
+  "domain": "neuroscience",
+  "topic": "neural_evidence_limits",
+  "practice": "design",
+  "setting": "real_time",
+  "target": "design neural evidence limits in real time",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

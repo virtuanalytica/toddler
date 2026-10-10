@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/predictive_processing/validate__task_sequence",
+  "domain": "neuroscience",
+  "topic": "predictive_processing",
+  "practice": "validate",
+  "setting": "task_sequence",
+  "target": "validate predictive processing in task sequence",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

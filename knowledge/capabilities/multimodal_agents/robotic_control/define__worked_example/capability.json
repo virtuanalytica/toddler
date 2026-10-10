@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "multimodal_agents/robotic_control/define__worked_example",
+  "domain": "multimodal_agents",
+  "topic": "robotic_control",
+  "practice": "define",
+  "setting": "worked_example",
+  "target": "define robotic control in worked example",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

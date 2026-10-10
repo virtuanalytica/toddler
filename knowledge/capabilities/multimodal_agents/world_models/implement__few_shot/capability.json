@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "multimodal_agents/world_models/implement__few_shot",
+  "domain": "multimodal_agents",
+  "topic": "world_models",
+  "practice": "implement",
+  "setting": "few_shot",
+  "target": "implement world models in few shot",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

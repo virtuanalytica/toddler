@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "systems_and_safety/latency_budgets/diagnose__task_sequence",
+  "domain": "systems_and_safety",
+  "topic": "latency_budgets",
+  "practice": "diagnose",
+  "setting": "task_sequence",
+  "target": "diagnose latency budgets in task sequence",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reasoning_and_language/tool_use/derive__worked_example",
+  "domain": "reasoning_and_language",
+  "topic": "tool_use",
+  "practice": "derive",
+  "setting": "worked_example",
+  "target": "derive tool use in worked example",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reinforcement_learning/hierarchical_rl/reproduce__human_review",
+  "domain": "reinforcement_learning",
+  "topic": "hierarchical_rl",
+  "practice": "reproduce",
+  "setting": "human_review",
+  "target": "reproduce hierarchical rl in human review",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

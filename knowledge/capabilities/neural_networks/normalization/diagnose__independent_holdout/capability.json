@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/normalization/diagnose__independent_holdout",
+  "domain": "neural_networks",
+  "topic": "normalization",
+  "practice": "diagnose",
+  "setting": "independent_holdout",
+  "target": "diagnose normalization in independent holdout",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

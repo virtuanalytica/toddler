@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "multimodal_agents/vision_language_alignment/teach__compute_budget",
+  "domain": "multimodal_agents",
+  "topic": "vision_language_alignment",
+  "practice": "teach",
+  "setting": "compute_budget",
+  "target": "teach vision language alignment in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/forward_transfer/define__field_data",
+  "domain": "continual_learning",
+  "topic": "forward_transfer",
+  "practice": "define",
+  "setting": "field_data",
+  "target": "define forward transfer in field data",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

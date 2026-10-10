@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reinforcement_learning/actor_critic/design__real_time",
+  "domain": "reinforcement_learning",
+  "topic": "actor_critic",
+  "practice": "design",
+  "setting": "real_time",
+  "target": "design actor critic in real time",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

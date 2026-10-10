@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/catastrophic_forgetting/derive__compute_budget",
+  "domain": "continual_learning",
+  "topic": "catastrophic_forgetting",
+  "practice": "derive",
+  "setting": "compute_budget",
+  "target": "derive catastrophic forgetting in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

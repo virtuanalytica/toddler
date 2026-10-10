@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/developmental_learning/compare__task_sequence",
+  "domain": "neuroscience",
+  "topic": "developmental_learning",
+  "practice": "compare",
+  "setting": "task_sequence",
+  "target": "compare developmental learning in task sequence",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

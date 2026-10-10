@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "evaluation_and_causality/measurement_design/design__compute_budget",
+  "domain": "evaluation_and_causality",
+  "topic": "measurement_design",
+  "practice": "design",
+  "setting": "compute_budget",
+  "target": "design measurement design in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

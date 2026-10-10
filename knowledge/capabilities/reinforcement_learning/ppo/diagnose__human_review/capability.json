@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reinforcement_learning/ppo/diagnose__human_review",
+  "domain": "reinforcement_learning",
+  "topic": "ppo",
+  "practice": "diagnose",
+  "setting": "human_review",
+  "target": "diagnose ppo in human review",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

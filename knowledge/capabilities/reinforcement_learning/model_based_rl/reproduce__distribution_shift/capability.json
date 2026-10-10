@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reinforcement_learning/model_based_rl/reproduce__distribution_shift",
+  "domain": "reinforcement_learning",
+  "topic": "model_based_rl",
+  "practice": "reproduce",
+  "setting": "distribution_shift",
+  "target": "reproduce model based rl in distribution shift",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "multimodal_agents/human_feedback/define__real_time",
+  "domain": "multimodal_agents",
+  "topic": "human_feedback",
+  "practice": "define",
+  "setting": "real_time",
+  "target": "define human feedback in real time",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

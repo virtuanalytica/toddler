@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "systems_and_safety/gpu_scheduling/validate__compute_budget",
+  "domain": "systems_and_safety",
+  "topic": "gpu_scheduling",
+  "practice": "validate",
+  "setting": "compute_budget",
+  "target": "validate gpu scheduling in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "multimodal_agents/human_feedback/reproduce__field_data",
+  "domain": "multimodal_agents",
+  "topic": "human_feedback",
+  "practice": "reproduce",
+  "setting": "field_data",
+  "target": "reproduce human feedback in field data",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/progressive_networks/explain__compute_budget",
+  "domain": "continual_learning",
+  "topic": "progressive_networks",
+  "practice": "explain",
+  "setting": "compute_budget",
+  "target": "explain progressive networks in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

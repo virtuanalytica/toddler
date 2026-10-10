@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reinforcement_learning/model_based_rl/compare__independent_holdout",
+  "domain": "reinforcement_learning",
+  "topic": "model_based_rl",
+  "practice": "compare",
+  "setting": "independent_holdout",
+  "target": "compare model based rl in independent holdout",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

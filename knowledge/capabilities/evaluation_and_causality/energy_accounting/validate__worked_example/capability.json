@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "evaluation_and_causality/energy_accounting/validate__worked_example",
+  "domain": "evaluation_and_causality",
+  "topic": "energy_accounting",
+  "practice": "validate",
+  "setting": "worked_example",
+  "target": "validate energy accounting in worked example",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

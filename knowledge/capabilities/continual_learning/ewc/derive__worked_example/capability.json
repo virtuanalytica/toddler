@@ -1,0 +1,21 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/ewc/derive__worked_example",
+  "domain": "continual_learning",
+  "topic": "ewc",
+  "practice": "derive",
+  "setting": "worked_example",
+  "target": "derive ewc in worked example",
+  "status": "lesson_draft",
+  "evidence": {
+    "primary_sources": [
+      "https://doi.org/10.1073/PNAS.1611835114"
+    ],
+    "learning_material": [
+      "lesson.md"
+    ],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

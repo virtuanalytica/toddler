@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "multimodal_agents/game_learning/define__human_review",
+  "domain": "multimodal_agents",
+  "topic": "game_learning",
+  "practice": "define",
+  "setting": "human_review",
+  "target": "define game learning in human review",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

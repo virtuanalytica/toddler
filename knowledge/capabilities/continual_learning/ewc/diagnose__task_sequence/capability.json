@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/ewc/diagnose__task_sequence",
+  "domain": "continual_learning",
+  "topic": "ewc",
+  "practice": "diagnose",
+  "setting": "task_sequence",
+  "target": "diagnose ewc in task sequence",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

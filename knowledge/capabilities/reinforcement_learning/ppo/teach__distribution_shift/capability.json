@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reinforcement_learning/ppo/teach__distribution_shift",
+  "domain": "reinforcement_learning",
+  "topic": "ppo",
+  "practice": "teach",
+  "setting": "distribution_shift",
+  "target": "teach ppo in distribution shift",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

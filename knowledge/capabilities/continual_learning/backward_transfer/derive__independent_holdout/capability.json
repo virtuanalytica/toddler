@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/backward_transfer/derive__independent_holdout",
+  "domain": "continual_learning",
+  "topic": "backward_transfer",
+  "practice": "derive",
+  "setting": "independent_holdout",
+  "target": "derive backward transfer in independent holdout",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

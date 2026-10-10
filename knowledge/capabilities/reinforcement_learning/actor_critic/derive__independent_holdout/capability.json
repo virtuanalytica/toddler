@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reinforcement_learning/actor_critic/derive__independent_holdout",
+  "domain": "reinforcement_learning",
+  "topic": "actor_critic",
+  "practice": "derive",
+  "setting": "independent_holdout",
+  "target": "derive actor critic in independent holdout",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

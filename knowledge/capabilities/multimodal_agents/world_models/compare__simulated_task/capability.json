@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "multimodal_agents/world_models/compare__simulated_task",
+  "domain": "multimodal_agents",
+  "topic": "world_models",
+  "practice": "compare",
+  "setting": "simulated_task",
+  "target": "compare world models in simulated task",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

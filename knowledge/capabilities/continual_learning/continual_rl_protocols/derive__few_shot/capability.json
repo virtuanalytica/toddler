@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/continual_rl_protocols/derive__few_shot",
+  "domain": "continual_learning",
+  "topic": "continual_rl_protocols",
+  "practice": "derive",
+  "setting": "few_shot",
+  "target": "derive continual rl protocols in few shot",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

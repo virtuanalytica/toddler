@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/neuromodulation/validate__independent_holdout",
+  "domain": "neuroscience",
+  "topic": "neuromodulation",
+  "practice": "validate",
+  "setting": "independent_holdout",
+  "target": "validate neuromodulation in independent holdout",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

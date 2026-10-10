@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "multimodal_agents/visual_perception/validate__compute_budget",
+  "domain": "multimodal_agents",
+  "topic": "visual_perception",
+  "practice": "validate",
+  "setting": "compute_budget",
+  "target": "validate visual perception in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

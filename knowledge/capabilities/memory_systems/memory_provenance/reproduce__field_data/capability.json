@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "memory_systems/memory_provenance/reproduce__field_data",
+  "domain": "memory_systems",
+  "topic": "memory_provenance",
+  "practice": "reproduce",
+  "setting": "field_data",
+  "target": "reproduce memory provenance in field data",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

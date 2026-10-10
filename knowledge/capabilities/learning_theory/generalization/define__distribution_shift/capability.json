@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "learning_theory/generalization/define__distribution_shift",
+  "domain": "learning_theory",
+  "topic": "generalization",
+  "practice": "define",
+  "setting": "distribution_shift",
+  "target": "define generalization in distribution shift",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

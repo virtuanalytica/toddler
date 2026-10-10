@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reinforcement_learning/model_based_rl/diagnose__simulated_task",
+  "domain": "reinforcement_learning",
+  "topic": "model_based_rl",
+  "practice": "diagnose",
+  "setting": "simulated_task",
+  "target": "diagnose model based rl in simulated task",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reinforcement_learning/exploration/define__simulated_task",
+  "domain": "reinforcement_learning",
+  "topic": "exploration",
+  "practice": "define",
+  "setting": "simulated_task",
+  "target": "define exploration in simulated task",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

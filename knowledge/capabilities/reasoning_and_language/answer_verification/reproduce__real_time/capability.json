@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reasoning_and_language/answer_verification/reproduce__real_time",
+  "domain": "reasoning_and_language",
+  "topic": "answer_verification",
+  "practice": "reproduce",
+  "setting": "real_time",
+  "target": "reproduce answer verification in real time",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

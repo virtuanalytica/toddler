@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/systems_consolidation/reproduce__task_sequence",
+  "domain": "neuroscience",
+  "topic": "systems_consolidation",
+  "practice": "reproduce",
+  "setting": "task_sequence",
+  "target": "reproduce systems consolidation in task sequence",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

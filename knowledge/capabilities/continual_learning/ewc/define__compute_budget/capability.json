@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/ewc/define__compute_budget",
+  "domain": "continual_learning",
+  "topic": "ewc",
+  "practice": "define",
+  "setting": "compute_budget",
+  "target": "define ewc in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

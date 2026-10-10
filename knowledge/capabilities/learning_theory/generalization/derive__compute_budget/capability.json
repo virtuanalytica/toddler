@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "learning_theory/generalization/derive__compute_budget",
+  "domain": "learning_theory",
+  "topic": "generalization",
+  "practice": "derive",
+  "setting": "compute_budget",
+  "target": "derive generalization in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

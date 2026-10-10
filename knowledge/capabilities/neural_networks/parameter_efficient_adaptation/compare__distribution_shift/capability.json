@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/parameter_efficient_adaptation/compare__distribution_shift",
+  "domain": "neural_networks",
+  "topic": "parameter_efficient_adaptation",
+  "practice": "compare",
+  "setting": "distribution_shift",
+  "target": "compare parameter efficient adaptation in distribution shift",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

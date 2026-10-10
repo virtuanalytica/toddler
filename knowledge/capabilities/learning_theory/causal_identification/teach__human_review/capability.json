@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "learning_theory/causal_identification/teach__human_review",
+  "domain": "learning_theory",
+  "topic": "causal_identification",
+  "practice": "teach",
+  "setting": "human_review",
+  "target": "teach causal identification in human review",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

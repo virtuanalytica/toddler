@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reinforcement_learning/hierarchical_rl/define__field_data",
+  "domain": "reinforcement_learning",
+  "topic": "hierarchical_rl",
+  "practice": "define",
+  "setting": "field_data",
+  "target": "define hierarchical rl in field data",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

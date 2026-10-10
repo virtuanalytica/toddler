@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/continual_rl_protocols/teach__distribution_shift",
+  "domain": "continual_learning",
+  "topic": "continual_rl_protocols",
+  "practice": "teach",
+  "setting": "distribution_shift",
+  "target": "teach continual rl protocols in distribution shift",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

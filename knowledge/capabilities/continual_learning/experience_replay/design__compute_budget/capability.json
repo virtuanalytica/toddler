@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/experience_replay/design__compute_budget",
+  "domain": "continual_learning",
+  "topic": "experience_replay",
+  "practice": "design",
+  "setting": "compute_budget",
+  "target": "design experience replay in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

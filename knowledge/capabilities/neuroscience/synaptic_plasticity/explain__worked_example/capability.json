@@ -1,0 +1,22 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/synaptic_plasticity/explain__worked_example",
+  "domain": "neuroscience",
+  "topic": "synaptic_plasticity",
+  "practice": "explain",
+  "setting": "worked_example",
+  "target": "explain synaptic plasticity in worked example",
+  "status": "lesson_draft",
+  "evidence": {
+    "primary_sources": [
+      "https://doi.org/10.1073/PNAS.1611835114",
+      "https://www.nature.com/articles/s41586-024-07711-7"
+    ],
+    "learning_material": [
+      "lesson.md"
+    ],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

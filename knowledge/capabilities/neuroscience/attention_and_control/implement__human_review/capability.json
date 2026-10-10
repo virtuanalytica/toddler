@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/attention_and_control/implement__human_review",
+  "domain": "neuroscience",
+  "topic": "attention_and_control",
+  "practice": "implement",
+  "setting": "human_review",
+  "target": "implement attention and control in human review",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

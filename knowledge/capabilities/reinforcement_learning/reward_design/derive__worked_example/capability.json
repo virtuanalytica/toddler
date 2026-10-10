@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reinforcement_learning/reward_design/derive__worked_example",
+  "domain": "reinforcement_learning",
+  "topic": "reward_design",
+  "practice": "derive",
+  "setting": "worked_example",
+  "target": "derive reward design in worked example",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

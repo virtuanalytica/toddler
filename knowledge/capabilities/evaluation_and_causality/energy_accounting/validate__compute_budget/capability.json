@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "evaluation_and_causality/energy_accounting/validate__compute_budget",
+  "domain": "evaluation_and_causality",
+  "topic": "energy_accounting",
+  "practice": "validate",
+  "setting": "compute_budget",
+  "target": "validate energy accounting in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

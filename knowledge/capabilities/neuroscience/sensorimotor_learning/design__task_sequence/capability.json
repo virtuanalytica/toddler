@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/sensorimotor_learning/design__task_sequence",
+  "domain": "neuroscience",
+  "topic": "sensorimotor_learning",
+  "practice": "design",
+  "setting": "task_sequence",
+  "target": "design sensorimotor learning in task sequence",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "systems_and_safety/fail_safe_control/define__distribution_shift",
+  "domain": "systems_and_safety",
+  "topic": "fail_safe_control",
+  "practice": "define",
+  "setting": "distribution_shift",
+  "target": "define fail safe control in distribution shift",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

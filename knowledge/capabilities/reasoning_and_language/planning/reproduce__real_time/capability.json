@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reasoning_and_language/planning/reproduce__real_time",
+  "domain": "reasoning_and_language",
+  "topic": "planning",
+  "practice": "reproduce",
+  "setting": "real_time",
+  "target": "reproduce planning in real time",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

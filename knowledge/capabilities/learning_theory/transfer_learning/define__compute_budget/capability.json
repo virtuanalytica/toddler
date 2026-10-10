@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "learning_theory/transfer_learning/define__compute_budget",
+  "domain": "learning_theory",
+  "topic": "transfer_learning",
+  "practice": "define",
+  "setting": "compute_budget",
+  "target": "define transfer learning in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

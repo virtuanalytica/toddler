@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/systems_consolidation/diagnose__few_shot",
+  "domain": "neuroscience",
+  "topic": "systems_consolidation",
+  "practice": "diagnose",
+  "setting": "few_shot",
+  "target": "diagnose systems consolidation in few shot",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "systems_and_safety/fail_safe_control/reproduce__independent_holdout",
+  "domain": "systems_and_safety",
+  "topic": "fail_safe_control",
+  "practice": "reproduce",
+  "setting": "independent_holdout",
+  "target": "reproduce fail safe control in independent holdout",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

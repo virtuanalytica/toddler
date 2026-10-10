@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reasoning_and_language/answer_verification/implement__worked_example",
+  "domain": "reasoning_and_language",
+  "topic": "answer_verification",
+  "practice": "implement",
+  "setting": "worked_example",
+  "target": "implement answer verification in worked example",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

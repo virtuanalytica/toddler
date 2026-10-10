@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/convolutions/reproduce__task_sequence",
+  "domain": "neural_networks",
+  "topic": "convolutions",
+  "practice": "reproduce",
+  "setting": "task_sequence",
+  "target": "reproduce convolutions in task sequence",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

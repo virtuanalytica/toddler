@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "memory_systems/episodic_memory/reproduce__field_data",
+  "domain": "memory_systems",
+  "topic": "episodic_memory",
+  "practice": "reproduce",
+  "setting": "field_data",
+  "target": "reproduce episodic memory in field data",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

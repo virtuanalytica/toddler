@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/neural_evidence_limits/validate__distribution_shift",
+  "domain": "neuroscience",
+  "topic": "neural_evidence_limits",
+  "practice": "validate",
+  "setting": "distribution_shift",
+  "target": "validate neural evidence limits in distribution shift",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

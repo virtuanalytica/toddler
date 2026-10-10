@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reasoning_and_language/planning/derive__field_data",
+  "domain": "reasoning_and_language",
+  "topic": "planning",
+  "practice": "derive",
+  "setting": "field_data",
+  "target": "derive planning in field data",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/continual_backprop/reproduce__distribution_shift",
+  "domain": "continual_learning",
+  "topic": "continual_backprop",
+  "practice": "reproduce",
+  "setting": "distribution_shift",
+  "target": "reproduce continual backprop in distribution shift",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

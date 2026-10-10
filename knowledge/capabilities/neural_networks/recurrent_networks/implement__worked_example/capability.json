@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/recurrent_networks/implement__worked_example",
+  "domain": "neural_networks",
+  "topic": "recurrent_networks",
+  "practice": "implement",
+  "setting": "worked_example",
+  "target": "implement recurrent networks in worked example",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

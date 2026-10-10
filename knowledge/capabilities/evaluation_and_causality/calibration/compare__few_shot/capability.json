@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "evaluation_and_causality/calibration/compare__few_shot",
+  "domain": "evaluation_and_causality",
+  "topic": "calibration",
+  "practice": "compare",
+  "setting": "few_shot",
+  "target": "compare calibration in few shot",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

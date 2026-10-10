@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reinforcement_learning/hierarchical_rl/validate__independent_holdout",
+  "domain": "reinforcement_learning",
+  "topic": "hierarchical_rl",
+  "practice": "validate",
+  "setting": "independent_holdout",
+  "target": "validate hierarchical rl in independent holdout",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

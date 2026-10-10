@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/synaptic_plasticity/diagnose__simulated_task",
+  "domain": "neuroscience",
+  "topic": "synaptic_plasticity",
+  "practice": "diagnose",
+  "setting": "simulated_task",
+  "target": "diagnose synaptic plasticity in simulated task",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

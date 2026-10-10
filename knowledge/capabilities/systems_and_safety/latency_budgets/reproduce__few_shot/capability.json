@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "systems_and_safety/latency_budgets/reproduce__few_shot",
+  "domain": "systems_and_safety",
+  "topic": "latency_budgets",
+  "practice": "reproduce",
+  "setting": "few_shot",
+  "target": "reproduce latency budgets in few shot",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

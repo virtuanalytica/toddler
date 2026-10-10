@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/sensorimotor_learning/validate__worked_example",
+  "domain": "neuroscience",
+  "topic": "sensorimotor_learning",
+  "practice": "validate",
+  "setting": "worked_example",
+  "target": "validate sensorimotor learning in worked example",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/experience_replay/validate__human_review",
+  "domain": "continual_learning",
+  "topic": "experience_replay",
+  "practice": "validate",
+  "setting": "human_review",
+  "target": "validate experience replay in human review",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

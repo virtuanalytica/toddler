@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "memory_systems/forgetting_policies/define__task_sequence",
+  "domain": "memory_systems",
+  "topic": "forgetting_policies",
+  "practice": "define",
+  "setting": "task_sequence",
+  "target": "define forgetting policies in task sequence",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

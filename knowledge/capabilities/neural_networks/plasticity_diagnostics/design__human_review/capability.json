@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/plasticity_diagnostics/design__human_review",
+  "domain": "neural_networks",
+  "topic": "plasticity_diagnostics",
+  "practice": "design",
+  "setting": "human_review",
+  "target": "design plasticity diagnostics in human review",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

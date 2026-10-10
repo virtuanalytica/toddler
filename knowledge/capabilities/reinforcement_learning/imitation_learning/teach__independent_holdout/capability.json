@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reinforcement_learning/imitation_learning/teach__independent_holdout",
+  "domain": "reinforcement_learning",
+  "topic": "imitation_learning",
+  "practice": "teach",
+  "setting": "independent_holdout",
+  "target": "teach imitation learning in independent holdout",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

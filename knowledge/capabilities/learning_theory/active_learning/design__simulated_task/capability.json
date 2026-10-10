@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "learning_theory/active_learning/design__simulated_task",
+  "domain": "learning_theory",
+  "topic": "active_learning",
+  "practice": "design",
+  "setting": "simulated_task",
+  "target": "design active learning in simulated task",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "learning_theory/uncertainty_calibration/define__compute_budget",
+  "domain": "learning_theory",
+  "topic": "uncertainty_calibration",
+  "practice": "define",
+  "setting": "compute_budget",
+  "target": "define uncertainty calibration in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

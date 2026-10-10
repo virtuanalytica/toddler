@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/hippocampal_replay/teach__simulated_task",
+  "domain": "neuroscience",
+  "topic": "hippocampal_replay",
+  "practice": "teach",
+  "setting": "simulated_task",
+  "target": "teach hippocampal replay in simulated task",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

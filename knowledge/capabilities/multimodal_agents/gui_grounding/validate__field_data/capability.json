@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "multimodal_agents/gui_grounding/validate__field_data",
+  "domain": "multimodal_agents",
+  "topic": "gui_grounding",
+  "practice": "validate",
+  "setting": "field_data",
+  "target": "validate gui grounding in field data",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

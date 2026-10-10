@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "memory_systems/forgetting_policies/compare__independent_holdout",
+  "domain": "memory_systems",
+  "topic": "forgetting_policies",
+  "practice": "compare",
+  "setting": "independent_holdout",
+  "target": "compare forgetting policies in independent holdout",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

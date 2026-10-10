@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/ewc/diagnose__human_review",
+  "domain": "continual_learning",
+  "topic": "ewc",
+  "practice": "diagnose",
+  "setting": "human_review",
+  "target": "diagnose ewc in human review",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

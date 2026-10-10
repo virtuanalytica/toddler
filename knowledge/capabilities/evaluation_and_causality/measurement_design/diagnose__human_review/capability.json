@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "evaluation_and_causality/measurement_design/diagnose__human_review",
+  "domain": "evaluation_and_causality",
+  "topic": "measurement_design",
+  "practice": "diagnose",
+  "setting": "human_review",
+  "target": "diagnose measurement design in human review",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

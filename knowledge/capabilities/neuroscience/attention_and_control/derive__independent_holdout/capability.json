@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/attention_and_control/derive__independent_holdout",
+  "domain": "neuroscience",
+  "topic": "attention_and_control",
+  "practice": "derive",
+  "setting": "independent_holdout",
+  "target": "derive attention and control in independent holdout",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/adapter_isolation/reproduce__task_sequence",
+  "domain": "continual_learning",
+  "topic": "adapter_isolation",
+  "practice": "reproduce",
+  "setting": "task_sequence",
+  "target": "reproduce adapter isolation in task sequence",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

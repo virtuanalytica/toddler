@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reinforcement_learning/exploration/reproduce__field_data",
+  "domain": "reinforcement_learning",
+  "topic": "exploration",
+  "practice": "reproduce",
+  "setting": "field_data",
+  "target": "reproduce exploration in field data",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

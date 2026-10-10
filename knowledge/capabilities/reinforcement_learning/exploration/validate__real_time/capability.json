@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reinforcement_learning/exploration/validate__real_time",
+  "domain": "reinforcement_learning",
+  "topic": "exploration",
+  "practice": "validate",
+  "setting": "real_time",
+  "target": "validate exploration in real time",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

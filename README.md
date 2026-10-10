@@ -106,6 +106,9 @@ not yet a surviving generation.
 The [plasticity research design](docs/learn/TODDLER_PLASTICITY_RESEARCH_20261010.md)
 defines the next replay, modular expert and adaptation experiments while G4
 awaits independent confirmation.
+The [capability atlas](knowledge/README.md) provides 10,000 stable learning
+addresses and a first ten-lesson adaptive-learning path. Unreviewed slots do
+not imply that Toddler has mastered those capabilities.
 The Qwen3.8 1Cat
 TP2 comparison records the 1.5.0 repetition failures, the 1.5.1 quality
 improvement, throughput and GPU-board energy. Haiku 5.5 closed the separate

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reasoning_and_language/planning/teach__human_review",
+  "domain": "reasoning_and_language",
+  "topic": "planning",
+  "practice": "teach",
+  "setting": "human_review",
+  "target": "teach planning in human review",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

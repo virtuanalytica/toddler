@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reinforcement_learning/policy_gradients/implement__independent_holdout",
+  "domain": "reinforcement_learning",
+  "topic": "policy_gradients",
+  "practice": "implement",
+  "setting": "independent_holdout",
+  "target": "implement policy gradients in independent holdout",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

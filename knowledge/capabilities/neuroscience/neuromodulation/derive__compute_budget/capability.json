@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/neuromodulation/derive__compute_budget",
+  "domain": "neuroscience",
+  "topic": "neuromodulation",
+  "practice": "derive",
+  "setting": "compute_budget",
+  "target": "derive neuromodulation in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

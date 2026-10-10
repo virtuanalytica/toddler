@@ -1,0 +1,21 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/plasticity_diagnostics/diagnose__task_sequence",
+  "domain": "neural_networks",
+  "topic": "plasticity_diagnostics",
+  "practice": "diagnose",
+  "setting": "task_sequence",
+  "target": "diagnose plasticity diagnostics in task sequence",
+  "status": "lesson_draft",
+  "evidence": {
+    "primary_sources": [
+      "https://www.nature.com/articles/s41586-024-07711-7"
+    ],
+    "learning_material": [
+      "lesson.md"
+    ],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

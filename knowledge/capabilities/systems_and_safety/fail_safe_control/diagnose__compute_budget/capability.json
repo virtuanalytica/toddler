@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "systems_and_safety/fail_safe_control/diagnose__compute_budget",
+  "domain": "systems_and_safety",
+  "topic": "fail_safe_control",
+  "practice": "diagnose",
+  "setting": "compute_budget",
+  "target": "diagnose fail safe control in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

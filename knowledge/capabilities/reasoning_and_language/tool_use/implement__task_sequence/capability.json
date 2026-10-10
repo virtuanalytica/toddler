@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reasoning_and_language/tool_use/implement__task_sequence",
+  "domain": "reasoning_and_language",
+  "topic": "tool_use",
+  "practice": "implement",
+  "setting": "task_sequence",
+  "target": "implement tool use in task sequence",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

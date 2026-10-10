@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "systems_and_safety/data_governance/teach__independent_holdout",
+  "domain": "systems_and_safety",
+  "topic": "data_governance",
+  "practice": "teach",
+  "setting": "independent_holdout",
+  "target": "teach data governance in independent holdout",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

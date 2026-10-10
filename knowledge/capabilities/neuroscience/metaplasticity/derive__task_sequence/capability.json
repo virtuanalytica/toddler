@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/metaplasticity/derive__task_sequence",
+  "domain": "neuroscience",
+  "topic": "metaplasticity",
+  "practice": "derive",
+  "setting": "task_sequence",
+  "target": "derive metaplasticity in task sequence",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

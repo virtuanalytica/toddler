@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/parameter_efficient_adaptation/implement__worked_example",
+  "domain": "neural_networks",
+  "topic": "parameter_efficient_adaptation",
+  "practice": "implement",
+  "setting": "worked_example",
+  "target": "implement parameter efficient adaptation in worked example",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

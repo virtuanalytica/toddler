@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "systems_and_safety/inference_routing/define__worked_example",
+  "domain": "systems_and_safety",
+  "topic": "inference_routing",
+  "practice": "define",
+  "setting": "worked_example",
+  "target": "define inference routing in worked example",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/attention_and_transformers/diagnose__few_shot",
+  "domain": "neural_networks",
+  "topic": "attention_and_transformers",
+  "practice": "diagnose",
+  "setting": "few_shot",
+  "target": "diagnose attention and transformers in few shot",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

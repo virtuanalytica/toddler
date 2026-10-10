@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "systems_and_safety/model_serving/define__simulated_task",
+  "domain": "systems_and_safety",
+  "topic": "model_serving",
+  "practice": "define",
+  "setting": "simulated_task",
+  "target": "define model serving in simulated task",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

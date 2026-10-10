@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reinforcement_learning/ppo/teach__field_data",
+  "domain": "reinforcement_learning",
+  "topic": "ppo",
+  "practice": "teach",
+  "setting": "field_data",
+  "target": "teach ppo in field data",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

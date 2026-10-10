@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/convolutions/teach__worked_example",
+  "domain": "neural_networks",
+  "topic": "convolutions",
+  "practice": "teach",
+  "setting": "worked_example",
+  "target": "teach convolutions in worked example",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "systems_and_safety/sandboxed_learning/validate__worked_example",
+  "domain": "systems_and_safety",
+  "topic": "sandboxed_learning",
+  "practice": "validate",
+  "setting": "worked_example",
+  "target": "validate sandboxed learning in worked example",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

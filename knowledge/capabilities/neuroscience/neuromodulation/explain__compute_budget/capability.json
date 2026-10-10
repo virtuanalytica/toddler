@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/neuromodulation/explain__compute_budget",
+  "domain": "neuroscience",
+  "topic": "neuromodulation",
+  "practice": "explain",
+  "setting": "compute_budget",
+  "target": "explain neuromodulation in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

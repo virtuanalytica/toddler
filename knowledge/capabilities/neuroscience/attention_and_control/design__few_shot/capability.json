@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/attention_and_control/design__few_shot",
+  "domain": "neuroscience",
+  "topic": "attention_and_control",
+  "practice": "design",
+  "setting": "few_shot",
+  "target": "design attention and control in few shot",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

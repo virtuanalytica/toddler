@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "multimodal_agents/multi_agent_coordination/explain__few_shot",
+  "domain": "multimodal_agents",
+  "topic": "multi_agent_coordination",
+  "practice": "explain",
+  "setting": "few_shot",
+  "target": "explain multi agent coordination in few shot",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

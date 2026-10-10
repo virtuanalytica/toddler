@@ -1,0 +1,21 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "systems_and_safety/deployment_gates/validate__real_time",
+  "domain": "systems_and_safety",
+  "topic": "deployment_gates",
+  "practice": "validate",
+  "setting": "real_time",
+  "target": "validate deployment gates in real time",
+  "status": "lesson_draft",
+  "evidence": {
+    "primary_sources": [
+      "https://proceedings.mlr.press/v97/laroche19a.html"
+    ],
+    "learning_material": [
+      "lesson.md"
+    ],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

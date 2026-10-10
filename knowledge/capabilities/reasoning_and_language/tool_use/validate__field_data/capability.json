@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reasoning_and_language/tool_use/validate__field_data",
+  "domain": "reasoning_and_language",
+  "topic": "tool_use",
+  "practice": "validate",
+  "setting": "field_data",
+  "target": "validate tool use in field data",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

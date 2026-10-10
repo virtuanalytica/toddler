@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "multimodal_agents/speech_perception/reproduce__task_sequence",
+  "domain": "multimodal_agents",
+  "topic": "speech_perception",
+  "practice": "reproduce",
+  "setting": "task_sequence",
+  "target": "reproduce speech perception in task sequence",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

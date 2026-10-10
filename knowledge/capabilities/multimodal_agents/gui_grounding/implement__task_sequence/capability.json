@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "multimodal_agents/gui_grounding/implement__task_sequence",
+  "domain": "multimodal_agents",
+  "topic": "gui_grounding",
+  "practice": "implement",
+  "setting": "task_sequence",
+  "target": "implement gui grounding in task sequence",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

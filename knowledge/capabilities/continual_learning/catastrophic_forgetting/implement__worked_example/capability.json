@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/catastrophic_forgetting/implement__worked_example",
+  "domain": "continual_learning",
+  "topic": "catastrophic_forgetting",
+  "practice": "implement",
+  "setting": "worked_example",
+  "target": "implement catastrophic forgetting in worked example",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

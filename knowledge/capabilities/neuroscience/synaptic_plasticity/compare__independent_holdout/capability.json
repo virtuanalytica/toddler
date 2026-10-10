@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/synaptic_plasticity/compare__independent_holdout",
+  "domain": "neuroscience",
+  "topic": "synaptic_plasticity",
+  "practice": "compare",
+  "setting": "independent_holdout",
+  "target": "compare synaptic plasticity in independent holdout",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

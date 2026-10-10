@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reinforcement_learning/imitation_learning/design__few_shot",
+  "domain": "reinforcement_learning",
+  "topic": "imitation_learning",
+  "practice": "design",
+  "setting": "few_shot",
+  "target": "design imitation learning in few shot",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

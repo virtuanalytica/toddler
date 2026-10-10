@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "systems_and_safety/observability/design__real_time",
+  "domain": "systems_and_safety",
+  "topic": "observability",
+  "practice": "design",
+  "setting": "real_time",
+  "target": "design observability in real time",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

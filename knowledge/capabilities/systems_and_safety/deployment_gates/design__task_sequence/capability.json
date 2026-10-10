@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "systems_and_safety/deployment_gates/design__task_sequence",
+  "domain": "systems_and_safety",
+  "topic": "deployment_gates",
+  "practice": "design",
+  "setting": "task_sequence",
+  "target": "design deployment gates in task sequence",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

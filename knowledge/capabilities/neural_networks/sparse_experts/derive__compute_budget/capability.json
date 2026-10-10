@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/sparse_experts/derive__compute_budget",
+  "domain": "neural_networks",
+  "topic": "sparse_experts",
+  "practice": "derive",
+  "setting": "compute_budget",
+  "target": "derive sparse experts in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reinforcement_learning/offline_rl/reproduce__field_data",
+  "domain": "reinforcement_learning",
+  "topic": "offline_rl",
+  "practice": "reproduce",
+  "setting": "field_data",
+  "target": "reproduce offline rl in field data",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

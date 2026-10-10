@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "learning_theory/transfer_learning/teach__worked_example",
+  "domain": "learning_theory",
+  "topic": "transfer_learning",
+  "practice": "teach",
+  "setting": "worked_example",
+  "target": "teach transfer learning in worked example",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

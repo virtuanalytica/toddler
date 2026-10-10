@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "evaluation_and_causality/energy_accounting/implement__real_time",
+  "domain": "evaluation_and_causality",
+  "topic": "energy_accounting",
+  "practice": "implement",
+  "setting": "real_time",
+  "target": "implement energy accounting in real time",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

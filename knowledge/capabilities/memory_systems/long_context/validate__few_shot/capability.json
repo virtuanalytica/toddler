@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "memory_systems/long_context/validate__few_shot",
+  "domain": "memory_systems",
+  "topic": "long_context",
+  "practice": "validate",
+  "setting": "few_shot",
+  "target": "validate long context in few shot",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/synaptic_plasticity/explain__distribution_shift",
+  "domain": "neuroscience",
+  "topic": "synaptic_plasticity",
+  "practice": "explain",
+  "setting": "distribution_shift",
+  "target": "explain synaptic plasticity in distribution shift",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

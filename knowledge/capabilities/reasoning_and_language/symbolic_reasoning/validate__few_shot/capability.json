@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reasoning_and_language/symbolic_reasoning/validate__few_shot",
+  "domain": "reasoning_and_language",
+  "topic": "symbolic_reasoning",
+  "practice": "validate",
+  "setting": "few_shot",
+  "target": "validate symbolic reasoning in few shot",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

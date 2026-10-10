@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "memory_systems/forgetting_policies/compare__compute_budget",
+  "domain": "memory_systems",
+  "topic": "forgetting_policies",
+  "practice": "compare",
+  "setting": "compute_budget",
+  "target": "compare forgetting policies in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

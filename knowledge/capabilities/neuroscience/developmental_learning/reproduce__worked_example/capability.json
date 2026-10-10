@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/developmental_learning/reproduce__worked_example",
+  "domain": "neuroscience",
+  "topic": "developmental_learning",
+  "practice": "reproduce",
+  "setting": "worked_example",
+  "target": "reproduce developmental learning in worked example",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "multimodal_agents/game_learning/implement__real_time",
+  "domain": "multimodal_agents",
+  "topic": "game_learning",
+  "practice": "implement",
+  "setting": "real_time",
+  "target": "implement game learning in real time",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reasoning_and_language/planning/design__few_shot",
+  "domain": "reasoning_and_language",
+  "topic": "planning",
+  "practice": "design",
+  "setting": "few_shot",
+  "target": "design planning in few shot",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

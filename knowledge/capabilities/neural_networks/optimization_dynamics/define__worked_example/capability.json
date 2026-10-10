@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/optimization_dynamics/define__worked_example",
+  "domain": "neural_networks",
+  "topic": "optimization_dynamics",
+  "practice": "define",
+  "setting": "worked_example",
+  "target": "define optimization dynamics in worked example",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

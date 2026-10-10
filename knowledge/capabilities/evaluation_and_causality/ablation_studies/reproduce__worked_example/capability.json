@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "evaluation_and_causality/ablation_studies/reproduce__worked_example",
+  "domain": "evaluation_and_causality",
+  "topic": "ablation_studies",
+  "practice": "reproduce",
+  "setting": "worked_example",
+  "target": "reproduce ablation studies in worked example",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

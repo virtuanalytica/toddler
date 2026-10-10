@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "systems_and_safety/data_governance/define__compute_budget",
+  "domain": "systems_and_safety",
+  "topic": "data_governance",
+  "practice": "define",
+  "setting": "compute_budget",
+  "target": "define data governance in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/neuromodulation/reproduce__simulated_task",
+  "domain": "neuroscience",
+  "topic": "neuromodulation",
+  "practice": "reproduce",
+  "setting": "simulated_task",
+  "target": "reproduce neuromodulation in simulated task",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

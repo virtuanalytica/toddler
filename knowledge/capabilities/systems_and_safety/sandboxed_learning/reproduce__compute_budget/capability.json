@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "systems_and_safety/sandboxed_learning/reproduce__compute_budget",
+  "domain": "systems_and_safety",
+  "topic": "sandboxed_learning",
+  "practice": "reproduce",
+  "setting": "compute_budget",
+  "target": "reproduce sandboxed learning in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

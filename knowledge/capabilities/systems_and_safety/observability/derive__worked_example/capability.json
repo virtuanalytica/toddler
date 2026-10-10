@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "systems_and_safety/observability/derive__worked_example",
+  "domain": "systems_and_safety",
+  "topic": "observability",
+  "practice": "derive",
+  "setting": "worked_example",
+  "target": "derive observability in worked example",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

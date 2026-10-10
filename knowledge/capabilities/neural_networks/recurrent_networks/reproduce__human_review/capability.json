@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/recurrent_networks/reproduce__human_review",
+  "domain": "neural_networks",
+  "topic": "recurrent_networks",
+  "practice": "reproduce",
+  "setting": "human_review",
+  "target": "reproduce recurrent networks in human review",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

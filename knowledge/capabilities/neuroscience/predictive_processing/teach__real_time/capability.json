@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/predictive_processing/teach__real_time",
+  "domain": "neuroscience",
+  "topic": "predictive_processing",
+  "practice": "teach",
+  "setting": "real_time",
+  "target": "teach predictive processing in real time",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

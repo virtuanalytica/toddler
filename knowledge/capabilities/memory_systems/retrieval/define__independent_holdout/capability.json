@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "memory_systems/retrieval/define__independent_holdout",
+  "domain": "memory_systems",
+  "topic": "retrieval",
+  "practice": "define",
+  "setting": "independent_holdout",
+  "target": "define retrieval in independent holdout",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/parameter_efficient_adaptation/compare__compute_budget",
+  "domain": "neural_networks",
+  "topic": "parameter_efficient_adaptation",
+  "practice": "compare",
+  "setting": "compute_budget",
+  "target": "compare parameter efficient adaptation in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

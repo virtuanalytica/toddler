@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "multimodal_agents/gui_grounding/compare__compute_budget",
+  "domain": "multimodal_agents",
+  "topic": "gui_grounding",
+  "practice": "compare",
+  "setting": "compute_budget",
+  "target": "compare gui grounding in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

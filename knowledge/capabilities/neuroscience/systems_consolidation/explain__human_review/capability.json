@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/systems_consolidation/explain__human_review",
+  "domain": "neuroscience",
+  "topic": "systems_consolidation",
+  "practice": "explain",
+  "setting": "human_review",
+  "target": "explain systems consolidation in human review",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

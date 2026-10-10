@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "memory_systems/retrieval/explain__simulated_task",
+  "domain": "memory_systems",
+  "topic": "retrieval",
+  "practice": "explain",
+  "setting": "simulated_task",
+  "target": "explain retrieval in simulated task",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

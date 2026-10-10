@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reasoning_and_language/program_synthesis/design__few_shot",
+  "domain": "reasoning_and_language",
+  "topic": "program_synthesis",
+  "practice": "design",
+  "setting": "few_shot",
+  "target": "design program synthesis in few shot",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

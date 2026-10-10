@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/optimization_dynamics/design__compute_budget",
+  "domain": "neural_networks",
+  "topic": "optimization_dynamics",
+  "practice": "design",
+  "setting": "compute_budget",
+  "target": "design optimization dynamics in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

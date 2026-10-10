@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/hippocampal_replay/derive__field_data",
+  "domain": "neuroscience",
+  "topic": "hippocampal_replay",
+  "practice": "derive",
+  "setting": "field_data",
+  "target": "derive hippocampal replay in field data",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

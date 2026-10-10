@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "learning_theory/representation_learning/reproduce__simulated_task",
+  "domain": "learning_theory",
+  "topic": "representation_learning",
+  "practice": "reproduce",
+  "setting": "simulated_task",
+  "target": "reproduce representation learning in simulated task",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

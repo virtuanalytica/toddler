@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/neural_evidence_limits/validate__simulated_task",
+  "domain": "neuroscience",
+  "topic": "neural_evidence_limits",
+  "practice": "validate",
+  "setting": "simulated_task",
+  "target": "validate neural evidence limits in simulated task",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

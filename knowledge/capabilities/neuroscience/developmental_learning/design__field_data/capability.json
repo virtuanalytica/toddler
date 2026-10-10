@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/developmental_learning/design__field_data",
+  "domain": "neuroscience",
+  "topic": "developmental_learning",
+  "practice": "design",
+  "setting": "field_data",
+  "target": "design developmental learning in field data",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "memory_systems/working_memory/validate__human_review",
+  "domain": "memory_systems",
+  "topic": "working_memory",
+  "practice": "validate",
+  "setting": "human_review",
+  "target": "validate working memory in human review",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

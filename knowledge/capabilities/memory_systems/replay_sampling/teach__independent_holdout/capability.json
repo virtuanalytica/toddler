@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "memory_systems/replay_sampling/teach__independent_holdout",
+  "domain": "memory_systems",
+  "topic": "replay_sampling",
+  "practice": "teach",
+  "setting": "independent_holdout",
+  "target": "teach replay sampling in independent holdout",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

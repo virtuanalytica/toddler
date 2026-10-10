@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reasoning_and_language/tool_use/validate__distribution_shift",
+  "domain": "reasoning_and_language",
+  "topic": "tool_use",
+  "practice": "validate",
+  "setting": "distribution_shift",
+  "target": "validate tool use in distribution shift",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

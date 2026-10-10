@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/recurrent_networks/design__simulated_task",
+  "domain": "neural_networks",
+  "topic": "recurrent_networks",
+  "practice": "design",
+  "setting": "simulated_task",
+  "target": "design recurrent networks in simulated task",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

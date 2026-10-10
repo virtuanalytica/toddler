@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/experience_replay/reproduce__worked_example",
+  "domain": "continual_learning",
+  "topic": "experience_replay",
+  "practice": "reproduce",
+  "setting": "worked_example",
+  "target": "reproduce experience replay in worked example",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

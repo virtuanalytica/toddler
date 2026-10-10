@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/sensorimotor_learning/derive__worked_example",
+  "domain": "neuroscience",
+  "topic": "sensorimotor_learning",
+  "practice": "derive",
+  "setting": "worked_example",
+  "target": "derive sensorimotor learning in worked example",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

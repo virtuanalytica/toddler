@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "learning_theory/meta_learning/define__simulated_task",
+  "domain": "learning_theory",
+  "topic": "meta_learning",
+  "practice": "define",
+  "setting": "simulated_task",
+  "target": "define meta learning in simulated task",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "multimodal_agents/action_selection/explain__simulated_task",
+  "domain": "multimodal_agents",
+  "topic": "action_selection",
+  "practice": "explain",
+  "setting": "simulated_task",
+  "target": "explain action selection in simulated task",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

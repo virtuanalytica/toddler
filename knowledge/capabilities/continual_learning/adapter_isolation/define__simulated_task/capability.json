@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/adapter_isolation/define__simulated_task",
+  "domain": "continual_learning",
+  "topic": "adapter_isolation",
+  "practice": "define",
+  "setting": "simulated_task",
+  "target": "define adapter isolation in simulated task",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

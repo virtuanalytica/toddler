@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reinforcement_learning/imitation_learning/design__distribution_shift",
+  "domain": "reinforcement_learning",
+  "topic": "imitation_learning",
+  "practice": "design",
+  "setting": "distribution_shift",
+  "target": "design imitation learning in distribution shift",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

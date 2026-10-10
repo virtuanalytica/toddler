@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/predictive_processing/implement__field_data",
+  "domain": "neuroscience",
+  "topic": "predictive_processing",
+  "practice": "implement",
+  "setting": "field_data",
+  "target": "implement predictive processing in field data",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

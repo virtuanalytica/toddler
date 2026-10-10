@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reasoning_and_language/symbolic_reasoning/implement__worked_example",
+  "domain": "reasoning_and_language",
+  "topic": "symbolic_reasoning",
+  "practice": "implement",
+  "setting": "worked_example",
+  "target": "implement symbolic reasoning in worked example",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

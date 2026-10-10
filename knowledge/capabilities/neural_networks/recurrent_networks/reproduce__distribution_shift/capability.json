@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/recurrent_networks/reproduce__distribution_shift",
+  "domain": "neural_networks",
+  "topic": "recurrent_networks",
+  "practice": "reproduce",
+  "setting": "distribution_shift",
+  "target": "reproduce recurrent networks in distribution shift",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reasoning_and_language/program_synthesis/define__task_sequence",
+  "domain": "reasoning_and_language",
+  "topic": "program_synthesis",
+  "practice": "define",
+  "setting": "task_sequence",
+  "target": "define program synthesis in task sequence",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

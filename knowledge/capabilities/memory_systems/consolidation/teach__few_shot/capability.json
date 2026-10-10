@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "memory_systems/consolidation/teach__few_shot",
+  "domain": "memory_systems",
+  "topic": "consolidation",
+  "practice": "teach",
+  "setting": "few_shot",
+  "target": "teach consolidation in few shot",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

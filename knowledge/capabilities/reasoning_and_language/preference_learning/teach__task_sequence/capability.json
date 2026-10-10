@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reasoning_and_language/preference_learning/teach__task_sequence",
+  "domain": "reasoning_and_language",
+  "topic": "preference_learning",
+  "practice": "teach",
+  "setting": "task_sequence",
+  "target": "teach preference learning in task sequence",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "learning_theory/generalization/derive__task_sequence",
+  "domain": "learning_theory",
+  "topic": "generalization",
+  "practice": "derive",
+  "setting": "task_sequence",
+  "target": "derive generalization in task sequence",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "evaluation_and_causality/ablation_studies/compare__compute_budget",
+  "domain": "evaluation_and_causality",
+  "topic": "ablation_studies",
+  "practice": "compare",
+  "setting": "compute_budget",
+  "target": "compare ablation studies in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

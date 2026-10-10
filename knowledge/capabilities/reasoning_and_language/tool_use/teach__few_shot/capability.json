@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reasoning_and_language/tool_use/teach__few_shot",
+  "domain": "reasoning_and_language",
+  "topic": "tool_use",
+  "practice": "teach",
+  "setting": "few_shot",
+  "target": "teach tool use in few shot",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

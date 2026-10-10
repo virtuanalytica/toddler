@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/continual_rl_protocols/teach__simulated_task",
+  "domain": "continual_learning",
+  "topic": "continual_rl_protocols",
+  "practice": "teach",
+  "setting": "simulated_task",
+  "target": "teach continual rl protocols in simulated task",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

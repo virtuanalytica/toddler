@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/backward_transfer/validate__worked_example",
+  "domain": "continual_learning",
+  "topic": "backward_transfer",
+  "practice": "validate",
+  "setting": "worked_example",
+  "target": "validate backward transfer in worked example",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

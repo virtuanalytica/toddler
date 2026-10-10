@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "multimodal_agents/gui_grounding/design__independent_holdout",
+  "domain": "multimodal_agents",
+  "topic": "gui_grounding",
+  "practice": "design",
+  "setting": "independent_holdout",
+  "target": "design gui grounding in independent holdout",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

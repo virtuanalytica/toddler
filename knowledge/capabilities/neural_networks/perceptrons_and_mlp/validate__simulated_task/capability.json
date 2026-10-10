@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/perceptrons_and_mlp/validate__simulated_task",
+  "domain": "neural_networks",
+  "topic": "perceptrons_and_mlp",
+  "practice": "validate",
+  "setting": "simulated_task",
+  "target": "validate perceptrons and mlp in simulated task",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reinforcement_learning/offline_rl/validate__worked_example",
+  "domain": "reinforcement_learning",
+  "topic": "offline_rl",
+  "practice": "validate",
+  "setting": "worked_example",
+  "target": "validate offline rl in worked example",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

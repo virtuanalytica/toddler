@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "systems_and_safety/model_serving/implement__human_review",
+  "domain": "systems_and_safety",
+  "topic": "model_serving",
+  "practice": "implement",
+  "setting": "human_review",
+  "target": "implement model serving in human review",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

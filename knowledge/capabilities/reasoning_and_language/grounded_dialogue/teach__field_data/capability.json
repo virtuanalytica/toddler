@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reasoning_and_language/grounded_dialogue/teach__field_data",
+  "domain": "reasoning_and_language",
+  "topic": "grounded_dialogue",
+  "practice": "teach",
+  "setting": "field_data",
+  "target": "teach grounded dialogue in field data",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

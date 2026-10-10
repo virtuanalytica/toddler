@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/attention_and_control/diagnose__compute_budget",
+  "domain": "neuroscience",
+  "topic": "attention_and_control",
+  "practice": "diagnose",
+  "setting": "compute_budget",
+  "target": "diagnose attention and control in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/metaplasticity/compare__worked_example",
+  "domain": "neuroscience",
+  "topic": "metaplasticity",
+  "practice": "compare",
+  "setting": "worked_example",
+  "target": "compare metaplasticity in worked example",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

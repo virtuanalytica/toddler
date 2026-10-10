@@ -1,0 +1,21 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/progressive_networks/implement__compute_budget",
+  "domain": "continual_learning",
+  "topic": "progressive_networks",
+  "practice": "implement",
+  "setting": "compute_budget",
+  "target": "implement progressive networks in compute budget",
+  "status": "lesson_draft",
+  "evidence": {
+    "primary_sources": [
+      "https://arxiv.org/abs/1606.04671"
+    ],
+    "learning_material": [
+      "lesson.md"
+    ],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

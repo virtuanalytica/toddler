@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/sensorimotor_learning/reproduce__few_shot",
+  "domain": "neuroscience",
+  "topic": "sensorimotor_learning",
+  "practice": "reproduce",
+  "setting": "few_shot",
+  "target": "reproduce sensorimotor learning in few shot",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

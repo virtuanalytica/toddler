@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/attention_and_transformers/diagnose__field_data",
+  "domain": "neural_networks",
+  "topic": "attention_and_transformers",
+  "practice": "diagnose",
+  "setting": "field_data",
+  "target": "diagnose attention and transformers in field data",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

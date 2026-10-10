@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "evaluation_and_causality/robustness/compare__compute_budget",
+  "domain": "evaluation_and_causality",
+  "topic": "robustness",
+  "practice": "compare",
+  "setting": "compute_budget",
+  "target": "compare robustness in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

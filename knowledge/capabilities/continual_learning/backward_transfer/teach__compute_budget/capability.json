@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/backward_transfer/teach__compute_budget",
+  "domain": "continual_learning",
+  "topic": "backward_transfer",
+  "practice": "teach",
+  "setting": "compute_budget",
+  "target": "teach backward transfer in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reasoning_and_language/tool_use/reproduce__compute_budget",
+  "domain": "reasoning_and_language",
+  "topic": "tool_use",
+  "practice": "reproduce",
+  "setting": "compute_budget",
+  "target": "reproduce tool use in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

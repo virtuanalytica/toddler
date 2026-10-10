@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/sensorimotor_learning/define__field_data",
+  "domain": "neuroscience",
+  "topic": "sensorimotor_learning",
+  "practice": "define",
+  "setting": "field_data",
+  "target": "define sensorimotor learning in field data",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

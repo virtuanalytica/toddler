@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reasoning_and_language/numeracy/define__real_time",
+  "domain": "reasoning_and_language",
+  "topic": "numeracy",
+  "practice": "define",
+  "setting": "real_time",
+  "target": "define numeracy in real time",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

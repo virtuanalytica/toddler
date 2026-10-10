@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "learning_theory/active_learning/diagnose__worked_example",
+  "domain": "learning_theory",
+  "topic": "active_learning",
+  "practice": "diagnose",
+  "setting": "worked_example",
+  "target": "diagnose active learning in worked example",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

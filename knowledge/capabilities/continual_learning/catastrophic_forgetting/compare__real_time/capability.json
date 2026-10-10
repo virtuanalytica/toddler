@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/catastrophic_forgetting/compare__real_time",
+  "domain": "continual_learning",
+  "topic": "catastrophic_forgetting",
+  "practice": "compare",
+  "setting": "real_time",
+  "target": "compare catastrophic forgetting in real time",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "memory_systems/working_memory/define__simulated_task",
+  "domain": "memory_systems",
+  "topic": "working_memory",
+  "practice": "define",
+  "setting": "simulated_task",
+  "target": "define working memory in simulated task",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

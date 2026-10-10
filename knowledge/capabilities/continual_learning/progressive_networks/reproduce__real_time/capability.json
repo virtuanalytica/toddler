@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/progressive_networks/reproduce__real_time",
+  "domain": "continual_learning",
+  "topic": "progressive_networks",
+  "practice": "reproduce",
+  "setting": "real_time",
+  "target": "reproduce progressive networks in real time",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

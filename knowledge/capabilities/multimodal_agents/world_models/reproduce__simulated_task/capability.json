@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "multimodal_agents/world_models/reproduce__simulated_task",
+  "domain": "multimodal_agents",
+  "topic": "world_models",
+  "practice": "reproduce",
+  "setting": "simulated_task",
+  "target": "reproduce world models in simulated task",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

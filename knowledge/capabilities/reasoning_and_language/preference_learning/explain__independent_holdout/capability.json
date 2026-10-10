@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reasoning_and_language/preference_learning/explain__independent_holdout",
+  "domain": "reasoning_and_language",
+  "topic": "preference_learning",
+  "practice": "explain",
+  "setting": "independent_holdout",
+  "target": "explain preference learning in independent holdout",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

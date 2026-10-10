@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/metaplasticity/validate__human_review",
+  "domain": "neuroscience",
+  "topic": "metaplasticity",
+  "practice": "validate",
+  "setting": "human_review",
+  "target": "validate metaplasticity in human review",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "systems_and_safety/latency_budgets/validate__field_data",
+  "domain": "systems_and_safety",
+  "topic": "latency_budgets",
+  "practice": "validate",
+  "setting": "field_data",
+  "target": "validate latency budgets in field data",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

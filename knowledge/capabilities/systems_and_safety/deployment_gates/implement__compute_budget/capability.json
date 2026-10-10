@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "systems_and_safety/deployment_gates/implement__compute_budget",
+  "domain": "systems_and_safety",
+  "topic": "deployment_gates",
+  "practice": "implement",
+  "setting": "compute_budget",
+  "target": "implement deployment gates in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

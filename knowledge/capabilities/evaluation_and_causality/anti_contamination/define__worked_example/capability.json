@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "evaluation_and_causality/anti_contamination/define__worked_example",
+  "domain": "evaluation_and_causality",
+  "topic": "anti_contamination",
+  "practice": "define",
+  "setting": "worked_example",
+  "target": "define anti contamination in worked example",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

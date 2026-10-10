@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/ewc/design__task_sequence",
+  "domain": "continual_learning",
+  "topic": "ewc",
+  "practice": "design",
+  "setting": "task_sequence",
+  "target": "design ewc in task sequence",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

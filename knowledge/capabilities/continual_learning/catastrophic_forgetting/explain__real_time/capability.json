@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/catastrophic_forgetting/explain__real_time",
+  "domain": "continual_learning",
+  "topic": "catastrophic_forgetting",
+  "practice": "explain",
+  "setting": "real_time",
+  "target": "explain catastrophic forgetting in real time",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

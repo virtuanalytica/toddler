@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "systems_and_safety/distributed_trials/teach__compute_budget",
+  "domain": "systems_and_safety",
+  "topic": "distributed_trials",
+  "practice": "teach",
+  "setting": "compute_budget",
+  "target": "teach distributed trials in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

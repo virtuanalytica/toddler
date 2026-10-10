@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/hippocampal_replay/compare__field_data",
+  "domain": "neuroscience",
+  "topic": "hippocampal_replay",
+  "practice": "compare",
+  "setting": "field_data",
+  "target": "compare hippocampal replay in field data",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

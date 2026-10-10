@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "learning_theory/curriculum_learning/validate__field_data",
+  "domain": "learning_theory",
+  "topic": "curriculum_learning",
+  "practice": "validate",
+  "setting": "field_data",
+  "target": "validate curriculum learning in field data",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

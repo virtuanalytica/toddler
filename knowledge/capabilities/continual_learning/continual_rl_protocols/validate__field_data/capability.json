@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/continual_rl_protocols/validate__field_data",
+  "domain": "continual_learning",
+  "topic": "continual_rl_protocols",
+  "practice": "validate",
+  "setting": "field_data",
+  "target": "validate continual rl protocols in field data",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

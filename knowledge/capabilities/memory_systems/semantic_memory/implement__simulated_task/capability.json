@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "memory_systems/semantic_memory/implement__simulated_task",
+  "domain": "memory_systems",
+  "topic": "semantic_memory",
+  "practice": "implement",
+  "setting": "simulated_task",
+  "target": "implement semantic memory in simulated task",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

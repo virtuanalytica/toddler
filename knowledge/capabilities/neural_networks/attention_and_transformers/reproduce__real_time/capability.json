@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/attention_and_transformers/reproduce__real_time",
+  "domain": "neural_networks",
+  "topic": "attention_and_transformers",
+  "practice": "reproduce",
+  "setting": "real_time",
+  "target": "reproduce attention and transformers in real time",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

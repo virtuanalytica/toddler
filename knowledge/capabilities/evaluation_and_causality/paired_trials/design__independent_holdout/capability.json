@@ -1,0 +1,21 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "evaluation_and_causality/paired_trials/design__independent_holdout",
+  "domain": "evaluation_and_causality",
+  "topic": "paired_trials",
+  "practice": "design",
+  "setting": "independent_holdout",
+  "target": "design paired trials in independent holdout",
+  "status": "lesson_draft",
+  "evidence": {
+    "primary_sources": [
+      "https://arxiv.org/abs/2108.13264"
+    ],
+    "learning_material": [
+      "lesson.md"
+    ],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

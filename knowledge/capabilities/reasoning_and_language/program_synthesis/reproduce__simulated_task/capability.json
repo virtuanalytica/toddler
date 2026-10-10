@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reasoning_and_language/program_synthesis/reproduce__simulated_task",
+  "domain": "reasoning_and_language",
+  "topic": "program_synthesis",
+  "practice": "reproduce",
+  "setting": "simulated_task",
+  "target": "reproduce program synthesis in simulated task",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

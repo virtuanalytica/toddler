@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/experience_replay/define__task_sequence",
+  "domain": "continual_learning",
+  "topic": "experience_replay",
+  "practice": "define",
+  "setting": "task_sequence",
+  "target": "define experience replay in task sequence",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

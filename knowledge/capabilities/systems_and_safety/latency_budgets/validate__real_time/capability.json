@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "systems_and_safety/latency_budgets/validate__real_time",
+  "domain": "systems_and_safety",
+  "topic": "latency_budgets",
+  "practice": "validate",
+  "setting": "real_time",
+  "target": "validate latency budgets in real time",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

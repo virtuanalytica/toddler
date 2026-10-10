@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "systems_and_safety/data_governance/derive__real_time",
+  "domain": "systems_and_safety",
+  "topic": "data_governance",
+  "practice": "derive",
+  "setting": "real_time",
+  "target": "derive data governance in real time",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

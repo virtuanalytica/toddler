@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "learning_theory/curriculum_learning/implement__worked_example",
+  "domain": "learning_theory",
+  "topic": "curriculum_learning",
+  "practice": "implement",
+  "setting": "worked_example",
+  "target": "implement curriculum learning in worked example",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

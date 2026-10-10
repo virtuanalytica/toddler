@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reasoning_and_language/numeracy/define__human_review",
+  "domain": "reasoning_and_language",
+  "topic": "numeracy",
+  "practice": "define",
+  "setting": "human_review",
+  "target": "define numeracy in human review",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

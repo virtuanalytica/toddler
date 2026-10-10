@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "evaluation_and_causality/calibration/derive__worked_example",
+  "domain": "evaluation_and_causality",
+  "topic": "calibration",
+  "practice": "derive",
+  "setting": "worked_example",
+  "target": "derive calibration in worked example",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

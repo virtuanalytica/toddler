@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/hippocampal_replay/design__field_data",
+  "domain": "neuroscience",
+  "topic": "hippocampal_replay",
+  "practice": "design",
+  "setting": "field_data",
+  "target": "design hippocampal replay in field data",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

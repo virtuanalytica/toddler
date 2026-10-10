@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "multimodal_agents/robotic_control/reproduce__human_review",
+  "domain": "multimodal_agents",
+  "topic": "robotic_control",
+  "practice": "reproduce",
+  "setting": "human_review",
+  "target": "reproduce robotic control in human review",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

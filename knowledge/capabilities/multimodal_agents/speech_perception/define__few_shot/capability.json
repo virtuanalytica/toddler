@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "multimodal_agents/speech_perception/define__few_shot",
+  "domain": "multimodal_agents",
+  "topic": "speech_perception",
+  "practice": "define",
+  "setting": "few_shot",
+  "target": "define speech perception in few shot",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

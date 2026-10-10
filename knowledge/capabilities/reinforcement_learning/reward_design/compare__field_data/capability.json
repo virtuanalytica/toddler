@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reinforcement_learning/reward_design/compare__field_data",
+  "domain": "reinforcement_learning",
+  "topic": "reward_design",
+  "practice": "compare",
+  "setting": "field_data",
+  "target": "compare reward design in field data",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

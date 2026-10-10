@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reasoning_and_language/preference_learning/compare__simulated_task",
+  "domain": "reasoning_and_language",
+  "topic": "preference_learning",
+  "practice": "compare",
+  "setting": "simulated_task",
+  "target": "compare preference learning in simulated task",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

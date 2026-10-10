@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/ewc/diagnose__worked_example",
+  "domain": "continual_learning",
+  "topic": "ewc",
+  "practice": "diagnose",
+  "setting": "worked_example",
+  "target": "diagnose ewc in worked example",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

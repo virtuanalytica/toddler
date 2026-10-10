@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "systems_and_safety/data_governance/implement__worked_example",
+  "domain": "systems_and_safety",
+  "topic": "data_governance",
+  "practice": "implement",
+  "setting": "worked_example",
+  "target": "implement data governance in worked example",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

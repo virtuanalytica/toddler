@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/neuromodulation/define__real_time",
+  "domain": "neuroscience",
+  "topic": "neuromodulation",
+  "practice": "define",
+  "setting": "real_time",
+  "target": "define neuromodulation in real time",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

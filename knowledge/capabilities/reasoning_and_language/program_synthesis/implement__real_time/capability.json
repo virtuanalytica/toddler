@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reasoning_and_language/program_synthesis/implement__real_time",
+  "domain": "reasoning_and_language",
+  "topic": "program_synthesis",
+  "practice": "implement",
+  "setting": "real_time",
+  "target": "implement program synthesis in real time",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

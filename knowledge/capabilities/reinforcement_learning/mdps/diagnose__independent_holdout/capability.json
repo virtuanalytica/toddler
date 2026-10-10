@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reinforcement_learning/mdps/diagnose__independent_holdout",
+  "domain": "reinforcement_learning",
+  "topic": "mdps",
+  "practice": "diagnose",
+  "setting": "independent_holdout",
+  "target": "diagnose mdps in independent holdout",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reasoning_and_language/grounded_dialogue/validate__independent_holdout",
+  "domain": "reasoning_and_language",
+  "topic": "grounded_dialogue",
+  "practice": "validate",
+  "setting": "independent_holdout",
+  "target": "validate grounded dialogue in independent holdout",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/forward_transfer/explain__few_shot",
+  "domain": "continual_learning",
+  "topic": "forward_transfer",
+  "practice": "explain",
+  "setting": "few_shot",
+  "target": "explain forward transfer in few shot",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

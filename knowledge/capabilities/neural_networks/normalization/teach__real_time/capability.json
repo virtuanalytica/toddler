@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/normalization/teach__real_time",
+  "domain": "neural_networks",
+  "topic": "normalization",
+  "practice": "teach",
+  "setting": "real_time",
+  "target": "teach normalization in real time",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

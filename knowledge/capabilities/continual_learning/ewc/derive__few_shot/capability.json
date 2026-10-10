@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/ewc/derive__few_shot",
+  "domain": "continual_learning",
+  "topic": "ewc",
+  "practice": "derive",
+  "setting": "few_shot",
+  "target": "derive ewc in few shot",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

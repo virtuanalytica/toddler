@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "memory_systems/memory_provenance/design__compute_budget",
+  "domain": "memory_systems",
+  "topic": "memory_provenance",
+  "practice": "design",
+  "setting": "compute_budget",
+  "target": "design memory provenance in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

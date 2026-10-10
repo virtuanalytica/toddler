@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/sparse_experts/validate__task_sequence",
+  "domain": "neural_networks",
+  "topic": "sparse_experts",
+  "practice": "validate",
+  "setting": "task_sequence",
+  "target": "validate sparse experts in task sequence",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

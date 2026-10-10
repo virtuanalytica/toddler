@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "systems_and_safety/inference_routing/validate__few_shot",
+  "domain": "systems_and_safety",
+  "topic": "inference_routing",
+  "practice": "validate",
+  "setting": "few_shot",
+  "target": "validate inference routing in few shot",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

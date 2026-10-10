@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/attention_and_transformers/derive__compute_budget",
+  "domain": "neural_networks",
+  "topic": "attention_and_transformers",
+  "practice": "derive",
+  "setting": "compute_budget",
+  "target": "derive attention and transformers in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

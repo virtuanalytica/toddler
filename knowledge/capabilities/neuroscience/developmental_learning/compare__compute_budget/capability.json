@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/developmental_learning/compare__compute_budget",
+  "domain": "neuroscience",
+  "topic": "developmental_learning",
+  "practice": "compare",
+  "setting": "compute_budget",
+  "target": "compare developmental learning in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

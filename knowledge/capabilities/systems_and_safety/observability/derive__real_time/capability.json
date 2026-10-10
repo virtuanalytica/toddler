@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "systems_and_safety/observability/derive__real_time",
+  "domain": "systems_and_safety",
+  "topic": "observability",
+  "practice": "derive",
+  "setting": "real_time",
+  "target": "derive observability in real time",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

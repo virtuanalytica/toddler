@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "multimodal_agents/game_learning/compare__few_shot",
+  "domain": "multimodal_agents",
+  "topic": "game_learning",
+  "practice": "compare",
+  "setting": "few_shot",
+  "target": "compare game learning in few shot",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

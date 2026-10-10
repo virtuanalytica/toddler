@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/continual_rl_protocols/diagnose__human_review",
+  "domain": "continual_learning",
+  "topic": "continual_rl_protocols",
+  "practice": "diagnose",
+  "setting": "human_review",
+  "target": "diagnose continual rl protocols in human review",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

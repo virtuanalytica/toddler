@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reinforcement_learning/policy_gradients/compare__task_sequence",
+  "domain": "reinforcement_learning",
+  "topic": "policy_gradients",
+  "practice": "compare",
+  "setting": "task_sequence",
+  "target": "compare policy gradients in task sequence",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

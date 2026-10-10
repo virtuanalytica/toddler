@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "multimodal_agents/gui_grounding/design__human_review",
+  "domain": "multimodal_agents",
+  "topic": "gui_grounding",
+  "practice": "design",
+  "setting": "human_review",
+  "target": "design gui grounding in human review",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

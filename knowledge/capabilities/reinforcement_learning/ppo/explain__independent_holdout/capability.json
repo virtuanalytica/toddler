@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reinforcement_learning/ppo/explain__independent_holdout",
+  "domain": "reinforcement_learning",
+  "topic": "ppo",
+  "practice": "explain",
+  "setting": "independent_holdout",
+  "target": "explain ppo in independent holdout",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

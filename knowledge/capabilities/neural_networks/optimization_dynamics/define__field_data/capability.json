@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/optimization_dynamics/define__field_data",
+  "domain": "neural_networks",
+  "topic": "optimization_dynamics",
+  "practice": "define",
+  "setting": "field_data",
+  "target": "define optimization dynamics in field data",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "systems_and_safety/distributed_trials/diagnose__human_review",
+  "domain": "systems_and_safety",
+  "topic": "distributed_trials",
+  "practice": "diagnose",
+  "setting": "human_review",
+  "target": "diagnose distributed trials in human review",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

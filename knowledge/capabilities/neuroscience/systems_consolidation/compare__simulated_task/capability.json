@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/systems_consolidation/compare__simulated_task",
+  "domain": "neuroscience",
+  "topic": "systems_consolidation",
+  "practice": "compare",
+  "setting": "simulated_task",
+  "target": "compare systems consolidation in simulated task",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

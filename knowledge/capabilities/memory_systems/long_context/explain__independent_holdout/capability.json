@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "memory_systems/long_context/explain__independent_holdout",
+  "domain": "memory_systems",
+  "topic": "long_context",
+  "practice": "explain",
+  "setting": "independent_holdout",
+  "target": "explain long context in independent holdout",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

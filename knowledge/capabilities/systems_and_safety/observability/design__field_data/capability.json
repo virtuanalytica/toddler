@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "systems_and_safety/observability/design__field_data",
+  "domain": "systems_and_safety",
+  "topic": "observability",
+  "practice": "design",
+  "setting": "field_data",
+  "target": "design observability in field data",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

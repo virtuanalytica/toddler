@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "multimodal_agents/game_learning/explain__field_data",
+  "domain": "multimodal_agents",
+  "topic": "game_learning",
+  "practice": "explain",
+  "setting": "field_data",
+  "target": "explain game learning in field data",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/forward_transfer/compare__compute_budget",
+  "domain": "continual_learning",
+  "topic": "forward_transfer",
+  "practice": "compare",
+  "setting": "compute_budget",
+  "target": "compare forward transfer in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

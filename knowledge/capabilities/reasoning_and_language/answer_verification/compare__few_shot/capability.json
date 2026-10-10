@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reasoning_and_language/answer_verification/compare__few_shot",
+  "domain": "reasoning_and_language",
+  "topic": "answer_verification",
+  "practice": "compare",
+  "setting": "few_shot",
+  "target": "compare answer verification in few shot",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/optimization_dynamics/diagnose__real_time",
+  "domain": "neural_networks",
+  "topic": "optimization_dynamics",
+  "practice": "diagnose",
+  "setting": "real_time",
+  "target": "diagnose optimization dynamics in real time",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

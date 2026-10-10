@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reinforcement_learning/imitation_learning/compare__real_time",
+  "domain": "reinforcement_learning",
+  "topic": "imitation_learning",
+  "practice": "compare",
+  "setting": "real_time",
+  "target": "compare imitation learning in real time",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

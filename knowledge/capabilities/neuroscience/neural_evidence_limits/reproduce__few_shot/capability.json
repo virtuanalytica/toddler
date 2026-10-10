@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neuroscience/neural_evidence_limits/reproduce__few_shot",
+  "domain": "neuroscience",
+  "topic": "neural_evidence_limits",
+  "practice": "reproduce",
+  "setting": "few_shot",
+  "target": "reproduce neural evidence limits in few shot",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

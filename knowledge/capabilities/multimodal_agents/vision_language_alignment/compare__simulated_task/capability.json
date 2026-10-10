@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "multimodal_agents/vision_language_alignment/compare__simulated_task",
+  "domain": "multimodal_agents",
+  "topic": "vision_language_alignment",
+  "practice": "compare",
+  "setting": "simulated_task",
+  "target": "compare vision language alignment in simulated task",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

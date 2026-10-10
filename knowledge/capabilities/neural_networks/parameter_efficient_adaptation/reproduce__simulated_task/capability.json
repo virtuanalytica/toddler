@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/parameter_efficient_adaptation/reproduce__simulated_task",
+  "domain": "neural_networks",
+  "topic": "parameter_efficient_adaptation",
+  "practice": "reproduce",
+  "setting": "simulated_task",
+  "target": "reproduce parameter efficient adaptation in simulated task",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

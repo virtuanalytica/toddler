@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "multimodal_agents/robotic_control/diagnose__few_shot",
+  "domain": "multimodal_agents",
+  "topic": "robotic_control",
+  "practice": "diagnose",
+  "setting": "few_shot",
+  "target": "diagnose robotic control in few shot",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

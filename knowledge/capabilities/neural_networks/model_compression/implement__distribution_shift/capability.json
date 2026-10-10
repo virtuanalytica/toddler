@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/model_compression/implement__distribution_shift",
+  "domain": "neural_networks",
+  "topic": "model_compression",
+  "practice": "implement",
+  "setting": "distribution_shift",
+  "target": "implement model compression in distribution shift",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

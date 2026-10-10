@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "learning_theory/representation_learning/teach__worked_example",
+  "domain": "learning_theory",
+  "topic": "representation_learning",
+  "practice": "teach",
+  "setting": "worked_example",
+  "target": "teach representation learning in worked example",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

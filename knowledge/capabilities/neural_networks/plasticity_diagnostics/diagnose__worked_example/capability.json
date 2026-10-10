@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "neural_networks/plasticity_diagnostics/diagnose__worked_example",
+  "domain": "neural_networks",
+  "topic": "plasticity_diagnostics",
+  "practice": "diagnose",
+  "setting": "worked_example",
+  "target": "diagnose plasticity diagnostics in worked example",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/progressive_networks/diagnose__few_shot",
+  "domain": "continual_learning",
+  "topic": "progressive_networks",
+  "practice": "diagnose",
+  "setting": "few_shot",
+  "target": "diagnose progressive networks in few shot",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

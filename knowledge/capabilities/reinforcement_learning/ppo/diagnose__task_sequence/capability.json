@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reinforcement_learning/ppo/diagnose__task_sequence",
+  "domain": "reinforcement_learning",
+  "topic": "ppo",
+  "practice": "diagnose",
+  "setting": "task_sequence",
+  "target": "diagnose ppo in task sequence",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

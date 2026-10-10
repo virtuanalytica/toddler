@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reinforcement_learning/exploration/define__human_review",
+  "domain": "reinforcement_learning",
+  "topic": "exploration",
+  "practice": "define",
+  "setting": "human_review",
+  "target": "define exploration in human review",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

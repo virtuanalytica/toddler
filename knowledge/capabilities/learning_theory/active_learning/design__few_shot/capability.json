@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "learning_theory/active_learning/design__few_shot",
+  "domain": "learning_theory",
+  "topic": "active_learning",
+  "practice": "design",
+  "setting": "few_shot",
+  "target": "design active learning in few shot",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

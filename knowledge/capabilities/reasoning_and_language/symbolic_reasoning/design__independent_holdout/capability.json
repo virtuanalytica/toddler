@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reasoning_and_language/symbolic_reasoning/design__independent_holdout",
+  "domain": "reasoning_and_language",
+  "topic": "symbolic_reasoning",
+  "practice": "design",
+  "setting": "independent_holdout",
+  "target": "design symbolic reasoning in independent holdout",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

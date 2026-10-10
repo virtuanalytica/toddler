@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "systems_and_safety/data_governance/compare__task_sequence",
+  "domain": "systems_and_safety",
+  "topic": "data_governance",
+  "practice": "compare",
+  "setting": "task_sequence",
+  "target": "compare data governance in task sequence",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

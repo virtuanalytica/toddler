@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "reinforcement_learning/mdps/reproduce__compute_budget",
+  "domain": "reinforcement_learning",
+  "topic": "mdps",
+  "practice": "reproduce",
+  "setting": "compute_budget",
+  "target": "reproduce mdps in compute budget",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

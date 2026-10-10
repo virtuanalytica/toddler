@@ -1,0 +1,17 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "systems_and_safety/deployment_gates/define__distribution_shift",
+  "domain": "systems_and_safety",
+  "topic": "deployment_gates",
+  "practice": "define",
+  "setting": "distribution_shift",
+  "target": "define deployment gates in distribution shift",
+  "status": "scaffold",
+  "evidence": {
+    "primary_sources": [],
+    "learning_material": [],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}

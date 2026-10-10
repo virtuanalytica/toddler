@@ -1,0 +1,21 @@
+{
+  "schema": "toddler-capability-slot/v1",
+  "id": "continual_learning/experience_replay/implement__simulated_task",
+  "domain": "continual_learning",
+  "topic": "experience_replay",
+  "practice": "implement",
+  "setting": "simulated_task",
+  "target": "implement experience replay in simulated task",
+  "status": "lesson_draft",
+  "evidence": {
+    "primary_sources": [
+      "https://proceedings.neurips.cc/paper_files/paper/2019/hash/fa7cdfad1a5aaf8370ebeda47a1ff1c3-Abstract.html"
+    ],
+    "learning_material": [
+      "lesson.md"
+    ],
+    "practical_artifacts": [],
+    "assessment": []
+  },
+  "mastery_claim": false
+}
