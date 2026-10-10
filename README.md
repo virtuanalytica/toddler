@@ -103,6 +103,9 @@ comparison. Oracle imitation solved `unlockpickup` on 45/50 public development
 maps for one child. The first [five-child private ancestor trial](docs/learn/G4_ORACLE_RESULT_20261009.md)
 improved the aggregate score without passing both pre-registered tests; G4 is
 not yet a surviving generation.
+The [plasticity research design](docs/learn/TODDLER_PLASTICITY_RESEARCH_20261010.md)
+defines the next replay, modular expert and adaptation experiments while G4
+awaits independent confirmation.
 The Qwen3.8 1Cat
 TP2 comparison records the 1.5.0 repetition failures, the 1.5.1 quality
 improvement, throughput and GPU-board energy. Haiku 5.5 closed the separate
