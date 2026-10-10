@@ -1,0 +1,467 @@
+{
+  "chunks": [
+    {
+      "content": "# Synaptische plasticiteit: mechanisme en grenzen\n\n**Bron:** [Kirkpatrick e.a., PNAS 2017](https://doi.org/10.1073/PNAS.1611835114) gebruiken synaptische consolidatie als inspiratie voor EWC. Lees ook [Dohare e.a., Nature 2024](https://www.nature.com/articles/s41586-024-07711-7) voor het aparte probleem van verlies aan leervermogen in artificiële netwerken.\n\n**Theorieopdracht:** leg uit wat een synaps, gewichtswijziging, consolidatie en metaplasticiteit in deze context betekenen. Leid in een tweewichtsmodel af waarom een grote update op een belangrijk oud gewicht meer terugval kan veroorzaken dan dezelfde update op een vrij gewicht. Benoem minstens drie verschillen tussen biologische synapsen en een Toddler-MLP met backpropagation.\n\n**Praktijk:** maak een figuur met twee taakverliezen en de route van gradient descent vanaf hetzelfde startpunt, eenmaal met en eenmaal zonder gewichtsbeperking. Bewaar code, seed en figuur. **Toets:** een reviewer geeft een nieuw verlieslandschap en vraagt vooraf te voorspellen welke oude taak verslechtert. Correcte richting, aannames en beperkingen moeten in het antwoord staan.\n",
+      "source_id": "lesson:neuroscience/synaptic_plasticity/explain__worked_example",
+      "file_path": "knowledge/capabilities/neuroscience/synaptic_plasticity/explain__worked_example/lesson.md"
+    },
+    {
+      "content": "# Hippocampale replay: inspiratie, geen blauwdruk\n\n**Bronnen:** [McClelland e.a., complementary learning systems](https://sites.socsci.uci.edu/~lpearl/courses/readings/McClellandEtAl1995.pdf) en [Schapiro e.a., menselijke replay en zwak geleerde items](https://www.nature.com/articles/s41467-018-06213-1).\n\n**Theorieopdracht:** onderscheid snelle episode-opslag, heractivatie en langzame consolidatie. Schets een toetsbare engineeringhypothese voor Toddler: een kleine buffer met oude en nieuwe trainingsepisodes verlaagt vergeten na een taakwissel. Leg uit waarom de neurostudie dit voor MiniGrid niet bewijst.\n\n**Praktijk:** simuleer twee opeenvolgende classificatietaken met dezelfde netwerkcapaciteit; vergelijk alleen nieuwe data met een vooraf vastgelegde replayverhouding. Log bufferinhoud, dataherkomst en oude/nieuwe accuratesse na iedere fase. **Toets:** herhaal met omgekeerde taakvolgorde en verklaar wanneer replay niet helpt.\n",
+      "source_id": "lesson:neuroscience/hippocampal_replay/reproduce__simulated_task",
+      "file_path": "knowledge/capabilities/neuroscience/hippocampal_replay/reproduce__simulated_task/lesson.md"
+    },
+    {
+      "content": "# Verlies van leervermogen diagnosticeren\n\n**Bron:** [Dohare e.a., Nature 2024](https://www.nature.com/articles/s41586-024-07711-7). De studie onderscheidt plasticiteitsverlies van catastrofaal vergeten en rapporteert dormant units en andere representatiesignalen.\n\n**Theorieopdracht:** formuleer een plasticiteitsmaat uit een vaste nieuwe-taak-leercurve onder gelijk data- en compute-budget. Verklaar waarom nul gradient, lage effectieve rang of veel slapende units aanwijzingen zijn, maar afzonderlijk geen oorzakelijk bewijs.\n\n**Praktijk:** meet per laag activaties, gradientnormen, effectieve rang en nieuwe-taak-AUC na opeenvolgende trainingsfasen. Vergelijk met een vers geïnitialiseerde controle van dezelfde grootte. **Toets:** verklaar een geval waarin de oude taakscore gelijk blijft terwijl de nieuwe-taak-AUC daalt; reproduceer over meerdere initialisaties.\n",
+      "source_id": "lesson:neural_networks/plasticity_diagnostics/diagnose__task_sequence",
+      "file_path": "knowledge/capabilities/neural_networks/plasticity_diagnostics/diagnose__task_sequence/lesson.md"
+    },
+    {
+      "content": "# Vergeten meten op een taakvolgorde\n\n**Bronnen:** [CLEAR, NeurIPS 2019](https://proceedings.neurips.cc/paper_files/paper/2019/hash/fa7cdfad1a5aaf8370ebeda47a1ff1c3-Abstract.html) en [Continual World, NeurIPS 2021](https://papers.nips.cc/paper_files/paper/2021/hash/ef8446f35513a8d6aa2308357a268a7e-Abstract.html).\n\n**Theorieopdracht:** definieer prestatie na taak (j) op eerder geleerde taak (i), en bereken maximale terugval per taak. Scheid vergeten van plasticiteitsverlies: een netwerk kan oude taken behouden maar niets nieuws meer leren, of snel leren en tegelijk veel vergeten.\n\n**Praktijk:** train A→B→C→A op publieke MiniGrid-varianten met vaste interactiebudgetten. Meet alle taken na iedere fase, ook wanneer ze niet meer getraind worden. Leg trainings- en evaluatieseeds apart vast. **Toets:** diagnoseer een onbekende leercurvematrix en kies welke extra meting de twee failure modes uit elkaar haalt.\n",
+      "source_id": "lesson:continual_learning/catastrophic_forgetting/diagnose__task_sequence",
+      "file_path": "knowledge/capabilities/continual_learning/catastrophic_forgetting/diagnose__task_sequence/lesson.md"
+    },
+    {
+      "content": "# Experience replay met aantoonbare herkomst\n\n**Bron:** [Rolnick e.a., CLEAR](https://proceedings.neurips.cc/paper_files/paper/2019/hash/fa7cdfad1a5aaf8370ebeda47a1ff1c3-Abstract.html). CLEAR combineert oude ervaringen met nieuw gedrag en beperkt vergeten in de onderzochte RL-omgeving; het effect is nog niet op Toddler aangetoond.\n\n**Theorieopdracht:** verklaar hoe de verdeling van oude en nieuwe trajecten de gradient beïnvloedt. Beschrijf risico's van niet-stationaire policy-data en waarom een loutere replaybuffer geen eerlijke private toets is.\n\n**Praktijk:** implementeer op een kandidaatkopie een begrensde buffer met taak, seedband, modelhash, actie, beloning en tijd. Sluit alle private/promotieseeds expliciet uit. Vergelijk onder identiek trainingsbudget `new_only`, `replay_only` en `mixed`. **Toets:** lever de bufferhash, runscripts, oude-taak-retentie, nieuwe-taak-AUC en een ablatietabel; herstel de ouder zonder geheugenmigratie.\n",
+      "source_id": "lesson:continual_learning/experience_replay/implement__simulated_task",
+      "file_path": "knowledge/capabilities/continual_learning/experience_replay/implement__simulated_task/lesson.md"
+    },
+    {
+      "content": "# EWC afleiden en tegen alternatieven toetsen\n\n**Bron:** [Kirkpatrick e.a., Overcoming catastrophic forgetting](https://doi.org/10.1073/PNAS.1611835114).\n\n**Theorieopdracht:** leid vanuit een lokale kwadratische benadering de penalty \\(\\lambda/2\\sum_i F_i(\\theta_i-\\theta_i^*)^2\\) af. Verklaar de rol en beperkingen van een diagonale Fisher-benadering. Laat in een tweeparameter-tegenvoorbeeld zien dat te grote \\(\\lambda\\) plasticiteit blokkeert.\n\n**Praktijk:** implementeer EWC alleen in een onderzoeksbranch op een klein tweetaaknetwerk. Vergelijk met gewone fine-tuning, replay en een bevroren nieuwe expert met gelijke parameter- en computegrenzen. **Toets:** lever een sweep van \\(\\lambda\\), vergeten én nieuwe-taak-AUC; kies de winnaar met vooraf vastgelegde regel.\n",
+      "source_id": "lesson:continual_learning/ewc/derive__worked_example",
+      "file_path": "knowledge/capabilities/continual_learning/ewc/derive__worked_example/lesson.md"
+    },
+    {
+      "content": "# Nieuwe experts zonder geërfde routes te overschrijven\n\n**Bron:** [Rusu e.a., Progressive Neural Networks](https://arxiv.org/abs/1606.04671). Het principe van bevroren oude kolommen is relevant; de huidige Toddler-route gebruikt complete taakexperts en nog geen geleerde laterale verbindingen.\n\n**Theorieopdracht:** vergelijk parameter- en inferentiegroei voor één gedeelde trunk, één nieuwe adapter en één compleet nieuw expertmodel na (n) taken. Verklaar wanneer modulaire bescherming ten koste van transfer gaat.\n\n**Praktijk:** maak een kandidaat voor een nieuwe taak met (a) trunk-update, (b) bevroren ouder + adapter, (c) bevroren ouder + complete expert. Meet kwaliteit, oude-taak-retentie, CPU-latency, RAM en GPU-board Wh volgens dezelfde definitie. **Toets:** verantwoord de gekozen architectuur onder een vooraf opgegeven budget; behoud de oude route als fallback.\n",
+      "source_id": "lesson:continual_learning/progressive_networks/implement__compute_budget",
+      "file_path": "knowledge/capabilities/continual_learning/progressive_networks/implement__compute_budget/lesson.md"
+    },
+    {
+      "content": "# Selectieve unitvervanging op een kandidaatkopie\n\n**Bron:** [Dohare e.a., Loss of plasticity in deep continual learning](https://www.nature.com/articles/s41586-024-07711-7). Hun continual-backprop-methode herinitialiseert een klein deel weinig gebruikte eenheden; hun instellingen zijn geen Toddler-hyperparameters.\n\n**Theorieopdracht:** beschrijf selectie op gebruik, leeftijd van een unit en de gevolgen van het resetten van inkomende én uitgaande gewichten. Vergelijk met L2 en shrink-and-perturb.\n\n**Praktijk:** maak drie identieke kandidaattrainingen: geen reset, willekeurige reset en gebruiksgebonden reset. Bevries de officiële ouder. Sweep alleen op openbare ontwikkeling; log hoeveel units zijn vervangen en meet nieuwe-taak-AUC, terugval en variatie tussen zaden. **Toets:** een onafhankelijke set moet de gekozen variant bevestigen; bij regressie blijft de ouder actief.\n",
+      "source_id": "lesson:continual_learning/continual_backprop/implement__simulated_task",
+      "file_path": "knowledge/capabilities/continual_learning/continual_backprop/implement__simulated_task/lesson.md"
+    },
+    {
+      "content": "# Een eerlijk, gepaard promotie-experiment\n\n**Bron:** [Agarwal e.a., Deep RL at the Edge of the Statistical Precipice](https://arxiv.org/abs/2108.13264). Toddler heeft daarnaast het eigen [G4-paired protocol](../../../../../docs/learn/G4_MATCHED_PRIVATE_GATE_20261010.md).\n\n**Theorieopdracht:** motiveer pairing op identieke omgevingszaden en oudergebonden kinderen. Reken uit waarom één mooie gemiddelde score geen onzekerheid of retentie toont. Bespreek meerdere vergelijkingen, stopregels en het gevaar van herhaalde private peeks.\n\n**Praktijk:** preregistreer taakvolgorde, budget, metrics, regressiegrens, sterkste voorouder en beslissing vóórdat confirmatieseeds bestaan. Test de evaluator op synthetische winst, nulwinst, regressie en corruptie. **Toets:** lever protocolhash en twee onafhankelijke proefrapporten; hergebruik nooit verborgen resultaten voor architectuurkeuze.\n",
+      "source_id": "lesson:evaluation_and_causality/paired_trials/design__independent_holdout",
+      "file_path": "knowledge/capabilities/evaluation_and_causality/paired_trials/design__independent_holdout/lesson.md"
+    },
+    {
+      "content": "# Adaptieve policy veilig inzetten\n\n**Bronnen:** [Toddler G3 runtime-metingen](../../../../../docs/learn/G3_RUNTIME_BENCHMARK_20261009.md), [G4 CLM-schaduwproef](../../../../../docs/G4_CLM_SHADOW.md) en [Laroche e.a., Safe Policy Improvement with Baseline Bootstrapping](https://proceedings.mlr.press/v97/laroche19a.html). De papergarantie heeft aannames over batch-RL en geldt niet automatisch voor Toddler of fysieke actuatie.\n\n**Theorieopdracht:** onderscheid modelinferentie, endpoint-latency, fysieke actuatordeadline en worst-case foutpad. Leg vast welke state bij een update atomair moet wisselen en hoe rollback lineage-verwijzingen bewaart.\n\n**Praktijk:** voer op een niet-actieve kandidaat een latency- en foutinjectieproef uit: timeout, corrupte gewichten, ontbrekende expert, hoge onzekerheid en terugval op de bewezen ouder. Meet p50/p95/p99, geheugen en energie per beslissing. **Toets:** een reviewer kan de checkpointhash verifiëren en bij elke fout de oude policy herstellen zonder private toetsdata te laden.\n",
+      "source_id": "lesson:systems_and_safety/deployment_gates/validate__real_time",
+      "file_path": "knowledge/capabilities/systems_and_safety/deployment_gates/validate__real_time/lesson.md"
+    }
+  ],
+  "entities": [
+    {
+      "entity_name": "CAP:neuroscience/synaptic_plasticity/explain__worked_example",
+      "entity_type": "capability_lesson",
+      "description": "neuroscience/synaptic_plasticity/explain__worked_example lesson draft; mastery unverified",
+      "source_id": "lesson:neuroscience/synaptic_plasticity/explain__worked_example",
+      "file_path": "knowledge/capabilities/neuroscience/synaptic_plasticity/explain__worked_example/lesson.md"
+    },
+    {
+      "entity_name": "REPO:https://github.com/mne-tools/mne-python",
+      "entity_type": "repository_candidate",
+      "description": "https://github.com/mne-tools/mne-python",
+      "source_id": "lesson:neuroscience/synaptic_plasticity/explain__worked_example"
+    },
+    {
+      "entity_name": "CODE:file:docs/design/brain.md",
+      "entity_type": "local_codegraph_node",
+      "description": "file:docs/design/brain.md",
+      "source_id": "lesson:neuroscience/synaptic_plasticity/explain__worked_example"
+    },
+    {
+      "entity_name": "SOURCE:https://doi.org/10.1073/PNAS.1611835114",
+      "entity_type": "primary_source",
+      "description": "https://doi.org/10.1073/PNAS.1611835114",
+      "source_id": "lesson:neuroscience/synaptic_plasticity/explain__worked_example"
+    },
+    {
+      "entity_name": "SOURCE:https://www.nature.com/articles/s41586-024-07711-7",
+      "entity_type": "primary_source",
+      "description": "https://www.nature.com/articles/s41586-024-07711-7",
+      "source_id": "lesson:neuroscience/synaptic_plasticity/explain__worked_example"
+    },
+    {
+      "entity_name": "CAP:neuroscience/hippocampal_replay/reproduce__simulated_task",
+      "entity_type": "capability_lesson",
+      "description": "neuroscience/hippocampal_replay/reproduce__simulated_task lesson draft; mastery unverified",
+      "source_id": "lesson:neuroscience/hippocampal_replay/reproduce__simulated_task",
+      "file_path": "knowledge/capabilities/neuroscience/hippocampal_replay/reproduce__simulated_task/lesson.md"
+    },
+    {
+      "entity_name": "SOURCE:https://sites.socsci.uci.edu/~lpearl/courses/readings/McClellandEtAl1995.pdf",
+      "entity_type": "primary_source",
+      "description": "https://sites.socsci.uci.edu/~lpearl/courses/readings/McClellandEtAl1995.pdf",
+      "source_id": "lesson:neuroscience/hippocampal_replay/reproduce__simulated_task"
+    },
+    {
+      "entity_name": "SOURCE:https://www.nature.com/articles/s41467-018-06213-1",
+      "entity_type": "primary_source",
+      "description": "https://www.nature.com/articles/s41467-018-06213-1",
+      "source_id": "lesson:neuroscience/hippocampal_replay/reproduce__simulated_task"
+    },
+    {
+      "entity_name": "CAP:neural_networks/plasticity_diagnostics/diagnose__task_sequence",
+      "entity_type": "capability_lesson",
+      "description": "neural_networks/plasticity_diagnostics/diagnose__task_sequence lesson draft; mastery unverified",
+      "source_id": "lesson:neural_networks/plasticity_diagnostics/diagnose__task_sequence",
+      "file_path": "knowledge/capabilities/neural_networks/plasticity_diagnostics/diagnose__task_sequence/lesson.md"
+    },
+    {
+      "entity_name": "REPO:https://github.com/pytorch/pytorch",
+      "entity_type": "repository_candidate",
+      "description": "https://github.com/pytorch/pytorch",
+      "source_id": "lesson:neural_networks/plasticity_diagnostics/diagnose__task_sequence"
+    },
+    {
+      "entity_name": "CODE:file:toddler/learn/multitask.py",
+      "entity_type": "local_codegraph_node",
+      "description": "file:toddler/learn/multitask.py",
+      "source_id": "lesson:neural_networks/plasticity_diagnostics/diagnose__task_sequence"
+    },
+    {
+      "entity_name": "CAP:continual_learning/catastrophic_forgetting/diagnose__task_sequence",
+      "entity_type": "capability_lesson",
+      "description": "continual_learning/catastrophic_forgetting/diagnose__task_sequence lesson draft; mastery unverified",
+      "source_id": "lesson:continual_learning/catastrophic_forgetting/diagnose__task_sequence",
+      "file_path": "knowledge/capabilities/continual_learning/catastrophic_forgetting/diagnose__task_sequence/lesson.md"
+    },
+    {
+      "entity_name": "REPO:https://github.com/ContinualAI/avalanche",
+      "entity_type": "repository_candidate",
+      "description": "https://github.com/ContinualAI/avalanche",
+      "source_id": "lesson:continual_learning/catastrophic_forgetting/diagnose__task_sequence"
+    },
+    {
+      "entity_name": "SOURCE:https://proceedings.neurips.cc/paper_files/paper/2019/hash/fa7cdfad1a5aaf8370ebeda47a1ff1c3-Abstract.html",
+      "entity_type": "primary_source",
+      "description": "https://proceedings.neurips.cc/paper_files/paper/2019/hash/fa7cdfad1a5aaf8370ebeda47a1ff1c3-Abstract.html",
+      "source_id": "lesson:continual_learning/catastrophic_forgetting/diagnose__task_sequence"
+    },
+    {
+      "entity_name": "SOURCE:https://papers.nips.cc/paper_files/paper/2021/hash/ef8446f35513a8d6aa2308357a268a7e-Abstract.html",
+      "entity_type": "primary_source",
+      "description": "https://papers.nips.cc/paper_files/paper/2021/hash/ef8446f35513a8d6aa2308357a268a7e-Abstract.html",
+      "source_id": "lesson:continual_learning/catastrophic_forgetting/diagnose__task_sequence"
+    },
+    {
+      "entity_name": "CAP:continual_learning/experience_replay/implement__simulated_task",
+      "entity_type": "capability_lesson",
+      "description": "continual_learning/experience_replay/implement__simulated_task lesson draft; mastery unverified",
+      "source_id": "lesson:continual_learning/experience_replay/implement__simulated_task",
+      "file_path": "knowledge/capabilities/continual_learning/experience_replay/implement__simulated_task/lesson.md"
+    },
+    {
+      "entity_name": "CAP:continual_learning/ewc/derive__worked_example",
+      "entity_type": "capability_lesson",
+      "description": "continual_learning/ewc/derive__worked_example lesson draft; mastery unverified",
+      "source_id": "lesson:continual_learning/ewc/derive__worked_example",
+      "file_path": "knowledge/capabilities/continual_learning/ewc/derive__worked_example/lesson.md"
+    },
+    {
+      "entity_name": "CAP:continual_learning/progressive_networks/implement__compute_budget",
+      "entity_type": "capability_lesson",
+      "description": "continual_learning/progressive_networks/implement__compute_budget lesson draft; mastery unverified",
+      "source_id": "lesson:continual_learning/progressive_networks/implement__compute_budget",
+      "file_path": "knowledge/capabilities/continual_learning/progressive_networks/implement__compute_budget/lesson.md"
+    },
+    {
+      "entity_name": "SOURCE:https://arxiv.org/abs/1606.04671",
+      "entity_type": "primary_source",
+      "description": "https://arxiv.org/abs/1606.04671",
+      "source_id": "lesson:continual_learning/progressive_networks/implement__compute_budget"
+    },
+    {
+      "entity_name": "CAP:continual_learning/continual_backprop/implement__simulated_task",
+      "entity_type": "capability_lesson",
+      "description": "continual_learning/continual_backprop/implement__simulated_task lesson draft; mastery unverified",
+      "source_id": "lesson:continual_learning/continual_backprop/implement__simulated_task",
+      "file_path": "knowledge/capabilities/continual_learning/continual_backprop/implement__simulated_task/lesson.md"
+    },
+    {
+      "entity_name": "CAP:evaluation_and_causality/paired_trials/design__independent_holdout",
+      "entity_type": "capability_lesson",
+      "description": "evaluation_and_causality/paired_trials/design__independent_holdout lesson draft; mastery unverified",
+      "source_id": "lesson:evaluation_and_causality/paired_trials/design__independent_holdout",
+      "file_path": "knowledge/capabilities/evaluation_and_causality/paired_trials/design__independent_holdout/lesson.md"
+    },
+    {
+      "entity_name": "REPO:https://github.com/google-research/rliable",
+      "entity_type": "repository_candidate",
+      "description": "https://github.com/google-research/rliable",
+      "source_id": "lesson:evaluation_and_causality/paired_trials/design__independent_holdout"
+    },
+    {
+      "entity_name": "CODE:file:toddler/learn/ancestor_gate.py",
+      "entity_type": "local_codegraph_node",
+      "description": "file:toddler/learn/ancestor_gate.py",
+      "source_id": "lesson:evaluation_and_causality/paired_trials/design__independent_holdout"
+    },
+    {
+      "entity_name": "SOURCE:https://arxiv.org/abs/2108.13264",
+      "entity_type": "primary_source",
+      "description": "https://arxiv.org/abs/2108.13264",
+      "source_id": "lesson:evaluation_and_causality/paired_trials/design__independent_holdout"
+    },
+    {
+      "entity_name": "CAP:systems_and_safety/deployment_gates/validate__real_time",
+      "entity_type": "capability_lesson",
+      "description": "systems_and_safety/deployment_gates/validate__real_time lesson draft; mastery unverified",
+      "source_id": "lesson:systems_and_safety/deployment_gates/validate__real_time",
+      "file_path": "knowledge/capabilities/systems_and_safety/deployment_gates/validate__real_time/lesson.md"
+    },
+    {
+      "entity_name": "REPO:https://github.com/virtuanalytica/virtualv_llm",
+      "entity_type": "repository_candidate",
+      "description": "https://github.com/virtuanalytica/virtualv_llm",
+      "source_id": "lesson:systems_and_safety/deployment_gates/validate__real_time"
+    },
+    {
+      "entity_name": "CODE:file:toddler/stop.py",
+      "entity_type": "local_codegraph_node",
+      "description": "file:toddler/stop.py",
+      "source_id": "lesson:systems_and_safety/deployment_gates/validate__real_time"
+    },
+    {
+      "entity_name": "SOURCE:https://proceedings.mlr.press/v97/laroche19a.html",
+      "entity_type": "primary_source",
+      "description": "https://proceedings.mlr.press/v97/laroche19a.html",
+      "source_id": "lesson:systems_and_safety/deployment_gates/validate__real_time"
+    }
+  ],
+  "relationships": [
+    {
+      "src_id": "CAP:neuroscience/synaptic_plasticity/explain__worked_example",
+      "tgt_id": "REPO:https://github.com/mne-tools/mne-python",
+      "description": "domain-level repository discovery candidate",
+      "keywords": "repository candidate",
+      "source_id": "lesson:neuroscience/synaptic_plasticity/explain__worked_example"
+    },
+    {
+      "src_id": "CAP:neuroscience/synaptic_plasticity/explain__worked_example",
+      "tgt_id": "CODE:file:docs/design/brain.md",
+      "description": "verified local codegraph context, not implementation proof",
+      "keywords": "codegraph context",
+      "source_id": "lesson:neuroscience/synaptic_plasticity/explain__worked_example"
+    },
+    {
+      "src_id": "CAP:neuroscience/synaptic_plasticity/explain__worked_example",
+      "tgt_id": "SOURCE:https://doi.org/10.1073/PNAS.1611835114",
+      "description": "cited in the draft lesson",
+      "keywords": "source citation",
+      "source_id": "lesson:neuroscience/synaptic_plasticity/explain__worked_example"
+    },
+    {
+      "src_id": "CAP:neuroscience/synaptic_plasticity/explain__worked_example",
+      "tgt_id": "SOURCE:https://www.nature.com/articles/s41586-024-07711-7",
+      "description": "cited in the draft lesson",
+      "keywords": "source citation",
+      "source_id": "lesson:neuroscience/synaptic_plasticity/explain__worked_example"
+    },
+    {
+      "src_id": "CAP:neuroscience/hippocampal_replay/reproduce__simulated_task",
+      "tgt_id": "REPO:https://github.com/mne-tools/mne-python",
+      "description": "domain-level repository discovery candidate",
+      "keywords": "repository candidate",
+      "source_id": "lesson:neuroscience/hippocampal_replay/reproduce__simulated_task"
+    },
+    {
+      "src_id": "CAP:neuroscience/hippocampal_replay/reproduce__simulated_task",
+      "tgt_id": "CODE:file:docs/design/brain.md",
+      "description": "verified local codegraph context, not implementation proof",
+      "keywords": "codegraph context",
+      "source_id": "lesson:neuroscience/hippocampal_replay/reproduce__simulated_task"
+    },
+    {
+      "src_id": "CAP:neuroscience/hippocampal_replay/reproduce__simulated_task",
+      "tgt_id": "SOURCE:https://sites.socsci.uci.edu/~lpearl/courses/readings/McClellandEtAl1995.pdf",
+      "description": "cited in the draft lesson",
+      "keywords": "source citation",
+      "source_id": "lesson:neuroscience/hippocampal_replay/reproduce__simulated_task"
+    },
+    {
+      "src_id": "CAP:neuroscience/hippocampal_replay/reproduce__simulated_task",
+      "tgt_id": "SOURCE:https://www.nature.com/articles/s41467-018-06213-1",
+      "description": "cited in the draft lesson",
+      "keywords": "source citation",
+      "source_id": "lesson:neuroscience/hippocampal_replay/reproduce__simulated_task"
+    },
+    {
+      "src_id": "CAP:neural_networks/plasticity_diagnostics/diagnose__task_sequence",
+      "tgt_id": "REPO:https://github.com/pytorch/pytorch",
+      "description": "domain-level repository discovery candidate",
+      "keywords": "repository candidate",
+      "source_id": "lesson:neural_networks/plasticity_diagnostics/diagnose__task_sequence"
+    },
+    {
+      "src_id": "CAP:neural_networks/plasticity_diagnostics/diagnose__task_sequence",
+      "tgt_id": "CODE:file:toddler/learn/multitask.py",
+      "description": "verified local codegraph context, not implementation proof",
+      "keywords": "codegraph context",
+      "source_id": "lesson:neural_networks/plasticity_diagnostics/diagnose__task_sequence"
+    },
+    {
+      "src_id": "CAP:neural_networks/plasticity_diagnostics/diagnose__task_sequence",
+      "tgt_id": "SOURCE:https://www.nature.com/articles/s41586-024-07711-7",
+      "description": "cited in the draft lesson",
+      "keywords": "source citation",
+      "source_id": "lesson:neural_networks/plasticity_diagnostics/diagnose__task_sequence"
+    },
+    {
+      "src_id": "CAP:continual_learning/catastrophic_forgetting/diagnose__task_sequence",
+      "tgt_id": "REPO:https://github.com/ContinualAI/avalanche",
+      "description": "domain-level repository discovery candidate",
+      "keywords": "repository candidate",
+      "source_id": "lesson:continual_learning/catastrophic_forgetting/diagnose__task_sequence"
+    },
+    {
+      "src_id": "CAP:continual_learning/catastrophic_forgetting/diagnose__task_sequence",
+      "tgt_id": "CODE:file:toddler/learn/multitask.py",
+      "description": "verified local codegraph context, not implementation proof",
+      "keywords": "codegraph context",
+      "source_id": "lesson:continual_learning/catastrophic_forgetting/diagnose__task_sequence"
+    },
+    {
+      "src_id": "CAP:continual_learning/catastrophic_forgetting/diagnose__task_sequence",
+      "tgt_id": "SOURCE:https://proceedings.neurips.cc/paper_files/paper/2019/hash/fa7cdfad1a5aaf8370ebeda47a1ff1c3-Abstract.html",
+      "description": "cited in the draft lesson",
+      "keywords": "source citation",
+      "source_id": "lesson:continual_learning/catastrophic_forgetting/diagnose__task_sequence"
+    },
+    {
+      "src_id": "CAP:continual_learning/catastrophic_forgetting/diagnose__task_sequence",
+      "tgt_id": "SOURCE:https://papers.nips.cc/paper_files/paper/2021/hash/ef8446f35513a8d6aa2308357a268a7e-Abstract.html",
+      "description": "cited in the draft lesson",
+      "keywords": "source citation",
+      "source_id": "lesson:continual_learning/catastrophic_forgetting/diagnose__task_sequence"
+    },
+    {
+      "src_id": "CAP:continual_learning/experience_replay/implement__simulated_task",
+      "tgt_id": "REPO:https://github.com/ContinualAI/avalanche",
+      "description": "domain-level repository discovery candidate",
+      "keywords": "repository candidate",
+      "source_id": "lesson:continual_learning/experience_replay/implement__simulated_task"
+    },
+    {
+      "src_id": "CAP:continual_learning/experience_replay/implement__simulated_task",
+      "tgt_id": "CODE:file:toddler/learn/multitask.py",
+      "description": "verified local codegraph context, not implementation proof",
+      "keywords": "codegraph context",
+      "source_id": "lesson:continual_learning/experience_replay/implement__simulated_task"
+    },
+    {
+      "src_id": "CAP:continual_learning/experience_replay/implement__simulated_task",
+      "tgt_id": "SOURCE:https://proceedings.neurips.cc/paper_files/paper/2019/hash/fa7cdfad1a5aaf8370ebeda47a1ff1c3-Abstract.html",
+      "description": "cited in the draft lesson",
+      "keywords": "source citation",
+      "source_id": "lesson:continual_learning/experience_replay/implement__simulated_task"
+    },
+    {
+      "src_id": "CAP:continual_learning/ewc/derive__worked_example",
+      "tgt_id": "REPO:https://github.com/ContinualAI/avalanche",
+      "description": "domain-level repository discovery candidate",
+      "keywords": "repository candidate",
+      "source_id": "lesson:continual_learning/ewc/derive__worked_example"
+    },
+    {
+      "src_id": "CAP:continual_learning/ewc/derive__worked_example",
+      "tgt_id": "CODE:file:toddler/learn/multitask.py",
+      "description": "verified local codegraph context, not implementation proof",
+      "keywords": "codegraph context",
+      "source_id": "lesson:continual_learning/ewc/derive__worked_example"
+    },
+    {
+      "src_id": "CAP:continual_learning/ewc/derive__worked_example",
+      "tgt_id": "SOURCE:https://doi.org/10.1073/PNAS.1611835114",
+      "description": "cited in the draft lesson",
+      "keywords": "source citation",
+      "source_id": "lesson:continual_learning/ewc/derive__worked_example"
+    },
+    {
+      "src_id": "CAP:continual_learning/progressive_networks/implement__compute_budget",
+      "tgt_id": "REPO:https://github.com/ContinualAI/avalanche",
+      "description": "domain-level repository discovery candidate",
+      "keywords": "repository candidate",
+      "source_id": "lesson:continual_learning/progressive_networks/implement__compute_budget"
+    },
+    {
+      "src_id": "CAP:continual_learning/progressive_networks/implement__compute_budget",
+      "tgt_id": "CODE:file:toddler/learn/multitask.py",
+      "description": "verified local codegraph context, not implementation proof",
+      "keywords": "codegraph context",
+      "source_id": "lesson:continual_learning/progressive_networks/implement__compute_budget"
+    },
+    {
+      "src_id": "CAP:continual_learning/progressive_networks/implement__compute_budget",
+      "tgt_id": "SOURCE:https://arxiv.org/abs/1606.04671",
+      "description": "cited in the draft lesson",
+      "keywords": "source citation",
+      "source_id": "lesson:continual_learning/progressive_networks/implement__compute_budget"
+    },
+    {
+      "src_id": "CAP:continual_learning/continual_backprop/implement__simulated_task",
+      "tgt_id": "REPO:https://github.com/ContinualAI/avalanche",
+      "description": "domain-level repository discovery candidate",
+      "keywords": "repository candidate",
+      "source_id": "lesson:continual_learning/continual_backprop/implement__simulated_task"
+    },
+    {
+      "src_id": "CAP:continual_learning/continual_backprop/implement__simulated_task",
+      "tgt_id": "CODE:file:toddler/learn/multitask.py",
+      "description": "verified local codegraph context, not implementation proof",
+      "keywords": "codegraph context",
+      "source_id": "lesson:continual_learning/continual_backprop/implement__simulated_task"
+    },
+    {
+      "src_id": "CAP:continual_learning/continual_backprop/implement__simulated_task",
+      "tgt_id": "SOURCE:https://www.nature.com/articles/s41586-024-07711-7",
+      "description": "cited in the draft lesson",
+      "keywords": "source citation",
+      "source_id": "lesson:continual_learning/continual_backprop/implement__simulated_task"
+    },
+    {
+      "src_id": "CAP:evaluation_and_causality/paired_trials/design__independent_holdout",
+      "tgt_id": "REPO:https://github.com/google-research/rliable",
+      "description": "domain-level repository discovery candidate",
+      "keywords": "repository candidate",
+      "source_id": "lesson:evaluation_and_causality/paired_trials/design__independent_holdout"
+    },
+    {
+      "src_id": "CAP:evaluation_and_causality/paired_trials/design__independent_holdout",
+      "tgt_id": "CODE:file:toddler/learn/ancestor_gate.py",
+      "description": "verified local codegraph context, not implementation proof",
+      "keywords": "codegraph context",
+      "source_id": "lesson:evaluation_and_causality/paired_trials/design__independent_holdout"
+    },
+    {
+      "src_id": "CAP:evaluation_and_causality/paired_trials/design__independent_holdout",
+      "tgt_id": "SOURCE:https://arxiv.org/abs/2108.13264",
+      "description": "cited in the draft lesson",
+      "keywords": "source citation",
+      "source_id": "lesson:evaluation_and_causality/paired_trials/design__independent_holdout"
+    },
+    {
+      "src_id": "CAP:systems_and_safety/deployment_gates/validate__real_time",
+      "tgt_id": "REPO:https://github.com/virtuanalytica/virtualv_llm",
+      "description": "domain-level repository discovery candidate",
+      "keywords": "repository candidate",
+      "source_id": "lesson:systems_and_safety/deployment_gates/validate__real_time"
+    },
+    {
+      "src_id": "CAP:systems_and_safety/deployment_gates/validate__real_time",
+      "tgt_id": "CODE:file:toddler/stop.py",
+      "description": "verified local codegraph context, not implementation proof",
+      "keywords": "codegraph context",
+      "source_id": "lesson:systems_and_safety/deployment_gates/validate__real_time"
+    },
+    {
+      "src_id": "CAP:systems_and_safety/deployment_gates/validate__real_time",
+      "tgt_id": "SOURCE:https://proceedings.mlr.press/v97/laroche19a.html",
+      "description": "cited in the draft lesson",
+      "keywords": "source citation",
+      "source_id": "lesson:systems_and_safety/deployment_gates/validate__real_time"
+    }
+  ]
+}

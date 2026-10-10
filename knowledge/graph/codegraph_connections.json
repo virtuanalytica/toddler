@@ -1,0 +1,79 @@
+{
+  "schema": "toddler-capability-codegraph-links/v1",
+  "source_graph_sha256": "5c7a30a21163f5547af24bd8ba61d8ef49e212dd230024c1fb66759b9fba361c",
+  "source_graph_schema": "gitnexus-codebase/v1",
+  "source_graph_nodes": 3510,
+  "source_graph_edges": 7942,
+  "domain_links": {
+    "neuroscience": {
+      "repository": "https://github.com/mne-tools/mne-python",
+      "repository_relation": "domain_discovery_candidate",
+      "local_codegraph_node": "file:docs/design/brain.md",
+      "codegraph_relation": "related_local_context",
+      "source_sha256": "ef4cd510ab8b1029e0543755f1fe3424ba3cd6e89868cb13a622c93127e8ec7a"
+    },
+    "learning_theory": {
+      "repository": "https://github.com/scikit-learn/scikit-learn",
+      "repository_relation": "domain_discovery_candidate",
+      "local_codegraph_node": "file:toddler/learn/multitask.py",
+      "codegraph_relation": "related_local_context",
+      "source_sha256": "b1e752f2c5bb498ca21e48b88df76d4b7b5d2bf4cebfe85b1b3d94c6dbad69ce"
+    },
+    "neural_networks": {
+      "repository": "https://github.com/pytorch/pytorch",
+      "repository_relation": "domain_discovery_candidate",
+      "local_codegraph_node": "file:toddler/learn/multitask.py",
+      "codegraph_relation": "related_local_context",
+      "source_sha256": "b1e752f2c5bb498ca21e48b88df76d4b7b5d2bf4cebfe85b1b3d94c6dbad69ce"
+    },
+    "reinforcement_learning": {
+      "repository": "https://github.com/Farama-Foundation/Minigrid",
+      "repository_relation": "domain_discovery_candidate",
+      "local_codegraph_node": "file:toddler/learn/ppo.py",
+      "codegraph_relation": "related_local_context",
+      "source_sha256": "022d96174ff69557948fc0c7996afe0013afefa13d263ebe34e436ff91bf741b"
+    },
+    "continual_learning": {
+      "repository": "https://github.com/ContinualAI/avalanche",
+      "repository_relation": "domain_discovery_candidate",
+      "local_codegraph_node": "file:toddler/learn/multitask.py",
+      "codegraph_relation": "related_local_context",
+      "source_sha256": "b1e752f2c5bb498ca21e48b88df76d4b7b5d2bf4cebfe85b1b3d94c6dbad69ce"
+    },
+    "memory_systems": {
+      "repository": "https://github.com/HKUDS/LightRAG",
+      "repository_relation": "domain_discovery_candidate",
+      "local_codegraph_node": "file:toddler/knowledge/weave.py",
+      "codegraph_relation": "related_local_context",
+      "source_sha256": "b5fbc5af07dc75096a0eb20635123b1688aadf5c28101a6c692b78d9821dd83e"
+    },
+    "reasoning_and_language": {
+      "repository": "https://github.com/huggingface/transformers",
+      "repository_relation": "domain_discovery_candidate",
+      "local_codegraph_node": "file:toddler/g4_curriculum.py",
+      "codegraph_relation": "related_local_context",
+      "source_sha256": "9682097aa8934d6e1161422a67d28c25688b72f13c383d0c0f0e8321cd86d03c"
+    },
+    "multimodal_agents": {
+      "repository": "https://github.com/Farama-Foundation/Minigrid",
+      "repository_relation": "domain_discovery_candidate",
+      "local_codegraph_node": "file:toddler/learn/tasks.py",
+      "codegraph_relation": "related_local_context",
+      "source_sha256": "4a8efa515fbf72341e55820726a519a2de230030f0a8eca3514d6a0abb7da6b6"
+    },
+    "evaluation_and_causality": {
+      "repository": "https://github.com/google-research/rliable",
+      "repository_relation": "domain_discovery_candidate",
+      "local_codegraph_node": "file:toddler/learn/ancestor_gate.py",
+      "codegraph_relation": "related_local_context",
+      "source_sha256": "a1d552eb6b8f609c26bac846eaa46f72179cc8ef3478c12d3b60d3e20897cc1a"
+    },
+    "systems_and_safety": {
+      "repository": "https://github.com/virtuanalytica/virtualv_llm",
+      "repository_relation": "domain_discovery_candidate",
+      "local_codegraph_node": "file:toddler/stop.py",
+      "codegraph_relation": "related_local_context",
+      "source_sha256": "5141e2bc1c825c5be485e01983cb3ddc4844583da2fcef280ac0126ed1150f22"
+    }
+  }
+}
