@@ -7,6 +7,9 @@ per antwoord en benodigde gelijktijdige VRAM. Hij toont de beste losse
 modelroute, de verwachtingswaarde van een willekeurige route en maximaal tien
 gemengde kandidaten. De uitkomst is een onderzoeksplan, geen nieuwe Toddler,
 geen automatisch serve-commando en geen promotiebewijs.
+Uit de bewaarde scores per openbaar item berekent hij eerst het plafond van
+een perfecte orakelrouter; als dat nauwelijks boven het beste losse model
+ligt, heeft een echte router weinig kans om winst te boeken.
 
 De invoer is een JSON-export met schema `toddler-mom-public-dev/v1`.
 Verplicht zijn een nieuwe openbare ontwikkelsplit, beleid
@@ -21,7 +24,8 @@ wordt geweigerd. GPU-board-Wh is niet het hele systeemverbruik.
 
 Per `models[]`-rij verwacht de export `model`, `weights_sha256`,
 `access: local`, `energy_scope: gpu_board`, `resident_vram_gb` en voor elke
-taak een record met `n`, `item_ids_sha256`, `quality` (0–1), `latency_s`, `decode_tps` en
+taak een record met `n`, `item_ids_sha256`, `item_scores` (één score van 0–1
+per openbaar item), `quality` (het gemiddelde daarvan), `latency_s`, `decode_tps` en
 `gpu_board_wh_per_answer`. De hele export draagt `tasks`, optioneel
 `task_weights`, `promotion_eligible: false` en
 `training_overlap_check: passed`. Deze metadata zijn een controleerbare

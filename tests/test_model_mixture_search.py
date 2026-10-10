@@ -8,13 +8,18 @@ from toddler.model_mixture_search import search
 
 
 def report():
-    def measured(a, b):
+    def measured(a, b, reverse=False):
+        def scores(quality):
+            passed = [1.0] * round(quality * 40)
+            values = passed + [0.0] * (40 - len(passed))
+            return list(reversed(values)) if reverse else values
+
         return {"code": {"quality": a, "latency_s": 2, "gpu_board_wh_per_answer": .01,
                          "item_ids_sha256": "1" * 64,
-                         "decode_tps": 40, "n": 40},
+                         "item_scores": scores(a), "decode_tps": 40, "n": 40},
                 "reasoning": {"quality": b, "latency_s": 2, "gpu_board_wh_per_answer": .01,
                               "item_ids_sha256": "2" * 64,
-                              "decode_tps": 40, "n": 40}}
+                              "item_scores": scores(b), "decode_tps": 40, "n": 40}}
 
     return {"schema": "toddler-mom-public-dev/v1", "split": "public_development",
             "benchmark_policy": "anti_contamination_public_development",
@@ -28,7 +33,7 @@ def report():
                  "tasks": measured(.9, .5)},
                 {"model": "reasoner", "weights_sha256": "e" * 64, "access": "local",
                  "energy_scope": "gpu_board", "resident_vram_gb": 10,
-                 "tasks": measured(.5, .9)},
+                 "tasks": measured(.5, .9, reverse=True)},
             ]}
 
 
@@ -36,6 +41,8 @@ def test_search_finds_complementary_models_and_reports_baselines():
     result = search(report(), vram_budget_gb=20)  # default cap 3; only 2 measured
     assert result["status"] == "research_candidate_only"
     assert result["best_single"]["quality"] == .7
+    assert result["oracle_router_ceiling"] == 1.0
+    assert result["oracle_gain_over_best_single"] == .3
     assert result["random_router_expected_quality"] == .7
     assert result["random_router_expected"]["gpu_board_wh_per_answer"] == .01
     assert result["lowest_energy_at_least_best_single_quality"]["quality"] >= .7

@@ -74,6 +74,11 @@ def validate(report: dict) -> tuple[list[str], list[dict], dict[str, float]]:
             if task in common_items and identity != common_items[task]:
                 raise ValueError(f"{name}/{task} uses different prompts than another model")
             common_items[task] = identity
+            item_scores = item.get("item_scores")
+            if (not isinstance(item_scores, list) or len(item_scores) != item["n"]
+                    or any(not isinstance(value, (int, float)) or not math.isfinite(value)
+                           or not 0 <= value <= 1 for value in item_scores)):
+                raise ValueError(f"{name}/{task} needs one finite public item score per prompt")
             for field in ("quality", "latency_s", "gpu_board_wh_per_answer", "decode_tps"):
                 value = item.get(field)
                 if not isinstance(value, (int, float)) or not math.isfinite(value):
@@ -81,6 +86,8 @@ def validate(report: dict) -> tuple[list[str], list[dict], dict[str, float]]:
             if (not 0 <= item["quality"] <= 1 or item["latency_s"] <= 0
                     or item["gpu_board_wh_per_answer"] < 0 or item["decode_tps"] <= 0):
                 raise ValueError(f"{name}/{task} has invalid score, latency, GPU-board energy or decode t/s")
+            if abs(sum(item_scores) / item["n"] - item["quality"]) > 1e-6:
+                raise ValueError(f"{name}/{task} quality differs from its per-item scores")
     return tasks, models, weights
 
 
@@ -130,6 +137,12 @@ def search(report: dict, *, max_models: int = 3, vram_budget_gb: float = 80,
     random_quality = sum(row["quality"] for row in solos) / len(solos)
     random_latency = sum(row["mean_latency_s"] for row in solos) / len(solos)
     random_energy = sum(row["gpu_board_wh_per_answer"] for row in solos) / len(solos)
+    oracle = 0.0
+    for task in tasks:
+        n = rows[names[0]]["tasks"][task]["n"]
+        oracle += weights[task] * sum(
+            max(rows[name]["tasks"][task]["item_scores"][index] for name in names)
+            for index in range(n)) / n
     top: list[dict] = []
     feasible = 0
     lowest_energy_above_solo = None
@@ -162,6 +175,9 @@ def search(report: dict, *, max_models: int = 3, vram_budget_gb: float = 80,
             "protocol": report["benchmark_policy"], "models_measured": len(models),
             "routes_considered_upper_bound": count, "feasible_routes": feasible,
             "best_single": best_solo, "random_router_expected_quality": round(random_quality, 6),
+            "oracle_router_ceiling": round(oracle, 6),
+            "oracle_gain_over_best_single": round(oracle - best_solo["quality"], 6)
+            if best_solo else None,
             "random_router_expected": {"quality": round(random_quality, 6),
                                        "mean_latency_s": round(random_latency, 6),
                                        "gpu_board_wh_per_answer": round(random_energy, 6)},
