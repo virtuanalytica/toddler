@@ -98,6 +98,13 @@ haalbare correctie voor de opeenvolgende toetsen vastleggen. Een grotere
 kindcohort kan nodig zijn zodra een strengere p-grens met vijf kinderen
 onhaalbaar wordt. Zonder zo'n toets blijft G3 de officiële overlevende.
 
+Een aparte [publieke self-reward-proef na imitatie](learn/TODDLER_PLASTICITY_RESEARCH_20261010.md)
+vond bij twee van vier kinderen duidelijke winst, bij één vrijwel geen
+verandering en bij één terugval. Dit onderbouwt een volgende openbare
+architectuurvergelijking met een terugval-fallback en daarna een nieuwe,
+afgeschermde bevestiging; het verandert
+de huidige G4-selectie en haar private protocol niet.
+
 ## Quotients
 
 - IQ: task competence on held-out seeds (aggregate IQM).
