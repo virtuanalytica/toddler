@@ -14,7 +14,11 @@
     "learning_material": [
       "lesson.md"
     ],
-    "practical_artifacts": [],
+    "practical_artifacts": [
+      "toddler/learn/experience_replay.py",
+      "tests/test_experience_replay.py",
+      "docs/learn/G4_OWN_REPLAY_20261010.md"
+    ],
     "assessment": []
   },
   "mastery_claim": false
