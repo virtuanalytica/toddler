@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 220" role="img" aria-labelledby="t d">
+  <title id="t">Toddler agent economy concept mark</title>
+  <desc id="d">A connected brain, human oversight ring and evidence spark with Toddler wordmark.</desc>
+  <rect width="760" height="220" rx="24" fill="#102338"/>
+  <circle cx="112" cy="110" r="72" fill="none" stroke="#65d6c4" stroke-width="6"/>
+  <path d="M75 92 Q78 58 112 62 Q147 56 151 92 Q160 123 135 145 Q120 163 94 145 Q68 129 75 92Z" fill="#193f57" stroke="#e3f4ed" stroke-width="4"/>
+  <path d="M112 63 L112 150 M75 99 L110 92 L151 101 M86 134 L112 112 L138 134" fill="none" stroke="#e3f4ed" stroke-width="3"/>
+  <g fill="#f1c875"><circle cx="112" cy="63" r="6"/><circle cx="76" cy="99" r="6"/><circle cx="151" cy="101" r="6"/><circle cx="86" cy="134" r="6"/><circle cx="138" cy="134" r="6"/></g>
+  <path d="M178 47 L190 31 L203 47 L190 63Z" fill="#f1c875"/>
+  <text x="230" y="115" fill="#f7f7f0" font-family="DejaVu Sans, sans-serif" font-size="70" font-weight="700" letter-spacing="-2">Toddler</text>
+  <text x="234" y="154" fill="#65d6c4" font-family="DejaVu Sans, sans-serif" font-size="21" letter-spacing="2">GOVERNED AGENT ECONOMY</text>
+</svg>

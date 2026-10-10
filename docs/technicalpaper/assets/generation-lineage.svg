@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 480" role="img" aria-labelledby="t d">
+  <title id="t">Toddler generation lineage through G4</title>
+  <desc id="d">Gen-0 and Gen-1 early cartpole pilot, G1 multi-task network, G2 inherited network, three failed G3 branches, successful G3 recombination, failed G4 oracle trial and surviving G4 search navigation generation.</desc>
+  <rect width="1120" height="480" rx="20" fill="#eff5f3"/>
+  <g font-family="DejaVu Sans, sans-serif" text-anchor="middle">
+    <text x="560" y="44" fill="#153b53" font-size="28" font-weight="700">Generatielijn en proefstatus</text>
+    <g fill="#153b53"><rect x="35" y="92" width="148" height="94" rx="12"/><rect x="220" y="92" width="148" height="94" rx="12"/><rect x="405" y="92" width="148" height="94" rx="12"/><rect x="590" y="92" width="148" height="94" rx="12"/><rect x="775" y="92" width="148" height="94" rx="12"/></g>
+    <g fill="#fff" font-size="18"><text x="109" y="126">gen-0/1</text><text x="109" y="154">CartPole pilot</text><text x="294" y="126">G1</text><text x="294" y="154">4 taken</text><text x="479" y="126">G2</text><text x="479" y="154">9 taken</text><text x="664" y="126">G3-recombined</text><text x="664" y="154">expert-router</text><text x="849" y="126">G4-search</text><text x="849" y="154">navigatie</text></g>
+    <g fill="#d49a3b" font-size="32"><text x="200" y="147">›</text><text x="385" y="147">›</text><text x="570" y="147">›</text><text x="755" y="147">›</text></g>
+    <rect x="923" y="92" width="162" height="94" rx="12" fill="#d6ebe3" stroke="#32a88f" stroke-width="3"/><text x="1004" y="126" fill="#153b53" font-size="18">G5?</text><text x="1004" y="154" fill="#31596b" font-size="15">nog geen bewijs</text>
+    <g fill="#f6e7de" stroke="#cc7962" stroke-width="2"><rect x="405" y="270" width="200" height="90" rx="12"/><rect x="630" y="270" width="200" height="90" rx="12"/></g>
+    <g fill="#743f33" font-size="18"><text x="505" y="304">G3-sp / trunk / scratch</text><text x="505" y="332">niet overleefd</text><text x="730" y="304">G4-oracle</text><text x="730" y="332">1 van 2 geheime tests</text></g>
+    <text x="560" y="426" fill="#31596b" font-size="16">Alleen geteste navigatievaardigheid erft de status 'survived'; cognitief, software en fysiek blijven aparte poorten.</text>
+  </g>
+  <g stroke="#bba998" stroke-width="3" fill="none"><path d="M479 186 V270 M730 270 V212 H849 V186"/></g>
+</svg>

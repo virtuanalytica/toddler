@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 730" role="img" aria-labelledby="t d">
+  <title id="t">Toddler runtime architecture</title>
+  <desc id="d">Input and owner permissions lead to STOP and safety limits, then task router, frozen policy or language model, verifier, audit and bounded action. Knitweb and knowledge graph are optional support layers.</desc>
+  <rect width="1120" height="730" rx="20" fill="#eff5f3"/>
+  <g font-family="DejaVu Sans, sans-serif" text-anchor="middle">
+    <text x="560" y="48" fill="#153b53" font-size="29" font-weight="700">Toddler: bestuurbare beslis- en bewijsstack</text>
+    <g fill="#153b53"><rect x="375" y="80" width="370" height="72" rx="12"/><rect x="375" y="188" width="370" height="72" rx="12"/><rect x="375" y="296" width="370" height="72" rx="12"/><rect x="375" y="404" width="370" height="72" rx="12"/><rect x="375" y="512" width="370" height="72" rx="12"/></g>
+    <g fill="#fff" font-size="19"><text x="560" y="108">Input + eigenaarsmandaat</text><text x="560" y="134">taak · data · rol · budget</text><text x="560" y="216">STOP, provenance, limieten</text><text x="560" y="242">deterministische veto's</text><text x="560" y="324">Router + utility U(a)</text><text x="560" y="350">taakexpert / MoM / CLM schaduw</text><text x="560" y="432">Uitvoering in sandbox</text><text x="560" y="458">lokaal of Knitweb-peer</text><text x="560" y="540">Onafhankelijke verifier</text><text x="560" y="566">acceptatie · audit · feedback</text></g>
+    <g fill="#d49a3b" font-size="35"><text x="560" y="181">↓</text><text x="560" y="289">↓</text><text x="560" y="397">↓</text><text x="560" y="505">↓</text><text x="560" y="615">↓</text></g>
+    <rect x="375" y="628" width="370" height="62" rx="12" fill="#32a88f"/><text x="560" y="655" fill="#fff" font-size="18" font-weight="700">Menselijk besluit / geaccepteerd werk</text><text x="560" y="679" fill="#fff" font-size="15">geen automatische juridische bevoegdheid</text>
+    <rect x="35" y="275" width="285" height="130" rx="15" fill="#d6ebe3" stroke="#65b7a5" stroke-width="3"/><text x="178" y="312" fill="#153b53" font-size="20" font-weight="700">Kennisgraaf</text><text x="178" y="340" fill="#31596b" font-size="16">bron → claim → code → test</text><text x="178" y="368" fill="#31596b" font-size="16">10.000 slots ≠ beheersing</text>
+    <rect x="800" y="275" width="285" height="130" rx="15" fill="#e7e3d4" stroke="#d49a3b" stroke-width="3"/><text x="943" y="312" fill="#153b53" font-size="20" font-weight="700">Teacher / evaluatie</text><text x="943" y="340" fill="#31596b" font-size="16">publieke training</text><text x="943" y="368" fill="#31596b" font-size="16">private promotie apart</text>
+  </g>
+  <g stroke="#75a99f" stroke-width="4" fill="none"><path d="M320 340 H375 M745 340 H800"/></g>
+</svg>

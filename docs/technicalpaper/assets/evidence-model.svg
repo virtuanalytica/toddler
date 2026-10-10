@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 620" role="img" aria-labelledby="t d">
+  <title id="t">Toddler provenance and generation data model</title>
+  <desc id="d">A source links to a concept, mapping row, code symbol, test and claim. Candidate weight hash and lineage connect to protocol and two independent private trial commitments, which lead to a promotion decision.</desc>
+  <rect width="1120" height="620" rx="20" fill="#eff5f3"/>
+  <g font-family="DejaVu Sans, sans-serif" text-anchor="middle">
+    <text x="560" y="47" fill="#153b53" font-size="29" font-weight="700">Twee gekoppelde bewijsstromen</text>
+    <g fill="#153b53"><rect x="32" y="110" width="150" height="82" rx="10"/><rect x="215" y="110" width="150" height="82" rx="10"/><rect x="398" y="110" width="150" height="82" rx="10"/><rect x="581" y="110" width="150" height="82" rx="10"/><rect x="764" y="110" width="150" height="82" rx="10"/></g>
+    <g fill="#fff" font-size="17"><text x="107" y="145">Bron</text><text x="107" y="171">URL + hash</text><text x="290" y="145">Concept</text><text x="290" y="171">licentie</text><text x="473" y="145">Mapping row</text><text x="473" y="171">Wee 1–25</text><text x="656" y="145">Codebestand</text><text x="656" y="171">symbool</text><text x="839" y="145">Test / claim</text><text x="839" y="171">verdict</text></g>
+    <text x="560" y="274" fill="#31596b" font-size="18">GitNexus + LightRAG: edges 'rests_on', 'implemented_in', 'defines', 'calls'</text>
+    <g fill="#236b72"><rect x="85" y="360" width="190" height="80" rx="11"/><rect x="320" y="360" width="190" height="80" rx="11"/><rect x="555" y="360" width="190" height="80" rx="11"/><rect x="790" y="360" width="190" height="80" rx="11"/></g>
+    <g fill="#fff" font-size="17"><text x="180" y="393">Gewicht + meta</text><text x="180" y="418">SHA-256</text><text x="415" y="393">Lineage</text><text x="415" y="418">ouderhashes</text><text x="650" y="393">Protocol</text><text x="650" y="418">seedcommitments</text><text x="885" y="393">Trial ×2</text><text x="885" y="418">verdict</text></g>
+    <text x="560" y="520" fill="#31596b" font-size="18">Privé seeds en antwoordsleutels blijven buiten Git en buiten de Teacher-trainingsstroom.</text>
+  </g>
+  <g fill="#d49a3b" font-family="DejaVu Sans, sans-serif" font-size="32"><text x="188" y="163">›</text><text x="371" y="163">›</text><text x="554" y="163">›</text><text x="737" y="163">›</text><text x="288" y="411">›</text><text x="523" y="411">›</text><text x="758" y="411">›</text></g>
+</svg>

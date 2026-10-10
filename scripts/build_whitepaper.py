@@ -13,13 +13,14 @@ ROOT = Path(__file__).resolve().parents[1]
 DOCS = ROOT / "docs/whitepaper"
 BASE = DOCS / "body.html"
 EXTENSION = DOCS / "work_path_extension.html"
+BUSINESS = DOCS / "business_extension.html"
 HTML_PATH = DOCS / "toddler-whitepaper-en.html"
 PDF_PATH = DOCS / "toddler-whitepaper-en.pdf"
 
 
 def main() -> None:
     base = BASE.read_text(encoding="utf-8")
-    extension = EXTENSION.read_text(encoding="utf-8")
+    extension = EXTENSION.read_text(encoding="utf-8") + "\n" + BUSINESS.read_text(encoding="utf-8")
     sections = re.findall(r'<section class="chapter">.*?</section>', extension, re.DOTALL)
     numbered = []
     for section in sections:
@@ -27,21 +28,21 @@ def main() -> None:
         if match is None:
             raise ValueError("extension chapter is missing a number")
         numbered.append((int(match.group(1)), section))
-    if sorted(number for number, _ in numbered) != list(range(8, 30)):
-        raise ValueError("expected exactly chapters 08 through 29")
-    appendix = '<section class="chapter appendix">\n  <div class="chapter-num">30 · Appendix</div>'
+    if sorted(number for number, _ in numbered) != list(range(8, 33)):
+        raise ValueError("expected exactly chapters 08 through 32")
+    appendix = '<section class="chapter appendix">\n  <div class="chapter-num">33 · Appendix</div>'
     if base.count(appendix) != 1:
-        raise ValueError("base paper must contain exactly one chapter 30 appendix")
+        raise ValueError("base paper must contain exactly one chapter 33 appendix")
     body = base.replace(appendix, "\n\n".join(section for _, section in sorted(numbered)) + "\n\n" + appendix)
     old_html = HTML_PATH.read_text(encoding="utf-8")
     prefix, old_body = old_html.split("<body>", 1)
     _, suffix = old_body.split("</body>", 1)
     prefix = prefix.replace(
         'content="Design, objective functions and a brain-network-inspired evaluation method for Toddler, a governed base agent for company roles."',
-        'content="Toddler work path, PLS and PAR evidence, and an illustrative five-year business scenario."',
+        'content="Toddler work path, PLS and PAR evidence, and an illustrative five-year agent economy scenario."',
     )
     HTML_PATH.write_text(prefix + "<body>\n" + body.strip() + "\n</body>" + suffix, encoding="utf-8")
-    HTML(filename=str(HTML_PATH), base_url=str(ROOT)).write_pdf(str(PDF_PATH))
+    HTML(filename=str(HTML_PATH), base_url=str(DOCS)).write_pdf(str(PDF_PATH))
     print(f"Built {HTML_PATH} and {PDF_PATH} with {len(numbered)} extension chapters")
 
 

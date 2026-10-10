@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 650" role="img" aria-labelledby="t d">
+  <title id="t">Toddler and specialist field map</title>
+  <desc id="d">Toddler coordinates reusable evidence from Knitweb with field-specific knowledge and tests.</desc>
+  <rect width="1100" height="650" rx="20" fill="#f1f5f4"/>
+  <g stroke="#8cbeb2" stroke-width="5"><path d="M550 310 L190 150 M550 310 L550 110 M550 310 L900 150 M550 310 L190 480 M550 310 L550 530 M550 310 L900 480"/></g>
+  <g font-family="DejaVu Sans, sans-serif" text-anchor="middle">
+    <circle cx="550" cy="310" r="112" fill="#153b53"/><text x="550" y="302" fill="#fff" font-size="34" font-weight="700">Toddler</text><text x="550" y="337" fill="#77dfc8" font-size="17">router · Teacher · audit</text>
+    <g fill="#fff" stroke="#8cbeb2" stroke-width="3"><rect x="60" y="80" width="260" height="145" rx="18"/><rect x="420" y="20" width="260" height="145" rx="18"/><rect x="780" y="80" width="260" height="145" rx="18"/><rect x="60" y="410" width="260" height="145" rx="18"/><rect x="420" y="465" width="260" height="145" rx="18"/><rect x="780" y="410" width="260" height="145" rx="18"/></g>
+    <g fill="#153b53" font-size="23" font-weight="700"><text x="190" y="125">IntelligenceField</text><text x="550" y="65">ChemField</text><text x="910" y="125">FinField</text><text x="190" y="455">GameField</text><text x="550" y="510">PhysicalField</text><text x="910" y="455">SoftwareField</text></g>
+    <g fill="#43647a" font-size="15"><text x="190" y="158">bewijs en kennis</text><text x="190" y="183">ontwerpstadium</text><text x="550" y="98">chemische grafen</text><text x="550" y="123">Molgang-basis</text><text x="910" y="158">financiële signalen</text><text x="910" y="183">bestaande feed</text><text x="190" y="488">spelbegrip / GUI</text><text x="190" y="513">voorgesteld</text><text x="550" y="543">sensor / robotwerk</text><text x="550" y="568">voorgesteld</text><text x="910" y="488">code / review / debug</text><text x="910" y="513">proefstadium</text></g>
+  </g>
+</svg>

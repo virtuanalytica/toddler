@@ -2,7 +2,7 @@
 
 Status legend: **delivered** = on `main` (v0.1.0, pushed 2026-10-03); **ready for review** = implemented and tested locally, committed only after review; **backlog** = specified, not built.
 Reference document: [`docs/whitepaper/toddler-whitepaper-en.pdf`](whitepaper/toddler-whitepaper-en.pdf).
-The 34-page revision adds the [five-year execution roadmap](roadmap/FIVE_YEAR_EXECUTION_2027_2031.md) and a paired work-pilot scorer. The new financial figures are planning assumptions, not observed sales.
+The 37-page revision adds the [five-year execution roadmap](roadmap/FIVE_YEAR_EXECUTION_2027_2031.md) and a paired work-pilot scorer. Its companion [business plan](businessplan/business-plan-2027-2031.pdf) and [technical paper](technicalpaper/technical-paper-g0-g4.pdf) are reproducible from Markdown sources. The [repo gap audit](roadmap/REPO_GAP_AUDIT_20261011.md) identifies missing independent evidence. Financial figures are planning assumptions, not observed sales.
 
 ## External benchmark and agent roadmap (9 October 2026)
 
@@ -71,7 +71,7 @@ does not establish cognitive or software-agent competence.
 | Knowledge base: 36 AI/NN concepts fetched with hash and licence | `toddler/knowledge/concepts.py`, `corpus.py` | test_knowledge (hashes, structure) |
 | Woven graph (concepts + 25 study steps + code); LightRAG DB when `TODDLER_GITNEXUS_BUILDER` is set | `toddler/knowledge/weave.py` | test_knowledge (all 25 rows linked, edited corpus detected) |
 | knitweb synaptic bundle of the woven graph; unsigned output is `*.synaptic.unsigned`, OriginTrail publication deferred until signed | `toddler/knowledge/publish.py` | test_knowledge (round trip, signed/unsigned) |
-| Whitepaper (34-page revision) | `docs/whitepaper/` | PDF render and page map verified |
+| Whitepaper (37-page revision), business plan and technical paper | `docs/whitepaper/`, `docs/businessplan/`, `docs/technicalpaper/` | PDF render, source regeneration and forecast checks |
 | Jev client (TypeSafe System One contract, strict parsing, no retries in the reflex) | `toddler/jev.py` | test_jev |
 | Credential lifecycle: identities per provider, OpenBao vault, official key APIs, rotation | `toddler/credentials/` | test_credentials (held back: needs explicit operator approval to push) |
 
