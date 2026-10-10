@@ -35,6 +35,8 @@ def test_search_finds_complementary_models_and_reports_baselines():
     assert result["status"] == "research_candidate_only"
     assert result["best_single"]["quality"] == .7
     assert result["random_router_expected_quality"] == .7
+    assert result["random_router_expected"]["gpu_board_wh_per_answer"] == .01
+    assert result["lowest_energy_at_least_best_single_quality"]["quality"] >= .7
     assert result["candidates"][0]["route"] == {"code": "coder", "reasoning": "reasoner"}
     assert result["candidates"][0]["quality"] == .9
     assert result["candidates"][0]["gpu_board_wh_per_answer"] == .01

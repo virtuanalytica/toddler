@@ -120,8 +120,11 @@ def search(report: dict, *, max_models: int = 3, vram_budget_gb: float = 80,
                                                    -row["gpu_board_wh_per_answer"]))
                  if eligible_solos else None)
     random_quality = sum(row["quality"] for row in solos) / len(solos)
+    random_latency = sum(row["mean_latency_s"] for row in solos) / len(solos)
+    random_energy = sum(row["gpu_board_wh_per_answer"] for row in solos) / len(solos)
     top: list[dict] = []
     feasible = 0
+    lowest_energy_above_solo = None
     for size in range(1, max_models + 1):
         for members in itertools.combinations(names, size):
             resident = sum(rows[name]["resident_vram_gb"] for name in members)
@@ -135,6 +138,12 @@ def search(report: dict, *, max_models: int = 3, vram_budget_gb: float = 80,
                 if not within_limits(result):
                     continue
                 feasible += 1
+                if (best_solo is not None and result["quality"] >= best_solo["quality"]
+                        and (lowest_energy_above_solo is None
+                             or (result["gpu_board_wh_per_answer"], result["mean_latency_s"])
+                             < (lowest_energy_above_solo["gpu_board_wh_per_answer"],
+                                lowest_energy_above_solo["mean_latency_s"]))):
+                    lowest_energy_above_solo = result
                 top.append(result)
                 top.sort(key=lambda row: (-row["quality"], row["gpu_board_wh_per_answer"],
                                           row["mean_latency_s"], row["resident_vram_gb"], row["models"]))
@@ -145,6 +154,10 @@ def search(report: dict, *, max_models: int = 3, vram_budget_gb: float = 80,
             "protocol": report["benchmark_policy"], "models_measured": len(models),
             "routes_considered_upper_bound": count, "feasible_routes": feasible,
             "best_single": best_solo, "random_router_expected_quality": round(random_quality, 6),
+            "random_router_expected": {"quality": round(random_quality, 6),
+                                       "mean_latency_s": round(random_latency, 6),
+                                       "gpu_board_wh_per_answer": round(random_energy, 6)},
+            "lowest_energy_at_least_best_single_quality": lowest_energy_above_solo,
             "candidates": top, "energy_scope": "gpu_board",
             "warning": "Public development selection only; use fresh sealed items and measured end-to-end runtime before promotion."}
 
