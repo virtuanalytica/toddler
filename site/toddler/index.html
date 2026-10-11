@@ -323,28 +323,35 @@ willekeurige route. <a href="https://github.com/virtuanalytica/toddler/blob/main
   <h2>Hoe goed leren de toddlers?</h2>
   <p class="note">Elke stip is een generatie toddlers. De score is per taak: <strong>0</strong> = zo goed als willekeurig drukken, <strong>1</strong> = de taak opgelost. We nemen het midden van de groep (interkwartielgemiddelde), zodat één uitschieter het beeld niet bepaalt. Scores die op een andere manier gemeten zijn (greedy of gesampeld) worden nooit met een lijn verbonden.</p>
   <div class="chartcard">
-    <h3>G4: nachtelijke kandidaat, nog geen opvolger</h3>
+    <h3>G4-search overleeft op navigatie</h3>
     <p>Teacher oefent nu met basisrekenen, Engels, Nederlands, geschreven Kantonees, geschiedenis,
     aardrijkskunde, trivia, cultuur, manieren, puzzels, redeneren en sociale situaties. Zes
     Montessori-geïnspireerde gebieden zijn praktische vaardigheden, zintuigen, taal, rekenen,
     wereldoriëntatie en hoffelijkheid. Daarnaast oefent een nieuwe navigatiekop op deuren
     ontgrendelen en een doos oppakken.</p>
-    <p>Teacher heeft vijf kinderen getraind, elk gekoppeld aan een eigen G3-ouder. Vier gebruiken
-    een nieuwe oracle-specialist voor de doos; het vijfde behoudt zijn sterkere G3-beleid. In twee
+    <p>Een eerdere G4-oracleproef trainde vijf kinderen, elk gekoppeld aan een eigen G3-ouder. Vier gebruikten
+    een nieuwe oracle-specialist voor de doos; het vijfde behield zijn sterkere G3-beleid. In twee
     afgeschermde proeven steeg de samengestelde score van circa 0,946 naar 1,042, zonder regressie
-    op bewaarde vaardigheden. <strong>G4 is nog niet gepromoveerd:</strong> de eerste proef miste
+    op bewaarde vaardigheden. <strong>Deze eerdere arm werd niet gepromoveerd:</strong> de eerste proef miste
     de vooraf vastgelegde p-grens (0,058; vereist &lt; 0,05). De tweede slaagde (0,037), maar beide
     moesten slagen. De geheime kaarten blijven tot na 16 oktober verzegeld.</p>
     <p>Voor taal, rekenen en de andere leergebieden liet een nieuwe privé-diagnose van 54 vragen
     een score van <strong>22/54</strong> zien. De eerdere 0,9681 kwam uit deels herhaalde openbare
     vraagvormen. De cognitieve leerling krijgt daarom een aparte verbeter- en toetsbaan; deze
     kleine diagnose telt niet voor generatiepromotie.</p>
+    <p><strong>Nieuwe uitkomst:</strong> een later, vooraf vastgezet G4-search-cohort uit vijf kinderen
+    passeerde op 10 oktober 2026 twee onafhankelijke private navigatietoetsen van ieder 30 seeds.
+    Het won op dezelfde seeds van de sterkste overlevende voorouder G3-recombined en van de
+    gematchte controles (voor beide toetsen p &lt; 0,01), zonder de getoetste oude vaardigheden
+    te verliezen. De lineage is geverifieerd en registreert <strong>G4-search als overlevende
+    navigatiegeneratie</strong>. Dit promoveert geen taal, rekenen, softwarewerk of fysieke bediening.</p>
     <p><strong>Nieuwe ontwikkellus:</strong> Teacher probeert nu elke nacht per kind meerdere
     startmodellen, trainingsbudgetten en netwerkbreedtes. Een bruikbare specialist kan de volgende
     nacht verder leren. De taakrouter kiest op openbare ontwikkelkaarten en controlekaarten of die
     specialist de G3-route voor doos oppakken vervangt. Deze zoektocht levert nieuwe kandidaten,
-    geen automatische promotie: daarvoor blijft een verse, afgeschermde toets met correctie voor
-    herhaalde pogingen nodig. De officiële lijn blijft G3 tot een opvolger die poort passeert.</p>
+    geen automatische promotie: voor een G5-opvolger blijft een nieuwe, vooraf geregistreerde
+    afgeschermde toets met correctie voor herhaalde pogingen nodig. G4-search is daarvoor nu de
+    bevroren navigatieouder.</p>
     <p>De eerste volledige zoekronde duurde 202 seconden: vier van vijf kinderen kregen een
     nieuwe route na openbare ontwikkeling en controle; bij het vijfde was G3 beter. Daarom is
     er voor deze ronde geen nieuwe geheime promotietoets gestart.
@@ -361,6 +368,7 @@ willekeurige route. <a href="https://github.com/virtuanalytica/toddler/blob/main
   </div>
   <div class="tiles" id="tiles"></div>
   <div class="chartcard" id="g3review" hidden></div>
+  <div class="chartcard" id="g4review" hidden></div>
   <div class="chartcard">
     <h3 class="panel-title">Basistaken (G1)</h3>
     <div class="legend" id="legend"></div>
@@ -383,7 +391,7 @@ willekeurige route. <a href="https://github.com/virtuanalytica/toddler/blob/main
   <p>Toddler is een project in ontwikkeling. De reflexlaag en het curriculum zijn software en proeven;
   fysieke inzet en latere bevoegdheden zijn niet vrijgegeven. De broncode staat onder
   <a href="https://github.com/virtuanalytica/toddler/blob/main/LICENSE">Apache-2.0</a>;
-  Wikipedia-fragmenten hebben hun eigen CC BY-SA-licentie. Documentatie bijgewerkt 9 oktober 2026.</p>
+  Wikipedia-fragmenten hebben hun eigen CC BY-SA-licentie. Documentatie bijgewerkt 11 oktober 2026.</p>
 </footer>
 
 </main>
@@ -436,6 +444,16 @@ willekeurige route. <a href="https://github.com/virtuanalytica/toddler/blob/main
           '</td><td>' + fmt(x.g2) + '</td><td>' + esc(x.p_vs_g2) + '</td><td>' + esc(x.p_vs_random) + '</td></tr>'; }).join('') +
         '</table></div><p class="note">UnlockPickup bleef in beide toetsen onopgelost. De G3-punten in de grafiek zijn geaggregeerde afgeschermde scores; vergelijk ze via de gepaarde G2-rijen hierboven, niet met de openbare G2-punten in de grafiek.</p>';
       box.hidden = false;
+    }
+    if (d.g4_review) {
+      var g4 = d.g4_review, g4box = document.getElementById('g4review');
+      g4box.innerHTML = '<h3>G4-search: geverifieerde navigatiepromotie</h3>' +
+        '<p>Vijf oudergebonden kinderen en twee onafhankelijke, afgeschermde toetsen van 30 gematchte seeds. Alleen geaggregeerde uitkomsten staan hier; de geheime seeds blijven buiten deze pagina.</p>' +
+        '<div class="tablewrap"><table><tr><th>Toets</th><th>G4</th><th>G3 op dezelfde seeds</th><th>p tegen G3</th><th>p tegen controle</th></tr>' +
+        g4.comparisons.map(function (x) { return '<tr><td>' + esc(x.label) + '</td><td>' + fmt(x.candidate) +
+          '</td><td>' + fmt(x.g3) + '</td><td>' + esc(x.p_vs_g3) + '</td><td>' + esc(x.p_vs_control) + '</td></tr>'; }).join('') +
+        '</table></div><p class="note">Dit verdict betreft navigatie. De cognitieve, software- en fysieke proeven krijgen afzonderlijke promotiepoorten.</p>';
+      g4box.hidden = false;
     }
 
     function panel(chartId, legendId, list) {
@@ -515,7 +533,7 @@ willekeurige route. <a href="https://github.com/virtuanalytica/toddler/blob/main
         '</td><td>' + esc(g.network) + '</td><td>' + esc(g.eval_mode) + '</td><td>' + esc(g.score_basis || 'onbekend') + '</td><td>' + g.toddlers + '</td>' +
         tasks.map(function (t) { return '<td>' + (g.tasks[t] ? fmt(g.tasks[t].iqm) : '–') + '</td>'; }).join('') + '</tr>';
     }).join('');
-    document.getElementById('dashnote').textContent = 'Rondjes = greedy gemeten, vierkantjes = gesampeld gemeten, open = zijtak: controlegroep, uitgestorven arm of kandidaat die op review wacht. Afgeschermde G3-scores staan apart van openbare G2-scores. Bijgewerkt: ' +
+    document.getElementById('dashnote').textContent = 'Rondjes = greedy gemeten, vierkantjes = gesampeld gemeten, open = zijtak: controlegroep, uitgestorven arm of kandidaat die op review wacht. Afgeschermde G3- en G4-aggregaten staan apart van openbare scores. Bijgewerkt: ' +
       day(d.generated_at) + ' UTC.';
   }).catch(function () { document.getElementById('dashnote').textContent = 'Dashboarddata kon niet geladen worden.'; });
 })();

@@ -1,8 +1,20 @@
 # G4 automatic audit handoff
 
+**Uitkomst 11 oktober 2026:** cohort `20261010T200500Z-4b2263` heeft de
+vooraf vastgelegde G4-search-familie op twee onafhankelijke private
+30-seedtoetsen gehaald. De owner-only status is `promoted`; de officiële
+lineage bevat een geverifieerd `survived`-verdict voor vijf kinderen. De
+publieke dashboardexport toont uitsluitend geaggregeerde navigatiescores. Een
+latere G5-proef heeft een eigen preregistratie en nieuwe verborgen sets nodig;
+cognitie, softwarewerk en fysieke vaardigheden zijn niet meegepromoveerd.
+
+Onderstaande tekst beschrijft de vooraf vastgelegde auditregels en eerdere
+kandidaatstatussen. Verwijzingen daarin naar G3 als actuele officiële
+generatie zijn historisch.
+
 The Teacher timer writes searched cohorts under `~/.local/share/teacher/g4-search/`. On a successful Teacher service exit, `teacher-g4-audit.service` runs `python3 -m scripts.g4_auto_audit`. Before a family is reserved, it accepts only the newest completed cohort from the last six hours; an incomplete newest run cannot be replaced by an older one. Once a family is reserved, every automatic audit resumes that frozen manifest and protocol even if a newer Teacher cohort has appeared. A missing protocol or changed manifest fails closed and records a recovery status.
 
-The handoff validates the five frozen children, inherited weights, route selection and hashes. A prospective cohort may enter the private trial when all five improve, or when four improve and the remaining child keeps an unchanged G3 parent that solved all 50 development and all 50 public-check maps with mean normalised score at least 1.0 on each. Fewer gains, weaker fallback mastery or a reused public split records `public_gate_failed` without generating private seeds. The current 2026-10-10 cohort remains a research candidate because its public split was reused before this rule was frozen. G3 stays official.
+The handoff validates the five frozen children, inherited weights, route selection and hashes. A prospective cohort may enter the private trial when all five improve, or when four improve and the remaining child keeps an unchanged G3 parent that solved all 50 development and all 50 public-check maps with mean normalised score at least 1.0 on each. Fewer gains, weaker fallback mastery or a reused public split records `public_gate_failed` without generating private seeds. An earlier 2026-10-10 cohort remained a research candidate because its public split was reused before this rule was frozen; G3 was still official at that point. The later cohort named above passed the frozen protocol and is now official for navigation.
 
 The one-family public gate is preregistered for cohorts created after 2026-10-10 20:00 UTC, using a new 50+50 public split that no earlier cohort has used. When it passes, the handoff reserves the single `G4-search` confirmatory family and writes two committed private 30-seed sets. Each set uses the **same seed for each frozen child and its controls**. The evaluator first checks per-child aggregates and ancestor retention, then applies an exact one-sided paired sign test to the 30 seed-level means across the five children and nine tasks. Both independent sets must beat matched G3 and the strongest surviving ancestor at `p < 0.01`, with at least 0.75 paired improvement probability and a positive mean gain. The family lock prevents a new cohort from retrying the same hidden test. Interrupted runs resume the same protocol and existing trial files. A changed manifest, invalid trial or missing protocol yields an explicit failure status; inspect and repair the existing attempt rather than creating fresh seeds.
 

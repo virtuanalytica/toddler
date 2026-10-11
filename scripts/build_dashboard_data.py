@@ -16,6 +16,7 @@ import json
 import os
 import time
 from collections import defaultdict
+from datetime import datetime, timezone
 from pathlib import Path
 
 import numpy as np
@@ -92,11 +93,86 @@ def _review_point(review_path: Path, official_verdict: str | None) -> tuple[dict
                    "limitation": "UnlockPickup unsolved on both private sets"}
 
 
-def collect(root: Path, review_path: Path | None = None) -> list[dict]:
+def _g4_point(status_path: Path, audit_dir: Path, verdict: dict | None) -> tuple[dict, dict]:
+    """Export only verified G4 cohort aggregates, never private seed rows."""
+    status = json.loads(status_path.read_text())
+    if (status.get("status") != "promoted" or status.get("generation") != "G4-search"
+            or status.get("children") != 5 or status.get("ledger_verified") is not True
+            or not verdict or verdict.get("verdict") != "survived"):
+        raise ValueError("G4 dashboard requires a promoted status and survived official lineage")
+    evidence = verdict.get("evidence") or {}
+    if evidence.get("promote") is not True or len(evidence.get("trial_sha256", [])) != 2:
+        raise ValueError("G4 lineage lacks two passing trial commitments")
+    protocol_path = audit_dir / "protocol.json"
+    protocol_bytes = protocol_path.read_bytes()
+    protocol_hash = hashlib.sha256(protocol_bytes).hexdigest()
+    if protocol_hash != status.get("protocol_sha256") or protocol_hash != evidence.get("protocol_sha256"):
+        raise ValueError("G4 frozen protocol hash mismatch")
+    protocol = json.loads(protocol_bytes)
+    manifest_path = Path(protocol["manifest"])
+    if hashlib.sha256(manifest_path.read_bytes()).hexdigest() != protocol["manifest_sha256"]:
+        raise ValueError("G4 candidate manifest hash mismatch")
+    manifest = json.loads(manifest_path.read_text())
+    if (status.get("cohort") != manifest.get("created_utc")
+            or protocol.get("generation") != "G4-search"
+            or len(protocol.get("children", [])) != 5
+            or len(protocol.get("tasks", [])) != 9):
+        raise ValueError("G4 cohort and frozen protocol disagree")
+    trials = []
+    for index, expected_hash in enumerate(evidence["trial_sha256"], start=1):
+        path = audit_dir / f"trial-{index}.json"
+        data = path.read_bytes()
+        if hashlib.sha256(data).hexdigest() != expected_hash:
+            raise ValueError("G4 private trial hash mismatch")
+        trial = json.loads(data)
+        if (trial.get("frozen_plan_sha256") != protocol_hash
+                or trial.get("child_ids") != protocol["children"]
+                or trial.get("candidate_weights") != protocol["candidate_weights"]
+                or set(trial.get("candidate", {})) != set(protocol["tasks"])):
+            raise ValueError("G4 trial does not match the frozen cohort")
+        for task in protocol["tasks"]:
+            values = trial["candidate"][task]
+            if len(values) != 5 or not all(np.isfinite(v) for v in values):
+                raise ValueError("G4 private aggregate has invalid child values")
+        trials.append(trial)
+    if trials[0]["seed_set_id"] == trials[1]["seed_set_id"]:
+        raise ValueError("G4 private trials reused a seed set")
+    if not all(row.get("passed") is True for row in evidence.get("trials", [])):
+        raise ValueError("G4 lineage lacks two passing comparisons")
+    # The first confirmation supplies the plotted per-task aggregates; the
+    # separate second confirmation is reported without exposing seed IDs.
+    tasks = {task: {"iqm": round(iqm(np.asarray(trials[0]["candidate"][task])), 4), "n": 5}
+             for task in protocol["tasks"]}
+    created = datetime.strptime(manifest["created_utc"].split("-", 1)[0], "%Y%m%dT%H%M%SZ").replace(tzinfo=timezone.utc)
+    point = {"generation": "G4-search", "trained_at": created.isoformat().replace("+00:00", "Z"),
+             "toddlers": 5, "network": "task-router", "method": "selected-inherited-expert",
+             "scale_rewards": True, "eval_mode": protocol["eval_mode"],
+             "parents": protocol["parents"], "frozen_reference": False,
+             "tasks": tasks, "iq_raw": round(float(np.mean([v["iqm"] for v in tasks.values()])), 4),
+             "verdict": "survived", "control": False,
+             "score_basis": "private matched trial 1 aggregate; separate trial 2 confirmation"}
+    comparisons = [{"label": f"Private toets {i}",
+                    "candidate": round(row["vs_ancestor"]["candidate_mean"], 4),
+                    "g3": round(row["vs_ancestor"]["reference_mean"], 4),
+                    "p_vs_g3": row["vs_ancestor"]["p_value"],
+                    "p_vs_control": row["vs_control"]["p_value"]}
+                   for i, row in enumerate(evidence["trials"], start=1)]
+    return point, {"status": "survived", "children": 5, "comparisons": comparisons,
+                   "scope": "navigation only; cognition, software and physical tasks unpromoted"}
+
+
+def collect(root: Path, review_path: Path | None = None,
+            g4_status: Path | None = None, g4_audit: Path | None = None) -> list[dict]:
+    if bool(g4_status) != bool(g4_audit):
+        raise ValueError("G4 dashboard requires both status and audit directory")
     points, led = [], _ledger(root)
+    if g4_status and (not led or led.verify()[0] is not True):
+        raise ValueError("G4 dashboard requires a verified official lineage ledger")
     for gdir in sorted(p for p in root.iterdir() if p.is_dir()):
         if gdir.name == "G3-recombined" and review_path is None:
             raise ValueError("G3-recombined needs its aggregate review reports for dashboard scores")
+        if gdir.name == "G4-search" and not g4_status:
+            raise ValueError("G4-search needs verified private aggregate trials for dashboard scores")
         metas = [json.loads(m.read_text()) for m in sorted(gdir.glob("*/meta.json"))]
         if not metas:
             continue
@@ -131,6 +207,10 @@ def collect(root: Path, review_path: Path | None = None) -> list[dict]:
         point, _ = _review_point(review_path, (led.verdict("G3-recombined") or {}).get("verdict") if led else None)
         points = [row for row in points if row["generation"] != point["generation"]]
         points.append(point)
+    if g4_status and g4_audit:
+        point, _ = _g4_point(g4_status, g4_audit, led.verdict("G4-search"))
+        points = [row for row in points if row["generation"] != point["generation"]]
+        points.append(point)
     return sorted(points, key=lambda p: p["trained_at"])
 
 
@@ -139,17 +219,22 @@ def main() -> None:
     ap.add_argument("--root", default=default_root())
     ap.add_argument("--out", default=str(REPO / "site" / "toddler" / "learning.json"))
     ap.add_argument("--review", type=Path, default=REPO / "docs/learn/G3_RECOMBINED_REVIEW.json")
+    ap.add_argument("--g4-status", type=Path, help="owner-only G4 promotion status")
+    ap.add_argument("--g4-audit", type=Path, help="directory with frozen G4 protocol and two private trials")
     a = ap.parse_args()
+    root = Path(a.root)
     data = {
         "generated_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
         "score": "normalised held-out score: 0 = random policy, 1 = task solved; interquartile mean over toddlers",
         "rule": "scores with different eval_mode or network are separate series and are never joined",
-        "generations": collect(Path(a.root), a.review if a.review.exists() else None),
+        "generations": collect(root, a.review if a.review.exists() else None, a.g4_status, a.g4_audit),
     }
     if a.review.exists():
         _, data["g3_review"] = _review_point(
             a.review, next((g["verdict"] for g in data["generations"]
                             if g["generation"] == "G3-recombined"), None))
+    if a.g4_status and a.g4_audit:
+        data["g4_review"] = _g4_point(a.g4_status, a.g4_audit, _ledger(root).verdict("G4-search"))[1]
     Path(a.out).write_text(json.dumps(data, indent=1) + "\n")
     print(f"{len(data['generations'])} generations -> {a.out}")
 
