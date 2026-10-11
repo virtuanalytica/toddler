@@ -177,3 +177,48 @@ retention, new navigation seeds and two preregistered confirmation families.
 See [`reports/g5_semantic_transfer_20261011.json`](../../reports/g5_semantic_transfer_20261011.json)
 for prompt-free aggregates and file commitments. Both diagnostic banks are
 spent and must remain excluded from future training and selection.
+
+## Prospective arithmetic confirmation gate
+
+`scripts/g5_prospective_gate.py` freezes the second candidate, the five G4
+parents, two new evaluator-owned banks of 72 English/Dutch arithmetic questions
+each, the old cognitive fallback, and two newly committed eight-seed navigation
+sets. It rejects exact prompt reuse from both Teacher lessons and both spent
+transfer diagnostics. Each item is checked against a deterministic answer
+function; each trial scores G4 and G5 on the same item with four option
+rotations. The nine navigation tasks are run for every child and its exact
+G4 parent on matched secret seeds. An interruption can resume only the same
+frozen attempt.
+
+Before either result is seen, the gate requires on **each** 72-item trial:
+at least 44 correct G5 answers, at least 12 net paired gains, at most two
+G4-only losses, no negative language-operation cell and a one-sided exact
+paired sign-test p &lt; 0.005. Navigation must match its frozen parent on every
+measured seed. The non-arithmetic G4 fallback model parameters must be exactly
+equal; the new expert is gated to arithmetic inputs. The two trials are
+separate confirmation families, not two views of the earlier diagnostic.
+
+The assessment deliberately returns `evidence_passed_pending_semantic_review`
+or `failed_hold_no_promotion`; it does **not** append a `survived` lineage
+event. The question wording still needs independent semantic review. A full
+G5 generation claim additionally needs explicit scope registration, source
+bundle import into the lineage and checks for other requested capabilities;
+Cantonese and physical interaction are outside this arithmetic gate.
+
+```bash
+PYTHONPATH=. python3 scripts/g5_prospective_gate.py prepare \
+  --manifest /private/g5-public/semantic-candidate-001/manifest.json \
+  --reference /private/g5-public/first-candidate/cognitive.joblib \
+  --bank /private/g5-confirm/set-a.json --bank /private/g5-confirm/set-b.json \
+  --exclude /private/g5-public/teacher-lesson.json \
+  --exclude /private/g5-public/teacher-semantic-lesson.json \
+  --exclude /private/g5-diagnostic/first-bank.json \
+  --exclude /private/g5-diagnostic/second-bank.json \
+  --out /private/g5-confirm/audit-001
+PYTHONPATH=. python3 scripts/g5_prospective_gate.py run \
+  --protocol /private/g5-confirm/audit-001/protocol.json --index 0
+PYTHONPATH=. python3 scripts/g5_prospective_gate.py run \
+  --protocol /private/g5-confirm/audit-001/protocol.json --index 1
+PYTHONPATH=. python3 scripts/g5_prospective_gate.py assess \
+  --protocol /private/g5-confirm/audit-001/protocol.json
+```
