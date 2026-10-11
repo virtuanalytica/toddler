@@ -1,5 +1,7 @@
 # Toddler
 
+**Nieuwe modelfamilie in voorbereiding:** [Preschooler](docs/learn/PRESCHOOLER_TRAINING_PROTOCOL.md) beschrijft de 4B-kandidaat, acht afzonderlijke leergangen, een 32B-vervolg en de vereiste onafhankelijke toetsen. Het [businessconcept als PDF](docs/businessplan/preschooler-4b-business-concept.pdf) rekent opslag en trainingskosten door. Er is nog geen gepromoveerde Preschooler-checkpoint.
+
 Financiële agents voor Numerai Crypto en Signals: zie [de vier rollen, datasets en reproduceerbare training](docs/FINANCE_SPECIALIST_AGENTS.md). Hun onderzoeksresultaten zijn geen live wedstrijdpromotie.
 De [YIEDL Crypto-proef](docs/FINANCE_YIEDL_CRYPTO_RESEARCH.md) test een extra bron met twee dagen vertraging en prospectieve schaduwvoorspellingen.
 Voor YIEDL wordt [de bronrevisie vanaf 11 oktober 2026 prospectief gecontroleerd](docs/YIEDL_REVISION_AUDIT.md).

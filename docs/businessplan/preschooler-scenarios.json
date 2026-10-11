@@ -1,0 +1,143 @@
+{
+  "status": "planning_assumptions_not_observed_results",
+  "currency": "nominal EUR excluding VAT",
+  "assumptions": {
+    "owner_platform_eur_per_year": 6000,
+    "active_agent_platform_eur_per_year": 240,
+    "accepted_tasks_per_agent_year": 600,
+    "electricity_eur_per_kwh": 0.3,
+    "local_system_kwh_per_attempt": 0.01,
+    "local_acceptance_rate": 0.8,
+    "hardware_and_storage_eur_per_attempt": 0.004,
+    "training_and_evaluation_budget_eur": 50000,
+    "annual_accepted_tasks_for_training_amortization": 300000,
+    "cloud_reference_eur_per_accepted_task": 0.015
+  },
+  "adoption": {
+    "downside": [
+      {
+        "year": 2027,
+        "paying_owners": 1,
+        "average_active_preschooler_agents": 5,
+        "accepted_tasks": 3000,
+        "attributed_platform_licence_eur": 7200
+      },
+      {
+        "year": 2028,
+        "paying_owners": 2,
+        "average_active_preschooler_agents": 25,
+        "accepted_tasks": 15000,
+        "attributed_platform_licence_eur": 18000
+      },
+      {
+        "year": 2029,
+        "paying_owners": 6,
+        "average_active_preschooler_agents": 125,
+        "accepted_tasks": 75000,
+        "attributed_platform_licence_eur": 66000
+      },
+      {
+        "year": 2030,
+        "paying_owners": 12,
+        "average_active_preschooler_agents": 500,
+        "accepted_tasks": 300000,
+        "attributed_platform_licence_eur": 192000
+      },
+      {
+        "year": 2031,
+        "paying_owners": 30,
+        "average_active_preschooler_agents": 2500,
+        "accepted_tasks": 1500000,
+        "attributed_platform_licence_eur": 780000
+      }
+    ],
+    "base": [
+      {
+        "year": 2027,
+        "paying_owners": 2,
+        "average_active_preschooler_agents": 10,
+        "accepted_tasks": 6000,
+        "attributed_platform_licence_eur": 14400
+      },
+      {
+        "year": 2028,
+        "paying_owners": 5,
+        "average_active_preschooler_agents": 50,
+        "accepted_tasks": 30000,
+        "attributed_platform_licence_eur": 42000
+      },
+      {
+        "year": 2029,
+        "paying_owners": 12,
+        "average_active_preschooler_agents": 250,
+        "accepted_tasks": 150000,
+        "attributed_platform_licence_eur": 132000
+      },
+      {
+        "year": 2030,
+        "paying_owners": 25,
+        "average_active_preschooler_agents": 1000,
+        "accepted_tasks": 600000,
+        "attributed_platform_licence_eur": 390000
+      },
+      {
+        "year": 2031,
+        "paying_owners": 60,
+        "average_active_preschooler_agents": 5000,
+        "accepted_tasks": 3000000,
+        "attributed_platform_licence_eur": 1560000
+      }
+    ],
+    "upside": [
+      {
+        "year": 2027,
+        "paying_owners": 3,
+        "average_active_preschooler_agents": 15,
+        "accepted_tasks": 9000,
+        "attributed_platform_licence_eur": 21600
+      },
+      {
+        "year": 2028,
+        "paying_owners": 8,
+        "average_active_preschooler_agents": 75,
+        "accepted_tasks": 45000,
+        "attributed_platform_licence_eur": 66000
+      },
+      {
+        "year": 2029,
+        "paying_owners": 18,
+        "average_active_preschooler_agents": 375,
+        "accepted_tasks": 225000,
+        "attributed_platform_licence_eur": 198000
+      },
+      {
+        "year": 2030,
+        "paying_owners": 38,
+        "average_active_preschooler_agents": 1500,
+        "accepted_tasks": 900000,
+        "attributed_platform_licence_eur": 588000
+      },
+      {
+        "year": 2031,
+        "paying_owners": 90,
+        "average_active_preschooler_agents": 7500,
+        "accepted_tasks": 4500000,
+        "attributed_platform_licence_eur": 2340000
+      }
+    ]
+  },
+  "unit_cost": {
+    "electricity_eur_per_attempt": 0.003,
+    "variable_eur_per_accepted_task": 0.00875,
+    "training_eur_per_accepted_task_at_assumed_volume": 0.166667,
+    "total_eur_per_accepted_task_at_assumed_volume": 0.175417,
+    "cloud_reference_eur_per_accepted_task": 0.015
+  },
+  "limitations": [
+    "Attributed licence value is a subset of the existing Toddler platform scenario, not additive revenue.",
+    "The cloud reference is an illustrative input and must be replaced with measured comparable invoices.",
+    "Review labour, networking, support, insurance and general operating expense are excluded from unit cost.",
+    "The assumed training budget and accepted-task volume are independent; low volume raises amortized cost.",
+    "A 5,000-agent 2031 base case is a hypothesis, not observed demand or committed contracts."
+  ]
+}
