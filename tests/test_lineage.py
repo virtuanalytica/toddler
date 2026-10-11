@@ -88,3 +88,16 @@ def test_credentials_never_enter_the_ledger(led):
 def test_code_version_reports_the_repo_commit():
     v = L.code_version()
     assert len(v["commit"]) == 40 and isinstance(v["dirty"], bool)
+
+
+def test_code_version_marks_untracked_training_code_dirty(tmp_path):
+    import subprocess
+
+    subprocess.run(["git", "init", "-q", str(tmp_path)], check=True)
+    subprocess.run(["git", "-C", str(tmp_path), "-c", "user.name=Test",
+                    "-c", "user.email=test@example.invalid", "commit", "-q", "--allow-empty", "-m", "root"],
+                   check=True)
+    subprocess.run(["git", "-C", str(tmp_path), "remote", "add", "origin", "local"], check=True)
+    assert L.code_version(tmp_path)["dirty"] is False
+    (tmp_path / "new_trainer.py").write_text("print('training')\n")
+    assert L.code_version(tmp_path)["dirty"] is True

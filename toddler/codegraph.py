@@ -36,6 +36,8 @@ MODULE_REGION: dict[str, str] = {
     "jevserver": "fastpath.jev",
     "toddler.g4_curriculum": "planner",
     "toddler.g4_student": "planner",
+    "toddler.g5_cognitive": "planner",
+    "toddler.g5_system": "planner",
     "toddler.model_mixture_search": "planner",
     "toddler.finance_agents": "planner",          # guarded financial data and model research workflow
     "toddler.learn": "planner",                # the learning brain: policies, PPO, generations
