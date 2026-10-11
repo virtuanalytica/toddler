@@ -1,0 +1,19 @@
+{
+  "schema": "toddler-g5-arithmetic-transfer-public-summary/v1",
+  "status": "diagnostic_only_no_promotion",
+  "candidate_manifest_sha256": "331375eee6b917724756f6d3455c3540a4196178f291b9549b24b4a3d84cbdbf",
+  "prereg_sha256": "728e277e93970a07d3dc26b4cff7c48ce983b1c07ef2233bb1d908528a6d91eb",
+  "generator_sha256": "46f0fcc2c794d030c8d0b8c83469e6ad130e6ba5c3206bf8b53663ba6df6699a",
+  "bank_sha256": "d2679f8c22303cc1be25ee1c065a2f68cc19a3d96ff687de1a3b3a414c640e9b",
+  "items": 108,
+  "language_operation_cells": 9,
+  "items_per_cell": 12,
+  "measure": "four-option-rotation strict paired accuracy",
+  "g4_correct": 33,
+  "g5_correct": 33,
+  "g5_only_correct": 0,
+  "g4_only_correct": 0,
+  "paired_two_sided_p": 1.0,
+  "promotion_eligible": false,
+  "limitations": "Post-freeze paraphrase diagnostic for one candidate; Cantonese wording lacks independent language review. No navigation retention or broad cognitive claim. Bank prompts and individual outcomes stay outside Git and cannot be used for training."
+}

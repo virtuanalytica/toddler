@@ -117,8 +117,18 @@ trial. Its question family must never be used to tune this candidate or to
 claim general reasoning, language comprehension, or navigation retention.
 
 ```bash
-python3 scripts/g5_private_transfer_diagnostic.py \
+PYTHONPATH=. python3 scripts/g5_private_transfer_diagnostic.py \
   --bank /private/g5-diagnostic/bank.json \
   --manifest /private/g5-public/candidate-001/manifest.json \
   --out /private/g5-diagnostic/result.json
 ```
+
+The 11 October diagnostic was preregistered against the already frozen first
+candidate, then run once on 108 paraphrased arithmetic questions. G4 and G5
+both answered 33/108 correctly under four option rotations; the paired
+difference was exactly zero. The first cognitive head therefore has **no
+observed paraphrase-transfer gain**. The private question bank and individual
+outcomes are not training material. The safe aggregate and commitments are in
+[`reports/g5_transfer_diagnostic_20261011.json`](../../reports/g5_transfer_diagnostic_20261011.json).
+New public training can teach more varied language, but any resulting G5
+candidate must be evaluated on a newly sealed family; this bank is spent.
