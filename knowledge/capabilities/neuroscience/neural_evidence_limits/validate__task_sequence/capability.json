@@ -5,7 +5,7 @@
   "topic": "neural_evidence_limits",
   "practice": "validate",
   "setting": "task_sequence",
-  "target": "validate neural evidence limits in task sequence",
+  "target": "Validate a claim about neural evidence limits using an evidence-to-claim audit table. Run at least three ordered tasks and revisit the first.",
   "status": "scaffold",
   "evidence": {
     "primary_sources": [],
@@ -13,5 +13,38 @@
     "practical_artifacts": [],
     "assessment": []
   },
-  "mastery_claim": false
+  "mastery_claim": false,
+  "competency": {
+    "schema": "toddler-competency-spec/v1",
+    "title": "Validate neural evidence limits — task sequence",
+    "outcome": "Validate a claim about neural evidence limits using an evidence-to-claim audit table. Run at least three ordered tasks and revisit the first.",
+    "topic_kernel": {
+      "artifact": "an evidence-to-claim audit table",
+      "measure": "number of supported and unsupported mechanism claims",
+      "failure_to_detect": "inferring cognition directly from an fMRI correlate"
+    },
+    "practice_task": "Produce a preregistered test protocol and evidence record grounded in an evidence-to-claim audit table.",
+    "setting_constraint": "Run at least three ordered tasks and revisit the first.",
+    "required_evidence": [
+      "a preregistered test protocol and evidence record",
+      "Include per-task before-and-after measurements.",
+      "Report number of supported and unsupported mechanism claims with uncertainty or an explicit deterministic check.",
+      "Construct a negative control for the failure mode: inferring cognition directly from an fMRI correlate."
+    ],
+    "assessment": {
+      "mode": "independent_evaluator_new_case",
+      "pass_rule": "all_four_criteria_required",
+      "scoring": "Each criterion: 0 absent, 1 partial, 2 demonstrated; require 2 on all four.",
+      "threshold_policy": "Register the metric threshold, baseline, task budget and evaluator before exposing new items.",
+      "criteria": [
+        "Concept: correctly state the assumptions and limits of neural evidence limits.",
+        "Practice: a held-out challenge supports or rejects the claim.",
+        "Measurement: report number of supported and unsupported mechanism claims against a matched baseline with reproducible inputs.",
+        "Critical check: test for inferring cognition directly from an fMRI correlate; detect it or rule it out with evidence."
+      ]
+    },
+    "source_policy": "Reviewer must add a verified primary source before lesson status; no source is fabricated here.",
+    "contamination_policy": "No private items, answers, seeds or reviewer-only prompts in this public specification.",
+    "status": "generated_unreviewed"
+  }
 }

@@ -5,7 +5,7 @@
   "topic": "human_feedback",
   "practice": "design",
   "setting": "field_data",
-  "target": "design human feedback in field data",
+  "target": "Design a deployable workflow for human feedback using a feedback-to-policy update record. Use a provenance-checked real dataset with consent and access rules.",
   "status": "scaffold",
   "evidence": {
     "primary_sources": [],
@@ -13,5 +13,38 @@
     "practical_artifacts": [],
     "assessment": []
   },
-  "mastery_claim": false
+  "mastery_claim": false,
+  "competency": {
+    "schema": "toddler-competency-spec/v1",
+    "title": "Design human feedback — field data",
+    "outcome": "Design a deployable workflow for human feedback using a feedback-to-policy update record. Use a provenance-checked real dataset with consent and access rules.",
+    "topic_kernel": {
+      "artifact": "a feedback-to-policy update record",
+      "measure": "improvement and disagreement rate",
+      "failure_to_detect": "assuming one person's preference is universal"
+    },
+    "practice_task": "Produce a design, interfaces, failure paths and resource budget grounded in a feedback-to-policy update record.",
+    "setting_constraint": "Use a provenance-checked real dataset with consent and access rules.",
+    "required_evidence": [
+      "a design, interfaces, failure paths and resource budget",
+      "Include the data card, missingness check and permitted use.",
+      "Report improvement and disagreement rate with uncertainty or an explicit deterministic check.",
+      "Construct a negative control for the failure mode: assuming one person's preference is universal."
+    ],
+    "assessment": {
+      "mode": "independent_evaluator_new_case",
+      "pass_rule": "all_four_criteria_required",
+      "scoring": "Each criterion: 0 absent, 1 partial, 2 demonstrated; require 2 on all four.",
+      "threshold_policy": "Register the metric threshold, baseline, task budget and evaluator before exposing new items.",
+      "criteria": [
+        "Concept: correctly state the assumptions and limits of human feedback.",
+        "Practice: an independent reviewer can execute its acceptance tests.",
+        "Measurement: report improvement and disagreement rate against a matched baseline with reproducible inputs.",
+        "Critical check: test for assuming one person's preference is universal; detect it or rule it out with evidence."
+      ]
+    },
+    "source_policy": "Reviewer must add a verified primary source before lesson status; no source is fabricated here.",
+    "contamination_policy": "No private items, answers, seeds or reviewer-only prompts in this public specification.",
+    "status": "generated_unreviewed"
+  }
 }

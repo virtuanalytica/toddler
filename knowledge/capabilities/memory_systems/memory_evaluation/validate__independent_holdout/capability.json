@@ -5,7 +5,7 @@
   "topic": "memory_evaluation",
   "practice": "validate",
   "setting": "independent_holdout",
-  "target": "validate memory evaluation in independent holdout",
+  "target": "Validate a claim about memory evaluation using a dated memory test with corrections. Have a separate evaluator hold unseen items and answer keys.",
   "status": "scaffold",
   "evidence": {
     "primary_sources": [],
@@ -13,5 +13,38 @@
     "practical_artifacts": [],
     "assessment": []
   },
-  "mastery_claim": false
+  "mastery_claim": false,
+  "competency": {
+    "schema": "toddler-competency-spec/v1",
+    "title": "Validate memory evaluation — independent holdout",
+    "outcome": "Validate a claim about memory evaluation using a dated memory test with corrections. Have a separate evaluator hold unseen items and answer keys.",
+    "topic_kernel": {
+      "artifact": "a dated memory test with corrections",
+      "measure": "precision, temporal validity and abstention",
+      "failure_to_detect": "grading against stale ground truth"
+    },
+    "practice_task": "Produce a preregistered test protocol and evidence record grounded in a dated memory test with corrections.",
+    "setting_constraint": "Have a separate evaluator hold unseen items and answer keys.",
+    "required_evidence": [
+      "a preregistered test protocol and evidence record",
+      "Include item-set hash, evaluator identity and aggregate verdict only.",
+      "Report precision, temporal validity and abstention with uncertainty or an explicit deterministic check.",
+      "Construct a negative control for the failure mode: grading against stale ground truth."
+    ],
+    "assessment": {
+      "mode": "independent_evaluator_new_case",
+      "pass_rule": "all_four_criteria_required",
+      "scoring": "Each criterion: 0 absent, 1 partial, 2 demonstrated; require 2 on all four.",
+      "threshold_policy": "Register the metric threshold, baseline, task budget and evaluator before exposing new items.",
+      "criteria": [
+        "Concept: correctly state the assumptions and limits of memory evaluation.",
+        "Practice: a held-out challenge supports or rejects the claim.",
+        "Measurement: report precision, temporal validity and abstention against a matched baseline with reproducible inputs.",
+        "Critical check: test for grading against stale ground truth; detect it or rule it out with evidence."
+      ]
+    },
+    "source_policy": "Reviewer must add a verified primary source before lesson status; no source is fabricated here.",
+    "contamination_policy": "No private items, answers, seeds or reviewer-only prompts in this public specification.",
+    "status": "generated_unreviewed"
+  }
 }

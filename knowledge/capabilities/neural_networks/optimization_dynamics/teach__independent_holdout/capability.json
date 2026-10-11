@@ -5,7 +5,7 @@
   "topic": "optimization_dynamics",
   "practice": "teach",
   "setting": "independent_holdout",
-  "target": "teach optimization dynamics in independent holdout",
+  "target": "Teach another learner to reason about optimization dynamics using a loss-landscape and update trace. Have a separate evaluator hold unseen items and answer keys.",
   "status": "scaffold",
   "evidence": {
     "primary_sources": [],
@@ -13,5 +13,38 @@
     "practical_artifacts": [],
     "assessment": []
   },
-  "mastery_claim": false
+  "mastery_claim": false,
+  "competency": {
+    "schema": "toddler-competency-spec/v1",
+    "title": "Teach optimization dynamics — independent holdout",
+    "outcome": "Teach another learner to reason about optimization dynamics using a loss-landscape and update trace. Have a separate evaluator hold unseen items and answer keys.",
+    "topic_kernel": {
+      "artifact": "a loss-landscape and update trace",
+      "measure": "gradient norms and convergence variability",
+      "failure_to_detect": "misreading noisy loss as convergence"
+    },
+    "practice_task": "Produce a lesson, coached exercise and blind learner transfer test grounded in a loss-landscape and update trace.",
+    "setting_constraint": "Have a separate evaluator hold unseen items and answer keys.",
+    "required_evidence": [
+      "a lesson, coached exercise and blind learner transfer test",
+      "Include item-set hash, evaluator identity and aggregate verdict only.",
+      "Report gradient norms and convergence variability with uncertainty or an explicit deterministic check.",
+      "Construct a negative control for the failure mode: misreading noisy loss as convergence."
+    ],
+    "assessment": {
+      "mode": "independent_evaluator_new_case",
+      "pass_rule": "all_four_criteria_required",
+      "scoring": "Each criterion: 0 absent, 1 partial, 2 demonstrated; require 2 on all four.",
+      "threshold_policy": "Register the metric threshold, baseline, task budget and evaluator before exposing new items.",
+      "criteria": [
+        "Concept: correctly state the assumptions and limits of optimization dynamics.",
+        "Practice: the learner succeeds on a new case without the answer key.",
+        "Measurement: report gradient norms and convergence variability against a matched baseline with reproducible inputs.",
+        "Critical check: test for misreading noisy loss as convergence; detect it or rule it out with evidence."
+      ]
+    },
+    "source_policy": "Reviewer must add a verified primary source before lesson status; no source is fabricated here.",
+    "contamination_policy": "No private items, answers, seeds or reviewer-only prompts in this public specification.",
+    "status": "generated_unreviewed"
+  }
 }

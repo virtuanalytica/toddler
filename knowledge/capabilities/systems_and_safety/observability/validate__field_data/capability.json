@@ -5,7 +5,7 @@
   "topic": "observability",
   "practice": "validate",
   "setting": "field_data",
-  "target": "validate observability in field data",
+  "target": "Validate a claim about observability using a metric-trace-alert contract. Use a provenance-checked real dataset with consent and access rules.",
   "status": "scaffold",
   "evidence": {
     "primary_sources": [],
@@ -13,5 +13,38 @@
     "practical_artifacts": [],
     "assessment": []
   },
-  "mastery_claim": false
+  "mastery_claim": false,
+  "competency": {
+    "schema": "toddler-competency-spec/v1",
+    "title": "Validate observability — field data",
+    "outcome": "Validate a claim about observability using a metric-trace-alert contract. Use a provenance-checked real dataset with consent and access rules.",
+    "topic_kernel": {
+      "artifact": "a metric-trace-alert contract",
+      "measure": "detection delay and false-alert rate",
+      "failure_to_detect": "logging sensitive prompts into dashboards"
+    },
+    "practice_task": "Produce a preregistered test protocol and evidence record grounded in a metric-trace-alert contract.",
+    "setting_constraint": "Use a provenance-checked real dataset with consent and access rules.",
+    "required_evidence": [
+      "a preregistered test protocol and evidence record",
+      "Include the data card, missingness check and permitted use.",
+      "Report detection delay and false-alert rate with uncertainty or an explicit deterministic check.",
+      "Construct a negative control for the failure mode: logging sensitive prompts into dashboards."
+    ],
+    "assessment": {
+      "mode": "independent_evaluator_new_case",
+      "pass_rule": "all_four_criteria_required",
+      "scoring": "Each criterion: 0 absent, 1 partial, 2 demonstrated; require 2 on all four.",
+      "threshold_policy": "Register the metric threshold, baseline, task budget and evaluator before exposing new items.",
+      "criteria": [
+        "Concept: correctly state the assumptions and limits of observability.",
+        "Practice: a held-out challenge supports or rejects the claim.",
+        "Measurement: report detection delay and false-alert rate against a matched baseline with reproducible inputs.",
+        "Critical check: test for logging sensitive prompts into dashboards; detect it or rule it out with evidence."
+      ]
+    },
+    "source_policy": "Reviewer must add a verified primary source before lesson status; no source is fabricated here.",
+    "contamination_policy": "No private items, answers, seeds or reviewer-only prompts in this public specification.",
+    "status": "generated_unreviewed"
+  }
 }

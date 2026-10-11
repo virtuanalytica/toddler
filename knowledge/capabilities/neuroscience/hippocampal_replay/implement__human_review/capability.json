@@ -5,7 +5,7 @@
   "topic": "hippocampal_replay",
   "practice": "implement",
   "setting": "human_review",
-  "target": "implement hippocampal replay in human review",
+  "target": "Build a runnable demonstration of hippocampal replay using a replay schedule with online and offline phases. Use a reviewer who did not author the artifact or see hidden answers.",
   "status": "scaffold",
   "evidence": {
     "primary_sources": [],
@@ -13,5 +13,38 @@
     "practical_artifacts": [],
     "assessment": []
   },
-  "mastery_claim": false
+  "mastery_claim": false,
+  "competency": {
+    "schema": "toddler-competency-spec/v1",
+    "title": "Implement hippocampal replay — human review",
+    "outcome": "Build a runnable demonstration of hippocampal replay using a replay schedule with online and offline phases. Use a reviewer who did not author the artifact or see hidden answers.",
+    "topic_kernel": {
+      "artifact": "a replay schedule with online and offline phases",
+      "measure": "retention after delayed reactivation",
+      "failure_to_detect": "claiming a biological mechanism from an engineering analogy"
+    },
+    "practice_task": "Produce executable code or a runnable protocol grounded in a replay schedule with online and offline phases.",
+    "setting_constraint": "Use a reviewer who did not author the artifact or see hidden answers.",
+    "required_evidence": [
+      "executable code or a runnable protocol",
+      "Include reviewer notes, disagreement resolution and audit trail.",
+      "Report retention after delayed reactivation with uncertainty or an explicit deterministic check.",
+      "Construct a negative control for the failure mode: claiming a biological mechanism from an engineering analogy."
+    ],
+    "assessment": {
+      "mode": "independent_evaluator_new_case",
+      "pass_rule": "all_four_criteria_required",
+      "scoring": "Each criterion: 0 absent, 1 partial, 2 demonstrated; require 2 on all four.",
+      "threshold_policy": "Register the metric threshold, baseline, task budget and evaluator before exposing new items.",
+      "criteria": [
+        "Concept: correctly state the assumptions and limits of hippocampal replay.",
+        "Practice: the artifact passes a new functional case and a failure case.",
+        "Measurement: report retention after delayed reactivation against a matched baseline with reproducible inputs.",
+        "Critical check: test for claiming a biological mechanism from an engineering analogy; detect it or rule it out with evidence."
+      ]
+    },
+    "source_policy": "Reviewer must add a verified primary source before lesson status; no source is fabricated here.",
+    "contamination_policy": "No private items, answers, seeds or reviewer-only prompts in this public specification.",
+    "status": "generated_unreviewed"
+  }
 }

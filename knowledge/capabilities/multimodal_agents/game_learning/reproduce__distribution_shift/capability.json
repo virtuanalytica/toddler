@@ -5,7 +5,7 @@
   "topic": "game_learning",
   "practice": "reproduce",
   "setting": "distribution_shift",
-  "target": "reproduce game learning in distribution shift",
+  "target": "Reproduce a stated result for game learning using a novel-game rules and strategy notebook. Fit on one distribution and evaluate on a separately documented shift.",
   "status": "scaffold",
   "evidence": {
     "primary_sources": [],
@@ -13,5 +13,38 @@
     "practical_artifacts": [],
     "assessment": []
   },
-  "mastery_claim": false
+  "mastery_claim": false,
+  "competency": {
+    "schema": "toddler-competency-spec/v1",
+    "title": "Reproduce game learning — distribution shift",
+    "outcome": "Reproduce a stated result for game learning using a novel-game rules and strategy notebook. Fit on one distribution and evaluate on a separately documented shift.",
+    "topic_kernel": {
+      "artifact": "a novel-game rules and strategy notebook",
+      "measure": "learning speed and win rate on unseen levels",
+      "failure_to_detect": "using hidden level scripts as training data"
+    },
+    "practice_task": "Produce a rerun manifest with data, version, seeds and commands grounded in a novel-game rules and strategy notebook.",
+    "setting_constraint": "Fit on one distribution and evaluate on a separately documented shift.",
+    "required_evidence": [
+      "a rerun manifest with data, version, seeds and commands",
+      "Include shift definition and in/out-distribution results.",
+      "Report learning speed and win rate on unseen levels with uncertainty or an explicit deterministic check.",
+      "Construct a negative control for the failure mode: using hidden level scripts as training data."
+    ],
+    "assessment": {
+      "mode": "independent_evaluator_new_case",
+      "pass_rule": "all_four_criteria_required",
+      "scoring": "Each criterion: 0 absent, 1 partial, 2 demonstrated; require 2 on all four.",
+      "threshold_policy": "Register the metric threshold, baseline, task budget and evaluator before exposing new items.",
+      "criteria": [
+        "Concept: correctly state the assumptions and limits of game learning.",
+        "Practice: the rerun agrees within a predeclared tolerance.",
+        "Measurement: report learning speed and win rate on unseen levels against a matched baseline with reproducible inputs.",
+        "Critical check: test for using hidden level scripts as training data; detect it or rule it out with evidence."
+      ]
+    },
+    "source_policy": "Reviewer must add a verified primary source before lesson status; no source is fabricated here.",
+    "contamination_policy": "No private items, answers, seeds or reviewer-only prompts in this public specification.",
+    "status": "generated_unreviewed"
+  }
 }

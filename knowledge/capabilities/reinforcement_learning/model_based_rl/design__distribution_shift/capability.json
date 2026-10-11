@@ -5,7 +5,7 @@
   "topic": "model_based_rl",
   "practice": "design",
   "setting": "distribution_shift",
-  "target": "design model based rl in distribution shift",
+  "target": "Design a deployable workflow for model based rl using a learned dynamics and planning loop. Fit on one distribution and evaluate on a separately documented shift.",
   "status": "scaffold",
   "evidence": {
     "primary_sources": [],
@@ -13,5 +13,38 @@
     "practical_artifacts": [],
     "assessment": []
   },
-  "mastery_claim": false
+  "mastery_claim": false,
+  "competency": {
+    "schema": "toddler-competency-spec/v1",
+    "title": "Design model based rl — distribution shift",
+    "outcome": "Design a deployable workflow for model based rl using a learned dynamics and planning loop. Fit on one distribution and evaluate on a separately documented shift.",
+    "topic_kernel": {
+      "artifact": "a learned dynamics and planning loop",
+      "measure": "rollout error and return by planning horizon",
+      "failure_to_detect": "trusting long imagined rollouts"
+    },
+    "practice_task": "Produce a design, interfaces, failure paths and resource budget grounded in a learned dynamics and planning loop.",
+    "setting_constraint": "Fit on one distribution and evaluate on a separately documented shift.",
+    "required_evidence": [
+      "a design, interfaces, failure paths and resource budget",
+      "Include shift definition and in/out-distribution results.",
+      "Report rollout error and return by planning horizon with uncertainty or an explicit deterministic check.",
+      "Construct a negative control for the failure mode: trusting long imagined rollouts."
+    ],
+    "assessment": {
+      "mode": "independent_evaluator_new_case",
+      "pass_rule": "all_four_criteria_required",
+      "scoring": "Each criterion: 0 absent, 1 partial, 2 demonstrated; require 2 on all four.",
+      "threshold_policy": "Register the metric threshold, baseline, task budget and evaluator before exposing new items.",
+      "criteria": [
+        "Concept: correctly state the assumptions and limits of model based rl.",
+        "Practice: an independent reviewer can execute its acceptance tests.",
+        "Measurement: report rollout error and return by planning horizon against a matched baseline with reproducible inputs.",
+        "Critical check: test for trusting long imagined rollouts; detect it or rule it out with evidence."
+      ]
+    },
+    "source_policy": "Reviewer must add a verified primary source before lesson status; no source is fabricated here.",
+    "contamination_policy": "No private items, answers, seeds or reviewer-only prompts in this public specification.",
+    "status": "generated_unreviewed"
+  }
 }

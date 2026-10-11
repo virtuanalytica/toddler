@@ -5,7 +5,7 @@
   "topic": "causal_identification",
   "practice": "compare",
   "setting": "real_time",
-  "target": "compare causal identification in real time",
+  "target": "Compare two plausible methods for causal identification using a causal graph and intervention plan. Meet a declared latency and fail-safe limit under concurrent load.",
   "status": "scaffold",
   "evidence": {
     "primary_sources": [],
@@ -13,5 +13,38 @@
     "practical_artifacts": [],
     "assessment": []
   },
-  "mastery_claim": false
+  "mastery_claim": false,
+  "competency": {
+    "schema": "toddler-competency-spec/v1",
+    "title": "Compare causal identification — real time",
+    "outcome": "Compare two plausible methods for causal identification using a causal graph and intervention plan. Meet a declared latency and fail-safe limit under concurrent load.",
+    "topic_kernel": {
+      "artifact": "a causal graph and intervention plan",
+      "measure": "identifiability under stated assumptions",
+      "failure_to_detect": "controlling for a collider"
+    },
+    "practice_task": "Produce a paired comparison and tradeoff table grounded in a causal graph and intervention plan.",
+    "setting_constraint": "Meet a declared latency and fail-safe limit under concurrent load.",
+    "required_evidence": [
+      "a paired comparison and tradeoff table",
+      "Include p95 latency, timeout behavior and rollback trace.",
+      "Report identifiability under stated assumptions with uncertainty or an explicit deterministic check.",
+      "Construct a negative control for the failure mode: controlling for a collider."
+    ],
+    "assessment": {
+      "mode": "independent_evaluator_new_case",
+      "pass_rule": "all_four_criteria_required",
+      "scoring": "Each criterion: 0 absent, 1 partial, 2 demonstrated; require 2 on all four.",
+      "threshold_policy": "Register the metric threshold, baseline, task budget and evaluator before exposing new items.",
+      "criteria": [
+        "Concept: correctly state the assumptions and limits of causal identification.",
+        "Practice: same inputs and budgets yield a justified choice.",
+        "Measurement: report identifiability under stated assumptions against a matched baseline with reproducible inputs.",
+        "Critical check: test for controlling for a collider; detect it or rule it out with evidence."
+      ]
+    },
+    "source_policy": "Reviewer must add a verified primary source before lesson status; no source is fabricated here.",
+    "contamination_policy": "No private items, answers, seeds or reviewer-only prompts in this public specification.",
+    "status": "generated_unreviewed"
+  }
 }

@@ -5,7 +5,7 @@
   "topic": "continual_backprop",
   "practice": "validate",
   "setting": "compute_budget",
-  "target": "validate continual backprop in compute budget",
+  "target": "Validate a claim about continual backprop using a selective dormant-unit reset trial. Fix a time, memory and energy budget before the run.",
   "status": "scaffold",
   "evidence": {
     "primary_sources": [],
@@ -13,5 +13,38 @@
     "practical_artifacts": [],
     "assessment": []
   },
-  "mastery_claim": false
+  "mastery_claim": false,
+  "competency": {
+    "schema": "toddler-competency-spec/v1",
+    "title": "Validate continual backprop — compute budget",
+    "outcome": "Validate a claim about continual backprop using a selective dormant-unit reset trial. Fix a time, memory and energy budget before the run.",
+    "topic_kernel": {
+      "artifact": "a selective dormant-unit reset trial",
+      "measure": "plasticity recovery and retained skills",
+      "failure_to_detect": "resetting useful weights without rollback"
+    },
+    "practice_task": "Produce a preregistered test protocol and evidence record grounded in a selective dormant-unit reset trial.",
+    "setting_constraint": "Fix a time, memory and energy budget before the run.",
+    "required_evidence": [
+      "a preregistered test protocol and evidence record",
+      "Include resource log and quality per unit of compute.",
+      "Report plasticity recovery and retained skills with uncertainty or an explicit deterministic check.",
+      "Construct a negative control for the failure mode: resetting useful weights without rollback."
+    ],
+    "assessment": {
+      "mode": "independent_evaluator_new_case",
+      "pass_rule": "all_four_criteria_required",
+      "scoring": "Each criterion: 0 absent, 1 partial, 2 demonstrated; require 2 on all four.",
+      "threshold_policy": "Register the metric threshold, baseline, task budget and evaluator before exposing new items.",
+      "criteria": [
+        "Concept: correctly state the assumptions and limits of continual backprop.",
+        "Practice: a held-out challenge supports or rejects the claim.",
+        "Measurement: report plasticity recovery and retained skills against a matched baseline with reproducible inputs.",
+        "Critical check: test for resetting useful weights without rollback; detect it or rule it out with evidence."
+      ]
+    },
+    "source_policy": "Reviewer must add a verified primary source before lesson status; no source is fabricated here.",
+    "contamination_policy": "No private items, answers, seeds or reviewer-only prompts in this public specification.",
+    "status": "generated_unreviewed"
+  }
 }

@@ -5,7 +5,7 @@
   "topic": "grounded_dialogue",
   "practice": "implement",
   "setting": "distribution_shift",
-  "target": "implement grounded dialogue in distribution shift",
+  "target": "Build a runnable demonstration of grounded dialogue using an evidence-cited dialogue response. Fit on one distribution and evaluate on a separately documented shift.",
   "status": "scaffold",
   "evidence": {
     "primary_sources": [],
@@ -13,5 +13,38 @@
     "practical_artifacts": [],
     "assessment": []
   },
-  "mastery_claim": false
+  "mastery_claim": false,
+  "competency": {
+    "schema": "toddler-competency-spec/v1",
+    "title": "Implement grounded dialogue — distribution shift",
+    "outcome": "Build a runnable demonstration of grounded dialogue using an evidence-cited dialogue response. Fit on one distribution and evaluate on a separately documented shift.",
+    "topic_kernel": {
+      "artifact": "an evidence-cited dialogue response",
+      "measure": "claim support and appropriate abstention",
+      "failure_to_detect": "citing a source that does not support the claim"
+    },
+    "practice_task": "Produce executable code or a runnable protocol grounded in an evidence-cited dialogue response.",
+    "setting_constraint": "Fit on one distribution and evaluate on a separately documented shift.",
+    "required_evidence": [
+      "executable code or a runnable protocol",
+      "Include shift definition and in/out-distribution results.",
+      "Report claim support and appropriate abstention with uncertainty or an explicit deterministic check.",
+      "Construct a negative control for the failure mode: citing a source that does not support the claim."
+    ],
+    "assessment": {
+      "mode": "independent_evaluator_new_case",
+      "pass_rule": "all_four_criteria_required",
+      "scoring": "Each criterion: 0 absent, 1 partial, 2 demonstrated; require 2 on all four.",
+      "threshold_policy": "Register the metric threshold, baseline, task budget and evaluator before exposing new items.",
+      "criteria": [
+        "Concept: correctly state the assumptions and limits of grounded dialogue.",
+        "Practice: the artifact passes a new functional case and a failure case.",
+        "Measurement: report claim support and appropriate abstention against a matched baseline with reproducible inputs.",
+        "Critical check: test for citing a source that does not support the claim; detect it or rule it out with evidence."
+      ]
+    },
+    "source_policy": "Reviewer must add a verified primary source before lesson status; no source is fabricated here.",
+    "contamination_policy": "No private items, answers, seeds or reviewer-only prompts in this public specification.",
+    "status": "generated_unreviewed"
+  }
 }

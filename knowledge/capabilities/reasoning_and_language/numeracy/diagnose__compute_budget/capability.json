@@ -5,7 +5,7 @@
   "topic": "numeracy",
   "practice": "diagnose",
   "setting": "compute_budget",
-  "target": "diagnose numeracy in compute budget",
+  "target": "Locate a failure and test a causal remedy for numeracy using a units-aware calculation worksheet. Fix a time, memory and energy budget before the run.",
   "status": "scaffold",
   "evidence": {
     "primary_sources": [],
@@ -13,5 +13,38 @@
     "practical_artifacts": [],
     "assessment": []
   },
-  "mastery_claim": false
+  "mastery_claim": false,
+  "competency": {
+    "schema": "toddler-competency-spec/v1",
+    "title": "Diagnose numeracy — compute budget",
+    "outcome": "Locate a failure and test a causal remedy for numeracy using a units-aware calculation worksheet. Fix a time, memory and energy budget before the run.",
+    "topic_kernel": {
+      "artifact": "a units-aware calculation worksheet",
+      "measure": "exact answer rate and unit correctness",
+      "failure_to_detect": "accepting a plausible wrong magnitude"
+    },
+    "practice_task": "Produce a fault trace, hypothesis table and controlled repair grounded in a units-aware calculation worksheet.",
+    "setting_constraint": "Fix a time, memory and energy budget before the run.",
+    "required_evidence": [
+      "a fault trace, hypothesis table and controlled repair",
+      "Include resource log and quality per unit of compute.",
+      "Report exact answer rate and unit correctness with uncertainty or an explicit deterministic check.",
+      "Construct a negative control for the failure mode: accepting a plausible wrong magnitude."
+    ],
+    "assessment": {
+      "mode": "independent_evaluator_new_case",
+      "pass_rule": "all_four_criteria_required",
+      "scoring": "Each criterion: 0 absent, 1 partial, 2 demonstrated; require 2 on all four.",
+      "threshold_policy": "Register the metric threshold, baseline, task budget and evaluator before exposing new items.",
+      "criteria": [
+        "Concept: correctly state the assumptions and limits of numeracy.",
+        "Practice: the repair fixes the target without hiding a regression.",
+        "Measurement: report exact answer rate and unit correctness against a matched baseline with reproducible inputs.",
+        "Critical check: test for accepting a plausible wrong magnitude; detect it or rule it out with evidence."
+      ]
+    },
+    "source_policy": "Reviewer must add a verified primary source before lesson status; no source is fabricated here.",
+    "contamination_policy": "No private items, answers, seeds or reviewer-only prompts in this public specification.",
+    "status": "generated_unreviewed"
+  }
 }

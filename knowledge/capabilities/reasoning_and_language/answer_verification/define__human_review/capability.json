@@ -5,7 +5,7 @@
   "topic": "answer_verification",
   "practice": "define",
   "setting": "human_review",
-  "target": "define answer verification in human review",
+  "target": "Specify operational terms and boundaries for answer verification using a claim-by-claim verification record. Use a reviewer who did not author the artifact or see hidden answers.",
   "status": "scaffold",
   "evidence": {
     "primary_sources": [],
@@ -13,5 +13,38 @@
     "practical_artifacts": [],
     "assessment": []
   },
-  "mastery_claim": false
+  "mastery_claim": false,
+  "competency": {
+    "schema": "toddler-competency-spec/v1",
+    "title": "Define answer verification — human review",
+    "outcome": "Specify operational terms and boundaries for answer verification using a claim-by-claim verification record. Use a reviewer who did not author the artifact or see hidden answers.",
+    "topic_kernel": {
+      "artifact": "a claim-by-claim verification record",
+      "measure": "true-positive error detection and false alarms",
+      "failure_to_detect": "rubber-stamping fluent answers"
+    },
+    "practice_task": "Produce a glossary with a positive and a negative case grounded in a claim-by-claim verification record.",
+    "setting_constraint": "Use a reviewer who did not author the artifact or see hidden answers.",
+    "required_evidence": [
+      "a glossary with a positive and a negative case",
+      "Include reviewer notes, disagreement resolution and audit trail.",
+      "Report true-positive error detection and false alarms with uncertainty or an explicit deterministic check.",
+      "Construct a negative control for the failure mode: rubber-stamping fluent answers."
+    ],
+    "assessment": {
+      "mode": "independent_evaluator_new_case",
+      "pass_rule": "all_four_criteria_required",
+      "scoring": "Each criterion: 0 absent, 1 partial, 2 demonstrated; require 2 on all four.",
+      "threshold_policy": "Register the metric threshold, baseline, task budget and evaluator before exposing new items.",
+      "criteria": [
+        "Concept: correctly state the assumptions and limits of answer verification.",
+        "Practice: the definitions separate valid from invalid cases.",
+        "Measurement: report true-positive error detection and false alarms against a matched baseline with reproducible inputs.",
+        "Critical check: test for rubber-stamping fluent answers; detect it or rule it out with evidence."
+      ]
+    },
+    "source_policy": "Reviewer must add a verified primary source before lesson status; no source is fabricated here.",
+    "contamination_policy": "No private items, answers, seeds or reviewer-only prompts in this public specification.",
+    "status": "generated_unreviewed"
+  }
 }

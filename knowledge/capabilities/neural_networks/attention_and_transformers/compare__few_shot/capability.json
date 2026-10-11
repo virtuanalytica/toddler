@@ -5,7 +5,7 @@
   "topic": "attention_and_transformers",
   "practice": "compare",
   "setting": "few_shot",
-  "target": "compare attention and transformers in few shot",
+  "target": "Compare two plausible methods for attention and transformers using a masked-attention implementation. Limit adaptation to a declared small example budget.",
   "status": "scaffold",
   "evidence": {
     "primary_sources": [],
@@ -13,5 +13,38 @@
     "practical_artifacts": [],
     "assessment": []
   },
-  "mastery_claim": false
+  "mastery_claim": false,
+  "competency": {
+    "schema": "toddler-competency-spec/v1",
+    "title": "Compare attention and transformers — few shot",
+    "outcome": "Compare two plausible methods for attention and transformers using a masked-attention implementation. Limit adaptation to a declared small example budget.",
+    "topic_kernel": {
+      "artifact": "a masked-attention implementation",
+      "measure": "mask correctness and sequence scaling",
+      "failure_to_detect": "leaking future tokens through the mask"
+    },
+    "practice_task": "Produce a paired comparison and tradeoff table grounded in a masked-attention implementation.",
+    "setting_constraint": "Limit adaptation to a declared small example budget.",
+    "required_evidence": [
+      "a paired comparison and tradeoff table",
+      "Include the example count, selection rule and learning curve.",
+      "Report mask correctness and sequence scaling with uncertainty or an explicit deterministic check.",
+      "Construct a negative control for the failure mode: leaking future tokens through the mask."
+    ],
+    "assessment": {
+      "mode": "independent_evaluator_new_case",
+      "pass_rule": "all_four_criteria_required",
+      "scoring": "Each criterion: 0 absent, 1 partial, 2 demonstrated; require 2 on all four.",
+      "threshold_policy": "Register the metric threshold, baseline, task budget and evaluator before exposing new items.",
+      "criteria": [
+        "Concept: correctly state the assumptions and limits of attention and transformers.",
+        "Practice: same inputs and budgets yield a justified choice.",
+        "Measurement: report mask correctness and sequence scaling against a matched baseline with reproducible inputs.",
+        "Critical check: test for leaking future tokens through the mask; detect it or rule it out with evidence."
+      ]
+    },
+    "source_policy": "Reviewer must add a verified primary source before lesson status; no source is fabricated here.",
+    "contamination_policy": "No private items, answers, seeds or reviewer-only prompts in this public specification.",
+    "status": "generated_unreviewed"
+  }
 }

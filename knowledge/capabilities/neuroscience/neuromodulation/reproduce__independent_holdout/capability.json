@@ -5,7 +5,7 @@
   "topic": "neuromodulation",
   "practice": "reproduce",
   "setting": "independent_holdout",
-  "target": "reproduce neuromodulation in independent holdout",
+  "target": "Reproduce a stated result for neuromodulation using a reward-gated update simulation. Have a separate evaluator hold unseen items and answer keys.",
   "status": "scaffold",
   "evidence": {
     "primary_sources": [],
@@ -13,5 +13,38 @@
     "practical_artifacts": [],
     "assessment": []
   },
-  "mastery_claim": false
+  "mastery_claim": false,
+  "competency": {
+    "schema": "toddler-competency-spec/v1",
+    "title": "Reproduce neuromodulation — independent holdout",
+    "outcome": "Reproduce a stated result for neuromodulation using a reward-gated update simulation. Have a separate evaluator hold unseen items and answer keys.",
+    "topic_kernel": {
+      "artifact": "a reward-gated update simulation",
+      "measure": "credit assignment under delayed reward",
+      "failure_to_detect": "equating dopamine with a scalar reward"
+    },
+    "practice_task": "Produce a rerun manifest with data, version, seeds and commands grounded in a reward-gated update simulation.",
+    "setting_constraint": "Have a separate evaluator hold unseen items and answer keys.",
+    "required_evidence": [
+      "a rerun manifest with data, version, seeds and commands",
+      "Include item-set hash, evaluator identity and aggregate verdict only.",
+      "Report credit assignment under delayed reward with uncertainty or an explicit deterministic check.",
+      "Construct a negative control for the failure mode: equating dopamine with a scalar reward."
+    ],
+    "assessment": {
+      "mode": "independent_evaluator_new_case",
+      "pass_rule": "all_four_criteria_required",
+      "scoring": "Each criterion: 0 absent, 1 partial, 2 demonstrated; require 2 on all four.",
+      "threshold_policy": "Register the metric threshold, baseline, task budget and evaluator before exposing new items.",
+      "criteria": [
+        "Concept: correctly state the assumptions and limits of neuromodulation.",
+        "Practice: the rerun agrees within a predeclared tolerance.",
+        "Measurement: report credit assignment under delayed reward against a matched baseline with reproducible inputs.",
+        "Critical check: test for equating dopamine with a scalar reward; detect it or rule it out with evidence."
+      ]
+    },
+    "source_policy": "Reviewer must add a verified primary source before lesson status; no source is fabricated here.",
+    "contamination_policy": "No private items, answers, seeds or reviewer-only prompts in this public specification.",
+    "status": "generated_unreviewed"
+  }
 }

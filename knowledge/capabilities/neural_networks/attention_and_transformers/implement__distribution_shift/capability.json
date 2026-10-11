@@ -5,7 +5,7 @@
   "topic": "attention_and_transformers",
   "practice": "implement",
   "setting": "distribution_shift",
-  "target": "implement attention and transformers in distribution shift",
+  "target": "Build a runnable demonstration of attention and transformers using a masked-attention implementation. Fit on one distribution and evaluate on a separately documented shift.",
   "status": "scaffold",
   "evidence": {
     "primary_sources": [],
@@ -13,5 +13,38 @@
     "practical_artifacts": [],
     "assessment": []
   },
-  "mastery_claim": false
+  "mastery_claim": false,
+  "competency": {
+    "schema": "toddler-competency-spec/v1",
+    "title": "Implement attention and transformers — distribution shift",
+    "outcome": "Build a runnable demonstration of attention and transformers using a masked-attention implementation. Fit on one distribution and evaluate on a separately documented shift.",
+    "topic_kernel": {
+      "artifact": "a masked-attention implementation",
+      "measure": "mask correctness and sequence scaling",
+      "failure_to_detect": "leaking future tokens through the mask"
+    },
+    "practice_task": "Produce executable code or a runnable protocol grounded in a masked-attention implementation.",
+    "setting_constraint": "Fit on one distribution and evaluate on a separately documented shift.",
+    "required_evidence": [
+      "executable code or a runnable protocol",
+      "Include shift definition and in/out-distribution results.",
+      "Report mask correctness and sequence scaling with uncertainty or an explicit deterministic check.",
+      "Construct a negative control for the failure mode: leaking future tokens through the mask."
+    ],
+    "assessment": {
+      "mode": "independent_evaluator_new_case",
+      "pass_rule": "all_four_criteria_required",
+      "scoring": "Each criterion: 0 absent, 1 partial, 2 demonstrated; require 2 on all four.",
+      "threshold_policy": "Register the metric threshold, baseline, task budget and evaluator before exposing new items.",
+      "criteria": [
+        "Concept: correctly state the assumptions and limits of attention and transformers.",
+        "Practice: the artifact passes a new functional case and a failure case.",
+        "Measurement: report mask correctness and sequence scaling against a matched baseline with reproducible inputs.",
+        "Critical check: test for leaking future tokens through the mask; detect it or rule it out with evidence."
+      ]
+    },
+    "source_policy": "Reviewer must add a verified primary source before lesson status; no source is fabricated here.",
+    "contamination_policy": "No private items, answers, seeds or reviewer-only prompts in this public specification.",
+    "status": "generated_unreviewed"
+  }
 }

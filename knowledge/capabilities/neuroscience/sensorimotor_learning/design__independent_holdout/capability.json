@@ -5,7 +5,7 @@
   "topic": "sensorimotor_learning",
   "practice": "design",
   "setting": "independent_holdout",
-  "target": "design sensorimotor learning in independent holdout",
+  "target": "Design a deployable workflow for sensorimotor learning using an action-error adaptation trace. Have a separate evaluator hold unseen items and answer keys.",
   "status": "scaffold",
   "evidence": {
     "primary_sources": [],
@@ -13,5 +13,38 @@
     "practical_artifacts": [],
     "assessment": []
   },
-  "mastery_claim": false
+  "mastery_claim": false,
+  "competency": {
+    "schema": "toddler-competency-spec/v1",
+    "title": "Design sensorimotor learning — independent holdout",
+    "outcome": "Design a deployable workflow for sensorimotor learning using an action-error adaptation trace. Have a separate evaluator hold unseen items and answer keys.",
+    "topic_kernel": {
+      "artifact": "an action-error adaptation trace",
+      "measure": "recovery after perturbation and washout",
+      "failure_to_detect": "ignoring proprioceptive feedback"
+    },
+    "practice_task": "Produce a design, interfaces, failure paths and resource budget grounded in an action-error adaptation trace.",
+    "setting_constraint": "Have a separate evaluator hold unseen items and answer keys.",
+    "required_evidence": [
+      "a design, interfaces, failure paths and resource budget",
+      "Include item-set hash, evaluator identity and aggregate verdict only.",
+      "Report recovery after perturbation and washout with uncertainty or an explicit deterministic check.",
+      "Construct a negative control for the failure mode: ignoring proprioceptive feedback."
+    ],
+    "assessment": {
+      "mode": "independent_evaluator_new_case",
+      "pass_rule": "all_four_criteria_required",
+      "scoring": "Each criterion: 0 absent, 1 partial, 2 demonstrated; require 2 on all four.",
+      "threshold_policy": "Register the metric threshold, baseline, task budget and evaluator before exposing new items.",
+      "criteria": [
+        "Concept: correctly state the assumptions and limits of sensorimotor learning.",
+        "Practice: an independent reviewer can execute its acceptance tests.",
+        "Measurement: report recovery after perturbation and washout against a matched baseline with reproducible inputs.",
+        "Critical check: test for ignoring proprioceptive feedback; detect it or rule it out with evidence."
+      ]
+    },
+    "source_policy": "Reviewer must add a verified primary source before lesson status; no source is fabricated here.",
+    "contamination_policy": "No private items, answers, seeds or reviewer-only prompts in this public specification.",
+    "status": "generated_unreviewed"
+  }
 }

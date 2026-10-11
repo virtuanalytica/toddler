@@ -5,7 +5,7 @@
   "topic": "developmental_learning",
   "practice": "derive",
   "setting": "real_time",
-  "target": "derive developmental learning in real time",
+  "target": "Derive a formal or quantitative account of developmental learning using a staged acquisition curriculum. Meet a declared latency and fail-safe limit under concurrent load.",
   "status": "scaffold",
   "evidence": {
     "primary_sources": [],
@@ -13,5 +13,38 @@
     "practical_artifacts": [],
     "assessment": []
   },
-  "mastery_claim": false
+  "mastery_claim": false,
+  "competency": {
+    "schema": "toddler-competency-spec/v1",
+    "title": "Derive developmental learning — real time",
+    "outcome": "Derive a formal or quantitative account of developmental learning using a staged acquisition curriculum. Meet a declared latency and fail-safe limit under concurrent load.",
+    "topic_kernel": {
+      "artifact": "a staged acquisition curriculum",
+      "measure": "transfer to the next developmental stage",
+      "failure_to_detect": "projecting human ages onto model stages"
+    },
+    "practice_task": "Produce a stepwise derivation with units or invariants grounded in a staged acquisition curriculum.",
+    "setting_constraint": "Meet a declared latency and fail-safe limit under concurrent load.",
+    "required_evidence": [
+      "a stepwise derivation with units or invariants",
+      "Include p95 latency, timeout behavior and rollback trace.",
+      "Report transfer to the next developmental stage with uncertainty or an explicit deterministic check.",
+      "Construct a negative control for the failure mode: projecting human ages onto model stages."
+    ],
+    "assessment": {
+      "mode": "independent_evaluator_new_case",
+      "pass_rule": "all_four_criteria_required",
+      "scoring": "Each criterion: 0 absent, 1 partial, 2 demonstrated; require 2 on all four.",
+      "threshold_policy": "Register the metric threshold, baseline, task budget and evaluator before exposing new items.",
+      "criteria": [
+        "Concept: correctly state the assumptions and limits of developmental learning.",
+        "Practice: the derivation reproduces a checked special case.",
+        "Measurement: report transfer to the next developmental stage against a matched baseline with reproducible inputs.",
+        "Critical check: test for projecting human ages onto model stages; detect it or rule it out with evidence."
+      ]
+    },
+    "source_policy": "Reviewer must add a verified primary source before lesson status; no source is fabricated here.",
+    "contamination_policy": "No private items, answers, seeds or reviewer-only prompts in this public specification.",
+    "status": "generated_unreviewed"
+  }
 }

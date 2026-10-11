@@ -5,7 +5,7 @@
   "topic": "paired_trials",
   "practice": "design",
   "setting": "task_sequence",
-  "target": "design paired trials in task sequence",
+  "target": "Design a deployable workflow for paired trials using a paired baseline-candidate experiment. Run at least three ordered tasks and revisit the first.",
   "status": "scaffold",
   "evidence": {
     "primary_sources": [],
@@ -13,5 +13,38 @@
     "practical_artifacts": [],
     "assessment": []
   },
-  "mastery_claim": false
+  "mastery_claim": false,
+  "competency": {
+    "schema": "toddler-competency-spec/v1",
+    "title": "Design paired trials — task sequence",
+    "outcome": "Design a deployable workflow for paired trials using a paired baseline-candidate experiment. Run at least three ordered tasks and revisit the first.",
+    "topic_kernel": {
+      "artifact": "a paired baseline-candidate experiment",
+      "measure": "paired effect and confidence interval",
+      "failure_to_detect": "comparing different prompt or decode settings"
+    },
+    "practice_task": "Produce a design, interfaces, failure paths and resource budget grounded in a paired baseline-candidate experiment.",
+    "setting_constraint": "Run at least three ordered tasks and revisit the first.",
+    "required_evidence": [
+      "a design, interfaces, failure paths and resource budget",
+      "Include per-task before-and-after measurements.",
+      "Report paired effect and confidence interval with uncertainty or an explicit deterministic check.",
+      "Construct a negative control for the failure mode: comparing different prompt or decode settings."
+    ],
+    "assessment": {
+      "mode": "independent_evaluator_new_case",
+      "pass_rule": "all_four_criteria_required",
+      "scoring": "Each criterion: 0 absent, 1 partial, 2 demonstrated; require 2 on all four.",
+      "threshold_policy": "Register the metric threshold, baseline, task budget and evaluator before exposing new items.",
+      "criteria": [
+        "Concept: correctly state the assumptions and limits of paired trials.",
+        "Practice: an independent reviewer can execute its acceptance tests.",
+        "Measurement: report paired effect and confidence interval against a matched baseline with reproducible inputs.",
+        "Critical check: test for comparing different prompt or decode settings; detect it or rule it out with evidence."
+      ]
+    },
+    "source_policy": "Reviewer must add a verified primary source before lesson status; no source is fabricated here.",
+    "contamination_policy": "No private items, answers, seeds or reviewer-only prompts in this public specification.",
+    "status": "generated_unreviewed"
+  }
 }

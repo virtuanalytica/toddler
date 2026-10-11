@@ -5,7 +5,7 @@
   "topic": "catastrophic_forgetting",
   "practice": "reproduce",
   "setting": "real_time",
-  "target": "reproduce catastrophic forgetting in real time",
+  "target": "Reproduce a stated result for catastrophic forgetting using a sequential-task retention matrix. Meet a declared latency and fail-safe limit under concurrent load.",
   "status": "scaffold",
   "evidence": {
     "primary_sources": [],
@@ -13,5 +13,38 @@
     "practical_artifacts": [],
     "assessment": []
   },
-  "mastery_claim": false
+  "mastery_claim": false,
+  "competency": {
+    "schema": "toddler-competency-spec/v1",
+    "title": "Reproduce catastrophic forgetting — real time",
+    "outcome": "Reproduce a stated result for catastrophic forgetting using a sequential-task retention matrix. Meet a declared latency and fail-safe limit under concurrent load.",
+    "topic_kernel": {
+      "artifact": "a sequential-task retention matrix",
+      "measure": "old-task loss after each new task",
+      "failure_to_detect": "reporting only final-task accuracy"
+    },
+    "practice_task": "Produce a rerun manifest with data, version, seeds and commands grounded in a sequential-task retention matrix.",
+    "setting_constraint": "Meet a declared latency and fail-safe limit under concurrent load.",
+    "required_evidence": [
+      "a rerun manifest with data, version, seeds and commands",
+      "Include p95 latency, timeout behavior and rollback trace.",
+      "Report old-task loss after each new task with uncertainty or an explicit deterministic check.",
+      "Construct a negative control for the failure mode: reporting only final-task accuracy."
+    ],
+    "assessment": {
+      "mode": "independent_evaluator_new_case",
+      "pass_rule": "all_four_criteria_required",
+      "scoring": "Each criterion: 0 absent, 1 partial, 2 demonstrated; require 2 on all four.",
+      "threshold_policy": "Register the metric threshold, baseline, task budget and evaluator before exposing new items.",
+      "criteria": [
+        "Concept: correctly state the assumptions and limits of catastrophic forgetting.",
+        "Practice: the rerun agrees within a predeclared tolerance.",
+        "Measurement: report old-task loss after each new task against a matched baseline with reproducible inputs.",
+        "Critical check: test for reporting only final-task accuracy; detect it or rule it out with evidence."
+      ]
+    },
+    "source_policy": "Reviewer must add a verified primary source before lesson status; no source is fabricated here.",
+    "contamination_policy": "No private items, answers, seeds or reviewer-only prompts in this public specification.",
+    "status": "generated_unreviewed"
+  }
 }

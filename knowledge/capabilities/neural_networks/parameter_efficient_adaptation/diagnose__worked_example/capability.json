@@ -5,7 +5,7 @@
   "topic": "parameter_efficient_adaptation",
   "practice": "diagnose",
   "setting": "worked_example",
-  "target": "diagnose parameter efficient adaptation in worked example",
+  "target": "Locate a failure and test a causal remedy for parameter efficient adaptation using a frozen-base adapter trial. Use a small, fully specified worked case and then change one input.",
   "status": "scaffold",
   "evidence": {
     "primary_sources": [],
@@ -13,5 +13,38 @@
     "practical_artifacts": [],
     "assessment": []
   },
-  "mastery_claim": false
+  "mastery_claim": false,
+  "competency": {
+    "schema": "toddler-competency-spec/v1",
+    "title": "Diagnose parameter efficient adaptation — worked example",
+    "outcome": "Locate a failure and test a causal remedy for parameter efficient adaptation using a frozen-base adapter trial. Use a small, fully specified worked case and then change one input.",
+    "topic_kernel": {
+      "artifact": "a frozen-base adapter trial",
+      "measure": "quality per trainable parameter and memory",
+      "failure_to_detect": "updating supposedly frozen weights"
+    },
+    "practice_task": "Produce a fault trace, hypothesis table and controlled repair grounded in a frozen-base adapter trial.",
+    "setting_constraint": "Use a small, fully specified worked case and then change one input.",
+    "required_evidence": [
+      "a fault trace, hypothesis table and controlled repair",
+      "Include the solved case and the changed-case prediction.",
+      "Report quality per trainable parameter and memory with uncertainty or an explicit deterministic check.",
+      "Construct a negative control for the failure mode: updating supposedly frozen weights."
+    ],
+    "assessment": {
+      "mode": "independent_evaluator_new_case",
+      "pass_rule": "all_four_criteria_required",
+      "scoring": "Each criterion: 0 absent, 1 partial, 2 demonstrated; require 2 on all four.",
+      "threshold_policy": "Register the metric threshold, baseline, task budget and evaluator before exposing new items.",
+      "criteria": [
+        "Concept: correctly state the assumptions and limits of parameter efficient adaptation.",
+        "Practice: the repair fixes the target without hiding a regression.",
+        "Measurement: report quality per trainable parameter and memory against a matched baseline with reproducible inputs.",
+        "Critical check: test for updating supposedly frozen weights; detect it or rule it out with evidence."
+      ]
+    },
+    "source_policy": "Reviewer must add a verified primary source before lesson status; no source is fabricated here.",
+    "contamination_policy": "No private items, answers, seeds or reviewer-only prompts in this public specification.",
+    "status": "generated_unreviewed"
+  }
 }

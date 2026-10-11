@@ -5,7 +5,7 @@
   "topic": "generalization",
   "practice": "derive",
   "setting": "distribution_shift",
-  "target": "derive generalization in distribution shift",
+  "target": "Derive a formal or quantitative account of generalization using a train-test gap study. Fit on one distribution and evaluate on a separately documented shift.",
   "status": "scaffold",
   "evidence": {
     "primary_sources": [],
@@ -13,5 +13,38 @@
     "practical_artifacts": [],
     "assessment": []
   },
-  "mastery_claim": false
+  "mastery_claim": false,
+  "competency": {
+    "schema": "toddler-competency-spec/v1",
+    "title": "Derive generalization — distribution shift",
+    "outcome": "Derive a formal or quantitative account of generalization using a train-test gap study. Fit on one distribution and evaluate on a separately documented shift.",
+    "topic_kernel": {
+      "artifact": "a train-test gap study",
+      "measure": "out-of-distribution error with uncertainty interval",
+      "failure_to_detect": "tuning on the test partition"
+    },
+    "practice_task": "Produce a stepwise derivation with units or invariants grounded in a train-test gap study.",
+    "setting_constraint": "Fit on one distribution and evaluate on a separately documented shift.",
+    "required_evidence": [
+      "a stepwise derivation with units or invariants",
+      "Include shift definition and in/out-distribution results.",
+      "Report out-of-distribution error with uncertainty interval with uncertainty or an explicit deterministic check.",
+      "Construct a negative control for the failure mode: tuning on the test partition."
+    ],
+    "assessment": {
+      "mode": "independent_evaluator_new_case",
+      "pass_rule": "all_four_criteria_required",
+      "scoring": "Each criterion: 0 absent, 1 partial, 2 demonstrated; require 2 on all four.",
+      "threshold_policy": "Register the metric threshold, baseline, task budget and evaluator before exposing new items.",
+      "criteria": [
+        "Concept: correctly state the assumptions and limits of generalization.",
+        "Practice: the derivation reproduces a checked special case.",
+        "Measurement: report out-of-distribution error with uncertainty interval against a matched baseline with reproducible inputs.",
+        "Critical check: test for tuning on the test partition; detect it or rule it out with evidence."
+      ]
+    },
+    "source_policy": "Reviewer must add a verified primary source before lesson status; no source is fabricated here.",
+    "contamination_policy": "No private items, answers, seeds or reviewer-only prompts in this public specification.",
+    "status": "generated_unreviewed"
+  }
 }

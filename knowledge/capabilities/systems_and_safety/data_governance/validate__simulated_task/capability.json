@@ -5,7 +5,7 @@
   "topic": "data_governance",
   "practice": "validate",
   "setting": "simulated_task",
-  "target": "validate data governance in simulated task",
+  "target": "Validate a claim about data governance using a data classification and retention register. Use a seeded simulation with an explicit environment version.",
   "status": "scaffold",
   "evidence": {
     "primary_sources": [],
@@ -13,5 +13,38 @@
     "practical_artifacts": [],
     "assessment": []
   },
-  "mastery_claim": false
+  "mastery_claim": false,
+  "competency": {
+    "schema": "toddler-competency-spec/v1",
+    "title": "Validate data governance — simulated task",
+    "outcome": "Validate a claim about data governance using a data classification and retention register. Use a seeded simulation with an explicit environment version.",
+    "topic_kernel": {
+      "artifact": "a data classification and retention register",
+      "measure": "policy compliance and deletion verification",
+      "failure_to_detect": "sending restricted material to an external API"
+    },
+    "practice_task": "Produce a preregistered test protocol and evidence record grounded in a data classification and retention register.",
+    "setting_constraint": "Use a seeded simulation with an explicit environment version.",
+    "required_evidence": [
+      "a preregistered test protocol and evidence record",
+      "Include the simulator config, seed band and baseline run.",
+      "Report policy compliance and deletion verification with uncertainty or an explicit deterministic check.",
+      "Construct a negative control for the failure mode: sending restricted material to an external API."
+    ],
+    "assessment": {
+      "mode": "independent_evaluator_new_case",
+      "pass_rule": "all_four_criteria_required",
+      "scoring": "Each criterion: 0 absent, 1 partial, 2 demonstrated; require 2 on all four.",
+      "threshold_policy": "Register the metric threshold, baseline, task budget and evaluator before exposing new items.",
+      "criteria": [
+        "Concept: correctly state the assumptions and limits of data governance.",
+        "Practice: a held-out challenge supports or rejects the claim.",
+        "Measurement: report policy compliance and deletion verification against a matched baseline with reproducible inputs.",
+        "Critical check: test for sending restricted material to an external API; detect it or rule it out with evidence."
+      ]
+    },
+    "source_policy": "Reviewer must add a verified primary source before lesson status; no source is fabricated here.",
+    "contamination_policy": "No private items, answers, seeds or reviewer-only prompts in this public specification.",
+    "status": "generated_unreviewed"
+  }
 }

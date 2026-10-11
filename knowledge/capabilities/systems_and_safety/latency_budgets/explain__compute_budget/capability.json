@@ -5,7 +5,7 @@
   "topic": "latency_budgets",
   "practice": "explain",
   "setting": "compute_budget",
-  "target": "explain latency budgets in compute budget",
+  "target": "Explain the mechanism and its assumptions behind latency budgets using an end-to-end latency allocation. Fix a time, memory and energy budget before the run.",
   "status": "scaffold",
   "evidence": {
     "primary_sources": [],
@@ -13,5 +13,38 @@
     "practical_artifacts": [],
     "assessment": []
   },
-  "mastery_claim": false
+  "mastery_claim": false,
+  "competency": {
+    "schema": "toddler-competency-spec/v1",
+    "title": "Explain latency budgets — compute budget",
+    "outcome": "Explain the mechanism and its assumptions behind latency budgets using an end-to-end latency allocation. Fix a time, memory and energy budget before the run.",
+    "topic_kernel": {
+      "artifact": "an end-to-end latency allocation",
+      "measure": "p95 response time by stage",
+      "failure_to_detect": "hiding queue time outside the measurement"
+    },
+    "practice_task": "Produce an annotated causal or computational diagram grounded in an end-to-end latency allocation.",
+    "setting_constraint": "Fix a time, memory and energy budget before the run.",
+    "required_evidence": [
+      "an annotated causal or computational diagram",
+      "Include resource log and quality per unit of compute.",
+      "Report p95 response time by stage with uncertainty or an explicit deterministic check.",
+      "Construct a negative control for the failure mode: hiding queue time outside the measurement."
+    ],
+    "assessment": {
+      "mode": "independent_evaluator_new_case",
+      "pass_rule": "all_four_criteria_required",
+      "scoring": "Each criterion: 0 absent, 1 partial, 2 demonstrated; require 2 on all four.",
+      "threshold_policy": "Register the metric threshold, baseline, task budget and evaluator before exposing new items.",
+      "criteria": [
+        "Concept: correctly state the assumptions and limits of latency budgets.",
+        "Practice: each claimed link has an assumption and a possible falsifier.",
+        "Measurement: report p95 response time by stage against a matched baseline with reproducible inputs.",
+        "Critical check: test for hiding queue time outside the measurement; detect it or rule it out with evidence."
+      ]
+    },
+    "source_policy": "Reviewer must add a verified primary source before lesson status; no source is fabricated here.",
+    "contamination_policy": "No private items, answers, seeds or reviewer-only prompts in this public specification.",
+    "status": "generated_unreviewed"
+  }
 }

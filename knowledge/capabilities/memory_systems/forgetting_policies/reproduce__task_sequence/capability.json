@@ -5,7 +5,7 @@
   "topic": "forgetting_policies",
   "practice": "reproduce",
   "setting": "task_sequence",
-  "target": "reproduce forgetting policies in task sequence",
+  "target": "Reproduce a stated result for forgetting policies using a retention-and-deletion policy. Run at least three ordered tasks and revisit the first.",
   "status": "scaffold",
   "evidence": {
     "primary_sources": [],
@@ -13,5 +13,38 @@
     "practical_artifacts": [],
     "assessment": []
   },
-  "mastery_claim": false
+  "mastery_claim": false,
+  "competency": {
+    "schema": "toddler-competency-spec/v1",
+    "title": "Reproduce forgetting policies — task sequence",
+    "outcome": "Reproduce a stated result for forgetting policies using a retention-and-deletion policy. Run at least three ordered tasks and revisit the first.",
+    "topic_kernel": {
+      "artifact": "a retention-and-deletion policy",
+      "measure": "correct deletion and downstream purge",
+      "failure_to_detect": "keeping sensitive data in derived caches"
+    },
+    "practice_task": "Produce a rerun manifest with data, version, seeds and commands grounded in a retention-and-deletion policy.",
+    "setting_constraint": "Run at least three ordered tasks and revisit the first.",
+    "required_evidence": [
+      "a rerun manifest with data, version, seeds and commands",
+      "Include per-task before-and-after measurements.",
+      "Report correct deletion and downstream purge with uncertainty or an explicit deterministic check.",
+      "Construct a negative control for the failure mode: keeping sensitive data in derived caches."
+    ],
+    "assessment": {
+      "mode": "independent_evaluator_new_case",
+      "pass_rule": "all_four_criteria_required",
+      "scoring": "Each criterion: 0 absent, 1 partial, 2 demonstrated; require 2 on all four.",
+      "threshold_policy": "Register the metric threshold, baseline, task budget and evaluator before exposing new items.",
+      "criteria": [
+        "Concept: correctly state the assumptions and limits of forgetting policies.",
+        "Practice: the rerun agrees within a predeclared tolerance.",
+        "Measurement: report correct deletion and downstream purge against a matched baseline with reproducible inputs.",
+        "Critical check: test for keeping sensitive data in derived caches; detect it or rule it out with evidence."
+      ]
+    },
+    "source_policy": "Reviewer must add a verified primary source before lesson status; no source is fabricated here.",
+    "contamination_policy": "No private items, answers, seeds or reviewer-only prompts in this public specification.",
+    "status": "generated_unreviewed"
+  }
 }

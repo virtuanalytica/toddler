@@ -5,7 +5,7 @@
   "topic": "speech_perception",
   "practice": "diagnose",
   "setting": "few_shot",
-  "target": "diagnose speech perception in few shot",
+  "target": "Locate a failure and test a causal remedy for speech perception using a speech-to-intent transcript. Limit adaptation to a declared small example budget.",
   "status": "scaffold",
   "evidence": {
     "primary_sources": [],
@@ -13,5 +13,38 @@
     "practical_artifacts": [],
     "assessment": []
   },
-  "mastery_claim": false
+  "mastery_claim": false,
+  "competency": {
+    "schema": "toddler-competency-spec/v1",
+    "title": "Diagnose speech perception — few shot",
+    "outcome": "Locate a failure and test a causal remedy for speech perception using a speech-to-intent transcript. Limit adaptation to a declared small example budget.",
+    "topic_kernel": {
+      "artifact": "a speech-to-intent transcript",
+      "measure": "word error and intent accuracy by noise level",
+      "failure_to_detect": "inventing speech in silence"
+    },
+    "practice_task": "Produce a fault trace, hypothesis table and controlled repair grounded in a speech-to-intent transcript.",
+    "setting_constraint": "Limit adaptation to a declared small example budget.",
+    "required_evidence": [
+      "a fault trace, hypothesis table and controlled repair",
+      "Include the example count, selection rule and learning curve.",
+      "Report word error and intent accuracy by noise level with uncertainty or an explicit deterministic check.",
+      "Construct a negative control for the failure mode: inventing speech in silence."
+    ],
+    "assessment": {
+      "mode": "independent_evaluator_new_case",
+      "pass_rule": "all_four_criteria_required",
+      "scoring": "Each criterion: 0 absent, 1 partial, 2 demonstrated; require 2 on all four.",
+      "threshold_policy": "Register the metric threshold, baseline, task budget and evaluator before exposing new items.",
+      "criteria": [
+        "Concept: correctly state the assumptions and limits of speech perception.",
+        "Practice: the repair fixes the target without hiding a regression.",
+        "Measurement: report word error and intent accuracy by noise level against a matched baseline with reproducible inputs.",
+        "Critical check: test for inventing speech in silence; detect it or rule it out with evidence."
+      ]
+    },
+    "source_policy": "Reviewer must add a verified primary source before lesson status; no source is fabricated here.",
+    "contamination_policy": "No private items, answers, seeds or reviewer-only prompts in this public specification.",
+    "status": "generated_unreviewed"
+  }
 }

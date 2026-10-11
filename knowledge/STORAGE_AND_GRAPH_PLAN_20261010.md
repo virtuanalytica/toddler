@@ -2,6 +2,8 @@
 
 **Peildatum 10 oktober 2026.** De atlas heeft 10.000 capability-adressen, 100 onderwerpen en tien uitgewerkte lesconcepten. De cijfers hieronder zijn capaciteitsramingen, geen reeds gedownloade collectie. Reken in decimale GB/TB. [De herberekenbare begroting](storage_budget_20261010.json) komt uit `scripts/capability_storage_budget.py`.
 
+**Aanvulling 11 oktober 2026:** alle 10.000 adressen hebben nu een unieke, gegenereerde [vakbekwaamheidsspecificatie](COMPETENCY_CATALOG.md) met product, maat, faalwijze, bewijs en rubric. Het aantal brongebonden lesconcepten blijft tien. De opslagraming voor papers, video en oefeningen verandert daardoor niet; de nieuwe teksten zijn kleine Git-bestanden, geen 10.000 verzamelde bronbundels.
+
 ## Inhoud en ruimte per map
 
 | Onderdeel | Planningsband per echt uitgewerkte capability | Fysieke indeling |
