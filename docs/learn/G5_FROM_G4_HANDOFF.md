@@ -222,3 +222,24 @@ PYTHONPATH=. python3 scripts/g5_prospective_gate.py run \
 PYTHONPATH=. python3 scripts/g5_prospective_gate.py assess \
   --protocol /private/g5-confirm/audit-001/protocol.json
 ```
+
+### 11 October confirmation result
+
+The first clean prospective attempt used a second, disjoint pair of
+owner-only banks. Each bank contained 72 new English/Dutch arithmetic items;
+four earlier Teacher or diagnostic files were explicitly excluded. The
+protocol, candidate manifest, frozen parent contract, evaluator commit and
+bank hashes are recorded in
+[`reports/g5_prospective_gate_20261011.json`](../../reports/g5_prospective_gate_20261011.json).
+
+The two confirmation families were deliberately conjunctive. Trial A scored
+G4 18/72 and G5 38/72, with 20 G5-only items and no G4-only items. Trial B
+scored G4 19/72 and G5 47/72, with 28 G5-only items and no G4-only items.
+Both trials retained all measured navigation actions exactly and had no
+negative language-operation cell. Trial B met every threshold; Trial A did
+not meet the preregistered 44/72 G5 floor. The resulting status is
+**`failed_hold_no_promotion`**. No lineage `survived` event was written, and
+the candidate must not be presented as a promoted G5. The failed confirmation
+family is spent; it cannot be used to tune the candidate. A future attempt
+needs a fresh, independently reviewed bank and must retain the same frozen
+parent contract.
