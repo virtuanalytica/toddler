@@ -243,3 +243,24 @@ the candidate must not be presented as a promoted G5. The failed confirmation
 family is spent; it cannot be used to tune the candidate. A future attempt
 needs a fresh, independently reviewed bank and must retain the same frozen
 parent contract.
+
+## G5.1 public curriculum candidate
+
+Teacher's G5.1 curriculum adds 144 new public development items: 72 train and
+72 check items across balanced English/Dutch addition, subtraction and
+multiplication cells. The questions use story and comparative wording rather
+than the earlier direct forms. Dutch text is explicitly marked
+`pending_native_review`; the candidate cannot be treated as language evidence
+until a native reviewer signs the wording and answer keys.
+
+The clean G5.1 candidate selected a hashing character SGD expert at confidence
+floor 0.5 on the public check. It scored 54/72 (0.750000), while the unchanged
+G4 baseline and previous candidate each scored 19/72 (0.263889). Public
+retention stayed 0.968085 for both G4 and G5.1. Cell aggregates were 4/12,
+12/12 and 12/12 for English addition, subtraction and multiplication, and
+2/12, 12/12 and 12/12 for the corresponding Dutch cells. The result is
+development evidence only: it selected an architecture, is not a private
+promotion score, and does not establish Cantonese, broad cognition, software,
+physical action or new navigation retention. The prompt-free aggregate and
+artifact commitments are in
+[`reports/g5_1_public_candidate_20261011.json`](../../reports/g5_1_public_candidate_20261011.json).

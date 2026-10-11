@@ -1,0 +1,29 @@
+{
+  "schema": "toddler-g5-1-public-candidate-summary/v1",
+  "status": "public_development_only_unpromoted",
+  "promotion_eligible": false,
+  "candidate_manifest_sha256": "1214dd5a575f5f551507443e60fc10ca2d8be23f672434a3cce4a42475051283",
+  "cognitive_artifact_sha256": "768355d4ebbe86bacc35e466c79d40ab2384eaa51ba319d495ea3c43c3f67067",
+  "teacher_g5_1_lesson_sha256": "00ac2aa79a16db7c690d4a862f12b1781bc933ae7c310391d2651d5acd7bfd55",
+  "teacher_semantic_lesson_sha256": "848eea8601e57867782962558041ab5e5f4daae5000e61af602b6daf561b039f",
+  "teacher_original_lesson_sha256": "1b2b5434fa0bd8639f73a2129d8efaaa20b01f4c85df65d91f53a37a7d9b18d4",
+  "scope": "public English/Dutch arithmetic development check; six cells; no private promotion items",
+  "check_items": 72,
+  "g4_strict_accuracy": 0.263889,
+  "previous_g5_strict_accuracy": 0.263889,
+  "g5_1_strict_accuracy": 0.75,
+  "selected_architecture": "hashing-char-sgd",
+  "selected_confidence_floor": 0.5,
+  "cell_strict_correct": {
+    "english/add": "4/12",
+    "english/subtract": "12/12",
+    "english/multiply": "12/12",
+    "nederlands/add": "2/12",
+    "nederlands/subtract": "12/12",
+    "nederlands/multiply": "12/12"
+  },
+  "g4_public_retention_accuracy": 0.968085,
+  "g5_1_public_retention_accuracy": 0.968085,
+  "dutch_review": "pending_native_review",
+  "limitations": "The public check selected the architecture and is not a promotion result. Dutch wording still needs native review; the check has no Cantonese, broad cognitive, software, physical or new navigation evidence. Private prompts, answer keys and seed commitments are absent from this report."
+}
