@@ -1,6 +1,6 @@
 # G5 handoff from the verified G4 navigation survivor
 
-Status 11 October 2026: **G5 is not running or promoted.** G4-search survived for
+Status 11 October 2026: **a G5 public prototype exists; G5 is not promoted.** G4-search survived for
 navigation on two sealed, matched 30-seed trials. The current Teacher
 `g4_nightly.py` still loads `G3-recombined/t5001..t5005` and emits
 `G4-candidate/t6001..t6005`; its separate `teacher-g4.timer` is not installed
@@ -102,3 +102,23 @@ training file and the public selection set are spent for development. G5
 remains an unpromoted candidate until the separate evaluator freezes and runs
 new, independently reviewed tests with matched G4 baselines and navigation
 retention checks.
+
+## One-use transfer diagnostic
+
+`scripts/g5_private_transfer_diagnostic.py` accepts an evaluator-owned,
+owner-only question bank outside Git. The bank names the exact frozen candidate
+manifest hash; every answer is recomputed from the declared integer operation
+and operands, and exact public training forms are rejected. It compares G4 and
+G5 on the same questions after all four option rotations, records paired
+outcomes outside Git, and prints only aggregate counts. Each of the nine
+language-operation cells needs at least eight distinct paraphrased items.
+This is a **post-freeze diagnostic**, not an independent generation promotion
+trial. Its question family must never be used to tune this candidate or to
+claim general reasoning, language comprehension, or navigation retention.
+
+```bash
+python3 scripts/g5_private_transfer_diagnostic.py \
+  --bank /private/g5-diagnostic/bank.json \
+  --manifest /private/g5-public/candidate-001/manifest.json \
+  --out /private/g5-diagnostic/result.json
+```
