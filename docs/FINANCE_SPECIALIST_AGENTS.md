@@ -36,8 +36,11 @@ python3 -m toddler.finance_agents prepare crypto
 OPENBLAS_NUM_THREADS=8 OMP_NUM_THREADS=8 python3 -m toddler.finance_agents train crypto --threads 8
 python3 -m toddler.finance_agents score-proxies crypto
 python3 -m toddler.finance_agents llm-review crypto
+python3 -m toddler.finance_agents leaderboard crypto
 # Pas na bevriezing van de kandidaat en het protocol:
 python3 -m toddler.finance_agents evaluate-holdout crypto
+# Een lokale vooruitblik zonder inzending of stake:
+python3 -m toddler.finance_agents predict-live crypto
 ```
 
 Vervang `crypto` door `signals` voor de andere competitie. De standaard bronmap is `/media/knight2/EDS2/projects/numerai-signals/data`; de artifactmap is `/media/knight2/claude-data/knight1/finance-agent-runs`. Gebruik `--data-root` en `--out` om expliciet andere locaties te kiezen. Leg voor elke latere run het Git-commit, bronhashes, datasetversie, modelhashes en UTC-datum vast. Een hoog ontwikkelresultaat is een selectiecriterium, geen claim over toekomstig rendement.
@@ -49,4 +52,8 @@ Vervang `crypto` door `signals` voor de andere competitie. De standaard bronmap 
 | Crypto v2.0 | 385.396 / 65.400 | 0,1645 | 0,1561 | Ridge | 0,1491 | 0,0028 |
 | Signals v3.0 | 5.886.986 / 598.994 | 0,0104 | 0,0258 | LightGBM | 0,0236 | 0,0002 |
 
-De intervallen zijn block-bootstrap-intervallen over dagen/weken vanwege overlappende targethorizons. Crypto Ridge: 0,1109–0,2215; Signals LightGBM: 0,0216–0,0331. `numerai_tools.scoring.numerai_corr` levert een tweede, meer wedstrijdachtige historische proxy, maar geen officiële payoutmeting. Beide holdouts waren bij het schrijven van deze regel nog gesloten. Volledige machineleesbare resultaten, inclusief bron- en modelhashes, liggen buiten Git in de artifactmap.
+De intervallen zijn block-bootstrap-intervallen over dagen/weken vanwege overlappende targethorizons. Crypto Ridge: 0,1109–0,2215; Signals LightGBM: 0,0216–0,0331. `numerai_tools.scoring.numerai_corr` levert een tweede, meer wedstrijdachtige historische proxy, maar geen officiële payoutmeting. Volledige machineleesbare resultaten, inclusief bron- en modelhashes, liggen buiten Git in de artifactmap.
+
+Na de codefreeze is de historische holdout op 11 oktober **eenmalig** geopend. Crypto Ridge: 0,0936 gemiddelde dagelijkse Spearman over 138 dagen, block-bootstrap 95%-interval 0,0355–0,1518. Signals LightGBM: 0,0084 over 66 weken, interval 0,0039–0,0135. Beide vielen terug ten opzichte van de ontwikkelperiode. De behaalde 95e percentiel is **niet aangetoond**; volgende modelwijzigingen kunnen alleen met nieuwe toekomstige rondes prospectief worden gepromoveerd. Voor 9 oktober zijn lokale voorspellingen geschreven voor 300 Crypto-tokens en 7.177 Signals-aandelen, zonder inzending of stake. Ze wachten op volwassen doelvariabelen.
+
+De read-only publieke accountlijst op 11 oktober 02:04 UTC zet `develuse` bij Crypto op rang 77/278 (72,66e percentiel) en Signals op 143/492 (71,14e percentiel). Voor de top 5% zijn de huidige grensrangen 14 en 25. Dit is de positie van de bestaande gestakete accountportefeuille, **niet** de score van de nieuwe onderzoeksagent. De actuele competitiepositie wordt bij iedere meting opnieuw vastgelegd; een vaste CORR-drempel is geen vervanging voor de leaderboardmeting.

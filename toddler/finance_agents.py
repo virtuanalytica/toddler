@@ -448,10 +448,88 @@ def score_proxies(competition: str, out: Path) -> dict:
     return result
 
 
+def predict_live(competition: str, out: Path, official: Path) -> dict:
+    """Write a local, no-stake prospective forecast; never submit it."""
+    import joblib
+    import numpy as np
+    import pandas as pd
+    import pyarrow.parquet as pq
+
+    development = json.loads((out / f'{competition}-dev.json').read_text())
+    model_path = out / f"{competition}-{development['selected']}.joblib"
+    if sha256(model_path) != development['model_sha256'][development['selected']]:
+        raise ValueError('selected model changed after development selection')
+    live = official / ('crypto/v2.0/live.parquet' if competition == 'crypto'
+                       else 'signals/v3.0/live.parquet')
+    identifier = 'symbol' if competition == 'crypto' else 'numerai_ticker'
+    columns = [identifier, SPECS[competition]['date'],
+               *[x for x in development['features'] if x.startswith('feature_')]]
+    frame = pq.read_table(live, columns=columns).to_pandas(ignore_metadata=True)
+    if frame[identifier].isna().any() or frame[identifier].duplicated().any():
+        raise ValueError('live identifiers missing or duplicated')
+    frame[SPECS[competition]['date']] = _dates(frame[SPECS[competition]['date']])
+    source_date = frame[SPECS[competition]['date']].max()
+    if (pd.Timestamp.now(tz='UTC').tz_localize(None) - source_date).days > 7:
+        raise ValueError(f'live source is older than seven days: {source_date}')
+    frame, _ = engineered_features(frame, competition)
+    model = joblib.load(model_path)
+    raw = model.predict(frame[development['features']].replace([np.inf, -np.inf], np.nan))
+    if not np.isfinite(raw).all():
+        raise ValueError('non-finite live prediction')
+    prediction = pd.Series(raw).rank(pct=True, method='average')
+    result = pd.DataFrame({identifier: frame[identifier].to_numpy(), 'prediction': prediction.to_numpy()})
+    source_hash = sha256(live)
+    model_hash = sha256(model_path)
+    dest = out / 'prospective' / competition / f'{source_date:%Y%m%d}-{source_hash[:12]}-{model_hash[:12]}.csv'
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    if dest.exists():
+        audit_path = dest.with_suffix('.json')
+        if audit_path.exists():
+            audit = json.loads(audit_path.read_text())
+            if audit.get('source_sha256') == source_hash and audit.get('model_sha256') == model_hash:
+                return audit
+        raise FileExistsError(f'prospective forecast already exists without matching audit: {dest}')
+    with dest.open('x', encoding='utf-8') as stream:
+        result.to_csv(stream, index=False)
+    audit = {'schema': 'toddler-finance-prospective/v1', 'competition': competition,
+             'created_utc': datetime.now(timezone.utc).isoformat(),
+             'source_date': str(source_date.date()), 'source_path': str(live),
+             'source_sha256': source_hash, 'model_sha256': model_hash,
+             'rows': len(result), 'predictions_path': str(dest),
+             'predictions_sha256': sha256(dest), 'submitted': False, 'stake': 0,
+             'status': 'local_forecast_waiting_for_matured_targets'}
+    atomic_json(dest.with_suffix('.json'), audit)
+    return audit
+
+
+def leaderboard_status(competition: str, out: Path, account: str) -> dict:
+    """Read-only public account ranking; separate from a new model's quality."""
+    from numerapi import CryptoAPI, SignalsAPI
+
+    api = CryptoAPI() if competition == 'crypto' else SignalsAPI()
+    entries = api.get_account_leaderboard(limit=2000, offset=0)
+    if len(entries) >= 2000:
+        raise RuntimeError('account leaderboard may be truncated; paginate before estimating percentile')
+    matches = [row for row in entries if str(row.get('username', '')).casefold() == account.casefold()]
+    if len(matches) != 1:
+        raise ValueError(f'account {account!r} found {len(matches)} times in {len(entries)} entries')
+    rank = int(matches[0]['rank'])
+    total = len(entries)
+    if rank < 1 or rank > total:
+        raise ValueError(f'invalid rank {rank} of {total}')
+    result = {'schema': 'toddler-finance-leaderboard/v1', 'competition': competition,
+              'account': account, 'checked_utc': datetime.now(timezone.utc).isoformat(),
+              'rank': rank, 'entries': total, 'percentile_from_top': round(100 * (1 - (rank - 1) / total), 2),
+              'top_5pct_rank_cutoff': math.ceil(0.05 * total),
+              'note': 'Public account rank reflects the existing staked portfolio, not this research candidate.'}
+    atomic_json(out / f'{competition}-account-leaderboard-latest.json', result)
+    return result
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('action', choices=('inventory', 'refresh-status', 'sync-official',
-                                          'prepare', 'train', 'score-proxies',
+                                          'prepare', 'train', 'score-proxies', 'predict-live', 'leaderboard',
                                           'evaluate-holdout', 'llm-review'))
     parser.add_argument('competition', choices=tuple(SPECS))
     parser.add_argument('--data-root', type=Path, default=DEFAULT_DATA)
@@ -460,6 +538,7 @@ def main() -> None:
     parser.add_argument('--endpoint', default='http://127.0.0.1:8030/v1')
     parser.add_argument('--model', default='mom-live')
     parser.add_argument('--official-destination', type=Path, default=DEFAULT_OFFICIAL)
+    parser.add_argument('--account', default='develuse')
     args = parser.parse_args()
     if args.action == 'inventory': result = source_inventory(args.competition, args.data_root)
     elif args.action == 'refresh-status': result = refresh_status(args.data_root)
@@ -467,6 +546,8 @@ def main() -> None:
     elif args.action == 'prepare': result = prepare(args.competition, args.data_root, args.out)
     elif args.action == 'train': result = train(args.competition, args.out, args.threads)
     elif args.action == 'score-proxies': result = score_proxies(args.competition, args.out)
+    elif args.action == 'predict-live': result = predict_live(args.competition, args.out, args.official_destination)
+    elif args.action == 'leaderboard': result = leaderboard_status(args.competition, args.out, args.account)
     elif args.action == 'evaluate-holdout': result = evaluate_holdout(args.competition, args.out)
     else: result = llm_review(args.competition, args.out, args.endpoint, args.model)
     print(json.dumps(result, indent=2, sort_keys=True))
