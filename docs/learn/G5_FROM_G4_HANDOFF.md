@@ -132,3 +132,48 @@ outcomes are not training material. The safe aggregate and commitments are in
 [`reports/g5_transfer_diagnostic_20261011.json`](../../reports/g5_transfer_diagnostic_20261011.json).
 New public training can teach more varied language, but any resulting G5
 candidate must be evaluated on a newly sealed family; this bank is spent.
+
+## Second public candidate: operation learned across paraphrases
+
+Teacher's second lesson supplies 81 verified public training items and 108
+public check items. The new G5 semantic expert masks the operand values,
+infers each operation from the verified numerical answer, and learns character
+patterns across English, Dutch and written Cantonese questions. Two classifier
+architectures and two confidence floors are compared on the same public check.
+The exact-form rule head remains available, followed by the semantic expert
+and finally the unchanged G4 fallback. Verified public feedback can be added
+and the expert refitted; no private item may enter that memory.
+
+```bash
+PYTHONPATH=. python3 scripts/g5_semantic_candidate.py \
+  --old-lesson /private/g5-public/teacher-lesson.json \
+  --semantic-lesson /private/g5-public/teacher-semantic-lesson.json \
+  --out /private/g5-public/semantic-candidate-001
+```
+
+The code requires clean committed Toddler source and owner-only Teacher files,
+recomputes every answer key, checks source IDs and train/check balance, and
+binds five new child IDs to the same five frozen G4 navigation parents. The
+earlier private transfer bank is excluded. The 108 public check questions were
+used to select the architecture; their score is only a development result.
+Before any G5 promotion attempt, an evaluator must preregister and independently
+review a **new** cognitive bank, matched G4 comparisons, new navigation seeds,
+retention margins and multiple-attempt corrections. Cantonese wording needs
+native-language review before a language claim.
+
+The second candidate was built from clean commit `f45f29bb` and Teacher lesson
+SHA-256 `848eea8601e57867782962558041ab5e5f4daae5000e61af602b6daf561b039f`.
+All five composed runtimes loaded with the exact frozen G4 parent navigation
+hashes and returned the same CartPole action as their parent on a probe.
+Public architecture selection gave 108/108 on the fourth Teacher pattern,
+versus 36/108 for both G4 and the first G5 candidate. On a **new**, sealed,
+post-freeze diagnostic with 108 different paraphrases, G5 scored 67/108 and
+G4 scored 32/108. The paired result had 35 G5-only correct items and no
+G4-only correct items (two-sided exact sign-test p = 5.82e-11). This is the
+first observed arithmetic paraphrase-transfer gain, with the strongest cells
+in subtraction and weak multiplication cells. It is not a G5 promotion:
+the diagnostic lacks independent Cantonese language review, broad cognitive
+retention, new navigation seeds and two preregistered confirmation families.
+See [`reports/g5_semantic_transfer_20261011.json`](../../reports/g5_semantic_transfer_20261011.json)
+for prompt-free aggregates and file commitments. Both diagnostic banks are
+spent and must remain excluded from future training and selection.

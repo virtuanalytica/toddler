@@ -1,0 +1,29 @@
+{
+  "schema": "toddler-g5-semantic-transfer-public-summary/v1",
+  "status": "post_freeze_diagnostic_only_unpromoted",
+  "candidate_manifest_sha256": "f627ac1a048c2f95ba72f285eb9dc1fee4bcf186a4f9cf9fd8025e8d7128dc59",
+  "teacher_semantic_lesson_sha256": "848eea8601e57867782962558041ab5e5f4daae5000e61af602b6daf561b039f",
+  "prereg_sha256": "86e69a89fdff9ce2f2a3af3114f90fa0b7fbc2d4d0f5c63e71244474cd8f963d",
+  "generator_sha256": "b076b8f316c8148022045451fb58b3c08b8758e74badc55a1378294d3a7f794d",
+  "bank_sha256": "4ff13d20cedfb9c748771150f9b7978dd7b3e0ecc24acee2557bcc3f5763ca43",
+  "items": 108,
+  "language_operation_cells": 9,
+  "items_per_cell": 12,
+  "measure": "four-option-rotation strict paired accuracy",
+  "g4_correct": 32,
+  "g5_correct": 67,
+  "g5_only_correct": 35,
+  "g4_only_correct": 0,
+  "paired_two_sided_p": 5.820766091346741e-11,
+  "public_architecture_check": {
+    "items": 108,
+    "g4_correct": 36,
+    "first_g5_correct": 36,
+    "second_g5_correct": 108,
+    "selected_architecture": "tfidf-char-logreg",
+    "confidence_floor": 0.4
+  },
+  "five_g4_navigation_parents_hash_verified": true,
+  "promotion_eligible": false,
+  "limitations": "One post-freeze paraphrase family only; public check selected the architecture. Cantonese wording lacks independent native review. Non-arithmetic cognitive retention and new navigation seeds have not been independently evaluated. Prompts and per-item results stay outside Git and cannot be training material."
+}
