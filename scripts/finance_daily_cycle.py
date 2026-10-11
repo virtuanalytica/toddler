@@ -33,11 +33,18 @@ def main() -> None:
         failed = False
         for competition in ('crypto', 'signals'):
             steps = {}
-            for name, operation in (
+            operations = [
                 ('official_sync', lambda: sync_official(competition, args.official_destination)),
                 ('local_prediction', lambda: predict_live(competition, args.out, args.official_destination)),
                 ('account_leaderboard', lambda: leaderboard_status(competition, args.out, args.account)),
-            ):
+            ]
+            if competition == 'signals':
+                mixture_out = args.out / 'signals_multihorizon_v1'
+                if (mixture_out / 'experiment.json').is_file():
+                    from scripts.research_signals_multihorizon import predict as predict_mixture
+                    operations.insert(2, ('local_multihorizon_prediction',
+                                          lambda: predict_mixture(args.official_destination, mixture_out)))
+            for name, operation in operations:
                 try:
                     steps[name] = {'status': 'ok', 'result': operation()}
                 except Exception as exc:
