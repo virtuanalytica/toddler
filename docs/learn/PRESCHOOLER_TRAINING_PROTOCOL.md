@@ -1,6 +1,6 @@
 # Preschooler: uitvoeringsprotocol voor de eerste modelfamilie
 
-**Status 11 oktober 2026:** voorbereiding. Er is nog geen geaccepteerd trainingscorpus, getrainde Preschooler-checkpoint of private promotiescore. Het [businessconcept en de 32B-begroting](../businessplan/PRESCHOOLER_4B_BUSINESS_CONCEPT.md) bevatten commerciële hypothesen, geen gerealiseerde resultaten.
+**Status 11 oktober 2026:** voorbereiding. De eerste van tien modelkandidaten, Qwen3-4B-Instruct, heeft één volledig private VirtualV-tekstprofiel doorlopen; de overige negen en de mix zijn nog niet gelijkwaardig vergeleken. Er is nog geen geaccepteerd trainingscorpus, getrainde Preschooler-checkpoint of private promotiescore. Het [businessconcept en de 32B-begroting](../businessplan/PRESCHOOLER_4B_BUSINESS_CONCEPT.md) bevatten commerciële hypothesen, geen gerealiseerde resultaten.
 
 ## Afbakening en acht leergangen
 
