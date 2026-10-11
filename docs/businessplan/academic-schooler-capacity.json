@@ -1,0 +1,138 @@
+{
+  "status": "planning_estimate_not_measured_toddler_training",
+  "domains": 8,
+  "dataset_design": {
+    "pilot_examples_per_domain": 10000,
+    "pilot_tokens_per_example": 1536,
+    "pilot_epochs_per_domain": 2,
+    "pilot_token_exposures": 245760000,
+    "target_examples_per_domain": 250000,
+    "target_tokens_per_example": 2048,
+    "target_examples_total": 2000000,
+    "specialist_epochs_per_domain": 2,
+    "consolidation_epochs": 2,
+    "specialist_token_exposures": 8192000000,
+    "consolidation_token_exposures": 8192000000,
+    "total_32b_token_exposures": 16384000000
+  },
+  "compute": {
+    "reference": "NVIDIA NeMo AutoModel Qwen2.5-32B LoRA DGX-H100; proxy, not measured Qwen3-32B",
+    "reference_tokens_per_second_per_gpu": 2250.31,
+    "gpu_count": 8,
+    "effective_fraction_of_reference": [
+      0.35,
+      0.7
+    ],
+    "evaluation_overhead_fraction": 0.25,
+    "cluster_hours_range": [
+      451,
+      903
+    ],
+    "gpu_hours_range": [
+      3611,
+      7223
+    ],
+    "training_usd_range_at_3_20_to_6_16_per_gpu_hour": [
+      11557,
+      44494
+    ],
+    "training_usd_range_with_50pct_rerun_reserve": [
+      17335,
+      66740
+    ],
+    "pilot_single_ada_assumed_tps_range": [
+      300,
+      1000
+    ],
+    "pilot_hours_range_at_assumed_tps": [
+      68,
+      228
+    ]
+  },
+  "generation": {
+    "teacher_pool_size": 10,
+    "regular_candidates_per_example": 4,
+    "full_roster_calibration_fraction": 0.05,
+    "mean_candidates_per_example": 4.3,
+    "output_tokens_per_candidate": 512,
+    "output_tokens_total": 4403200000,
+    "exhaustive_ten_per_item_output_tokens": 10240000000,
+    "assumed_cluster_tps_range": [
+      300,
+      1000
+    ],
+    "cluster_hours_range": [
+      1223,
+      4077
+    ],
+    "eight_h100_usd_range_at_3_20_per_gpu_hour": [
+      31312,
+      104372
+    ],
+    "note": "Proxy for sequential or leased teacher generation, not a measured ten-model throughput; prompt, routing, cold-load and failure costs excluded."
+  },
+  "storage": {
+    "ten_pinned_teacher_snapshots_gb_estimate": 73.6,
+    "teacher_snapshot_note": "HF file-metadata preflight on 2026-10-11; manifests and caches add overhead, and later revisions change the total.",
+    "raw_text_gb_at_4_bytes_per_token": 16.4,
+    "candidate_text_gb_at_4_bytes_per_token": 17.6,
+    "token_cache_gb_int32": 16.4,
+    "provenance_metadata_gb_at_2kb_per_item": 4.0,
+    "structured_data_subtotal_gb": 54.4,
+    "source_snapshots_tb_range": [
+      0.5,
+      2.0
+    ],
+    "checkpoints_and_revisions_tb_range": [
+      0.3,
+      0.8
+    ],
+    "required_fast_free_nvme_tb_recommended": 4,
+    "archive_or_backup_tb_recommended": 8,
+    "cloud_storage_three_months_usd_before_included_capacity": 3828
+  },
+  "review": {
+    "expert_review_fraction_range": [
+      0.01,
+      0.05
+    ],
+    "items_range": [
+      20000,
+      100000
+    ],
+    "eur_per_item_range": [
+      10,
+      20
+    ],
+    "budget_eur_range": [
+      200000,
+      2000000
+    ],
+    "note": "Only valid if the remaining items have independent objective verification; open-ended items need broader expert review."
+  },
+  "combined_external_budget": {
+    "compute_and_three_month_cloud_storage_usd_range": [
+      52475,
+      174940
+    ],
+    "expert_review_eur_range": [
+      200000,
+      2000000
+    ],
+    "excludes": [
+      "dataset rights",
+      "staff",
+      "taxes",
+      "customer acceptance",
+      "local hardware acquisition"
+    ]
+  },
+  "limits": [
+    "4B cannot become 32B by repeated fine-tuning; the 32B phase starts from a separate licensed base.",
+    "Qwen2.5 throughput is a proxy for Qwen3 and must be replaced by a short paid calibration run.",
+    "Eight domain adapters do not automatically make one integrated checkpoint; balanced consolidation is budgeted separately.",
+    "Generation proxy assumes four candidate outputs per item plus all ten on 5% calibration items; ten on every item is a separate upper-cost scenario.",
+    "Teacher models share several base families; count independent error patterns, not only model IDs.",
+    "Training GPU costs exclude storage, dataset rights, expert review, orchestration, taxes and customer validation."
+  ]
+}
