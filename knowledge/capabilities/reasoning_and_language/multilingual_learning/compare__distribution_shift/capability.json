@@ -6,10 +6,15 @@
   "practice": "compare",
   "setting": "distribution_shift",
   "target": "Compare two plausible methods for multilingual learning using a cross-language meaning-preservation task. Fit on one distribution and evaluate on a separately documented shift.",
-  "status": "scaffold",
+  "status": "lesson_draft",
   "evidence": {
-    "primary_sources": [],
-    "learning_material": [],
+    "primary_sources": [
+      "https://github.com/facebookresearch/flores/blob/main/flores200/README.md",
+      "https://arxiv.org/abs/2207.04672"
+    ],
+    "learning_material": [
+      "lesson.md"
+    ],
     "practical_artifacts": [],
     "assessment": []
   },

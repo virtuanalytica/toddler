@@ -6,10 +6,15 @@
   "practice": "validate",
   "setting": "independent_holdout",
   "target": "Validate a claim about gui grounding using a screenshot-to-control action trace. Have a separate evaluator hold unseen items and answer keys.",
-  "status": "scaffold",
+  "status": "lesson_draft",
   "evidence": {
-    "primary_sources": [],
-    "learning_material": [],
+    "primary_sources": [
+      "https://proceedings.neurips.cc/paper_files/paper/2024/hash/5d413e48f84dc61244b6be550f1cd8f5-Abstract-Datasets_and_Benchmarks_Track.html",
+      "https://github.com/xlang-ai/OSWorld"
+    ],
+    "learning_material": [
+      "lesson.md"
+    ],
     "practical_artifacts": [],
     "assessment": []
   },

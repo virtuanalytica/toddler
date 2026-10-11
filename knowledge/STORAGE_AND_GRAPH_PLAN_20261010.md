@@ -4,6 +4,8 @@
 
 **Aanvulling 11 oktober 2026:** alle 10.000 adressen hebben nu een unieke, gegenereerde [vakbekwaamheidsspecificatie](COMPETENCY_CATALOG.md) met product, maat, faalwijze, bewijs en rubric. Het aantal brongebonden lesconcepten blijft tien. De opslagraming voor papers, video en oefeningen verandert daardoor niet; de nieuwe teksten zijn kleine Git-bestanden, geen 10.000 verzamelde bronbundels.
 
+**Tweede aanvulling 11 oktober 2026:** zes extra brongebonden lesconcepten en [zes onderwerp-bundels](topic_sources.jsonl) brengen het totaal op **16**. De t-SNE-export is opnieuw berekend op 16 teksten (`perplexity=5`, `trustworthiness@3=0,907197`); dit blijft een verkennende kaart. De LightRAG-*payload* telt nu 16 chunks, 53 entiteiten en 57 relaties. De eerdere ingerichte runtime met 10 chunks is een historische pilot en is nog niet opnieuw geïndexeerd. De [dagelijkse kenniswachtrij](../docs/KNOWLEDGE_COLLECTION_PIPELINE.md) houdt bronresearch, lesontwikkeling en review afzonderlijk bij.
+
 ## Inhoud en ruimte per map
 
 | Onderdeel | Planningsband per echt uitgewerkte capability | Fysieke indeling |

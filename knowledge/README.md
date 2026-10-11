@@ -6,6 +6,8 @@ Begin bij [de leerlijn adaptief leren](paths/adaptive_learning.md), de [kwalitei
 
 Zie [10.000 vakbekwaamheden](COMPETENCY_CATALOG.md) voor de inhoudelijke opbouw, beoordelingsgrens en Teacher-overdracht.
 
+De [zes uitgewerkte voorbeelden](SIX_KNOWLEDGE_EXAMPLES.md) en de [kennisopbouwpipeline](../docs/KNOWLEDGE_COLLECTION_PIPELINE.md) tonen de eerste bronbundels en een cronveilige dagwachtrij. `knowledge/topic_sources.jsonl` scheidt gecontroleerde primaire links van de onbeoordeelde zoekresultaten in de runtime.
+
 Gebruik:
 
 ```bash

@@ -30,7 +30,8 @@ def test_every_capability_has_a_discovery_link_and_no_impl_claim():
     assert len(rows) == 10_000
     assert all(row["repository_relation"] == "domain_discovery_candidate"
                and row["codegraph_relation"] == "related_local_context" for row in rows)
-    assert sum(row["lesson_status"] == "lesson_draft" for row in rows) == 10
+    lessons = list((ROOT / "knowledge" / "capabilities").rglob("lesson.md"))
+    assert sum(row["lesson_status"] == "lesson_draft" for row in rows) == len(lessons) == 16
     connections = json.loads((ROOT / "knowledge" / "graph" / "codegraph_connections.json").read_text())
     context = json.loads((ROOT / "knowledge" / "graph" / "toddler_codegraph_context.json").read_text())
     context_nodes = {node["id"] for node in context["nodes"]}
@@ -46,17 +47,17 @@ def test_every_capability_has_a_discovery_link_and_no_impl_claim():
 def test_lightrag_pilot_excludes_empty_scaffolds_and_has_real_endpoints():
     data = payload(ROOT)
     names = {row["entity_name"] for row in data["entities"]}
-    assert len(data["chunks"]) == 10
+    assert len(data["chunks"]) == len(list((ROOT / "knowledge" / "capabilities").rglob("lesson.md")))
     assert all(row["src_id"] in names and row["tgt_id"] in names
                for row in data["relationships"])
     assert all("mastery" not in row.get("description", "").lower()
                or "unverified" in row["description"] for row in data["entities"])
 
 
-def test_tsne_artifact_tracks_the_current_ten_lessons():
+def test_tsne_artifact_tracks_the_current_lessons():
     artifact = json.loads((ROOT / "knowledge" / "graph" / "lesson_tsne.json").read_text())
     assert artifact["status"] == "exploratory_visualization_only"
-    assert artifact["documents"] == 10
+    assert artifact["documents"] == len(list((ROOT / "knowledge" / "capabilities").rglob("lesson.md")))
     for row in artifact["nodes"]:
         lesson = ROOT / "knowledge" / "capabilities" / row["id"] / "lesson.md"
         assert hashlib.sha256(lesson.read_bytes()).hexdigest() == row["lesson_sha256"]

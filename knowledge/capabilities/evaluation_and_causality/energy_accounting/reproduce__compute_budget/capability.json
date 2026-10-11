@@ -6,10 +6,15 @@
   "practice": "reproduce",
   "setting": "compute_budget",
   "target": "Reproduce a stated result for energy accounting using a metered energy-per-answer ledger. Fix a time, memory and energy budget before the run.",
-  "status": "scaffold",
+  "status": "lesson_draft",
   "evidence": {
-    "primary_sources": [],
-    "learning_material": [],
+    "primary_sources": [
+      "https://docs.nvidia.com/datacenter/dcgm/latest/dcgm-api/dcgm-api-field-ids.html",
+      "https://www.kernel.org/doc/html/latest/power/powercap/powercap.html"
+    ],
+    "learning_material": [
+      "lesson.md"
+    ],
     "practical_artifacts": [],
     "assessment": []
   },

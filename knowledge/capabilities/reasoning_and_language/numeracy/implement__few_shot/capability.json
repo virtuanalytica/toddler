@@ -6,10 +6,15 @@
   "practice": "implement",
   "setting": "few_shot",
   "target": "Build a runnable demonstration of numeracy using a units-aware calculation worksheet. Limit adaptation to a declared small example budget.",
-  "status": "scaffold",
+  "status": "lesson_draft",
   "evidence": {
-    "primary_sources": [],
-    "learning_material": [],
+    "primary_sources": [
+      "https://www.bipm.org/en/publications/si-brochure",
+      "https://www.nist.gov/pml/special-publication-811"
+    ],
+    "learning_material": [
+      "lesson.md"
+    ],
     "practical_artifacts": [],
     "assessment": []
   },
