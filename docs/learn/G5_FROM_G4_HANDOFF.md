@@ -177,3 +177,69 @@ retention, new navigation seeds and two preregistered confirmation families.
 See [`reports/g5_semantic_transfer_20261011.json`](../../reports/g5_semantic_transfer_20261011.json)
 for prompt-free aggregates and file commitments. Both diagnostic banks are
 spent and must remain excluded from future training and selection.
+
+## Prospective arithmetic confirmation gate
+
+`scripts/g5_prospective_gate.py` freezes the second candidate, the five G4
+parents, two new evaluator-owned banks of 72 English/Dutch arithmetic questions
+each, the old cognitive fallback, and two newly committed eight-seed navigation
+sets. It rejects exact prompt reuse from both Teacher lessons and both spent
+transfer diagnostics. Each item is checked against a deterministic answer
+function; each trial scores G4 and G5 on the same item with four option
+rotations. The nine navigation tasks are run for every child and its exact
+G4 parent on matched secret seeds. An interruption can resume only the same
+frozen attempt.
+
+Before either result is seen, the gate requires on **each** 72-item trial:
+at least 44 correct G5 answers, at least 12 net paired gains, at most two
+G4-only losses, no negative language-operation cell and a one-sided exact
+paired sign-test p &lt; 0.005. Navigation must match its frozen parent on every
+measured seed. The non-arithmetic G4 fallback model parameters must be exactly
+equal; the new expert is gated to arithmetic inputs. The two trials are
+separate confirmation families, not two views of the earlier diagnostic.
+
+The assessment deliberately returns `evidence_passed_pending_semantic_review`
+or `failed_hold_no_promotion`; it does **not** append a `survived` lineage
+event. The question wording still needs independent semantic review. A full
+G5 generation claim additionally needs explicit scope registration, source
+bundle import into the lineage and checks for other requested capabilities;
+Cantonese and physical interaction are outside this arithmetic gate.
+
+```bash
+PYTHONPATH=. python3 scripts/g5_prospective_gate.py prepare \
+  --manifest /private/g5-public/semantic-candidate-001/manifest.json \
+  --reference /private/g5-public/first-candidate/cognitive.joblib \
+  --bank /private/g5-confirm/set-a.json --bank /private/g5-confirm/set-b.json \
+  --exclude /private/g5-public/teacher-lesson.json \
+  --exclude /private/g5-public/teacher-semantic-lesson.json \
+  --exclude /private/g5-diagnostic/first-bank.json \
+  --exclude /private/g5-diagnostic/second-bank.json \
+  --out /private/g5-confirm/audit-001
+PYTHONPATH=. python3 scripts/g5_prospective_gate.py run \
+  --protocol /private/g5-confirm/audit-001/protocol.json --index 0
+PYTHONPATH=. python3 scripts/g5_prospective_gate.py run \
+  --protocol /private/g5-confirm/audit-001/protocol.json --index 1
+PYTHONPATH=. python3 scripts/g5_prospective_gate.py assess \
+  --protocol /private/g5-confirm/audit-001/protocol.json
+```
+
+### 11 October confirmation result
+
+The first clean prospective attempt used a second, disjoint pair of
+owner-only banks. Each bank contained 72 new English/Dutch arithmetic items;
+four earlier Teacher or diagnostic files were explicitly excluded. The
+protocol, candidate manifest, frozen parent contract, evaluator commit and
+bank hashes are recorded in
+[`reports/g5_prospective_gate_20261011.json`](../../reports/g5_prospective_gate_20261011.json).
+
+The two confirmation families were deliberately conjunctive. Trial A scored
+G4 18/72 and G5 38/72, with 20 G5-only items and no G4-only items. Trial B
+scored G4 19/72 and G5 47/72, with 28 G5-only items and no G4-only items.
+Both trials retained all measured navigation actions exactly and had no
+negative language-operation cell. Trial B met every threshold; Trial A did
+not meet the preregistered 44/72 G5 floor. The resulting status is
+**`failed_hold_no_promotion`**. No lineage `survived` event was written, and
+the candidate must not be presented as a promoted G5. The failed confirmation
+family is spent; it cannot be used to tune the candidate. A future attempt
+needs a fresh, independently reviewed bank and must retain the same frozen
+parent contract.

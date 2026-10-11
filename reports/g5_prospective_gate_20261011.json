@@ -1,0 +1,45 @@
+{
+  "schema": "toddler-g5-prospective-gate-public-summary/v1",
+  "status": "failed_hold_no_promotion",
+  "generation_promoted": false,
+  "scope": "English and Dutch arithmetic only; nine inherited navigation tasks; non-arithmetic capabilities remain frozen",
+  "candidate_manifest_sha256": "f627ac1a048c2f95ba72f285eb9dc1fee4bcf186a4f9cf9fd8025e8d7128dc59",
+  "parent_contract_sha256": "add746df575cd10ba34b7f693475fdb83cc30f8517d79235701c3ffbf2e384d5",
+  "reference_cognitive_sha256": "2b8d37f87e33dea48bfe34492fc19b2842dd24b28487b9402e46b917c3e064be",
+  "protocol_sha256": "fff9a330465b15f5768c1e5e305fd8ecf361b0119bf3243373b4bf1beea876a5",
+  "bank_sha256": [
+    "c6f2c0db4d0baee63a017d0406431ef90d84d0ece5a1ad915700b5507467365b",
+    "9dde690d180073ce8afb3d9e20f13636bd3a988b027dd1aac2b8030f67e6e67d"
+  ],
+  "excluded_training_and_diagnostic_files": 4,
+  "trials": [
+    {
+      "trial_index": 0,
+      "trial_sha256": "286c933180c4cb95614de4630d433d0480dbe55a37b93fe6945c0d4f0a9b5aad",
+      "items": 72,
+      "g4_correct": 18,
+      "g5_correct": 38,
+      "g5_only_correct": 20,
+      "g4_only_correct": 0,
+      "one_sided_p": 0.00000095367431640625,
+      "no_negative_cell": true,
+      "navigation_exact_retention": true,
+      "evidence_passed": false
+    },
+    {
+      "trial_index": 1,
+      "trial_sha256": "2d71fc45042cf88cab6949d563a66a5c111dc893d3a11f9f474c1e9528dda8f6",
+      "items": 72,
+      "g4_correct": 19,
+      "g5_correct": 47,
+      "g5_only_correct": 28,
+      "g4_only_correct": 0,
+      "one_sided_p": 0.000000003725290298461914,
+      "no_negative_cell": true,
+      "navigation_exact_retention": true,
+      "evidence_passed": true
+    }
+  ],
+  "assessment_sha256": "7d21517061c2a46e5b7af7ff5acd309085ef2514a47b0ee37d10eea473594269",
+  "limitations": "The gate is conjunctive, so one failed confirmation blocks promotion. This result covers arithmetic in two languages and matched navigation only; it does not establish broad reasoning, Cantonese comprehension, software ability, physical control or a new lineage survivor. Private prompts, answers and seeds remain outside Git."
+}
