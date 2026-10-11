@@ -5,7 +5,7 @@
   "topic": "distributed_trials",
   "practice": "implement",
   "setting": "field_data",
-  "target": "implement distributed trials in field data",
+  "target": "Build a runnable demonstration of distributed trials using a federated trial manifest. Use a provenance-checked real dataset with consent and access rules.",
   "status": "scaffold",
   "evidence": {
     "primary_sources": [],
@@ -13,5 +13,38 @@
     "practical_artifacts": [],
     "assessment": []
   },
-  "mastery_claim": false
+  "mastery_claim": false,
+  "competency": {
+    "schema": "toddler-competency-spec/v1",
+    "title": "Implement distributed trials — field data",
+    "outcome": "Build a runnable demonstration of distributed trials using a federated trial manifest. Use a provenance-checked real dataset with consent and access rules.",
+    "topic_kernel": {
+      "artifact": "a federated trial manifest",
+      "measure": "reproducible merges and conflict resolution",
+      "failure_to_detect": "mixing incomparable hardware results"
+    },
+    "practice_task": "Produce executable code or a runnable protocol grounded in a federated trial manifest.",
+    "setting_constraint": "Use a provenance-checked real dataset with consent and access rules.",
+    "required_evidence": [
+      "executable code or a runnable protocol",
+      "Include the data card, missingness check and permitted use.",
+      "Report reproducible merges and conflict resolution with uncertainty or an explicit deterministic check.",
+      "Construct a negative control for the failure mode: mixing incomparable hardware results."
+    ],
+    "assessment": {
+      "mode": "independent_evaluator_new_case",
+      "pass_rule": "all_four_criteria_required",
+      "scoring": "Each criterion: 0 absent, 1 partial, 2 demonstrated; require 2 on all four.",
+      "threshold_policy": "Register the metric threshold, baseline, task budget and evaluator before exposing new items.",
+      "criteria": [
+        "Concept: correctly state the assumptions and limits of distributed trials.",
+        "Practice: the artifact passes a new functional case and a failure case.",
+        "Measurement: report reproducible merges and conflict resolution against a matched baseline with reproducible inputs.",
+        "Critical check: test for mixing incomparable hardware results; detect it or rule it out with evidence."
+      ]
+    },
+    "source_policy": "Reviewer must add a verified primary source before lesson status; no source is fabricated here.",
+    "contamination_policy": "No private items, answers, seeds or reviewer-only prompts in this public specification.",
+    "status": "generated_unreviewed"
+  }
 }

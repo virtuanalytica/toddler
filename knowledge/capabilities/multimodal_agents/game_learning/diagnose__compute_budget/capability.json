@@ -5,7 +5,7 @@
   "topic": "game_learning",
   "practice": "diagnose",
   "setting": "compute_budget",
-  "target": "diagnose game learning in compute budget",
+  "target": "Locate a failure and test a causal remedy for game learning using a novel-game rules and strategy notebook. Fix a time, memory and energy budget before the run.",
   "status": "scaffold",
   "evidence": {
     "primary_sources": [],
@@ -13,5 +13,38 @@
     "practical_artifacts": [],
     "assessment": []
   },
-  "mastery_claim": false
+  "mastery_claim": false,
+  "competency": {
+    "schema": "toddler-competency-spec/v1",
+    "title": "Diagnose game learning — compute budget",
+    "outcome": "Locate a failure and test a causal remedy for game learning using a novel-game rules and strategy notebook. Fix a time, memory and energy budget before the run.",
+    "topic_kernel": {
+      "artifact": "a novel-game rules and strategy notebook",
+      "measure": "learning speed and win rate on unseen levels",
+      "failure_to_detect": "using hidden level scripts as training data"
+    },
+    "practice_task": "Produce a fault trace, hypothesis table and controlled repair grounded in a novel-game rules and strategy notebook.",
+    "setting_constraint": "Fix a time, memory and energy budget before the run.",
+    "required_evidence": [
+      "a fault trace, hypothesis table and controlled repair",
+      "Include resource log and quality per unit of compute.",
+      "Report learning speed and win rate on unseen levels with uncertainty or an explicit deterministic check.",
+      "Construct a negative control for the failure mode: using hidden level scripts as training data."
+    ],
+    "assessment": {
+      "mode": "independent_evaluator_new_case",
+      "pass_rule": "all_four_criteria_required",
+      "scoring": "Each criterion: 0 absent, 1 partial, 2 demonstrated; require 2 on all four.",
+      "threshold_policy": "Register the metric threshold, baseline, task budget and evaluator before exposing new items.",
+      "criteria": [
+        "Concept: correctly state the assumptions and limits of game learning.",
+        "Practice: the repair fixes the target without hiding a regression.",
+        "Measurement: report learning speed and win rate on unseen levels against a matched baseline with reproducible inputs.",
+        "Critical check: test for using hidden level scripts as training data; detect it or rule it out with evidence."
+      ]
+    },
+    "source_policy": "Reviewer must add a verified primary source before lesson status; no source is fabricated here.",
+    "contamination_policy": "No private items, answers, seeds or reviewer-only prompts in this public specification.",
+    "status": "generated_unreviewed"
+  }
 }

@@ -5,7 +5,7 @@
   "topic": "hippocampal_replay",
   "practice": "reproduce",
   "setting": "distribution_shift",
-  "target": "reproduce hippocampal replay in distribution shift",
+  "target": "Reproduce a stated result for hippocampal replay using a replay schedule with online and offline phases. Fit on one distribution and evaluate on a separately documented shift.",
   "status": "scaffold",
   "evidence": {
     "primary_sources": [],
@@ -13,5 +13,38 @@
     "practical_artifacts": [],
     "assessment": []
   },
-  "mastery_claim": false
+  "mastery_claim": false,
+  "competency": {
+    "schema": "toddler-competency-spec/v1",
+    "title": "Reproduce hippocampal replay — distribution shift",
+    "outcome": "Reproduce a stated result for hippocampal replay using a replay schedule with online and offline phases. Fit on one distribution and evaluate on a separately documented shift.",
+    "topic_kernel": {
+      "artifact": "a replay schedule with online and offline phases",
+      "measure": "retention after delayed reactivation",
+      "failure_to_detect": "claiming a biological mechanism from an engineering analogy"
+    },
+    "practice_task": "Produce a rerun manifest with data, version, seeds and commands grounded in a replay schedule with online and offline phases.",
+    "setting_constraint": "Fit on one distribution and evaluate on a separately documented shift.",
+    "required_evidence": [
+      "a rerun manifest with data, version, seeds and commands",
+      "Include shift definition and in/out-distribution results.",
+      "Report retention after delayed reactivation with uncertainty or an explicit deterministic check.",
+      "Construct a negative control for the failure mode: claiming a biological mechanism from an engineering analogy."
+    ],
+    "assessment": {
+      "mode": "independent_evaluator_new_case",
+      "pass_rule": "all_four_criteria_required",
+      "scoring": "Each criterion: 0 absent, 1 partial, 2 demonstrated; require 2 on all four.",
+      "threshold_policy": "Register the metric threshold, baseline, task budget and evaluator before exposing new items.",
+      "criteria": [
+        "Concept: correctly state the assumptions and limits of hippocampal replay.",
+        "Practice: the rerun agrees within a predeclared tolerance.",
+        "Measurement: report retention after delayed reactivation against a matched baseline with reproducible inputs.",
+        "Critical check: test for claiming a biological mechanism from an engineering analogy; detect it or rule it out with evidence."
+      ]
+    },
+    "source_policy": "Reviewer must add a verified primary source before lesson status; no source is fabricated here.",
+    "contamination_policy": "No private items, answers, seeds or reviewer-only prompts in this public specification.",
+    "status": "generated_unreviewed"
+  }
 }

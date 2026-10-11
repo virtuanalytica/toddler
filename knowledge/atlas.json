@@ -4,5 +4,10 @@
   "domains": 10,
   "topics": 100,
   "index_sha256": "37e0dc181663cafea84b1b33f11d14c9e956f173fcd017462cc6fd53ad990c2f",
-  "mastery_claims": 0
+  "mastery_claims": 0,
+  "competency_specs": 10000,
+  "competency_status_counts": {
+    "generated_unreviewed": 10000,
+    "editorial_reviewed": 0
+  }
 }

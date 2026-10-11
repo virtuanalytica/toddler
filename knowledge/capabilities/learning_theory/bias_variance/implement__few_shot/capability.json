@@ -5,7 +5,7 @@
   "topic": "bias_variance",
   "practice": "implement",
   "setting": "few_shot",
-  "target": "implement bias variance in few shot",
+  "target": "Build a runnable demonstration of bias variance using a model-complexity sweep. Limit adaptation to a declared small example budget.",
   "status": "scaffold",
   "evidence": {
     "primary_sources": [],
@@ -13,5 +13,38 @@
     "practical_artifacts": [],
     "assessment": []
   },
-  "mastery_claim": false
+  "mastery_claim": false,
+  "competency": {
+    "schema": "toddler-competency-spec/v1",
+    "title": "Implement bias variance — few shot",
+    "outcome": "Build a runnable demonstration of bias variance using a model-complexity sweep. Limit adaptation to a declared small example budget.",
+    "topic_kernel": {
+      "artifact": "a model-complexity sweep",
+      "measure": "bias and variance estimated across resamples",
+      "failure_to_detect": "using one seed to infer variance"
+    },
+    "practice_task": "Produce executable code or a runnable protocol grounded in a model-complexity sweep.",
+    "setting_constraint": "Limit adaptation to a declared small example budget.",
+    "required_evidence": [
+      "executable code or a runnable protocol",
+      "Include the example count, selection rule and learning curve.",
+      "Report bias and variance estimated across resamples with uncertainty or an explicit deterministic check.",
+      "Construct a negative control for the failure mode: using one seed to infer variance."
+    ],
+    "assessment": {
+      "mode": "independent_evaluator_new_case",
+      "pass_rule": "all_four_criteria_required",
+      "scoring": "Each criterion: 0 absent, 1 partial, 2 demonstrated; require 2 on all four.",
+      "threshold_policy": "Register the metric threshold, baseline, task budget and evaluator before exposing new items.",
+      "criteria": [
+        "Concept: correctly state the assumptions and limits of bias variance.",
+        "Practice: the artifact passes a new functional case and a failure case.",
+        "Measurement: report bias and variance estimated across resamples against a matched baseline with reproducible inputs.",
+        "Critical check: test for using one seed to infer variance; detect it or rule it out with evidence."
+      ]
+    },
+    "source_policy": "Reviewer must add a verified primary source before lesson status; no source is fabricated here.",
+    "contamination_policy": "No private items, answers, seeds or reviewer-only prompts in this public specification.",
+    "status": "generated_unreviewed"
+  }
 }

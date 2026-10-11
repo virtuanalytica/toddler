@@ -5,7 +5,7 @@
   "topic": "imitation_learning",
   "practice": "derive",
   "setting": "compute_budget",
-  "target": "derive imitation learning in compute budget",
+  "target": "Derive a formal or quantitative account of imitation learning using a demonstrator-to-policy cloning trial. Fix a time, memory and energy budget before the run.",
   "status": "scaffold",
   "evidence": {
     "primary_sources": [],
@@ -13,5 +13,38 @@
     "practical_artifacts": [],
     "assessment": []
   },
-  "mastery_claim": false
+  "mastery_claim": false,
+  "competency": {
+    "schema": "toddler-competency-spec/v1",
+    "title": "Derive imitation learning — compute budget",
+    "outcome": "Derive a formal or quantitative account of imitation learning using a demonstrator-to-policy cloning trial. Fix a time, memory and energy budget before the run.",
+    "topic_kernel": {
+      "artifact": "a demonstrator-to-policy cloning trial",
+      "measure": "success on unseen states and compounding error",
+      "failure_to_detect": "evaluating only on demonstration trajectories"
+    },
+    "practice_task": "Produce a stepwise derivation with units or invariants grounded in a demonstrator-to-policy cloning trial.",
+    "setting_constraint": "Fix a time, memory and energy budget before the run.",
+    "required_evidence": [
+      "a stepwise derivation with units or invariants",
+      "Include resource log and quality per unit of compute.",
+      "Report success on unseen states and compounding error with uncertainty or an explicit deterministic check.",
+      "Construct a negative control for the failure mode: evaluating only on demonstration trajectories."
+    ],
+    "assessment": {
+      "mode": "independent_evaluator_new_case",
+      "pass_rule": "all_four_criteria_required",
+      "scoring": "Each criterion: 0 absent, 1 partial, 2 demonstrated; require 2 on all four.",
+      "threshold_policy": "Register the metric threshold, baseline, task budget and evaluator before exposing new items.",
+      "criteria": [
+        "Concept: correctly state the assumptions and limits of imitation learning.",
+        "Practice: the derivation reproduces a checked special case.",
+        "Measurement: report success on unseen states and compounding error against a matched baseline with reproducible inputs.",
+        "Critical check: test for evaluating only on demonstration trajectories; detect it or rule it out with evidence."
+      ]
+    },
+    "source_policy": "Reviewer must add a verified primary source before lesson status; no source is fabricated here.",
+    "contamination_policy": "No private items, answers, seeds or reviewer-only prompts in this public specification.",
+    "status": "generated_unreviewed"
+  }
 }

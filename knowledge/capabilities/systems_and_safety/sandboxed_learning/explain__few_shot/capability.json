@@ -5,7 +5,7 @@
   "topic": "sandboxed_learning",
   "practice": "explain",
   "setting": "few_shot",
-  "target": "explain sandboxed learning in few shot",
+  "target": "Explain the mechanism and its assumptions behind sandboxed learning using an isolated candidate-training environment. Limit adaptation to a declared small example budget.",
   "status": "scaffold",
   "evidence": {
     "primary_sources": [],
@@ -13,5 +13,38 @@
     "practical_artifacts": [],
     "assessment": []
   },
-  "mastery_claim": false
+  "mastery_claim": false,
+  "competency": {
+    "schema": "toddler-competency-spec/v1",
+    "title": "Explain sandboxed learning — few shot",
+    "outcome": "Explain the mechanism and its assumptions behind sandboxed learning using an isolated candidate-training environment. Limit adaptation to a declared small example budget.",
+    "topic_kernel": {
+      "artifact": "an isolated candidate-training environment",
+      "measure": "containment and artifact provenance",
+      "failure_to_detect": "allowing training code to read private tests"
+    },
+    "practice_task": "Produce an annotated causal or computational diagram grounded in an isolated candidate-training environment.",
+    "setting_constraint": "Limit adaptation to a declared small example budget.",
+    "required_evidence": [
+      "an annotated causal or computational diagram",
+      "Include the example count, selection rule and learning curve.",
+      "Report containment and artifact provenance with uncertainty or an explicit deterministic check.",
+      "Construct a negative control for the failure mode: allowing training code to read private tests."
+    ],
+    "assessment": {
+      "mode": "independent_evaluator_new_case",
+      "pass_rule": "all_four_criteria_required",
+      "scoring": "Each criterion: 0 absent, 1 partial, 2 demonstrated; require 2 on all four.",
+      "threshold_policy": "Register the metric threshold, baseline, task budget and evaluator before exposing new items.",
+      "criteria": [
+        "Concept: correctly state the assumptions and limits of sandboxed learning.",
+        "Practice: each claimed link has an assumption and a possible falsifier.",
+        "Measurement: report containment and artifact provenance against a matched baseline with reproducible inputs.",
+        "Critical check: test for allowing training code to read private tests; detect it or rule it out with evidence."
+      ]
+    },
+    "source_policy": "Reviewer must add a verified primary source before lesson status; no source is fabricated here.",
+    "contamination_policy": "No private items, answers, seeds or reviewer-only prompts in this public specification.",
+    "status": "generated_unreviewed"
+  }
 }

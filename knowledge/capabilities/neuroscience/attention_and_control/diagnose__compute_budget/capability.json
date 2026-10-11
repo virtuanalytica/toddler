@@ -5,7 +5,7 @@
   "topic": "attention_and_control",
   "practice": "diagnose",
   "setting": "compute_budget",
-  "target": "diagnose attention and control in compute budget",
+  "target": "Locate a failure and test a causal remedy for attention and control using a selective-attention task with distractors. Fix a time, memory and energy budget before the run.",
   "status": "scaffold",
   "evidence": {
     "primary_sources": [],
@@ -13,5 +13,38 @@
     "practical_artifacts": [],
     "assessment": []
   },
-  "mastery_claim": false
+  "mastery_claim": false,
+  "competency": {
+    "schema": "toddler-competency-spec/v1",
+    "title": "Diagnose attention and control — compute budget",
+    "outcome": "Locate a failure and test a causal remedy for attention and control using a selective-attention task with distractors. Fix a time, memory and energy budget before the run.",
+    "topic_kernel": {
+      "artifact": "a selective-attention task with distractors",
+      "measure": "target accuracy and control cost",
+      "failure_to_detect": "mistaking arousal for selective attention"
+    },
+    "practice_task": "Produce a fault trace, hypothesis table and controlled repair grounded in a selective-attention task with distractors.",
+    "setting_constraint": "Fix a time, memory and energy budget before the run.",
+    "required_evidence": [
+      "a fault trace, hypothesis table and controlled repair",
+      "Include resource log and quality per unit of compute.",
+      "Report target accuracy and control cost with uncertainty or an explicit deterministic check.",
+      "Construct a negative control for the failure mode: mistaking arousal for selective attention."
+    ],
+    "assessment": {
+      "mode": "independent_evaluator_new_case",
+      "pass_rule": "all_four_criteria_required",
+      "scoring": "Each criterion: 0 absent, 1 partial, 2 demonstrated; require 2 on all four.",
+      "threshold_policy": "Register the metric threshold, baseline, task budget and evaluator before exposing new items.",
+      "criteria": [
+        "Concept: correctly state the assumptions and limits of attention and control.",
+        "Practice: the repair fixes the target without hiding a regression.",
+        "Measurement: report target accuracy and control cost against a matched baseline with reproducible inputs.",
+        "Critical check: test for mistaking arousal for selective attention; detect it or rule it out with evidence."
+      ]
+    },
+    "source_policy": "Reviewer must add a verified primary source before lesson status; no source is fabricated here.",
+    "contamination_policy": "No private items, answers, seeds or reviewer-only prompts in this public specification.",
+    "status": "generated_unreviewed"
+  }
 }

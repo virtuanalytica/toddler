@@ -5,7 +5,7 @@
   "topic": "semantic_memory",
   "practice": "compare",
   "setting": "field_data",
-  "target": "compare semantic memory in field data",
+  "target": "Compare two plausible methods for semantic memory using a fact extraction and update ledger. Use a provenance-checked real dataset with consent and access rules.",
   "status": "scaffold",
   "evidence": {
     "primary_sources": [],
@@ -13,5 +13,38 @@
     "practical_artifacts": [],
     "assessment": []
   },
-  "mastery_claim": false
+  "mastery_claim": false,
+  "competency": {
+    "schema": "toddler-competency-spec/v1",
+    "title": "Compare semantic memory — field data",
+    "outcome": "Compare two plausible methods for semantic memory using a fact extraction and update ledger. Use a provenance-checked real dataset with consent and access rules.",
+    "topic_kernel": {
+      "artifact": "a fact extraction and update ledger",
+      "measure": "fact consistency after updates",
+      "failure_to_detect": "silently overwriting contradictory sources"
+    },
+    "practice_task": "Produce a paired comparison and tradeoff table grounded in a fact extraction and update ledger.",
+    "setting_constraint": "Use a provenance-checked real dataset with consent and access rules.",
+    "required_evidence": [
+      "a paired comparison and tradeoff table",
+      "Include the data card, missingness check and permitted use.",
+      "Report fact consistency after updates with uncertainty or an explicit deterministic check.",
+      "Construct a negative control for the failure mode: silently overwriting contradictory sources."
+    ],
+    "assessment": {
+      "mode": "independent_evaluator_new_case",
+      "pass_rule": "all_four_criteria_required",
+      "scoring": "Each criterion: 0 absent, 1 partial, 2 demonstrated; require 2 on all four.",
+      "threshold_policy": "Register the metric threshold, baseline, task budget and evaluator before exposing new items.",
+      "criteria": [
+        "Concept: correctly state the assumptions and limits of semantic memory.",
+        "Practice: same inputs and budgets yield a justified choice.",
+        "Measurement: report fact consistency after updates against a matched baseline with reproducible inputs.",
+        "Critical check: test for silently overwriting contradictory sources; detect it or rule it out with evidence."
+      ]
+    },
+    "source_policy": "Reviewer must add a verified primary source before lesson status; no source is fabricated here.",
+    "contamination_policy": "No private items, answers, seeds or reviewer-only prompts in this public specification.",
+    "status": "generated_unreviewed"
+  }
 }

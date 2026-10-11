@@ -5,7 +5,7 @@
   "topic": "model_compression",
   "practice": "design",
   "setting": "human_review",
-  "target": "design model compression in human review",
+  "target": "Design a deployable workflow for model compression using a quantization or pruning comparison. Use a reviewer who did not author the artifact or see hidden answers.",
   "status": "scaffold",
   "evidence": {
     "primary_sources": [],
@@ -13,5 +13,38 @@
     "practical_artifacts": [],
     "assessment": []
   },
-  "mastery_claim": false
+  "mastery_claim": false,
+  "competency": {
+    "schema": "toddler-competency-spec/v1",
+    "title": "Design model compression — human review",
+    "outcome": "Design a deployable workflow for model compression using a quantization or pruning comparison. Use a reviewer who did not author the artifact or see hidden answers.",
+    "topic_kernel": {
+      "artifact": "a quantization or pruning comparison",
+      "measure": "quality, latency and energy at matched tasks",
+      "failure_to_detect": "using incompatible decode settings"
+    },
+    "practice_task": "Produce a design, interfaces, failure paths and resource budget grounded in a quantization or pruning comparison.",
+    "setting_constraint": "Use a reviewer who did not author the artifact or see hidden answers.",
+    "required_evidence": [
+      "a design, interfaces, failure paths and resource budget",
+      "Include reviewer notes, disagreement resolution and audit trail.",
+      "Report quality, latency and energy at matched tasks with uncertainty or an explicit deterministic check.",
+      "Construct a negative control for the failure mode: using incompatible decode settings."
+    ],
+    "assessment": {
+      "mode": "independent_evaluator_new_case",
+      "pass_rule": "all_four_criteria_required",
+      "scoring": "Each criterion: 0 absent, 1 partial, 2 demonstrated; require 2 on all four.",
+      "threshold_policy": "Register the metric threshold, baseline, task budget and evaluator before exposing new items.",
+      "criteria": [
+        "Concept: correctly state the assumptions and limits of model compression.",
+        "Practice: an independent reviewer can execute its acceptance tests.",
+        "Measurement: report quality, latency and energy at matched tasks against a matched baseline with reproducible inputs.",
+        "Critical check: test for using incompatible decode settings; detect it or rule it out with evidence."
+      ]
+    },
+    "source_policy": "Reviewer must add a verified primary source before lesson status; no source is fabricated here.",
+    "contamination_policy": "No private items, answers, seeds or reviewer-only prompts in this public specification.",
+    "status": "generated_unreviewed"
+  }
 }

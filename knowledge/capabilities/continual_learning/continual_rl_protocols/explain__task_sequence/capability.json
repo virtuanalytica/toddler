@@ -5,7 +5,7 @@
   "topic": "continual_rl_protocols",
   "practice": "explain",
   "setting": "task_sequence",
-  "target": "explain continual rl protocols in task sequence",
+  "target": "Explain the mechanism and its assumptions behind continual rl protocols using a changing-environment RL schedule. Run at least three ordered tasks and revisit the first.",
   "status": "scaffold",
   "evidence": {
     "primary_sources": [],
@@ -13,5 +13,38 @@
     "practical_artifacts": [],
     "assessment": []
   },
-  "mastery_claim": false
+  "mastery_claim": false,
+  "competency": {
+    "schema": "toddler-competency-spec/v1",
+    "title": "Explain continual rl protocols — task sequence",
+    "outcome": "Explain the mechanism and its assumptions behind continual rl protocols using a changing-environment RL schedule. Run at least three ordered tasks and revisit the first.",
+    "topic_kernel": {
+      "artifact": "a changing-environment RL schedule",
+      "measure": "return, regret and retention over task order",
+      "failure_to_detect": "reusing a fixed task order as the holdout"
+    },
+    "practice_task": "Produce an annotated causal or computational diagram grounded in a changing-environment RL schedule.",
+    "setting_constraint": "Run at least three ordered tasks and revisit the first.",
+    "required_evidence": [
+      "an annotated causal or computational diagram",
+      "Include per-task before-and-after measurements.",
+      "Report return, regret and retention over task order with uncertainty or an explicit deterministic check.",
+      "Construct a negative control for the failure mode: reusing a fixed task order as the holdout."
+    ],
+    "assessment": {
+      "mode": "independent_evaluator_new_case",
+      "pass_rule": "all_four_criteria_required",
+      "scoring": "Each criterion: 0 absent, 1 partial, 2 demonstrated; require 2 on all four.",
+      "threshold_policy": "Register the metric threshold, baseline, task budget and evaluator before exposing new items.",
+      "criteria": [
+        "Concept: correctly state the assumptions and limits of continual rl protocols.",
+        "Practice: each claimed link has an assumption and a possible falsifier.",
+        "Measurement: report return, regret and retention over task order against a matched baseline with reproducible inputs.",
+        "Critical check: test for reusing a fixed task order as the holdout; detect it or rule it out with evidence."
+      ]
+    },
+    "source_policy": "Reviewer must add a verified primary source before lesson status; no source is fabricated here.",
+    "contamination_policy": "No private items, answers, seeds or reviewer-only prompts in this public specification.",
+    "status": "generated_unreviewed"
+  }
 }

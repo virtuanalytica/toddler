@@ -5,7 +5,7 @@
   "topic": "forward_transfer",
   "practice": "validate",
   "setting": "independent_holdout",
-  "target": "validate forward transfer in independent holdout",
+  "target": "Validate a claim about forward transfer using a new-task warm-start experiment. Have a separate evaluator hold unseen items and answer keys.",
   "status": "scaffold",
   "evidence": {
     "primary_sources": [],
@@ -13,5 +13,38 @@
     "practical_artifacts": [],
     "assessment": []
   },
-  "mastery_claim": false
+  "mastery_claim": false,
+  "competency": {
+    "schema": "toddler-competency-spec/v1",
+    "title": "Validate forward transfer — independent holdout",
+    "outcome": "Validate a claim about forward transfer using a new-task warm-start experiment. Have a separate evaluator hold unseen items and answer keys.",
+    "topic_kernel": {
+      "artifact": "a new-task warm-start experiment",
+      "measure": "initial new-task performance versus scratch",
+      "failure_to_detect": "counting test-task exposure as transfer"
+    },
+    "practice_task": "Produce a preregistered test protocol and evidence record grounded in a new-task warm-start experiment.",
+    "setting_constraint": "Have a separate evaluator hold unseen items and answer keys.",
+    "required_evidence": [
+      "a preregistered test protocol and evidence record",
+      "Include item-set hash, evaluator identity and aggregate verdict only.",
+      "Report initial new-task performance versus scratch with uncertainty or an explicit deterministic check.",
+      "Construct a negative control for the failure mode: counting test-task exposure as transfer."
+    ],
+    "assessment": {
+      "mode": "independent_evaluator_new_case",
+      "pass_rule": "all_four_criteria_required",
+      "scoring": "Each criterion: 0 absent, 1 partial, 2 demonstrated; require 2 on all four.",
+      "threshold_policy": "Register the metric threshold, baseline, task budget and evaluator before exposing new items.",
+      "criteria": [
+        "Concept: correctly state the assumptions and limits of forward transfer.",
+        "Practice: a held-out challenge supports or rejects the claim.",
+        "Measurement: report initial new-task performance versus scratch against a matched baseline with reproducible inputs.",
+        "Critical check: test for counting test-task exposure as transfer; detect it or rule it out with evidence."
+      ]
+    },
+    "source_policy": "Reviewer must add a verified primary source before lesson status; no source is fabricated here.",
+    "contamination_policy": "No private items, answers, seeds or reviewer-only prompts in this public specification.",
+    "status": "generated_unreviewed"
+  }
 }

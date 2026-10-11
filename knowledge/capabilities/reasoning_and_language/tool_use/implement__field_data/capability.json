@@ -5,7 +5,7 @@
   "topic": "tool_use",
   "practice": "implement",
   "setting": "field_data",
-  "target": "implement tool use in field data",
+  "target": "Build a runnable demonstration of tool use using a tool-call plan with observable execution. Use a provenance-checked real dataset with consent and access rules.",
   "status": "scaffold",
   "evidence": {
     "primary_sources": [],
@@ -13,5 +13,38 @@
     "practical_artifacts": [],
     "assessment": []
   },
-  "mastery_claim": false
+  "mastery_claim": false,
+  "competency": {
+    "schema": "toddler-competency-spec/v1",
+    "title": "Implement tool use — field data",
+    "outcome": "Build a runnable demonstration of tool use using a tool-call plan with observable execution. Use a provenance-checked real dataset with consent and access rules.",
+    "topic_kernel": {
+      "artifact": "a tool-call plan with observable execution",
+      "measure": "task completion and invalid-call rate",
+      "failure_to_detect": "claiming success without checking the tool result"
+    },
+    "practice_task": "Produce executable code or a runnable protocol grounded in a tool-call plan with observable execution.",
+    "setting_constraint": "Use a provenance-checked real dataset with consent and access rules.",
+    "required_evidence": [
+      "executable code or a runnable protocol",
+      "Include the data card, missingness check and permitted use.",
+      "Report task completion and invalid-call rate with uncertainty or an explicit deterministic check.",
+      "Construct a negative control for the failure mode: claiming success without checking the tool result."
+    ],
+    "assessment": {
+      "mode": "independent_evaluator_new_case",
+      "pass_rule": "all_four_criteria_required",
+      "scoring": "Each criterion: 0 absent, 1 partial, 2 demonstrated; require 2 on all four.",
+      "threshold_policy": "Register the metric threshold, baseline, task budget and evaluator before exposing new items.",
+      "criteria": [
+        "Concept: correctly state the assumptions and limits of tool use.",
+        "Practice: the artifact passes a new functional case and a failure case.",
+        "Measurement: report task completion and invalid-call rate against a matched baseline with reproducible inputs.",
+        "Critical check: test for claiming success without checking the tool result; detect it or rule it out with evidence."
+      ]
+    },
+    "source_policy": "Reviewer must add a verified primary source before lesson status; no source is fabricated here.",
+    "contamination_policy": "No private items, answers, seeds or reviewer-only prompts in this public specification.",
+    "status": "generated_unreviewed"
+  }
 }

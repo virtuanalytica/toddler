@@ -5,7 +5,7 @@
   "topic": "meta_learning",
   "practice": "derive",
   "setting": "few_shot",
-  "target": "derive meta learning in few shot",
+  "target": "Derive a formal or quantitative account of meta learning using an inner-loop outer-loop adaptation trial. Limit adaptation to a declared small example budget.",
   "status": "scaffold",
   "evidence": {
     "primary_sources": [],
@@ -13,5 +13,38 @@
     "practical_artifacts": [],
     "assessment": []
   },
-  "mastery_claim": false
+  "mastery_claim": false,
+  "competency": {
+    "schema": "toddler-competency-spec/v1",
+    "title": "Derive meta learning — few shot",
+    "outcome": "Derive a formal or quantitative account of meta learning using an inner-loop outer-loop adaptation trial. Limit adaptation to a declared small example budget.",
+    "topic_kernel": {
+      "artifact": "an inner-loop outer-loop adaptation trial",
+      "measure": "new-task adaptation after fixed shots",
+      "failure_to_detect": "leaking meta-test tasks into meta-training"
+    },
+    "practice_task": "Produce a stepwise derivation with units or invariants grounded in an inner-loop outer-loop adaptation trial.",
+    "setting_constraint": "Limit adaptation to a declared small example budget.",
+    "required_evidence": [
+      "a stepwise derivation with units or invariants",
+      "Include the example count, selection rule and learning curve.",
+      "Report new-task adaptation after fixed shots with uncertainty or an explicit deterministic check.",
+      "Construct a negative control for the failure mode: leaking meta-test tasks into meta-training."
+    ],
+    "assessment": {
+      "mode": "independent_evaluator_new_case",
+      "pass_rule": "all_four_criteria_required",
+      "scoring": "Each criterion: 0 absent, 1 partial, 2 demonstrated; require 2 on all four.",
+      "threshold_policy": "Register the metric threshold, baseline, task budget and evaluator before exposing new items.",
+      "criteria": [
+        "Concept: correctly state the assumptions and limits of meta learning.",
+        "Practice: the derivation reproduces a checked special case.",
+        "Measurement: report new-task adaptation after fixed shots against a matched baseline with reproducible inputs.",
+        "Critical check: test for leaking meta-test tasks into meta-training; detect it or rule it out with evidence."
+      ]
+    },
+    "source_policy": "Reviewer must add a verified primary source before lesson status; no source is fabricated here.",
+    "contamination_policy": "No private items, answers, seeds or reviewer-only prompts in this public specification.",
+    "status": "generated_unreviewed"
+  }
 }

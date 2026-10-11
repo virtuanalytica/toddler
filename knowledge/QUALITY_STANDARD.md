@@ -1,8 +1,8 @@
 # Kwaliteitsgrens voor capability-materiaal
 
-Een `capability.json` is een adres, geen bewijs. Deze vier statussen worden handmatig en controleerbaar toegekend:
+Een `capability.json` bevat nu een adres én een gegenereerde vakbekwaamheidsspecificatie. De specificatie is een toetsbare opdracht, geen bronreview, afgeronde les of bewijs van beheersing. Deze vier lesstatussen worden handmatig en controleerbaar toegekend:
 
-1. `scaffold`: doel en locatie bestaan, maar materiaal en bewijs ontbreken.
+1. `scaffold`: doel, taak, meetmaat en rubric bestaan; brongebonden lesmateriaal en bewijs ontbreken.
 2. `lesson_draft`: leerdoel, ten minste één primaire bron, uitleg, oefening, verwachte output en foutencheck bestaan. Dit is nog geen aangetoonde beheersing.
 3. `reviewed_lesson`: een vakinhoudelijke reviewer heeft bronnen, uitleg, reproduceerbaarheid en taakveiligheid gecontroleerd; de review heeft een datum en commit-hash.
 4. `assessed_capability`: een specifieke **student of agent** heeft een onafhankelijke toets gehaald. De map zelf blijft lesmateriaal; het bewijs hoort bij die student/agent, versie, model, prompts, seedband, tijd en beoordelaar in een apart auditrecord. Zet nooit een algemene `mastery_claim: true` op een catalogusmap.

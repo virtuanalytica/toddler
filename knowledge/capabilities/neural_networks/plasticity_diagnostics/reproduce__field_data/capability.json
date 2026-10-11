@@ -5,7 +5,7 @@
   "topic": "plasticity_diagnostics",
   "practice": "reproduce",
   "setting": "field_data",
-  "target": "reproduce plasticity diagnostics in field data",
+  "target": "Reproduce a stated result for plasticity diagnostics using a dormant-unit and gradient-flow monitor. Use a provenance-checked real dataset with consent and access rules.",
   "status": "scaffold",
   "evidence": {
     "primary_sources": [],
@@ -13,5 +13,38 @@
     "practical_artifacts": [],
     "assessment": []
   },
-  "mastery_claim": false
+  "mastery_claim": false,
+  "competency": {
+    "schema": "toddler-competency-spec/v1",
+    "title": "Reproduce plasticity diagnostics — field data",
+    "outcome": "Reproduce a stated result for plasticity diagnostics using a dormant-unit and gradient-flow monitor. Use a provenance-checked real dataset with consent and access rules.",
+    "topic_kernel": {
+      "artifact": "a dormant-unit and gradient-flow monitor",
+      "measure": "active-unit fraction across task switches",
+      "failure_to_detect": "attributing every plateau to plasticity loss"
+    },
+    "practice_task": "Produce a rerun manifest with data, version, seeds and commands grounded in a dormant-unit and gradient-flow monitor.",
+    "setting_constraint": "Use a provenance-checked real dataset with consent and access rules.",
+    "required_evidence": [
+      "a rerun manifest with data, version, seeds and commands",
+      "Include the data card, missingness check and permitted use.",
+      "Report active-unit fraction across task switches with uncertainty or an explicit deterministic check.",
+      "Construct a negative control for the failure mode: attributing every plateau to plasticity loss."
+    ],
+    "assessment": {
+      "mode": "independent_evaluator_new_case",
+      "pass_rule": "all_four_criteria_required",
+      "scoring": "Each criterion: 0 absent, 1 partial, 2 demonstrated; require 2 on all four.",
+      "threshold_policy": "Register the metric threshold, baseline, task budget and evaluator before exposing new items.",
+      "criteria": [
+        "Concept: correctly state the assumptions and limits of plasticity diagnostics.",
+        "Practice: the rerun agrees within a predeclared tolerance.",
+        "Measurement: report active-unit fraction across task switches against a matched baseline with reproducible inputs.",
+        "Critical check: test for attributing every plateau to plasticity loss; detect it or rule it out with evidence."
+      ]
+    },
+    "source_policy": "Reviewer must add a verified primary source before lesson status; no source is fabricated here.",
+    "contamination_policy": "No private items, answers, seeds or reviewer-only prompts in this public specification.",
+    "status": "generated_unreviewed"
+  }
 }

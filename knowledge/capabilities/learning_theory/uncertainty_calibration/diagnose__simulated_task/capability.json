@@ -5,7 +5,7 @@
   "topic": "uncertainty_calibration",
   "practice": "diagnose",
   "setting": "simulated_task",
-  "target": "diagnose uncertainty calibration in simulated task",
+  "target": "Locate a failure and test a causal remedy for uncertainty calibration using a confidence-reliability study. Use a seeded simulation with an explicit environment version.",
   "status": "scaffold",
   "evidence": {
     "primary_sources": [],
@@ -13,5 +13,38 @@
     "practical_artifacts": [],
     "assessment": []
   },
-  "mastery_claim": false
+  "mastery_claim": false,
+  "competency": {
+    "schema": "toddler-competency-spec/v1",
+    "title": "Diagnose uncertainty calibration — simulated task",
+    "outcome": "Locate a failure and test a causal remedy for uncertainty calibration using a confidence-reliability study. Use a seeded simulation with an explicit environment version.",
+    "topic_kernel": {
+      "artifact": "a confidence-reliability study",
+      "measure": "expected calibration error and coverage",
+      "failure_to_detect": "reporting confidence without calibration"
+    },
+    "practice_task": "Produce a fault trace, hypothesis table and controlled repair grounded in a confidence-reliability study.",
+    "setting_constraint": "Use a seeded simulation with an explicit environment version.",
+    "required_evidence": [
+      "a fault trace, hypothesis table and controlled repair",
+      "Include the simulator config, seed band and baseline run.",
+      "Report expected calibration error and coverage with uncertainty or an explicit deterministic check.",
+      "Construct a negative control for the failure mode: reporting confidence without calibration."
+    ],
+    "assessment": {
+      "mode": "independent_evaluator_new_case",
+      "pass_rule": "all_four_criteria_required",
+      "scoring": "Each criterion: 0 absent, 1 partial, 2 demonstrated; require 2 on all four.",
+      "threshold_policy": "Register the metric threshold, baseline, task budget and evaluator before exposing new items.",
+      "criteria": [
+        "Concept: correctly state the assumptions and limits of uncertainty calibration.",
+        "Practice: the repair fixes the target without hiding a regression.",
+        "Measurement: report expected calibration error and coverage against a matched baseline with reproducible inputs.",
+        "Critical check: test for reporting confidence without calibration; detect it or rule it out with evidence."
+      ]
+    },
+    "source_policy": "Reviewer must add a verified primary source before lesson status; no source is fabricated here.",
+    "contamination_policy": "No private items, answers, seeds or reviewer-only prompts in this public specification.",
+    "status": "generated_unreviewed"
+  }
 }

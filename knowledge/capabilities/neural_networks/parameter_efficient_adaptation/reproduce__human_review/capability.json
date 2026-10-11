@@ -5,7 +5,7 @@
   "topic": "parameter_efficient_adaptation",
   "practice": "reproduce",
   "setting": "human_review",
-  "target": "reproduce parameter efficient adaptation in human review",
+  "target": "Reproduce a stated result for parameter efficient adaptation using a frozen-base adapter trial. Use a reviewer who did not author the artifact or see hidden answers.",
   "status": "scaffold",
   "evidence": {
     "primary_sources": [],
@@ -13,5 +13,38 @@
     "practical_artifacts": [],
     "assessment": []
   },
-  "mastery_claim": false
+  "mastery_claim": false,
+  "competency": {
+    "schema": "toddler-competency-spec/v1",
+    "title": "Reproduce parameter efficient adaptation — human review",
+    "outcome": "Reproduce a stated result for parameter efficient adaptation using a frozen-base adapter trial. Use a reviewer who did not author the artifact or see hidden answers.",
+    "topic_kernel": {
+      "artifact": "a frozen-base adapter trial",
+      "measure": "quality per trainable parameter and memory",
+      "failure_to_detect": "updating supposedly frozen weights"
+    },
+    "practice_task": "Produce a rerun manifest with data, version, seeds and commands grounded in a frozen-base adapter trial.",
+    "setting_constraint": "Use a reviewer who did not author the artifact or see hidden answers.",
+    "required_evidence": [
+      "a rerun manifest with data, version, seeds and commands",
+      "Include reviewer notes, disagreement resolution and audit trail.",
+      "Report quality per trainable parameter and memory with uncertainty or an explicit deterministic check.",
+      "Construct a negative control for the failure mode: updating supposedly frozen weights."
+    ],
+    "assessment": {
+      "mode": "independent_evaluator_new_case",
+      "pass_rule": "all_four_criteria_required",
+      "scoring": "Each criterion: 0 absent, 1 partial, 2 demonstrated; require 2 on all four.",
+      "threshold_policy": "Register the metric threshold, baseline, task budget and evaluator before exposing new items.",
+      "criteria": [
+        "Concept: correctly state the assumptions and limits of parameter efficient adaptation.",
+        "Practice: the rerun agrees within a predeclared tolerance.",
+        "Measurement: report quality per trainable parameter and memory against a matched baseline with reproducible inputs.",
+        "Critical check: test for updating supposedly frozen weights; detect it or rule it out with evidence."
+      ]
+    },
+    "source_policy": "Reviewer must add a verified primary source before lesson status; no source is fabricated here.",
+    "contamination_policy": "No private items, answers, seeds or reviewer-only prompts in this public specification.",
+    "status": "generated_unreviewed"
+  }
 }

@@ -5,7 +5,7 @@
   "topic": "synaptic_plasticity",
   "practice": "teach",
   "setting": "distribution_shift",
-  "target": "teach synaptic plasticity in distribution shift",
+  "target": "Teach another learner to reason about synaptic plasticity using a timing-dependent weight-update trace. Fit on one distribution and evaluate on a separately documented shift.",
   "status": "scaffold",
   "evidence": {
     "primary_sources": [],
@@ -13,5 +13,38 @@
     "practical_artifacts": [],
     "assessment": []
   },
-  "mastery_claim": false
+  "mastery_claim": false,
+  "competency": {
+    "schema": "toddler-competency-spec/v1",
+    "title": "Teach synaptic plasticity — distribution shift",
+    "outcome": "Teach another learner to reason about synaptic plasticity using a timing-dependent weight-update trace. Fit on one distribution and evaluate on a separately documented shift.",
+    "topic_kernel": {
+      "artifact": "a timing-dependent weight-update trace",
+      "measure": "change in synaptic efficacy by spike interval",
+      "failure_to_detect": "confusing correlation with a causal learning rule"
+    },
+    "practice_task": "Produce a lesson, coached exercise and blind learner transfer test grounded in a timing-dependent weight-update trace.",
+    "setting_constraint": "Fit on one distribution and evaluate on a separately documented shift.",
+    "required_evidence": [
+      "a lesson, coached exercise and blind learner transfer test",
+      "Include shift definition and in/out-distribution results.",
+      "Report change in synaptic efficacy by spike interval with uncertainty or an explicit deterministic check.",
+      "Construct a negative control for the failure mode: confusing correlation with a causal learning rule."
+    ],
+    "assessment": {
+      "mode": "independent_evaluator_new_case",
+      "pass_rule": "all_four_criteria_required",
+      "scoring": "Each criterion: 0 absent, 1 partial, 2 demonstrated; require 2 on all four.",
+      "threshold_policy": "Register the metric threshold, baseline, task budget and evaluator before exposing new items.",
+      "criteria": [
+        "Concept: correctly state the assumptions and limits of synaptic plasticity.",
+        "Practice: the learner succeeds on a new case without the answer key.",
+        "Measurement: report change in synaptic efficacy by spike interval against a matched baseline with reproducible inputs.",
+        "Critical check: test for confusing correlation with a causal learning rule; detect it or rule it out with evidence."
+      ]
+    },
+    "source_policy": "Reviewer must add a verified primary source before lesson status; no source is fabricated here.",
+    "contamination_policy": "No private items, answers, seeds or reviewer-only prompts in this public specification.",
+    "status": "generated_unreviewed"
+  }
 }

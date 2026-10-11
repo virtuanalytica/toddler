@@ -5,7 +5,7 @@
   "topic": "vision_language_alignment",
   "practice": "validate",
   "setting": "simulated_task",
-  "target": "validate vision language alignment in simulated task",
+  "target": "Validate a claim about vision language alignment using a text-to-region grounding record. Use a seeded simulation with an explicit environment version.",
   "status": "scaffold",
   "evidence": {
     "primary_sources": [],
@@ -13,5 +13,38 @@
     "practical_artifacts": [],
     "assessment": []
   },
-  "mastery_claim": false
+  "mastery_claim": false,
+  "competency": {
+    "schema": "toddler-competency-spec/v1",
+    "title": "Validate vision language alignment — simulated task",
+    "outcome": "Validate a claim about vision language alignment using a text-to-region grounding record. Use a seeded simulation with an explicit environment version.",
+    "topic_kernel": {
+      "artifact": "a text-to-region grounding record",
+      "measure": "region match and caption faithfulness",
+      "failure_to_detect": "using language priors over image evidence"
+    },
+    "practice_task": "Produce a preregistered test protocol and evidence record grounded in a text-to-region grounding record.",
+    "setting_constraint": "Use a seeded simulation with an explicit environment version.",
+    "required_evidence": [
+      "a preregistered test protocol and evidence record",
+      "Include the simulator config, seed band and baseline run.",
+      "Report region match and caption faithfulness with uncertainty or an explicit deterministic check.",
+      "Construct a negative control for the failure mode: using language priors over image evidence."
+    ],
+    "assessment": {
+      "mode": "independent_evaluator_new_case",
+      "pass_rule": "all_four_criteria_required",
+      "scoring": "Each criterion: 0 absent, 1 partial, 2 demonstrated; require 2 on all four.",
+      "threshold_policy": "Register the metric threshold, baseline, task budget and evaluator before exposing new items.",
+      "criteria": [
+        "Concept: correctly state the assumptions and limits of vision language alignment.",
+        "Practice: a held-out challenge supports or rejects the claim.",
+        "Measurement: report region match and caption faithfulness against a matched baseline with reproducible inputs.",
+        "Critical check: test for using language priors over image evidence; detect it or rule it out with evidence."
+      ]
+    },
+    "source_policy": "Reviewer must add a verified primary source before lesson status; no source is fabricated here.",
+    "contamination_policy": "No private items, answers, seeds or reviewer-only prompts in this public specification.",
+    "status": "generated_unreviewed"
+  }
 }

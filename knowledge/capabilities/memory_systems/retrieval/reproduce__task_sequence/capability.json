@@ -5,7 +5,7 @@
   "topic": "retrieval",
   "practice": "reproduce",
   "setting": "task_sequence",
-  "target": "reproduce retrieval in task sequence",
+  "target": "Reproduce a stated result for retrieval using a query-to-evidence retriever. Run at least three ordered tasks and revisit the first.",
   "status": "scaffold",
   "evidence": {
     "primary_sources": [],
@@ -13,5 +13,38 @@
     "practical_artifacts": [],
     "assessment": []
   },
-  "mastery_claim": false
+  "mastery_claim": false,
+  "competency": {
+    "schema": "toddler-competency-spec/v1",
+    "title": "Reproduce retrieval — task sequence",
+    "outcome": "Reproduce a stated result for retrieval using a query-to-evidence retriever. Run at least three ordered tasks and revisit the first.",
+    "topic_kernel": {
+      "artifact": "a query-to-evidence retriever",
+      "measure": "recall at k and answer support",
+      "failure_to_detect": "ranking a familiar but irrelevant document"
+    },
+    "practice_task": "Produce a rerun manifest with data, version, seeds and commands grounded in a query-to-evidence retriever.",
+    "setting_constraint": "Run at least three ordered tasks and revisit the first.",
+    "required_evidence": [
+      "a rerun manifest with data, version, seeds and commands",
+      "Include per-task before-and-after measurements.",
+      "Report recall at k and answer support with uncertainty or an explicit deterministic check.",
+      "Construct a negative control for the failure mode: ranking a familiar but irrelevant document."
+    ],
+    "assessment": {
+      "mode": "independent_evaluator_new_case",
+      "pass_rule": "all_four_criteria_required",
+      "scoring": "Each criterion: 0 absent, 1 partial, 2 demonstrated; require 2 on all four.",
+      "threshold_policy": "Register the metric threshold, baseline, task budget and evaluator before exposing new items.",
+      "criteria": [
+        "Concept: correctly state the assumptions and limits of retrieval.",
+        "Practice: the rerun agrees within a predeclared tolerance.",
+        "Measurement: report recall at k and answer support against a matched baseline with reproducible inputs.",
+        "Critical check: test for ranking a familiar but irrelevant document; detect it or rule it out with evidence."
+      ]
+    },
+    "source_policy": "Reviewer must add a verified primary source before lesson status; no source is fabricated here.",
+    "contamination_policy": "No private items, answers, seeds or reviewer-only prompts in this public specification.",
+    "status": "generated_unreviewed"
+  }
 }

@@ -5,7 +5,7 @@
   "topic": "perceptrons_and_mlp",
   "practice": "validate",
   "setting": "few_shot",
-  "target": "validate perceptrons and mlp in few shot",
+  "target": "Validate a claim about perceptrons and mlp using a small multilayer network with gradient check. Limit adaptation to a declared small example budget.",
   "status": "scaffold",
   "evidence": {
     "primary_sources": [],
@@ -13,5 +13,38 @@
     "practical_artifacts": [],
     "assessment": []
   },
-  "mastery_claim": false
+  "mastery_claim": false,
+  "competency": {
+    "schema": "toddler-competency-spec/v1",
+    "title": "Validate perceptrons and mlp — few shot",
+    "outcome": "Validate a claim about perceptrons and mlp using a small multilayer network with gradient check. Limit adaptation to a declared small example budget.",
+    "topic_kernel": {
+      "artifact": "a small multilayer network with gradient check",
+      "measure": "gradient error and held-out task accuracy",
+      "failure_to_detect": "mistaking memorization for generalization"
+    },
+    "practice_task": "Produce a preregistered test protocol and evidence record grounded in a small multilayer network with gradient check.",
+    "setting_constraint": "Limit adaptation to a declared small example budget.",
+    "required_evidence": [
+      "a preregistered test protocol and evidence record",
+      "Include the example count, selection rule and learning curve.",
+      "Report gradient error and held-out task accuracy with uncertainty or an explicit deterministic check.",
+      "Construct a negative control for the failure mode: mistaking memorization for generalization."
+    ],
+    "assessment": {
+      "mode": "independent_evaluator_new_case",
+      "pass_rule": "all_four_criteria_required",
+      "scoring": "Each criterion: 0 absent, 1 partial, 2 demonstrated; require 2 on all four.",
+      "threshold_policy": "Register the metric threshold, baseline, task budget and evaluator before exposing new items.",
+      "criteria": [
+        "Concept: correctly state the assumptions and limits of perceptrons and mlp.",
+        "Practice: a held-out challenge supports or rejects the claim.",
+        "Measurement: report gradient error and held-out task accuracy against a matched baseline with reproducible inputs.",
+        "Critical check: test for mistaking memorization for generalization; detect it or rule it out with evidence."
+      ]
+    },
+    "source_policy": "Reviewer must add a verified primary source before lesson status; no source is fabricated here.",
+    "contamination_policy": "No private items, answers, seeds or reviewer-only prompts in this public specification.",
+    "status": "generated_unreviewed"
+  }
 }
