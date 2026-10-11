@@ -47,7 +47,7 @@ def code_version(repo: Path | None = None) -> dict:
         return subprocess.run(["git", "-C", str(repo), *args], capture_output=True, text=True, check=True).stdout.strip()
 
     try:
-        return {"commit": git("rev-parse", "HEAD"), "dirty": bool(git("status", "--porcelain", "--untracked-files=no")),
+        return {"commit": git("rev-parse", "HEAD"), "dirty": bool(git("status", "--porcelain", "--untracked-files=normal")),
                 "remote": git("config", "--get", "remote.origin.url")}
     except (subprocess.CalledProcessError, FileNotFoundError) as exc:
         return {"commit": "", "dirty": True, "error": f"{type(exc).__name__}"}

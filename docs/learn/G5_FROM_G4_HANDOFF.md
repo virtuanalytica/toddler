@@ -60,3 +60,40 @@ The current authoritative evidence is the lineage under
 [`G4_COGNITIVE_HOLDOUT.md`](G4_COGNITIVE_HOLDOUT.md). Public dashboard JSON
 contains aggregates only; it cannot substitute for the private promotion
 record.
+
+## First public G5 cognitive prototype
+
+Teacher exports a fixed, deterministically keyed 27-item development lesson:
+three examples each of addition, subtraction and multiplication in English,
+Dutch and written Cantonese. The export requires committed, clean Teacher
+source. Toddler independently recomputes every answer key, verifies the
+source IDs and learns a rule only when verified feedback rules out the other
+hypotheses. Its old G4 cognitive head remains the fallback. The G4 navigation
+routers are loaded by hash from the five frozen parents and never rewritten.
+`toddler/g5_system.py` composes the resulting cognitive head with one inherited
+navigation parent at runtime, rejecting changed artifacts or parent hashes.
+
+```bash
+PYTHONPATH=/path/to/teacher python3 -m teacher.g5_feedback \
+  --out /private/g5-public/teacher-lesson.json
+PYTHONPATH=/path/to/toddler python3 scripts/g5_public_candidate.py \
+  --teacher-curriculum /private/g5-public/teacher-lesson.json \
+  --out /private/g5-public/candidate-001
+```
+
+The first local prototype, created before the new source was committed,
+measured 0.2685 for the unchanged cognitive head versus 1.0000 after feedback
+on 108 new **public, same-template** arithmetic questions. The inherited
+public G4 retention exercise remained 0.9681 in both variants. Its old
+`code_version` ignored untracked source and incorrectly said `dirty=false`;
+that artifact is preserved as `INVALID-untracked-source` and cannot be used
+for promotion. The corrected lineage helper counts untracked code, and the
+candidate builder now refuses dirty source. A clean run must replace it.
+
+These 108 items test nine exact syntactic forms with new operands. They do not
+test general mathematical reasoning, Cantonese comprehension, the other 17
+cognitive areas, real-world action or independent holdout transfer. Teacher's
+training file and the public selection set are spent for development. G5
+remains an unpromoted candidate until the separate evaluator freezes and runs
+new, independently reviewed tests with matched G4 baselines and navigation
+retention checks.
