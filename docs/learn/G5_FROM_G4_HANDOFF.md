@@ -132,3 +132,31 @@ outcomes are not training material. The safe aggregate and commitments are in
 [`reports/g5_transfer_diagnostic_20261011.json`](../../reports/g5_transfer_diagnostic_20261011.json).
 New public training can teach more varied language, but any resulting G5
 candidate must be evaluated on a newly sealed family; this bank is spent.
+
+## Second public candidate: operation learned across paraphrases
+
+Teacher's second lesson supplies 81 verified public training items and 108
+public check items. The new G5 semantic expert masks the operand values,
+infers each operation from the verified numerical answer, and learns character
+patterns across English, Dutch and written Cantonese questions. Two classifier
+architectures and two confidence floors are compared on the same public check.
+The exact-form rule head remains available, followed by the semantic expert
+and finally the unchanged G4 fallback. Verified public feedback can be added
+and the expert refitted; no private item may enter that memory.
+
+```bash
+PYTHONPATH=. python3 scripts/g5_semantic_candidate.py \
+  --old-lesson /private/g5-public/teacher-lesson.json \
+  --semantic-lesson /private/g5-public/teacher-semantic-lesson.json \
+  --out /private/g5-public/semantic-candidate-001
+```
+
+The code requires clean committed Toddler source and owner-only Teacher files,
+recomputes every answer key, checks source IDs and train/check balance, and
+binds five new child IDs to the same five frozen G4 navigation parents. The
+earlier private transfer bank is excluded. The 108 public check questions were
+used to select the architecture; their score is only a development result.
+Before any G5 promotion attempt, an evaluator must preregister and independently
+review a **new** cognitive bank, matched G4 comparisons, new navigation seeds,
+retention margins and multiple-attempt corrections. Cantonese wording needs
+native-language review before a language claim.

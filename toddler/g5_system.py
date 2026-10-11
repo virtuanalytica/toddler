@@ -33,8 +33,14 @@ class G5Prototype:
 
         manifest_path = Path(manifest_path).resolve()
         manifest = json.loads(manifest_path.read_text())
-        if (manifest.get("schema") != "toddler-g5-public-candidate/v1"
-                or manifest.get("status") != "trained_public_candidate_unpromoted"
+        profiles = {
+            "toddler-g5-public-candidate/v1":
+                ("trained_public_candidate_unpromoted", "G5-public-candidate/t700"),
+            "toddler-g5-semantic-public-candidate/v2":
+                ("trained_public_semantic_candidate_unpromoted", "G5-semantic-public/t710"),
+        }
+        profile = profiles.get(manifest.get("schema"))
+        if (profile is None or manifest.get("status") != profile[0]
                 or manifest.get("private_evaluation") != "not_started"
                 or manifest.get("code", {}).get("dirty") is not False):
             raise ValueError("candidate has no clean, non-promoted G5 prototype manifest")
@@ -46,7 +52,7 @@ class G5Prototype:
         if len(matches) != 1:
             raise ValueError("candidate child ref is missing or duplicated")
         row = matches[0]
-        if not ref.startswith("G5-public-candidate/t700"):
+        if not ref.startswith(profile[1]):
             raise ValueError("unexpected public G5 candidate ID")
         parent_ref = row["navigation_parent"]
         generation, toddler_id = parent_ref.split("/", 1)
