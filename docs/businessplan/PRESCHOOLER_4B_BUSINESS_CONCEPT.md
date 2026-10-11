@@ -28,7 +28,7 @@ Het verkoopbare resultaat is geen losse score. Het is een lokaal inzetbare, klei
 De basis is [Qwen3-4B-Instruct-2507](https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507), waarvan de modelkaart 4,0 miljard parameters en Apache-2.0 vermeldt. De eerste training gebruikt LoRA/QLoRA op een tijdelijke kandidaat, met een bevroren basis als controle. Modelarchitecturen en gewichten uit de mixture worden **niet** samengevoegd. De kennisoverdracht loopt via geverifieerde voorbeelden.
 
 1. Stel nieuwe taken op vanuit eigen capability-bronnen. Registreer licentie, taakfamilie, brondatum en canonieke vraaghash.
-2. Laat meerdere **lokale** mixture-modellen onafhankelijk antwoorden met vastgelegde modelhash, prompt, decodeerprofiel, t/s en energie.
+2. Laat meerdere **lokale** mixture-modellen onafhankelijk antwoorden met vastgelegde modelhash, modellicentie en trainingsrecht op de output, prompt, decodeerprofiel, t/s en energie.
 3. Houd alleen antwoorden met objectieve grondwaarheid of afzonderlijke deskundige beoordeling. Een model dat zijn eigen antwoord goedkeurt, is geen onafhankelijk bewijs.
 4. Scheid data op bronfamilie en taakidentiteit in train, ontwikkeling en verzegelde eindtoets. Geen toetsvraag, variant of afgeleide terecht in training, routering of promptoptimalisatie.
 5. Train de 4B-adapter, vergelijk met dezelfde ongetrainde basis en archiveer iedere poging inclusief mislukte resultaten. Herhaal op verse taken voor retentie en transfer.

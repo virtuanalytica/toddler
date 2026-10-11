@@ -21,7 +21,7 @@ Elke leergang bevat gelabelde voorbeelden van **kennis**, **begrip/transfer** en
 
 ## Data-ingang en controle
 
-`scripts/prepare_preschooler_training.py` neemt JSONL-records met schema `preschooler-evidence/v1`. Per item zijn nodig: eigen taak-ID en domein; train/development-split; bronfamilie, licentie en bronhash; prompt; lokaal model-ID en gewichtshash; antwoord; onafhankelijke objectieve of deskundige verificatie met bewijshash; en geslaagde bron-/semantische overlapcontrole. Een afzonderlijke beheerder levert `preschooler-protected-commit/v1` met verzegelde prompt-hashes en holdoutcommitment. De converter weigert cloudoutput, niet-toegestane bronnen, zelfreview, exacte overlap, gedupliceerde vragen en een bronfamilie die beide splits raakt.
+`scripts/prepare_preschooler_training.py` neemt JSONL-records met schema `preschooler-evidence/v1`. Per item zijn nodig: eigen taak-ID en domein; train/development-split; bronfamilie, licentie en bronhash; prompt; lokaal model-ID, gewichtshash, licentie en expliciet toegestaan gebruik van de output voor training; antwoord; onafhankelijke objectieve of deskundige verificatie met bewijshash; en geslaagde bron-/semantische overlapcontrole. Een afzonderlijke beheerder levert `preschooler-protected-commit/v1` met verzegelde prompt-hashes en holdoutcommitment. De converter weigert cloudoutput, niet-toegestane bronnen of modeloutputs, zelfreview, exacte overlap, gedupliceerde vragen en een bronfamilie die beide splits raakt.
 
 ```bash
 PYTHONPATH=. python3 scripts/prepare_preschooler_training.py \

@@ -13,7 +13,8 @@ def row(item_id="1", split="train", family="source-a"):
             "source": {"access": "owned", "training_allowed": True,
                        "license_id": "own-work", "sha256": "a" * 64},
             "prompt": f"Explain this new code path {item_id}", "answer": "Result verified by test.",
-            "model": {"id": "local-model", "access": "local", "weights_sha256": "b" * 64},
+            "model": {"id": "local-model", "access": "local", "weights_sha256": "b" * 64,
+                      "license_id": "permissive-local", "output_training_allowed": True},
             "verification": {"passed": True, "method": "objective", "reviewer_id": "pytest",
                              "evidence_sha256": "c" * 64},
             "overlap_audit": {"status": "passed", "report_sha256": "d" * 64}}
@@ -29,6 +30,7 @@ def test_local_verified_examples_export_without_promotion_claim():
 
 @pytest.mark.parametrize("change", [
     lambda x: x["model"].update(access="cloud"),
+    lambda x: x["model"].update(output_training_allowed=False),
     lambda x: x["source"].update(training_allowed=False),
     lambda x: x["verification"].update(reviewer_id="local-model"),
     lambda x: x["verification"].update(passed=False),

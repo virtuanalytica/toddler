@@ -86,9 +86,11 @@ def prepare(rows: list[dict], *, protected_hashes: set[str], holdout_commit: str
         seen_prompts.add(prompt_hash)
         answer = _text(row.get("answer"), f"row {index} answer")
         model = row.get("model")
-        if not isinstance(model, dict) or model.get("access") != "local":
-            raise ValueError(f"row {index}: only local model output is admitted")
+        if (not isinstance(model, dict) or model.get("access") != "local"
+                or model.get("output_training_allowed") is not True):
+            raise ValueError(f"row {index}: local model output and training rights are required")
         model_id = _text(model.get("id"), f"row {index} model.id")
+        model_license = _text(model.get("license_id"), f"row {index} model.license_id")
         weights_hash = _sha(model.get("weights_sha256"), f"row {index} model.weights_sha256")
         if model_id in model_hashes and model_hashes[model_id] != weights_hash:
             raise ValueError(f"row {index}: same model id has multiple weight hashes")
@@ -114,6 +116,7 @@ def prepare(rows: list[dict], *, protected_hashes: set[str], holdout_commit: str
             "metadata": {"item_id": item_id, "domain": domain, "split": split,
                          "source_family": family, "source_sha256": source["sha256"],
                          "license_id": source["license_id"], "model_id": model_id,
+                         "model_license_id": model_license,
                          "model_weights_sha256": weights_hash, "prompt_sha256": prompt_hash,
                          "verification_method": method,
                          "verification_sha256": verification["evidence_sha256"]},
