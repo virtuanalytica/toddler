@@ -160,3 +160,20 @@ Before any G5 promotion attempt, an evaluator must preregister and independently
 review a **new** cognitive bank, matched G4 comparisons, new navigation seeds,
 retention margins and multiple-attempt corrections. Cantonese wording needs
 native-language review before a language claim.
+
+The second candidate was built from clean commit `f45f29bb` and Teacher lesson
+SHA-256 `848eea8601e57867782962558041ab5e5f4daae5000e61af602b6daf561b039f`.
+All five composed runtimes loaded with the exact frozen G4 parent navigation
+hashes and returned the same CartPole action as their parent on a probe.
+Public architecture selection gave 108/108 on the fourth Teacher pattern,
+versus 36/108 for both G4 and the first G5 candidate. On a **new**, sealed,
+post-freeze diagnostic with 108 different paraphrases, G5 scored 67/108 and
+G4 scored 32/108. The paired result had 35 G5-only correct items and no
+G4-only correct items (two-sided exact sign-test p = 5.82e-11). This is the
+first observed arithmetic paraphrase-transfer gain, with the strongest cells
+in subtraction and weak multiplication cells. It is not a G5 promotion:
+the diagnostic lacks independent Cantonese language review, broad cognitive
+retention, new navigation seeds and two preregistered confirmation families.
+See [`reports/g5_semantic_transfer_20261011.json`](../../reports/g5_semantic_transfer_20261011.json)
+for prompt-free aggregates and file commitments. Both diagnostic banks are
+spent and must remain excluded from future training and selection.
