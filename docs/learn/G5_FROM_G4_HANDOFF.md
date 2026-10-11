@@ -88,7 +88,12 @@ public G4 retention exercise remained 0.9681 in both variants. Its old
 `code_version` ignored untracked source and incorrectly said `dirty=false`;
 that artifact is preserved as `INVALID-untracked-source` and cannot be used
 for promotion. The corrected lineage helper counts untracked code, and the
-candidate builder now refuses dirty source. A clean run must replace it.
+candidate builder now refuses dirty source. A clean replacement was created
+from committed code and Teacher lesson SHA-256
+`1b2b5434fa0bd8639f73a2129d8efaaa20b01f4c85df65d91f53a37a7d9b18d4`;
+all five composed runtimes loaded and produced the same CartPole action as
+their exact frozen G4 parent. The public aggregate is
+[`reports/g5_public_feedback_20261011.json`](../../reports/g5_public_feedback_20261011.json).
 
 These 108 items test nine exact syntactic forms with new operands. They do not
 test general mathematical reasoning, Cantonese comprehension, the other 17

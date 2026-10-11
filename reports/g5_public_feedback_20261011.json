@@ -1,0 +1,21 @@
+{
+  "schema": "toddler-g5-public-feedback-summary/v1",
+  "status": "public_development_only_unpromoted",
+  "created_at": "2026-10-11T15:15:23.792067+00:00",
+  "candidate_children": 5,
+  "teacher_curriculum_sha256": "1b2b5434fa0bd8639f73a2129d8efaaa20b01f4c85df65d91f53a37a7d9b18d4",
+  "parent_contract_sha256": "add746df575cd10ba34b7f693475fdb83cc30f8517d79235701c3ffbf2e384d5",
+  "candidate_manifest_sha256": "331375eee6b917724756f6d3455c3540a4196178f291b9549b24b4a3d84cbdbf",
+  "cognitive_artifact_sha256": "2b8d37f87e33dea48bfe34492fc19b2842dd24b28487b9402e46b917c3e064be",
+  "code_commit": "aa7e36161b7e2b03a32201296654e549e7a33ff9",
+  "code_dirty": false,
+  "public_check_items": 108,
+  "g4_public_check_strict_accuracy": 0.268519,
+  "g5_public_check_strict_accuracy": 1.0,
+  "g4_public_retention_accuracy": 0.968085,
+  "g5_public_retention_accuracy": 0.968085,
+  "navigation_runtime_hash_verified": true,
+  "private_evaluation": "not_started",
+  "promotion_eligible": false,
+  "limitation": "Nine trained arithmetic question forms and fresh operands only; public selection set. No independent G5 cognitive, navigation, software, or physical promotion result."
+}
