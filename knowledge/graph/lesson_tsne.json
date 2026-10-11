@@ -1,210 +1,330 @@
 {
   "schema": "toddler-capability-tsne-pilot/v1",
   "status": "exploratory_visualization_only",
-  "documents": 10,
+  "documents": 16,
   "representation": "TF-IDF uni+bi-grams of sourced lesson drafts",
   "sklearn_version": "1.6.1",
   "random_state": 42,
-  "perplexity": 3.0,
-  "trustworthiness_k3": 0.713333,
+  "perplexity": 5,
+  "trustworthiness_k3": 0.907197,
   "nodes": [
     {
       "id": "continual_learning/catastrophic_forgetting/diagnose__task_sequence",
       "lesson_sha256": "39475527713d857485e987159a2a32a50f57428a03cf937551a9822b6836fbce",
-      "x": 0.728431,
-      "y": 0.446087,
+      "x": 0.69733,
+      "y": 0.747837,
       "nearest_by_source_text": [
         {
           "id": "continual_learning/experience_replay/implement__simulated_task",
-          "cosine": 0.132899
+          "cosine": 0.120077
+        },
+        {
+          "id": "multimodal_agents/gui_grounding/validate__independent_holdout",
+          "cosine": 0.081455
         },
         {
           "id": "neuroscience/hippocampal_replay/reproduce__simulated_task",
-          "cosine": 0.069237
-        },
-        {
-          "id": "neural_networks/plasticity_diagnostics/diagnose__task_sequence",
-          "cosine": 0.054758
+          "cosine": 0.062055
         }
       ]
     },
     {
       "id": "continual_learning/continual_backprop/implement__simulated_task",
       "lesson_sha256": "049272eda01b3ba5f8d3838c22eb6fe06a8d6c8d143ca5593491795b683863e7",
-      "x": 0.0,
-      "y": 0.632591,
+      "x": 0.80847,
+      "y": 0.255955,
       "nearest_by_source_text": [
         {
           "id": "neural_networks/plasticity_diagnostics/diagnose__task_sequence",
-          "cosine": 0.117441
+          "cosine": 0.112581
         },
         {
           "id": "neuroscience/synaptic_plasticity/explain__worked_example",
-          "cosine": 0.091581
+          "cosine": 0.085177
         },
         {
           "id": "continual_learning/ewc/derive__worked_example",
-          "cosine": 0.074051
+          "cosine": 0.063338
         }
       ]
     },
     {
       "id": "continual_learning/ewc/derive__worked_example",
       "lesson_sha256": "7c4293df181586f381f294a1297813e8c5c894b8ae5db0eaaa4ae503ebce1f63",
-      "x": 0.323938,
-      "y": 1.0,
+      "x": 1.0,
+      "y": 0.0,
       "nearest_by_source_text": [
         {
           "id": "neuroscience/synaptic_plasticity/explain__worked_example",
-          "cosine": 0.132281
+          "cosine": 0.123376
         },
         {
           "id": "continual_learning/continual_backprop/implement__simulated_task",
-          "cosine": 0.074051
+          "cosine": 0.063338
         },
         {
           "id": "continual_learning/experience_replay/implement__simulated_task",
-          "cosine": 0.066822
+          "cosine": 0.059276
         }
       ]
     },
     {
       "id": "continual_learning/experience_replay/implement__simulated_task",
       "lesson_sha256": "15d51eb8fbb6c7fbf0267521653c0b917a8bc38b1396b6da25ab0a35fd6f518c",
-      "x": 0.710412,
-      "y": 0.258197,
+      "x": 0.651837,
+      "y": 0.637492,
       "nearest_by_source_text": [
         {
           "id": "continual_learning/catastrophic_forgetting/diagnose__task_sequence",
-          "cosine": 0.132899
+          "cosine": 0.120077
         },
         {
           "id": "neural_networks/plasticity_diagnostics/diagnose__task_sequence",
-          "cosine": 0.083147
+          "cosine": 0.078741
         },
         {
-          "id": "continual_learning/progressive_networks/implement__compute_budget",
-          "cosine": 0.077566
+          "id": "multimodal_agents/gui_grounding/validate__independent_holdout",
+          "cosine": 0.073192
         }
       ]
     },
     {
       "id": "continual_learning/progressive_networks/implement__compute_budget",
       "lesson_sha256": "21c201a04319ab00e8c3db885f326a8fa8e2895745a94f17687b19ff30131d3e",
-      "x": 0.545585,
-      "y": 0.131613,
+      "x": 0.049415,
+      "y": 0.567538,
       "nearest_by_source_text": [
         {
+          "id": "evaluation_and_causality/energy_accounting/reproduce__compute_budget",
+          "cosine": 0.082057
+        },
+        {
           "id": "continual_learning/experience_replay/implement__simulated_task",
-          "cosine": 0.077566
+          "cosine": 0.069383
         },
         {
           "id": "neuroscience/synaptic_plasticity/explain__worked_example",
-          "cosine": 0.06776
+          "cosine": 0.058499
+        }
+      ]
+    },
+    {
+      "id": "evaluation_and_causality/energy_accounting/reproduce__compute_budget",
+      "lesson_sha256": "4eb23754e4a4fb2fad15de662ba13860a9264b52e0e2fe4b1649778c5dbd5a8b",
+      "x": 0.037745,
+      "y": 0.706374,
+      "nearest_by_source_text": [
+        {
+          "id": "continual_learning/progressive_networks/implement__compute_budget",
+          "cosine": 0.082057
         },
         {
-          "id": "continual_learning/ewc/derive__worked_example",
-          "cosine": 0.063454
+          "id": "memory_systems/memory_provenance/design__field_data",
+          "cosine": 0.07952
+        },
+        {
+          "id": "reasoning_and_language/numeracy/implement__few_shot",
+          "cosine": 0.065207
         }
       ]
     },
     {
       "id": "evaluation_and_causality/paired_trials/design__independent_holdout",
       "lesson_sha256": "9cd516d77e6bc7d1850a5c22b8ec258280f64589c48599acc1950111d3d2b3ee",
-      "x": 1.0,
-      "y": 0.090043,
+      "x": 0.4518,
+      "y": 0.462945,
       "nearest_by_source_text": [
         {
-          "id": "continual_learning/progressive_networks/implement__compute_budget",
-          "cosine": 0.058572
+          "id": "continual_learning/experience_replay/implement__simulated_task",
+          "cosine": 0.053676
         },
         {
           "id": "systems_and_safety/deployment_gates/validate__real_time",
-          "cosine": 0.05779
+          "cosine": 0.053466
+        },
+        {
+          "id": "continual_learning/progressive_networks/implement__compute_budget",
+          "cosine": 0.046257
+        }
+      ]
+    },
+    {
+      "id": "memory_systems/memory_provenance/design__field_data",
+      "lesson_sha256": "5d4b7bd5fa6511e4545aeb9dfc98283c7ef1b2bf3aac58d31dbcf07edf6f447f",
+      "x": 0.10829,
+      "y": 0.844806,
+      "nearest_by_source_text": [
+        {
+          "id": "evaluation_and_causality/energy_accounting/reproduce__compute_budget",
+          "cosine": 0.07952
+        },
+        {
+          "id": "reasoning_and_language/numeracy/implement__few_shot",
+          "cosine": 0.070146
+        },
+        {
+          "id": "reinforcement_learning/reward_design/diagnose__simulated_task",
+          "cosine": 0.067552
+        }
+      ]
+    },
+    {
+      "id": "multimodal_agents/gui_grounding/validate__independent_holdout",
+      "lesson_sha256": "948236b1d5e8e32f45e40f07198729d833f0488ffc671dd73ce1847ee37ddcb9",
+      "x": 0.56433,
+      "y": 0.883974,
+      "nearest_by_source_text": [
+        {
+          "id": "continual_learning/catastrophic_forgetting/diagnose__task_sequence",
+          "cosine": 0.081455
         },
         {
           "id": "continual_learning/experience_replay/implement__simulated_task",
-          "cosine": 0.057704
+          "cosine": 0.073192
+        },
+        {
+          "id": "reinforcement_learning/reward_design/diagnose__simulated_task",
+          "cosine": 0.070828
         }
       ]
     },
     {
       "id": "neural_networks/plasticity_diagnostics/diagnose__task_sequence",
       "lesson_sha256": "961c5eb60018250b1d1ef97b4abaff6caba9a459d38e87c73ec4bfcc089a47fc",
-      "x": 0.06633,
-      "y": 0.468059,
+      "x": 0.911451,
+      "y": 0.319618,
       "nearest_by_source_text": [
         {
           "id": "continual_learning/continual_backprop/implement__simulated_task",
-          "cosine": 0.117441
+          "cosine": 0.112581
         },
         {
           "id": "neuroscience/synaptic_plasticity/explain__worked_example",
-          "cosine": 0.093582
+          "cosine": 0.093925
         },
         {
           "id": "continual_learning/experience_replay/implement__simulated_task",
-          "cosine": 0.083147
+          "cosine": 0.078741
         }
       ]
     },
     {
       "id": "neuroscience/hippocampal_replay/reproduce__simulated_task",
       "lesson_sha256": "dba32e2699de371552d3c6abaf1e19b9b4d9b6760cdd8f54fef0660fe31398ab",
-      "x": 0.160998,
-      "y": 0.234374,
+      "x": 0.986648,
+      "y": 0.478354,
       "nearest_by_source_text": [
         {
           "id": "neural_networks/plasticity_diagnostics/diagnose__task_sequence",
-          "cosine": 0.082402
+          "cosine": 0.075986
         },
         {
           "id": "continual_learning/experience_replay/implement__simulated_task",
-          "cosine": 0.072181
+          "cosine": 0.065957
         },
         {
           "id": "neuroscience/synaptic_plasticity/explain__worked_example",
-          "cosine": 0.069598
+          "cosine": 0.063873
         }
       ]
     },
     {
       "id": "neuroscience/synaptic_plasticity/explain__worked_example",
       "lesson_sha256": "6551a8f7cecf295faf0c49c47ecc99f72fdc5e793d82717904e46b44ab93cf66",
-      "x": 0.263145,
-      "y": 0.840393,
+      "x": 0.996502,
+      "y": 0.11586,
       "nearest_by_source_text": [
         {
           "id": "continual_learning/ewc/derive__worked_example",
-          "cosine": 0.132281
+          "cosine": 0.123376
         },
         {
           "id": "neural_networks/plasticity_diagnostics/diagnose__task_sequence",
-          "cosine": 0.093582
+          "cosine": 0.093925
         },
         {
           "id": "continual_learning/continual_backprop/implement__simulated_task",
-          "cosine": 0.091581
+          "cosine": 0.085177
+        }
+      ]
+    },
+    {
+      "id": "reasoning_and_language/multilingual_learning/compare__distribution_shift",
+      "lesson_sha256": "538da1eab6a5f3e7d02cdd4dd6543a335a4586f6d245e2c09b6f0fc2c6fd52a3",
+      "x": 0.325746,
+      "y": 1.0,
+      "nearest_by_source_text": [
+        {
+          "id": "reinforcement_learning/reward_design/diagnose__simulated_task",
+          "cosine": 0.067049
+        },
+        {
+          "id": "multimodal_agents/gui_grounding/validate__independent_holdout",
+          "cosine": 0.063763
+        },
+        {
+          "id": "memory_systems/memory_provenance/design__field_data",
+          "cosine": 0.062545
+        }
+      ]
+    },
+    {
+      "id": "reasoning_and_language/numeracy/implement__few_shot",
+      "lesson_sha256": "ef377ef0e94ddbc745d9f19e99cf6802ab74fba8b415480d2052de11754e5302",
+      "x": 0.0,
+      "y": 0.955406,
+      "nearest_by_source_text": [
+        {
+          "id": "memory_systems/memory_provenance/design__field_data",
+          "cosine": 0.070146
+        },
+        {
+          "id": "evaluation_and_causality/energy_accounting/reproduce__compute_budget",
+          "cosine": 0.065207
+        },
+        {
+          "id": "multimodal_agents/gui_grounding/validate__independent_holdout",
+          "cosine": 0.059198
+        }
+      ]
+    },
+    {
+      "id": "reinforcement_learning/reward_design/diagnose__simulated_task",
+      "lesson_sha256": "9585a36da22f20e8d1bf7bf17495a2106415f317b95ef38a49611d29e5f25746",
+      "x": 0.369339,
+      "y": 0.837547,
+      "nearest_by_source_text": [
+        {
+          "id": "multimodal_agents/gui_grounding/validate__independent_holdout",
+          "cosine": 0.070828
+        },
+        {
+          "id": "memory_systems/memory_provenance/design__field_data",
+          "cosine": 0.067552
+        },
+        {
+          "id": "reasoning_and_language/multilingual_learning/compare__distribution_shift",
+          "cosine": 0.067049
         }
       ]
     },
     {
       "id": "systems_and_safety/deployment_gates/validate__real_time",
       "lesson_sha256": "85f8768e4b0e215016bbbdc92a43c9b408b4410bd1dc704914e32791001fb985",
-      "x": 0.805886,
-      "y": 0.0,
+      "x": 0.405903,
+      "y": 0.644677,
       "nearest_by_source_text": [
         {
+          "id": "reinforcement_learning/reward_design/diagnose__simulated_task",
+          "cosine": 0.066419
+        },
+        {
           "id": "continual_learning/experience_replay/implement__simulated_task",
-          "cosine": 0.071775
+          "cosine": 0.063277
         },
         {
           "id": "evaluation_and_causality/paired_trials/design__independent_holdout",
-          "cosine": 0.05779
-        },
-        {
-          "id": "continual_learning/catastrophic_forgetting/diagnose__task_sequence",
-          "cosine": 0.054621
+          "cosine": 0.053466
         }
       ]
     }

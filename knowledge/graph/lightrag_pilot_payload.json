@@ -16,12 +16,17 @@
       "file_path": "knowledge/capabilities/neural_networks/plasticity_diagnostics/diagnose__task_sequence/lesson.md"
     },
     {
+      "content": "# Beloningsontwerp: diagnose van proxy-optimalisatie\n\n**Bronnen:** [Roy e.a., ICML 2022](https://proceedings.mlr.press/v162/roy22a.html) onderscheiden expliciete gedragsbeperkingen van alleen een beloningsfunctie. [Reddy e.a., ICML 2020](https://proceedings.mlr.press/v119/reddy20a.html) onderzoeken hoe een beloningsmodel op hypothetisch gedrag kan worden bevraagd om onveilige toestanden en reward hacking te vinden. Dit zijn onderzoeksresultaten, geen garantie dat één constraint-methode iedere fout oplost.\n\n**Kernkennis:** een proxyreward is een meetbare vervanger voor de werkelijke bedoeling. Optimalisatie kan een hoge proxywaarde vinden terwijl de bedoelde taak faalt. Maak daarom de bedoelde uitkomst en verboden gedragingen onafhankelijk van de trainingsreward observeerbaar. Een constrained MDP maakt een deel van die grenzen expliciet; de gekozen constraints kunnen zelf onvolledig zijn.\n\n**Praktijk:** bouw een kleine, gezaaide gridworld met een doeltegel, een verboden tegel en een herhaalbare actie die proxyreward oplevert zonder het doel te bereiken. Train of programmeer twee policies bij gelijk aantal stappen: (A) optimaliseer alleen de proxy, (B) optimaliseer met een expliciete overtredingsgrens. Bewaar omgevingversie, seeds, rewarddefinitie, action traces en policies. Meet per seed: doelbereik, proxyreturn, overtredingen en echte taakscore. Presenteer minstens één trace waarin proxyreturn en taakscore uiteenlopen.\n\n**Verwachte uitvoer:** een uitvoerbaar experiment, een tabel per seed en een korte diagnose van de exploit. Een geldige reparatie verbetert doelbereik zonder verborgen overtredingen; een mooie gemiddelde reward is onvoldoende.\n\n**Foutencheck en toets:** een onafhankelijke reviewer wijzigt één omgevingseigenschap of rewardgewicht buiten de zichtbare oefenseeds. Voorspel vooraf welke policy zal falen, laat beide lopen en verklaar een tegenvoorbeeld. De nieuwe seedband en antwoordcriteria blijven buiten de publieke les. Test uitsluitend in de simulatie; leid hieruit geen veiligheid voor fysieke robots af.\n",
+      "source_id": "lesson:reinforcement_learning/reward_design/diagnose__simulated_task",
+      "file_path": "knowledge/capabilities/reinforcement_learning/reward_design/diagnose__simulated_task/lesson.md"
+    },
+    {
       "content": "# Vergeten meten op een taakvolgorde\n\n**Bronnen:** [CLEAR, NeurIPS 2019](https://proceedings.neurips.cc/paper_files/paper/2019/hash/fa7cdfad1a5aaf8370ebeda47a1ff1c3-Abstract.html) en [Continual World, NeurIPS 2021](https://papers.nips.cc/paper_files/paper/2021/hash/ef8446f35513a8d6aa2308357a268a7e-Abstract.html).\n\n**Theorieopdracht:** definieer prestatie na taak (j) op eerder geleerde taak (i), en bereken maximale terugval per taak. Scheid vergeten van plasticiteitsverlies: een netwerk kan oude taken behouden maar niets nieuws meer leren, of snel leren en tegelijk veel vergeten.\n\n**Praktijk:** train A→B→C→A op publieke MiniGrid-varianten met vaste interactiebudgetten. Meet alle taken na iedere fase, ook wanneer ze niet meer getraind worden. Leg trainings- en evaluatieseeds apart vast. **Toets:** diagnoseer een onbekende leercurvematrix en kies welke extra meting de twee failure modes uit elkaar haalt.\n",
       "source_id": "lesson:continual_learning/catastrophic_forgetting/diagnose__task_sequence",
       "file_path": "knowledge/capabilities/continual_learning/catastrophic_forgetting/diagnose__task_sequence/lesson.md"
     },
     {
-      "content": "# Experience replay met aantoonbare herkomst\n\n**Bron:** [Rolnick e.a., CLEAR](https://proceedings.neurips.cc/paper_files/paper/2019/hash/fa7cdfad1a5aaf8370ebeda47a1ff1c3-Abstract.html). CLEAR combineert oude ervaringen met nieuw gedrag en beperkt vergeten in de onderzochte RL-omgeving; het effect is nog niet op Toddler aangetoond.\n\n**Theorieopdracht:** verklaar hoe de verdeling van oude en nieuwe trajecten de gradient beïnvloedt. Beschrijf risico's van niet-stationaire policy-data en waarom een loutere replaybuffer geen eerlijke private toets is.\n\n**Praktijk:** implementeer op een kandidaatkopie een begrensde buffer met taak, seedband, modelhash, actie, beloning en tijd. Sluit alle private/promotieseeds expliciet uit. Vergelijk onder identiek trainingsbudget `new_only`, `replay_only` en `mixed`. **Toets:** lever de bufferhash, runscripts, oude-taak-retentie, nieuwe-taak-AUC en een ablatietabel; herstel de ouder zonder geheugenmigratie.\n",
+      "content": "# Experience replay met aantoonbare herkomst\n\n**Bron:** [Rolnick e.a., CLEAR](https://proceedings.neurips.cc/paper_files/paper/2019/hash/fa7cdfad1a5aaf8370ebeda47a1ff1c3-Abstract.html). CLEAR combineert oude ervaringen met nieuw gedrag en beperkt vergeten in de onderzochte RL-omgeving; het effect is nog niet op Toddler aangetoond.\n\n**Theorieopdracht:** verklaar hoe de verdeling van oude en nieuwe trajecten de gradient beïnvloedt. Beschrijf risico's van niet-stationaire policy-data en waarom een loutere replaybuffer geen eerlijke private toets is.\n\n**Praktijk:** implementeer op een kandidaatkopie een begrensde buffer met taak, seedband, modelhash, actie, beloning en tijd. Sluit alle private/promotieseeds expliciet uit. Vergelijk onder identiek trainingsbudget `new_only`, `replay_only` en `mixed`. **Toets:** lever de bufferhash, runscripts, oude-taak-retentie, nieuwe-taak-AUC en een ablatietabel; herstel de ouder zonder geheugenmigratie.\n\n**Huidige oefenartefacten:** [buffer en zelfimitatie](../../../../../toddler/learn/experience_replay.py), [provenance- en isolatietests](../../../../../tests/test_experience_replay.py) en [openbare pilot met negatieve uitkomst](../../../../../docs/learn/G4_OWN_REPLAY_20261010.md). Deze pilot vergelijkt nog niet de drie hierboven vereiste varianten onder gelijk budget en bewijst dus geen beheersing of promotiewinst.\n",
       "source_id": "lesson:continual_learning/experience_replay/implement__simulated_task",
       "file_path": "knowledge/capabilities/continual_learning/experience_replay/implement__simulated_task/lesson.md"
     },
@@ -41,9 +46,34 @@
       "file_path": "knowledge/capabilities/continual_learning/continual_backprop/implement__simulated_task/lesson.md"
     },
     {
+      "content": "# Herkomst van agentgeheugen met echte gegevens\n\n**Bronnen:** de W3C-aanbevelingen [PROV-O](https://www.w3.org/TR/prov-o/) en [PROV-DM](https://www.w3.org/TR/prov-dm/) beschrijven onder meer entiteiten, activiteiten, verantwoordelijke actoren en afleidingsrelaties. Gebruik ze als gegevensmodel; ze bewijzen op zichzelf niet dat een opgeslagen claim waar is.\n\n**Kernkennis:** een geheugenfeit is een versiegebonden bewering over een bron, niet een losse zin. Leg voor iedere extractie vast welke bronversie werd gebruikt, door welke activiteit een afgeleide entiteit ontstond en wie of wat verantwoordelijk was. Een correctie van de bron moet alle afhankelijke herinneringen vindbaar maken. Herkomst en waarheidscontrole zijn aparte vragen.\n\n**Praktijk:** kies tien publiek deelbare documenten of een toegestane interne dataset. Noteer licentie, toegang en retentie vóór ingestie. Maak per document een `Entity` met contenthash; per extractierun een `Activity` met codeversie en tijd; per feit een afgeleide `Entity` met `wasDerivedFrom`, `wasGeneratedBy` en een bronspan. Bouw een query die voor een antwoord de bronketen toont. Corrigeer daarna bewust één document en geef alle mogelijk verouderde feiten en afgeleide antwoorden terug. Voeg een verwijderverzoek toe dat zowel primaire als afgeleide kopieën in de eigen testopslag aanwijst.\n\n**Verwachte uitvoer:** een klein PROV-compatibel grafmanifest, een herkomstquery, een correctielog en een controle op verweesde feiten. Meet percentage feiten met geldige bronhash en percentage afgeleide records gevonden na correctie. Bewaar gevoelige documenten niet in Git.\n\n**Foutencheck en toets:** laat een reviewer een extra document toevoegen met twee tegenstrijdige versies. De leerling moet het conflict zichtbaar laten, de geldige tijd aangeven en een niet-herleidbaar antwoord afwijzen. De reviewer houdt dit document buiten de openbare oefenmap. Een mooie grafvisualisatie zonder herstelbare bronketen slaagt niet.\n",
+      "source_id": "lesson:memory_systems/memory_provenance/design__field_data",
+      "file_path": "knowledge/capabilities/memory_systems/memory_provenance/design__field_data/lesson.md"
+    },
+    {
+      "content": "# Rekenen met eenheden bij weinig voorbeelden\n\n**Bronnen:** de actuele [SI Brochure van BIPM](https://www.bipm.org/en/publications/si-brochure) definieert het eenhedenstelsel; de [NIST Guide to the SI](https://www.nist.gov/pml/special-publication-811) geeft praktische notatie en conversieregels. Let op dat de oudere NIST SP 811 niet alle SI-wijzigingen uit 2019 verwerkt; gebruik BIPM bij een conflict.\n\n**Kernkennis:** een berekening heeft een getal, een grootheid en een eenheid. Optellen vereist compatibele dimensies; vermenigvuldigen en delen combineren dimensies. Een numeriek aannemelijk antwoord met een foutieve schaal of eenheid is onjuist. Controleer waar de nulpunten van temperatuurschalen meespelen: een Celsiuswaarde kan niet als gewone schaalfactor naar kelvin worden vermenigvuldigd.\n\n**Praktijk:** bouw een kleine calculator voor lengte, tijd, massa, snelheid, energie en vermogen. Gebruik maximaal vijf zichtbare voorbeelden om een Toddler een parse- of toolaanroep te leren; leg voorbeeldselectie vast. De rekenkern moet getallen en eenheden gescheiden verwerken, conversies expliciet maken en ongeldige optellingen weigeren. Neem minstens op: `5 km / 20 min` naar `m/s`, `250 W × 2 h` naar `kWh`, en een expres foutieve `3 m + 4 s`. Vergelijk met een kale taalmodelaanpak zonder calculator onder dezelfde prompts.\n\n**Verwachte uitvoer:** code, versie, vijf oefenvoorbeelden, exacte verwachte waarden, uitvoertrace en foutenrapport. De drie zichtbare controles geven respectievelijk `4,166666… m/s`, `0,5 kWh` en een foutmelding voor onverenigbare dimensies. Meet exact antwoordpercentage én eenheidsjuistheid afzonderlijk; leg afronding en significante cijfers vast.\n\n**Foutencheck en toets:** de reviewer genereert nieuwe getallen, gemengde voorvoegsels en eenheden die niet optelbaar zijn. Er mag geen enkel voorbeeld of antwoord uit deze afgeschermde set in promptoptimalisatie of training terechtkomen. Een antwoord krijgt alleen krediet als waarde, dimensie en conversiestappen kloppen.\n",
+      "source_id": "lesson:reasoning_and_language/numeracy/implement__few_shot",
+      "file_path": "knowledge/capabilities/reasoning_and_language/numeracy/implement__few_shot/lesson.md"
+    },
+    {
+      "content": "# Meertalige betekenis bij domeinverschuiving\n\n**Bronnen:** de makers documenteren [FLORES-200](https://github.com/facebookresearch/flores/blob/main/flores200/README.md) als publiek meertalig evaluatiecorpus met dev/devtest en een verborgen testdeel; het [NLLB-onderzoek](https://arxiv.org/abs/2207.04672) combineert meertalige automatische en menselijke evaluatie. Publieke FLORES-zinnen zijn oefen- of referentiemateriaal, geen afgeschermde promotietoets voor moderne modellen.\n\n**Kernkennis:** vertaalbaarheid, taalkundige vloeiendheid en feitelijke behouding zijn verschillende eigenschappen. Een domeinverschuiving kan termen, register, namen en getallen veranderen terwijl zinsvormen bekend blijven. Een automatische metriek kan zulke fouten missen; laat daarom menselijke beoordelaars betekenis, terminologie en weglatingen apart annoteren.\n\n**Praktijk:** vergelijk twee lokale modellen of prompts voor Nederlands ↔ Engels en, alleen met een bevoegde moedertaalreviewer, een Kantonese variant. Gebruik een publieke oefenset uit FLORES of zelfgeschreven toegestane teksten, en een apart door een reviewer gemaakte set van 30 korte zinnen uit één nieuw domein. Bevries modelversies, decodeerinstellingen en voorbeeldkeuze. Label per zin behoud van namen/getallen, betekenis, register en onterechte toevoegingen. Rapporteer per taalrichting en domein, inclusief annotatorverschil.\n\n**Verwachte uitvoer:** datasetkaart met licentie en splits, modelmanifest, gepaarde resultaten en fouttaxonomie. Bewaar de nieuwe toetszinnen buiten de repository en stel ze niet aan de kandidaat of promptverbeteraar beschikbaar.\n\n**Foutencheck en toets:** geef beide modellen een nieuwe domeinbatch met terminologie en numerieke negatie. Een onafhankelijke beoordelaar beslist vooraf de rubric. Claim geen taalbeheersing op basis van een gemiddelde over talen; zonder Kantonese reviewer blijft dat onderdeel ongetoetst.\n",
+      "source_id": "lesson:reasoning_and_language/multilingual_learning/compare__distribution_shift",
+      "file_path": "knowledge/capabilities/reasoning_and_language/multilingual_learning/compare__distribution_shift/lesson.md"
+    },
+    {
+      "content": "# GUI-gronding op een onafhankelijke taak\n\n**Bronnen:** [OSWorld, NeurIPS 2024](https://proceedings.neurips.cc/paper_files/paper/2024/hash/5d413e48f84dc61244b6be550f1cd8f5-Abstract-Datasets_and_Benchmarks_Track.html) onderzoekt interactieve computeracties met uitvoeringsgebaseerde evaluatie. De [officiële OSWorld-code](https://github.com/xlang-ai/OSWorld) maakt de omgeving en publieke taken inzichtelijk. Publieke OSWorld-items zijn geen private Toddler-promotietoets.\n\n**Kernkennis:** GUI-gronding koppelt een doel aan een zichtbaar element en een uitvoerbare actie. Het systeem moet tussen observatie en klik rekening houden met schaal, scroll, vensterpositie, overlay en toestandwijzigingen. Een correcte coördinaat op een oude screenshot kan in de nieuwe toestand gevaarlijk zijn. Beoordeel taakresultaat én de afzonderlijke acties.\n\n**Praktijk:** bouw in een geïsoleerde browser of desktopcontainer een lokale testapp met formulieren, een dialoog en een veranderende lay-out. De agent krijgt alleen screenshots en toegestane controlleracties. Log screenshot-hash, resolutie, doeltekst, voorgestelde coördinaat, uitgevoerde actie, nieuwe toestand en pauze/redengeving voor risicovolle stappen. Maak twee zichtbare oefentaken en laat een tweede persoon minstens twaalf nieuwe varianten maken met andere schaling, scrollpositie en knoppen. De agent mag die holdout niet lezen tijdens ontwikkeling.\n\n**Verwachte uitvoer:** een reproduceerbare omgeving, trajecten, succespercentage, miss-click-rate, aantal onomkeerbare fouten en p95-actietijd. Gebruik alleen eigen of geautoriseerde omgevingen; botdetectie ontwijken is geen kwaliteitscriterium.\n\n**Foutencheck en toets:** wissel een knop na observatie van positie en voeg een bevestigingsdialoog toe. Een geldige agent herobserveert en stopt bij onzekerheid. De onafhankelijke evaluator bewaart taakdefinities en eindtoestandschecks apart; alleen geaggregeerde uitslagen gaan terug naar de leerling.\n",
+      "source_id": "lesson:multimodal_agents/gui_grounding/validate__independent_holdout",
+      "file_path": "knowledge/capabilities/multimodal_agents/gui_grounding/validate__independent_holdout/lesson.md"
+    },
+    {
       "content": "# Een eerlijk, gepaard promotie-experiment\n\n**Bron:** [Agarwal e.a., Deep RL at the Edge of the Statistical Precipice](https://arxiv.org/abs/2108.13264). Toddler heeft daarnaast het eigen [G4-paired protocol](../../../../../docs/learn/G4_MATCHED_PRIVATE_GATE_20261010.md).\n\n**Theorieopdracht:** motiveer pairing op identieke omgevingszaden en oudergebonden kinderen. Reken uit waarom één mooie gemiddelde score geen onzekerheid of retentie toont. Bespreek meerdere vergelijkingen, stopregels en het gevaar van herhaalde private peeks.\n\n**Praktijk:** preregistreer taakvolgorde, budget, metrics, regressiegrens, sterkste voorouder en beslissing vóórdat confirmatieseeds bestaan. Test de evaluator op synthetische winst, nulwinst, regressie en corruptie. **Toets:** lever protocolhash en twee onafhankelijke proefrapporten; hergebruik nooit verborgen resultaten voor architectuurkeuze.\n",
       "source_id": "lesson:evaluation_and_causality/paired_trials/design__independent_holdout",
       "file_path": "knowledge/capabilities/evaluation_and_causality/paired_trials/design__independent_holdout/lesson.md"
+    },
+    {
+      "content": "# Energie per antwoord reproduceerbaar meten\n\n**Bronnen:** [NVIDIA DCGM-velddefinities](https://docs.nvidia.com/datacenter/dcgm/latest/dcgm-api/dcgm-api-field-ids.html) beschrijven onder andere GPU-board power in watt en een totale GPU-energiecounter in millijoule sinds driverreload. De [Linux Power Capping Framework-documentatie](https://www.kernel.org/doc/html/latest/power/powercap/powercap.html) beschrijft `energy_uj` voor ondersteunde zones. Geen van beide is automatisch een meting van het hele systeem aan het stopcontact.\n\n**Kernkennis:** energie is een integraal van vermogen over tijd. `Wh = ΔJ / 3600`; een counter in mJ wordt eerst door 1000 gedeeld. Meet interval, idle-baseline, concurrency en counterreset. Tel hiërarchische CPU-zones niet dubbel. GPU-board Wh, CPU-zone Wh en extern gemeten systeem-Wh zijn aparte grootheden.\n\n**Praktijk:** draai één vast promptpakket van ten minste tien identieke decodeerconfiguraties onder een vooraf gekozen tijd- en tokenbudget. Neem voor en na iedere vraag DCGM-counterwaarden op; noteer GPU-UUID, driver, modelhash, prompt/outputtokens en tijd. Meet een even lang idle-interval. Als een externe wandmeter beschikbaar is, log die apart met type en kalibratiestatus. Rapporteer bruto board-Wh, idle-gecorrigeerde board-Wh, token/s en kwaliteit per antwoord. Ontbreekt de energiecounter, gebruik dan gedocumenteerde power-samples met samplefrequentie en foutmarge; label het als schatting.\n\n**Verwachte uitvoer:** ruwe tijdstempels en eenheden, replay-commando, berekening per vraag, mediangen en spreiding. Een negatieve counterdelta door reset of wrap maakt die meting ongeldig. Kies geen snellere preset tijdens dezelfde gepaarde vergelijking.\n\n**Foutencheck en toets:** een reviewer injecteert één reset, één parallelle GPU-taak en een mJ/J-verwisseling in een nieuwe log. De leerling moet alle drie detecteren en de betreffende metingen uitsluiten of herstellen. Een GPU-boardgetal mag nooit als totale systeemkosten worden gepresenteerd.\n",
+      "source_id": "lesson:evaluation_and_causality/energy_accounting/reproduce__compute_budget",
+      "file_path": "knowledge/capabilities/evaluation_and_causality/energy_accounting/reproduce__compute_budget/lesson.md"
     },
     {
       "content": "# Adaptieve policy veilig inzetten\n\n**Bronnen:** [Toddler G3 runtime-metingen](../../../../../docs/learn/G3_RUNTIME_BENCHMARK_20261009.md), [G4 CLM-schaduwproef](../../../../../docs/G4_CLM_SHADOW.md) en [Laroche e.a., Safe Policy Improvement with Baseline Bootstrapping](https://proceedings.mlr.press/v97/laroche19a.html). De papergarantie heeft aannames over batch-RL en geldt niet automatisch voor Toddler of fysieke actuatie.\n\n**Theorieopdracht:** onderscheid modelinferentie, endpoint-latency, fysieke actuatordeadline en worst-case foutpad. Leg vast welke state bij een update atomair moet wisselen en hoe rollback lineage-verwijzingen bewaart.\n\n**Praktijk:** voer op een niet-actieve kandidaat een latency- en foutinjectieproef uit: timeout, corrupte gewichten, ontbrekende expert, hoge onzekerheid en terugval op de bewezen ouder. Meet p50/p95/p99, geheugen en energie per beslissing. **Toets:** een reviewer kan de checkpointhash verifiëren en bij elke fout de oude policy herstellen zonder private toetsdata te laden.\n",
@@ -122,6 +152,37 @@
       "source_id": "lesson:neural_networks/plasticity_diagnostics/diagnose__task_sequence"
     },
     {
+      "entity_name": "CAP:reinforcement_learning/reward_design/diagnose__simulated_task",
+      "entity_type": "capability_lesson",
+      "description": "reinforcement_learning/reward_design/diagnose__simulated_task lesson draft; mastery unverified",
+      "source_id": "lesson:reinforcement_learning/reward_design/diagnose__simulated_task",
+      "file_path": "knowledge/capabilities/reinforcement_learning/reward_design/diagnose__simulated_task/lesson.md"
+    },
+    {
+      "entity_name": "REPO:https://github.com/Farama-Foundation/Minigrid",
+      "entity_type": "repository_candidate",
+      "description": "https://github.com/Farama-Foundation/Minigrid",
+      "source_id": "lesson:reinforcement_learning/reward_design/diagnose__simulated_task"
+    },
+    {
+      "entity_name": "CODE:file:toddler/learn/ppo.py",
+      "entity_type": "local_codegraph_node",
+      "description": "file:toddler/learn/ppo.py",
+      "source_id": "lesson:reinforcement_learning/reward_design/diagnose__simulated_task"
+    },
+    {
+      "entity_name": "SOURCE:https://proceedings.mlr.press/v162/roy22a.html",
+      "entity_type": "primary_source",
+      "description": "https://proceedings.mlr.press/v162/roy22a.html",
+      "source_id": "lesson:reinforcement_learning/reward_design/diagnose__simulated_task"
+    },
+    {
+      "entity_name": "SOURCE:https://proceedings.mlr.press/v119/reddy20a.html",
+      "entity_type": "primary_source",
+      "description": "https://proceedings.mlr.press/v119/reddy20a.html",
+      "source_id": "lesson:reinforcement_learning/reward_design/diagnose__simulated_task"
+    },
+    {
       "entity_name": "CAP:continual_learning/catastrophic_forgetting/diagnose__task_sequence",
       "entity_type": "capability_lesson",
       "description": "continual_learning/catastrophic_forgetting/diagnose__task_sequence lesson draft; mastery unverified",
@@ -181,6 +242,112 @@
       "file_path": "knowledge/capabilities/continual_learning/continual_backprop/implement__simulated_task/lesson.md"
     },
     {
+      "entity_name": "CAP:memory_systems/memory_provenance/design__field_data",
+      "entity_type": "capability_lesson",
+      "description": "memory_systems/memory_provenance/design__field_data lesson draft; mastery unverified",
+      "source_id": "lesson:memory_systems/memory_provenance/design__field_data",
+      "file_path": "knowledge/capabilities/memory_systems/memory_provenance/design__field_data/lesson.md"
+    },
+    {
+      "entity_name": "REPO:https://github.com/HKUDS/LightRAG",
+      "entity_type": "repository_candidate",
+      "description": "https://github.com/HKUDS/LightRAG",
+      "source_id": "lesson:memory_systems/memory_provenance/design__field_data"
+    },
+    {
+      "entity_name": "CODE:file:toddler/knowledge/weave.py",
+      "entity_type": "local_codegraph_node",
+      "description": "file:toddler/knowledge/weave.py",
+      "source_id": "lesson:memory_systems/memory_provenance/design__field_data"
+    },
+    {
+      "entity_name": "SOURCE:https://www.w3.org/TR/prov-o/",
+      "entity_type": "primary_source",
+      "description": "https://www.w3.org/TR/prov-o/",
+      "source_id": "lesson:memory_systems/memory_provenance/design__field_data"
+    },
+    {
+      "entity_name": "SOURCE:https://www.w3.org/TR/prov-dm/",
+      "entity_type": "primary_source",
+      "description": "https://www.w3.org/TR/prov-dm/",
+      "source_id": "lesson:memory_systems/memory_provenance/design__field_data"
+    },
+    {
+      "entity_name": "CAP:reasoning_and_language/numeracy/implement__few_shot",
+      "entity_type": "capability_lesson",
+      "description": "reasoning_and_language/numeracy/implement__few_shot lesson draft; mastery unverified",
+      "source_id": "lesson:reasoning_and_language/numeracy/implement__few_shot",
+      "file_path": "knowledge/capabilities/reasoning_and_language/numeracy/implement__few_shot/lesson.md"
+    },
+    {
+      "entity_name": "REPO:https://github.com/huggingface/transformers",
+      "entity_type": "repository_candidate",
+      "description": "https://github.com/huggingface/transformers",
+      "source_id": "lesson:reasoning_and_language/numeracy/implement__few_shot"
+    },
+    {
+      "entity_name": "CODE:file:toddler/g4_curriculum.py",
+      "entity_type": "local_codegraph_node",
+      "description": "file:toddler/g4_curriculum.py",
+      "source_id": "lesson:reasoning_and_language/numeracy/implement__few_shot"
+    },
+    {
+      "entity_name": "SOURCE:https://www.bipm.org/en/publications/si-brochure",
+      "entity_type": "primary_source",
+      "description": "https://www.bipm.org/en/publications/si-brochure",
+      "source_id": "lesson:reasoning_and_language/numeracy/implement__few_shot"
+    },
+    {
+      "entity_name": "SOURCE:https://www.nist.gov/pml/special-publication-811",
+      "entity_type": "primary_source",
+      "description": "https://www.nist.gov/pml/special-publication-811",
+      "source_id": "lesson:reasoning_and_language/numeracy/implement__few_shot"
+    },
+    {
+      "entity_name": "CAP:reasoning_and_language/multilingual_learning/compare__distribution_shift",
+      "entity_type": "capability_lesson",
+      "description": "reasoning_and_language/multilingual_learning/compare__distribution_shift lesson draft; mastery unverified",
+      "source_id": "lesson:reasoning_and_language/multilingual_learning/compare__distribution_shift",
+      "file_path": "knowledge/capabilities/reasoning_and_language/multilingual_learning/compare__distribution_shift/lesson.md"
+    },
+    {
+      "entity_name": "SOURCE:https://github.com/facebookresearch/flores/blob/main/flores200/README.md",
+      "entity_type": "primary_source",
+      "description": "https://github.com/facebookresearch/flores/blob/main/flores200/README.md",
+      "source_id": "lesson:reasoning_and_language/multilingual_learning/compare__distribution_shift"
+    },
+    {
+      "entity_name": "SOURCE:https://arxiv.org/abs/2207.04672",
+      "entity_type": "primary_source",
+      "description": "https://arxiv.org/abs/2207.04672",
+      "source_id": "lesson:reasoning_and_language/multilingual_learning/compare__distribution_shift"
+    },
+    {
+      "entity_name": "CAP:multimodal_agents/gui_grounding/validate__independent_holdout",
+      "entity_type": "capability_lesson",
+      "description": "multimodal_agents/gui_grounding/validate__independent_holdout lesson draft; mastery unverified",
+      "source_id": "lesson:multimodal_agents/gui_grounding/validate__independent_holdout",
+      "file_path": "knowledge/capabilities/multimodal_agents/gui_grounding/validate__independent_holdout/lesson.md"
+    },
+    {
+      "entity_name": "CODE:file:toddler/learn/tasks.py",
+      "entity_type": "local_codegraph_node",
+      "description": "file:toddler/learn/tasks.py",
+      "source_id": "lesson:multimodal_agents/gui_grounding/validate__independent_holdout"
+    },
+    {
+      "entity_name": "SOURCE:https://proceedings.neurips.cc/paper_files/paper/2024/hash/5d413e48f84dc61244b6be550f1cd8f5-Abstract-Datasets_and_Benchmarks_Track.html",
+      "entity_type": "primary_source",
+      "description": "https://proceedings.neurips.cc/paper_files/paper/2024/hash/5d413e48f84dc61244b6be550f1cd8f5-Abstract-Datasets_and_Benchmarks_Track.html",
+      "source_id": "lesson:multimodal_agents/gui_grounding/validate__independent_holdout"
+    },
+    {
+      "entity_name": "SOURCE:https://github.com/xlang-ai/OSWorld",
+      "entity_type": "primary_source",
+      "description": "https://github.com/xlang-ai/OSWorld",
+      "source_id": "lesson:multimodal_agents/gui_grounding/validate__independent_holdout"
+    },
+    {
       "entity_name": "CAP:evaluation_and_causality/paired_trials/design__independent_holdout",
       "entity_type": "capability_lesson",
       "description": "evaluation_and_causality/paired_trials/design__independent_holdout lesson draft; mastery unverified",
@@ -204,6 +371,25 @@
       "entity_type": "primary_source",
       "description": "https://arxiv.org/abs/2108.13264",
       "source_id": "lesson:evaluation_and_causality/paired_trials/design__independent_holdout"
+    },
+    {
+      "entity_name": "CAP:evaluation_and_causality/energy_accounting/reproduce__compute_budget",
+      "entity_type": "capability_lesson",
+      "description": "evaluation_and_causality/energy_accounting/reproduce__compute_budget lesson draft; mastery unverified",
+      "source_id": "lesson:evaluation_and_causality/energy_accounting/reproduce__compute_budget",
+      "file_path": "knowledge/capabilities/evaluation_and_causality/energy_accounting/reproduce__compute_budget/lesson.md"
+    },
+    {
+      "entity_name": "SOURCE:https://docs.nvidia.com/datacenter/dcgm/latest/dcgm-api/dcgm-api-field-ids.html",
+      "entity_type": "primary_source",
+      "description": "https://docs.nvidia.com/datacenter/dcgm/latest/dcgm-api/dcgm-api-field-ids.html",
+      "source_id": "lesson:evaluation_and_causality/energy_accounting/reproduce__compute_budget"
+    },
+    {
+      "entity_name": "SOURCE:https://www.kernel.org/doc/html/latest/power/powercap/powercap.html",
+      "entity_type": "primary_source",
+      "description": "https://www.kernel.org/doc/html/latest/power/powercap/powercap.html",
+      "source_id": "lesson:evaluation_and_causality/energy_accounting/reproduce__compute_budget"
     },
     {
       "entity_name": "CAP:systems_and_safety/deployment_gates/validate__real_time",
@@ -308,6 +494,34 @@
       "description": "cited in the draft lesson",
       "keywords": "source citation",
       "source_id": "lesson:neural_networks/plasticity_diagnostics/diagnose__task_sequence"
+    },
+    {
+      "src_id": "CAP:reinforcement_learning/reward_design/diagnose__simulated_task",
+      "tgt_id": "REPO:https://github.com/Farama-Foundation/Minigrid",
+      "description": "domain-level repository discovery candidate",
+      "keywords": "repository candidate",
+      "source_id": "lesson:reinforcement_learning/reward_design/diagnose__simulated_task"
+    },
+    {
+      "src_id": "CAP:reinforcement_learning/reward_design/diagnose__simulated_task",
+      "tgt_id": "CODE:file:toddler/learn/ppo.py",
+      "description": "verified local codegraph context, not implementation proof",
+      "keywords": "codegraph context",
+      "source_id": "lesson:reinforcement_learning/reward_design/diagnose__simulated_task"
+    },
+    {
+      "src_id": "CAP:reinforcement_learning/reward_design/diagnose__simulated_task",
+      "tgt_id": "SOURCE:https://proceedings.mlr.press/v162/roy22a.html",
+      "description": "cited in the draft lesson",
+      "keywords": "source citation",
+      "source_id": "lesson:reinforcement_learning/reward_design/diagnose__simulated_task"
+    },
+    {
+      "src_id": "CAP:reinforcement_learning/reward_design/diagnose__simulated_task",
+      "tgt_id": "SOURCE:https://proceedings.mlr.press/v119/reddy20a.html",
+      "description": "cited in the draft lesson",
+      "keywords": "source citation",
+      "source_id": "lesson:reinforcement_learning/reward_design/diagnose__simulated_task"
     },
     {
       "src_id": "CAP:continual_learning/catastrophic_forgetting/diagnose__task_sequence",
@@ -422,6 +636,118 @@
       "source_id": "lesson:continual_learning/continual_backprop/implement__simulated_task"
     },
     {
+      "src_id": "CAP:memory_systems/memory_provenance/design__field_data",
+      "tgt_id": "REPO:https://github.com/HKUDS/LightRAG",
+      "description": "domain-level repository discovery candidate",
+      "keywords": "repository candidate",
+      "source_id": "lesson:memory_systems/memory_provenance/design__field_data"
+    },
+    {
+      "src_id": "CAP:memory_systems/memory_provenance/design__field_data",
+      "tgt_id": "CODE:file:toddler/knowledge/weave.py",
+      "description": "verified local codegraph context, not implementation proof",
+      "keywords": "codegraph context",
+      "source_id": "lesson:memory_systems/memory_provenance/design__field_data"
+    },
+    {
+      "src_id": "CAP:memory_systems/memory_provenance/design__field_data",
+      "tgt_id": "SOURCE:https://www.w3.org/TR/prov-o/",
+      "description": "cited in the draft lesson",
+      "keywords": "source citation",
+      "source_id": "lesson:memory_systems/memory_provenance/design__field_data"
+    },
+    {
+      "src_id": "CAP:memory_systems/memory_provenance/design__field_data",
+      "tgt_id": "SOURCE:https://www.w3.org/TR/prov-dm/",
+      "description": "cited in the draft lesson",
+      "keywords": "source citation",
+      "source_id": "lesson:memory_systems/memory_provenance/design__field_data"
+    },
+    {
+      "src_id": "CAP:reasoning_and_language/numeracy/implement__few_shot",
+      "tgt_id": "REPO:https://github.com/huggingface/transformers",
+      "description": "domain-level repository discovery candidate",
+      "keywords": "repository candidate",
+      "source_id": "lesson:reasoning_and_language/numeracy/implement__few_shot"
+    },
+    {
+      "src_id": "CAP:reasoning_and_language/numeracy/implement__few_shot",
+      "tgt_id": "CODE:file:toddler/g4_curriculum.py",
+      "description": "verified local codegraph context, not implementation proof",
+      "keywords": "codegraph context",
+      "source_id": "lesson:reasoning_and_language/numeracy/implement__few_shot"
+    },
+    {
+      "src_id": "CAP:reasoning_and_language/numeracy/implement__few_shot",
+      "tgt_id": "SOURCE:https://www.bipm.org/en/publications/si-brochure",
+      "description": "cited in the draft lesson",
+      "keywords": "source citation",
+      "source_id": "lesson:reasoning_and_language/numeracy/implement__few_shot"
+    },
+    {
+      "src_id": "CAP:reasoning_and_language/numeracy/implement__few_shot",
+      "tgt_id": "SOURCE:https://www.nist.gov/pml/special-publication-811",
+      "description": "cited in the draft lesson",
+      "keywords": "source citation",
+      "source_id": "lesson:reasoning_and_language/numeracy/implement__few_shot"
+    },
+    {
+      "src_id": "CAP:reasoning_and_language/multilingual_learning/compare__distribution_shift",
+      "tgt_id": "REPO:https://github.com/huggingface/transformers",
+      "description": "domain-level repository discovery candidate",
+      "keywords": "repository candidate",
+      "source_id": "lesson:reasoning_and_language/multilingual_learning/compare__distribution_shift"
+    },
+    {
+      "src_id": "CAP:reasoning_and_language/multilingual_learning/compare__distribution_shift",
+      "tgt_id": "CODE:file:toddler/g4_curriculum.py",
+      "description": "verified local codegraph context, not implementation proof",
+      "keywords": "codegraph context",
+      "source_id": "lesson:reasoning_and_language/multilingual_learning/compare__distribution_shift"
+    },
+    {
+      "src_id": "CAP:reasoning_and_language/multilingual_learning/compare__distribution_shift",
+      "tgt_id": "SOURCE:https://github.com/facebookresearch/flores/blob/main/flores200/README.md",
+      "description": "cited in the draft lesson",
+      "keywords": "source citation",
+      "source_id": "lesson:reasoning_and_language/multilingual_learning/compare__distribution_shift"
+    },
+    {
+      "src_id": "CAP:reasoning_and_language/multilingual_learning/compare__distribution_shift",
+      "tgt_id": "SOURCE:https://arxiv.org/abs/2207.04672",
+      "description": "cited in the draft lesson",
+      "keywords": "source citation",
+      "source_id": "lesson:reasoning_and_language/multilingual_learning/compare__distribution_shift"
+    },
+    {
+      "src_id": "CAP:multimodal_agents/gui_grounding/validate__independent_holdout",
+      "tgt_id": "REPO:https://github.com/Farama-Foundation/Minigrid",
+      "description": "domain-level repository discovery candidate",
+      "keywords": "repository candidate",
+      "source_id": "lesson:multimodal_agents/gui_grounding/validate__independent_holdout"
+    },
+    {
+      "src_id": "CAP:multimodal_agents/gui_grounding/validate__independent_holdout",
+      "tgt_id": "CODE:file:toddler/learn/tasks.py",
+      "description": "verified local codegraph context, not implementation proof",
+      "keywords": "codegraph context",
+      "source_id": "lesson:multimodal_agents/gui_grounding/validate__independent_holdout"
+    },
+    {
+      "src_id": "CAP:multimodal_agents/gui_grounding/validate__independent_holdout",
+      "tgt_id": "SOURCE:https://proceedings.neurips.cc/paper_files/paper/2024/hash/5d413e48f84dc61244b6be550f1cd8f5-Abstract-Datasets_and_Benchmarks_Track.html",
+      "description": "cited in the draft lesson",
+      "keywords": "source citation",
+      "source_id": "lesson:multimodal_agents/gui_grounding/validate__independent_holdout"
+    },
+    {
+      "src_id": "CAP:multimodal_agents/gui_grounding/validate__independent_holdout",
+      "tgt_id": "SOURCE:https://github.com/xlang-ai/OSWorld",
+      "description": "cited in the draft lesson",
+      "keywords": "source citation",
+      "source_id": "lesson:multimodal_agents/gui_grounding/validate__independent_holdout"
+    },
+    {
       "src_id": "CAP:evaluation_and_causality/paired_trials/design__independent_holdout",
       "tgt_id": "REPO:https://github.com/google-research/rliable",
       "description": "domain-level repository discovery candidate",
@@ -441,6 +767,34 @@
       "description": "cited in the draft lesson",
       "keywords": "source citation",
       "source_id": "lesson:evaluation_and_causality/paired_trials/design__independent_holdout"
+    },
+    {
+      "src_id": "CAP:evaluation_and_causality/energy_accounting/reproduce__compute_budget",
+      "tgt_id": "REPO:https://github.com/google-research/rliable",
+      "description": "domain-level repository discovery candidate",
+      "keywords": "repository candidate",
+      "source_id": "lesson:evaluation_and_causality/energy_accounting/reproduce__compute_budget"
+    },
+    {
+      "src_id": "CAP:evaluation_and_causality/energy_accounting/reproduce__compute_budget",
+      "tgt_id": "CODE:file:toddler/learn/ancestor_gate.py",
+      "description": "verified local codegraph context, not implementation proof",
+      "keywords": "codegraph context",
+      "source_id": "lesson:evaluation_and_causality/energy_accounting/reproduce__compute_budget"
+    },
+    {
+      "src_id": "CAP:evaluation_and_causality/energy_accounting/reproduce__compute_budget",
+      "tgt_id": "SOURCE:https://docs.nvidia.com/datacenter/dcgm/latest/dcgm-api/dcgm-api-field-ids.html",
+      "description": "cited in the draft lesson",
+      "keywords": "source citation",
+      "source_id": "lesson:evaluation_and_causality/energy_accounting/reproduce__compute_budget"
+    },
+    {
+      "src_id": "CAP:evaluation_and_causality/energy_accounting/reproduce__compute_budget",
+      "tgt_id": "SOURCE:https://www.kernel.org/doc/html/latest/power/powercap/powercap.html",
+      "description": "cited in the draft lesson",
+      "keywords": "source citation",
+      "source_id": "lesson:evaluation_and_causality/energy_accounting/reproduce__compute_budget"
     },
     {
       "src_id": "CAP:systems_and_safety/deployment_gates/validate__real_time",

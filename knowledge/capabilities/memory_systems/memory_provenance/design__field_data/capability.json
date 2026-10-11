@@ -6,10 +6,15 @@
   "practice": "design",
   "setting": "field_data",
   "target": "Design a deployable workflow for memory provenance using a source-linked memory record. Use a provenance-checked real dataset with consent and access rules.",
-  "status": "scaffold",
+  "status": "lesson_draft",
   "evidence": {
-    "primary_sources": [],
-    "learning_material": [],
+    "primary_sources": [
+      "https://www.w3.org/TR/prov-o/",
+      "https://www.w3.org/TR/prov-dm/"
+    ],
+    "learning_material": [
+      "lesson.md"
+    ],
     "practical_artifacts": [],
     "assessment": []
   },

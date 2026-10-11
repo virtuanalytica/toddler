@@ -1,4 +1,4 @@
-"""Build a sourced LightRAG custom-KG pilot from the ten lesson drafts."""
+"""Build a sourced LightRAG custom-KG payload from available lesson drafts."""
 
 from __future__ import annotations
 

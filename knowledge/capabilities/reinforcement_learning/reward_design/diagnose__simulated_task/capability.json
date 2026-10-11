@@ -6,10 +6,15 @@
   "practice": "diagnose",
   "setting": "simulated_task",
   "target": "Locate a failure and test a causal remedy for reward design using a reward-specification audit. Use a seeded simulation with an explicit environment version.",
-  "status": "scaffold",
+  "status": "lesson_draft",
   "evidence": {
-    "primary_sources": [],
-    "learning_material": [],
+    "primary_sources": [
+      "https://proceedings.mlr.press/v162/roy22a.html",
+      "https://proceedings.mlr.press/v119/reddy20a.html"
+    ],
+    "learning_material": [
+      "lesson.md"
+    ],
     "practical_artifacts": [],
     "assessment": []
   },
