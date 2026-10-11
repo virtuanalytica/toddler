@@ -1,0 +1,151 @@
+{
+  "schema": "toddler-g5-frozen-g4-parents/v1",
+  "generation": "G4-search",
+  "selection_seq": 47,
+  "promotion_protocol_sha256": "8ceab3ae60187ed77f4ac1fe3c7548eb29cf87d80e7a8f55ede1e8d2446ba671",
+  "confirmatory_trial_sha256": [
+    "24af6128dbca6bc1e0bd5214d9423cd88954dce44bc13c57d66ee5da278b0149",
+    "482297e505cc973c05612e55d7c3807eb1d82de2c3557d2cf4643a77f55e564c"
+  ],
+  "parents": [
+    {
+      "ref": "G4-search/t6001",
+      "weights_sha256": "143b97dbdd92496b8d7187366ed32da9b21f59103b67eea6466a3cf7e681e0d6",
+      "parent_refs": [
+        "G3-recombined/t5001",
+        "G2/t2001"
+      ],
+      "route": {
+        "acrobot": "G2",
+        "cartpole": "G2",
+        "doorkey5": "G2",
+        "doorkey8": "G2",
+        "empty5": "G2",
+        "keycorridor3": "G3-sp",
+        "lavacross9": "G3-scratch",
+        "unlock": "G2",
+        "unlockpickup": "G3-sp"
+      },
+      "route_sha256": "96c26a3e9303a7b94db5f062265d60f27ab702584cea18fef2ccf57cab7742dd",
+      "expert_sha256": {
+        "G2": "871e9faa17826de671ffc5da29ca0ea1c14a7321201be8bf1455b6465442837c",
+        "G2-scratch": "17871c44248c3ec56bd98be06998bb9036c29baeb9c84af4d0258546cb388976",
+        "G3-scratch": "88f4e34e2e08b0d11dde79a450714b7240d7caf029f5227127b70c0cb2deb80c",
+        "G3-sp": "e3958b25a13d167b667168e9566ac47014b62d7299e5d1ef8eb90c4bbf1210ab",
+        "G3-trunk": "b46d75b582b6c970db486d8045b0301bbc2f0a8622ef06af9d4295e51a2ff934"
+      }
+    },
+    {
+      "ref": "G4-search/t6002",
+      "weights_sha256": "baae39670d7a5f1d3bf28c2e8ceae66f69bdec17244f0bbf4a438d02e02d7f18",
+      "parent_refs": [
+        "G3-recombined/t5002",
+        "G2/t2002"
+      ],
+      "route": {
+        "acrobot": "G2",
+        "cartpole": "G2",
+        "doorkey5": "G2",
+        "doorkey8": "G2-scratch",
+        "empty5": "G2",
+        "keycorridor3": "G2",
+        "lavacross9": "G2-scratch",
+        "unlock": "G2",
+        "unlockpickup": "g4_pickup"
+      },
+      "route_sha256": "b64ebf4c02e8586a7dc605b29ec433c87f8f22c8844f204552ab0d0f208a5698",
+      "expert_sha256": {
+        "G2": "45acab1bb3c0da9c4fcbb86276f1c65ad55069d2c7515ee1a0a7f78a1544fa54",
+        "G2-scratch": "aaa7af23cbb1f8aad8cd8c82ce5ee2cc9831595c9296110605ffb19e796f9f64",
+        "G3-scratch": "5b46d427bb7fb8a85b2c8cefabdc3d9382d4dd71573079e80fec7d7a005226be",
+        "G3-sp": "919be4db5ed3e7a4109d1f47c0666b64cf49a1e7c1f9228ac56f21589fbf842e",
+        "G3-trunk": "d3f2dc7de9a6c278dc9955b5ed89dcfc5c7f650a1a821d87d69169947439ecab",
+        "g4_pickup": "3fa97e67a4b3e127116149f3204105d6043adc33711ae481af16b438762eda2e"
+      }
+    },
+    {
+      "ref": "G4-search/t6003",
+      "weights_sha256": "cacfd5d31d03aa7b89f1bed15b8f93d6b3dc1cbcd9f9eef293009fe8b28df054",
+      "parent_refs": [
+        "G3-recombined/t5003",
+        "G2/t2003"
+      ],
+      "route": {
+        "acrobot": "G2",
+        "cartpole": "G2",
+        "doorkey5": "G2",
+        "doorkey8": "G3-trunk",
+        "empty5": "G2",
+        "keycorridor3": "G3-trunk",
+        "lavacross9": "G3-scratch",
+        "unlock": "G2",
+        "unlockpickup": "g4_pickup"
+      },
+      "route_sha256": "78c4aa5438588856b28de2d5693788431b217391bff1568affc4eeef4ae61e80",
+      "expert_sha256": {
+        "G2": "ae0c27f8ad9ad64f04862ee772fde691b9941290f4ec1592bd7606fb0ca81bed",
+        "G2-scratch": "9d06fe698ca8694b6727a28f8a400152f757c809acb018601933a8a348bf88f7",
+        "G3-scratch": "12b44c32cb735468615e0f5626ab8cafdef656b16ec28a856251d6a131e2af14",
+        "G3-sp": "3c4f8184fd5c10dd9ddd3ea17ca08c0bb479ff1b3fd20c62ade87bf1dd444a67",
+        "G3-trunk": "101bfe9f09e058112e62310c51e41e5f97d15a174325f69c733340d81035d599",
+        "g4_pickup": "53001f95baa95ecdc8ad44b79fcb500d98dfd97c6c1496975f8bc1ae36fd2f4d"
+      }
+    },
+    {
+      "ref": "G4-search/t6004",
+      "weights_sha256": "ebdc95c8c3cc17188cf27b33b571b66a8a625589efd6e60f837304ed42fa63d9",
+      "parent_refs": [
+        "G3-recombined/t5004",
+        "G2/t2004"
+      ],
+      "route": {
+        "acrobot": "G2",
+        "cartpole": "G2",
+        "doorkey5": "G2",
+        "doorkey8": "G3-scratch",
+        "empty5": "G2",
+        "keycorridor3": "G2",
+        "lavacross9": "G2",
+        "unlock": "G2",
+        "unlockpickup": "g4_pickup"
+      },
+      "route_sha256": "b4dec0c4b3fa7765e9e0f4302cd2b24e45c5c55f66fa905df6777be53b65e5ee",
+      "expert_sha256": {
+        "G2": "2e12aad94b79e3152ec2797dcba1ef986ad3d061ff34ce72992c5d6891c5e165",
+        "G2-scratch": "d5e480a4283df99b92773283f904eda9788150df6f78c5fd281ea2142daf7ae5",
+        "G3-scratch": "ccff7508cac2777c53e82a0fbe1a0349cdc39e967f51a71d67063668a060aa94",
+        "G3-sp": "958a4381daaa60c3bbbe435c78f1dbd219e2e84ad51ca256ba86312c48a30de0",
+        "G3-trunk": "5a3ff9ae0dba9009d7858aa43238f60c84b873a6d5dafbb0f766419d13be6b61",
+        "g4_pickup": "65ffd56ef1712e6a95781f7becdb283b4917942bfd76a1977996de1d3f6a03d2"
+      }
+    },
+    {
+      "ref": "G4-search/t6005",
+      "weights_sha256": "69b01f05c809b5894c91386bbc9f92173af03aea288d646df7b584562c3e45bd",
+      "parent_refs": [
+        "G3-recombined/t5005",
+        "G2/t2005"
+      ],
+      "route": {
+        "acrobot": "G2",
+        "cartpole": "G2",
+        "doorkey5": "G2",
+        "doorkey8": "G2-scratch",
+        "empty5": "G2",
+        "keycorridor3": "G2-scratch",
+        "lavacross9": "G2-scratch",
+        "unlock": "G2",
+        "unlockpickup": "g4_pickup"
+      },
+      "route_sha256": "748e94e58a634624bbf0c0012124e6feae8b4e5b57849e5b9256f191b1c348ac",
+      "expert_sha256": {
+        "G2": "09a2b9a821ce91ec78272c17f366b64543abb63c3d07b63aa39a17fcb9680012",
+        "G2-scratch": "ad4b3f9ba07dc947e96857dc03c4fd372f68177f085ba385691a8feb35c215de",
+        "G3-scratch": "65da76058265899c7ebc9fa4aef67d277bcdd91461adcda98e2434cde657ea5e",
+        "G3-sp": "6bbd02a36da0303097120707f8a482c8768256e9e2aa1ff769397c332be2ba2e",
+        "G3-trunk": "468190c4644737e87a13210bad95a1071a4bb2364626f5fef59cf9b69baba6b7",
+        "g4_pickup": "fbe970a51f838ccec5dc4a2f22e03730cbc92d2e281d9c8facca8e2e8840f620"
+      }
+    }
+  ]
+}

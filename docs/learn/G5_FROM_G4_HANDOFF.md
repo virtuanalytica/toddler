@@ -21,7 +21,12 @@ Software work and physical action remain separate task families.
 
 1. **Freeze ancestry.** Load exactly the five `G4-search/t6001..t6005` parents
    from the verified lineage, check their weight hashes and `survived` verdict,
-   and register five distinct G5 child IDs. Candidate manifests must name the
+   and register five distinct G5 child IDs. The initial public parent contract
+   is [`reports/g5_frozen_g4_parents_20261011.json`](../../reports/g5_frozen_g4_parents_20261011.json).
+   `python3 scripts/g5_parent_contract.py --verify reports/g5_frozen_g4_parents_20261011.json`
+   checks the hash-chained lineage,
+   two confirmatory trial commitments, all five registry weights, nine routes
+   and each expert's tensor contents. Candidate manifests must name the
    inherited module hashes and every training source. Never mutate G4 weights.
 2. **Search under a fixed budget.** Compare an unchanged G4 baseline, a
    verified-answer Teacher curriculum, own-interaction or self-reward learning,
