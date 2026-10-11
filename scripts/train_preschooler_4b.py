@@ -14,8 +14,8 @@ import json
 import os
 from pathlib import Path
 
-BASE_MODEL = "Qwen/Qwen3-4B-Instruct-2507"
-BASE_REVISION = "cdbee75f17c01a7cc42f958dc650907174af0554"
+ROSTER = Path(__file__).resolve().parents[1] / "docs/learn/preschooler-teacher-roster.json"
+BASE_CANDIDATES = {"qwen3-4b-instruct", "phi4-mini-instruct", "smollm3-3b"}
 DOMAINS = (
     "mathematics_logic", "physics", "chemistry", "software",
     "financial_data", "language_culture", "gamedev_ui", "agent_planning",
@@ -58,10 +58,19 @@ def preflight(data_dir: Path, domain: str) -> tuple[list[dict], list[dict], dict
     return selected, checked, manifest
 
 
-def train(data_dir: Path, out: Path, domain: str, max_steps: int) -> None:
+def base_selection(alias: str) -> tuple[str, str]:
+    if alias not in BASE_CANDIDATES:
+        raise ValueError("student base is not in the tested causal-LM shortlist")
+    roster = json.loads(ROSTER.read_text())
+    model = next(m for m in roster["models"] if m["alias"] == alias)
+    return model["repo"], model["revision"]
+
+
+def train(data_dir: Path, out: Path, domain: str, max_steps: int, base_alias: str) -> None:
     if max_steps < 0:
         raise ValueError("max_steps must be zero (two epochs) or positive")
     examples, development, manifest = preflight(data_dir, domain)
+    base_model, base_revision = base_selection(base_alias)
     if os.environ.get("CUDA_VISIBLE_DEVICES") is None:
         raise ValueError("set CUDA_VISIBLE_DEVICES to an explicitly leased single Ada GPU")
     import torch
@@ -72,11 +81,11 @@ def train(data_dir: Path, out: Path, domain: str, max_steps: int) -> None:
 
     if torch.cuda.device_count() != 1 or "RTX 4000 Ada" not in torch.cuda.get_device_name(0):
         raise ValueError("this first QLoRA recipe requires one visible RTX 4000 Ada")
-    tokenizer = AutoTokenizer.from_pretrained(BASE_MODEL, revision=BASE_REVISION, trust_remote_code=False)
+    tokenizer = AutoTokenizer.from_pretrained(base_model, revision=base_revision, trust_remote_code=False)
     if tokenizer.pad_token_id is None:
         tokenizer.pad_token = tokenizer.eos_token
     model = AutoModelForCausalLM.from_pretrained(
-        BASE_MODEL, revision=BASE_REVISION, trust_remote_code=False, device_map={"": 0},
+        base_model, revision=base_revision, trust_remote_code=False, device_map={"": 0},
         quantization_config=BitsAndBytesConfig(load_in_4bit=True,
                                                bnb_4bit_quant_type="nf4",
                                                bnb_4bit_use_double_quant=True,
@@ -133,7 +142,8 @@ def train(data_dir: Path, out: Path, domain: str, max_steps: int) -> None:
     model.save_pretrained(out / "adapter")
     tokenizer.save_pretrained(out / "adapter")
     result = {"schema": "preschooler-training-run/v1", "status": "candidate_only",
-              "base_model": BASE_MODEL, "base_revision": BASE_REVISION,
+              "base_model": base_model, "base_revision": base_revision,
+              "base_alias": base_alias,
               "domain": domain, "train_examples": len(examples),
               "development_examples": len(development), "max_steps": max_steps,
               "holdout_commit_sha256": manifest["holdout_commit_sha256"],
@@ -149,18 +159,21 @@ def main() -> None:
     parser.add_argument("--domain", choices=DOMAINS, required=True)
     parser.add_argument("--out", type=Path)
     parser.add_argument("--max-steps", type=int, default=0, help="0 means two full epochs; positive values cap a canary")
+    parser.add_argument("--base-alias", choices=sorted(BASE_CANDIDATES),
+                        default="qwen3-4b-instruct", help="provisional base; compare alternatives before selection")
     parser.add_argument("--train", action="store_true", help="download base weights and use one explicitly leased Ada GPU")
     args = parser.parse_args()
     examples, development, manifest = preflight(args.data, args.domain)
+    base_model, base_revision = base_selection(args.base_alias)
     if not args.train:
-        print(json.dumps({"status": "preflight_only", "base_model": BASE_MODEL,
-                          "base_revision": BASE_REVISION,
+        print(json.dumps({"status": "preflight_only", "base_model": base_model,
+                          "base_revision": base_revision,
                           "domain": args.domain, "train": len(examples), "development": len(development),
                           "holdout_commit_sha256": manifest["holdout_commit_sha256"]}, indent=2))
         return
     if args.out is None:
         parser.error("--out is required with --train")
-    train(args.data, args.out, args.domain, args.max_steps)
+    train(args.data, args.out, args.domain, args.max_steps, args.base_alias)
 
 
 if __name__ == "__main__":

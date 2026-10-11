@@ -3,7 +3,7 @@
 # Preschooler
 
 **Businessconcept voor een eigen 4B-modelfamilie**<br>
-Virtuanalytica · besluitversie 0.1 · 11 oktober 2026
+Virtuanalytica · besluitversie 0.2 · 11 oktober 2026
 
 > **Status.** Dit document beschrijft een uitvoerbaar experiment en commerciële hypothese. Er bestaat nog geen getrainde Preschooler-checkpoint, geen gevalideerde Preschooler-omzet en geen bewezen voordeel boven een externe API.
 
@@ -25,13 +25,18 @@ Het verkoopbare resultaat is geen losse score. Het is een lokaal inzetbare, klei
 
 ## 3. Eerste training: gecontroleerde assimilatie
 
-De basis is [Qwen3-4B-Instruct-2507](https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507), waarvan de modelkaart 4,0 miljard parameters en Apache-2.0 vermeldt. De eerste training gebruikt LoRA/QLoRA op een tijdelijke kandidaat, met een bevroren basis als controle. Modelarchitecturen en gewichten uit de mixture worden **niet** samengevoegd. De kennisoverdracht loopt via geverifieerde voorbeelden.
+De eerste Preschooler krijgt zijn **leerinhoud uit tien lokale 3–4B-checkpoints**, verdeeld over Qwen3, Ministral3, Phi, SmolLM3 en MiniCPM3. De volledige vastgepinde lijst staat in [de kandidaat-roster](../learn/preschooler-teacher-roster.json). Twee modellen uit dezelfde reeks tellen niet automatisch als twee onafhankelijke kennisbronnen: we meten per taak hun fouten, correlatie en aanvullende waarde. Nieuwe 4B-releases worden met een nieuwe revisie, licentiecontrole en dezelfde toets toegevoegd; eerdere antwoorden en gewichtshashes blijven onveranderd in het logboek.
+
+De **studentbasis** wordt afzonderlijk gekozen na de modelvergelijking en kleine gelijke QLoRA-canaries. Qwen3-4B-Instruct is momenteel slechts het standaardrecept; Phi-4-mini-Instruct en SmolLM3-3B zijn alternatieve trainbare kandidaten. Daardoor hangt de keuze niet af van één vooraf aangewezen model. Een op Qwen geïnitialiseerde student blijft technisch Qwen-afgeleid, ook als negen andere leraren bijdragen. Wie een werkelijk onafhankelijke gewichtsafkomst wil, moet een nieuwe basis pretrainen; dat is een andere, veel duurdere fase. Publiek uitgebrachte gewichten zijn bovendien kopieerbaar. Het onderscheid moet blijken uit eigen gelicentieerde data, toetskwaliteit, adapters, routering en de agentomgeving.
+
+De eerste training gebruikt LoRA/QLoRA op een tijdelijke kandidaat, met een bevroren basis als controle. Gewichten van verschillende architecturen worden **niet** samengevoegd. Kennisoverdracht loopt via geverifieerde voorbeelden.
 
 1. Stel nieuwe taken op vanuit eigen capability-bronnen. Registreer licentie, taakfamilie, brondatum en canonieke vraaghash.
-2. Laat meerdere **lokale** mixture-modellen onafhankelijk antwoorden met vastgelegde modelhash, modellicentie en trainingsrecht op de output, prompt, decodeerprofiel, t/s en energie.
-3. Houd alleen antwoorden met objectieve grondwaarheid of afzonderlijke deskundige beoordeling. Een model dat zijn eigen antwoord goedkeurt, is geen onafhankelijk bewijs.
-4. Scheid data op bronfamilie en taakidentiteit in train, ontwikkeling en verzegelde eindtoets. Geen toetsvraag, variant of afgeleide terecht in training, routering of promptoptimalisatie.
-5. Train de 4B-adapter, vergelijk met dezelfde ongetrainde basis en archiveer iedere poging inclusief mislukte resultaten. Herhaal op verse taken voor retentie en transfer.
+2. Benchmark de tien modellen eerst in VirtualV onder identieke private prompts en runtimeprofielen. Test per model laadbaarheid, 256-token-doorvoer, GPU-board-Wh, systeemenergie, acht taken, private specialisten en anti-contaminatie. [llmwatch](https://github.com/HindrikStegenga/llmwatch) toont de vLLM- en GPU-status live; de ruwe `/metrics`-, CPU-, RAM-, NVMe- en `nvidia-smi`-metingen blijven als JSONL bewaard.
+3. Verzamel per nieuw trainingsitem vier onafhankelijke lokale antwoorden van complementaire modellen; laat op 5% van de items alle tien antwoorden voor correlatie- en routerkalibratie. Leg kandidaat-ID, gewichtshash, licentie, trainingsrecht, prompt, decodeerprofiel, t/s en energie vast. Dit is een startverdeling, geen bewering dat vier altijd optimaal is.
+4. Kies of synthetiseer pas na objectieve grondwaarheid of afzonderlijke deskundige beoordeling. Het ruwe bewijs houdt alle kandidaat-hashes, de gekozen bijdragers en de selectiegrond bij. Een model dat zijn eigen antwoord goedkeurt, is geen onafhankelijk bewijs.
+5. Scheid data op bronfamilie en taakidentiteit in train, ontwikkeling en verzegelde eindtoets. Geen toetsvraag, variant of afgeleide terecht in training, routering of promptoptimalisatie.
+6. Train de studentadapter, vergelijk met dezelfde ongetrainde basis en archiveer iedere poging inclusief mislukte resultaten. Herhaal op verse taken voor retentie en transfer.
 
 Cloudantwoorden, klantdata zonder trainingsrecht en voorbeelden met onduidelijke herkomst zijn uitgesloten van de eerste trainingsset. Het bestaande G4-navigatieresultaat blijft afzonderlijk bewijs voor navigatie; taal- en softwarevaardigheid vergen eigen toetsen.
 
@@ -48,9 +53,10 @@ Cloudantwoorden, klantdata zonder trainingsrecht en voorbeelden met onduidelijke
 | Post | Aannames | Uitkomst |
 | --- | --- | ---: |
 | Verifieerbare voorbeelden | 8 leergangen × 250.000 items × 2.048 tokens | 2 miljoen items; 4,096 miljard unieke trainingstokens |
+| Tien lokale leraar-snapshots | Geselecteerde originele gewichtsbestanden met herkomstmanifest | circa **73,6 GB download**, exclusief adapters en caches |
 | 32B-domeintraining | 2 passes per leergang | 8,192 miljard tokenpresentaties |
 | 32B-consolidatie | 2 gebalanceerde passes over alle leergangen | nog eens 8,192 miljard; samen **16,384 miljard** |
-| Gestructureerde data | UTF-8-benadering 4 B/token; int32-token-cache; twee antwoorden van 512 tokens; 2 kB provenance/item | circa **45 GB** exclusief bronmateriaal |
+| Gestructureerde data | UTF-8-benadering 4 B/token; int32-token-cache; gemiddeld 4,3 antwoorden van 512 tokens; 2 kB provenance/item | circa **54,4 GB** exclusief bronmateriaal |
 | Bronmateriaal | Versiebeheerde papers, code, datasets en geselecteerde media | **0,5–2 TB** planningsbandbreedte |
 | Checkpoints en revisies | BF16-basis circa 64 GB, adapters, kandidaatkopieën en logboeken | **0,3–0,8 TB** reserveren |
 | Werk- en archiefruimte | Ruimte voor herverwerking en 25%+ marge | **4 TB werkelijk vrij op snelle NVMe** plus **8 TB apart archief/back-up** |
@@ -61,11 +67,11 @@ Voor betrouwbare BF16-LoRA is de **begrotingsreferentie 8× H100 80 GB** met sne
 
 [NVIDIA's Qwen2.5-32B-LoRA-meting](https://docs.nvidia.com/nemo/automodel/latest/performance/performance-summary) meldt 2.250 trainingstokens/s per H100 op acht GPU's. Voor Qwen3-32B rekenen we voorzichtig met 35–70% van die *andere* configuratie en 25% evaluatieoverhead: **451–903 clusteruren, of 3.611–7.223 H100-GPU-uren**. Bij gepubliceerde [on-demandprijzen van $3,20 tot $6,16 per GPU-uur](https://www.thundercompute.com/pricing) is dat **$11.557–$44.494** voor de 32B-trainingspasses; met 50% herhaalreserve **$17.335–$66.740**. Deze schatting is geen gemeten Toddler-training; een korte betaalde canary moet de echte t/s vaststellen voordat het grote cluster wordt gehuurd.
 
-**Data maken is een aparte kostenpost.** Twee kandidaatreplies van 512 outputtokens per item vragen circa **2,048 miljard gegenereerde tokens**. Bij een aangenomen geaggregeerde 300–1.000 tokens/s duurt dit **569–1.896 clusteruren**; op hetzelfde acht-H100-tarief van $3,20 is dat **$14.564–$48.545**. Ook dit is een gevoeligheidsberekening: gebruik van bestaande, rechtmatig herbruikbare lokale antwoorden kan de post verkleinen. Een onafhankelijke expertcontrole van 1–5% van twee miljoen items vraagt **20.000–100.000 beoordelingen**. Bij €10–€20 per beoordeling is het indicatieve bereik **€200.000–€2.000.000**. De rest moet objectief controleerbaar zijn; open vragen vereisen meer expertwerk. Bronlicenties, datasetbouw, belastingen en projectsturing zijn hierin nog niet geprijsd.
+**Data maken is een aparte kostenpost.** Vier kandidaatreplies per item plus alle tien modellen op 5% van de items geeft gemiddeld 4,3 antwoorden van 512 outputtokens: circa **4,403 miljard gegenereerde tokens**. Bij een aangenomen geaggregeerde 300–1.000 tokens/s duurt dit **1.223–4.077 clusteruren**; op hetzelfde acht-H100-tarief van $3,20 circa **$31.312–$104.372**. Alle tien modellen op élk item zouden 10,24 miljard outputtokens vragen, ruim tweemaal zoveel. Dit is een ruwe gevoeligheidsberekening: de echte modelspecifieke t/s, prompts, laadtijd, mislukte antwoorden en energie komen uit de VirtualV-proeven. Bestaande, rechtmatig herbruikbare antwoorden kunnen de post verkleinen. Een onafhankelijke expertcontrole van 1–5% van twee miljoen items vraagt **20.000–100.000 beoordelingen**. Bij €10–€20 per beoordeling is het indicatieve bereik **€200.000–€2.000.000**. De rest moet objectief controleerbaar zijn; open vragen vereisen meer expertwerk. Bronlicenties, datasetbouw, belastingen en projectsturing zijn hierin nog niet geprijsd.
 
 Drie maanden 4 TB actieve cloudopslag en 8 TB snapshots kosten bij de genoemde aanbieder volgens de gepubliceerde tarieven van $0,219/GB-maand en $0,05/GB-maand maximaal circa **$3.828** vóór inbegrepen schijfruimte; lokale aanschaf vraagt een actuele offerte. De investeringspoort voor 32B opent pas na een geslaagde 4B-proef, bron- en licentieaudit, een 32B-canary en een contracteerbaar budget voor deskundige beoordeling. De grootste uitgave is waarschijnlijk geverifieerde vakspecifieke data, niet alleen GPU-training.
 
-**Samengevoegd extern budget voor deze rekenvariant:** met trainingsherhaalreserve, twee lokale modelantwoorden per voorbeeld en drie maanden genoemde cloudopslag circa **$35.727–$119.113** aan gehuurde compute en opslag, **naast €200.000–€2.000.000** aan deskundige steekproefcontrole. Valuta's worden bewust niet zonder actuele koers opgeteld. Bronrechten, eigen medewerkers, belasting, klantacceptatie en eventuele aankoop van GPU's of SSD's zijn nog niet inbegrepen. Dit is een budgetbereik voor een toets, geen prijs om specialistische superioriteit te kopen.
+**Samengevoegd extern budget voor deze rekenvariant:** met trainingsherhaalreserve, gemiddeld 4,3 lokale modelantwoorden per voorbeeld en drie maanden genoemde cloudopslag circa **$52.475–$174.940** aan gehuurde compute en opslag, **naast €200.000–€2.000.000** aan deskundige steekproefcontrole. Valuta's worden bewust niet zonder actuele koers opgeteld. Bronrechten, eigen medewerkers, belasting, klantacceptatie en eventuele aankoop van GPU's of SSD's zijn nog niet inbegrepen. Dit is een budgetbereik voor een toets, geen prijs om specialistische superioriteit te kopen.
 
 ## 5. Technische uitvoering
 
@@ -79,7 +85,7 @@ Een eerste berekening op de reeds bewaarde **openbare ontwikkelset** (`virtualv_
 
 ## 6. Bewijs vóór promotie
 
-**Modelniveau.** Preschooler-4B wordt vergeleken met zijn identieke Qwen-basis en andere open 3–4B-referenties onder gelijke runtime, quant, prompts en 256-outputtokenprofiel. Rapporteer de private specialistensuite met tien lanes, anti-contaminatie, Nederlands, Engels en geschreven Kantonees, nieuwe kennis, retentie, softwarepatchacceptatie, t/s, tijd tot eerste token, p95-latentie, GPU-board-Wh en volledige systeem-kWh per geaccepteerd antwoord. De Haiku 5.5-referentie gebruikt vastgelegd `low` én `medium` effort en drie herhalingen op toegestane vragen; de API accepteert daarvoor geen afwijkende `temperature`. Een publieke benchmarkscore is historische context, geen promotiebewijs.
+**Modelniveau.** Preschooler-4B wordt vergeleken met zijn gekozen, identieke ongetrainde basis en alle toegelaten 3–4B-leraren onder gelijke prompts, quant waar technisch mogelijk en 256-outputtokenprofiel. Rapporteer de private specialistensuite met tien lanes, anti-contaminatie, Nederlands, Engels en geschreven Kantonees, nieuwe kennis, retentie, softwarepatchacceptatie, t/s, tijd tot eerste token, p95-latentie, GPU-board-Wh en volledige systeem-kWh per geaccepteerd antwoord. De Haiku 5.5-referentie gebruikt vastgelegd `low` én `medium` effort en drie herhalingen op toegestane vragen; de API accepteert daarvoor geen afwijkende `temperature`. Een publieke benchmarkscore is historische context, geen promotiebewijs.
 
 **Systeemniveau.** Toddler + Teacher + Preschooler wordt gepaard vergeleken met Toddler + Teacher + de bestaande route en met de bestaande menselijke of agentworkflow. Een samengestelde score is zichtbaar, maar G5-promotie gebruikt aparte poorten voor navigatie, cognitie, softwarewerk en fysieke veiligheid. Fysieke controle blijft in schaduwmodus zolang JEV/CLM-latentie en onafhankelijke veiligheidstoets niet slagen.
 

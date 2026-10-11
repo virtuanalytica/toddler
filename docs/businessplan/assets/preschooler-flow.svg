@@ -1,10 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 350" role="img" aria-labelledby="title desc">
 <title id="title">Van Toddler-mixture naar Preschooler-4B</title>
-<desc id="desc">Eigen taken gaan naar meerdere lokale modellen, onafhankelijke controle, een trainingsset en een afgeschermde toets. Alleen een geslaagde 4B kandidaat wordt vrijgegeven.</desc>
+<desc id="desc">Eigen taken gaan naar tien vastgepinde lokale leraren, onafhankelijke controle, een trainingsset en een afgeschermde toets. Alleen een geslaagde 4B kandidaat wordt vrijgegeven.</desc>
 <rect width="1100" height="350" rx="28" fill="#eef5f1"/>
 <g font-family="DejaVu Sans, sans-serif" text-anchor="middle" fill="#173044">
 <rect x="36" y="91" width="185" height="145" rx="16" fill="#d7e9e4"/><text x="128" y="146" font-size="22" font-weight="700">Eigen taken</text><text x="128" y="179" font-size="15">met bron en licentie</text>
-<rect x="255" y="91" width="185" height="145" rx="16" fill="#c1e3d9"/><text x="348" y="146" font-size="22" font-weight="700">Lokale mix</text><text x="348" y="179" font-size="15">meerdere antwoorden</text>
+<rect x="255" y="91" width="185" height="145" rx="16" fill="#c1e3d9"/><text x="348" y="146" font-size="22" font-weight="700">10 leraren</text><text x="348" y="179" font-size="15">diverse antwoorden</text>
 <rect x="474" y="91" width="185" height="145" rx="16" fill="#a7d9ca"/><text x="566" y="146" font-size="22" font-weight="700">Controle</text><text x="566" y="179" font-size="15">grondwaarheid / expert</text>
 <rect x="693" y="91" width="185" height="145" rx="16" fill="#8acbbb"/><text x="786" y="146" font-size="22" font-weight="700">Train 4B</text><text x="786" y="179" font-size="15">LoRA / QLoRA</text>
 <rect x="912" y="91" width="150" height="145" rx="16" fill="#14354d"/><text x="987" y="141" font-size="20" font-weight="700" fill="white">Preschooler</text><text x="987" y="175" font-size="15" fill="white">na private poort</text>
