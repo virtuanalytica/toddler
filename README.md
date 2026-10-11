@@ -2,6 +2,7 @@
 
 Financiële agents voor Numerai Crypto en Signals: zie [de vier rollen, datasets en reproduceerbare training](docs/FINANCE_SPECIALIST_AGENTS.md). Hun onderzoeksresultaten zijn geen live wedstrijdpromotie.
 De [YIEDL Crypto-proef](docs/FINANCE_YIEDL_CRYPTO_RESEARCH.md) test een extra bron met twee dagen vertraging en prospectieve schaduwvoorspellingen.
+Voor YIEDL wordt [de bronrevisie vanaf 11 oktober 2026 prospectief gecontroleerd](docs/YIEDL_REVISION_AUDIT.md).
 
 Toddler is a governed learning agent that integrates virtualpc and Alexander.
 It grows capability in gated phases: phase 0 is scraping only; every later capability (account actions, robot capability, physical care) passes a deliberation judge and operator approval first.
