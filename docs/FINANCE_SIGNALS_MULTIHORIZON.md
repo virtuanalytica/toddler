@@ -15,6 +15,8 @@ Dit is een historische rangcorrelatieproxy, geen officiële Signals Alpha, MPC, 
 
 Op de officiële livekopie van **9 oktober** is één lokale voorspelling voor **7.177 tickers** vastgelegd. Het manifest noemt SHA-256 van bron, beide modellen en voorspelling; `submitted=false` en `stake=0`. De uitkomst is nog niet meetbaar omdat de 60-daagse target moet rijpen. Het script kan dezelfde forecast zonder overschrijven opnieuw herkennen. Het maakt geen competitie-inzending.
 
+De bestaande `scripts.finance_daily_cycle` voert deze extra lokale voorspelling na een geslaagde officiële synchronisatie uit wanneer het getrainde `experiment.json` aanwezig is. Daardoor blijft de onderzoeksvariant op een nieuwe machine zonder modelbestand optioneel; op deze machine worden toekomstige voorspellingen met dezelfde bevroren modellen vastgelegd. De dagrapportage noemt de extra stap en geeft een foutstatus als die faalt.
+
 ## Reproductie
 
 ```bash
